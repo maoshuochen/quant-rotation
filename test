@@ -1,0 +1,3 @@
+#!/bin/bash
+# 快速测试命令
+python3 /root/.openclaw/workspace/quant-rotation/scripts/qa-tester.py

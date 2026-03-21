@@ -1,0 +1,104 @@
+{
+  "update_time": "2026-03-21 00:44:17",
+  "data_source": "Baostock",
+  "ranking": [
+    {
+      "code": "000300.SH",
+      "name": "沪深 300",
+      "etf": "510300",
+      "score": 0.7782,
+      "factors": {
+        "momentum": 0.5,
+        "volatility": 0.8546,
+        "trend": 0.5,
+        "value": 1.0,
+        "relative_strength": 1.0
+      },
+      "rank": 1
+    },
+    {
+      "code": "000933.CSI",
+      "name": "医药指数",
+      "etf": "512010",
+      "score": 0.754,
+      "factors": {
+        "momentum": 0.5,
+        "volatility": 0.7627,
+        "trend": 0.5,
+        "value": 0.9583,
+        "relative_strength": 1.0
+      },
+      "rank": 2
+    },
+    {
+      "code": "000852.SH",
+      "name": "中证 1000",
+      "etf": "512100",
+      "score": 0.7202,
+      "factors": {
+        "momentum": 0.5,
+        "volatility": 0.5029,
+        "trend": 0.5,
+        "value": 0.9792,
+        "relative_strength": 1.0
+      },
+      "rank": 3
+    },
+    {
+      "code": "000905.SH",
+      "name": "中证 500",
+      "etf": "510500",
+      "score": 0.711,
+      "factors": {
+        "momentum": 0.5,
+        "volatility": 0.4413,
+        "trend": 0.5,
+        "value": 0.9792,
+        "relative_strength": 1.0
+      },
+      "rank": 4
+    },
+    {
+      "code": "000688.SH",
+      "name": "科创 50",
+      "etf": "588000",
+      "score": 0.7108,
+      "factors": {
+        "momentum": 0.5,
+        "volatility": 0.4056,
+        "trend": 0.5,
+        "value": 1.0,
+        "relative_strength": 1.0
+      },
+      "rank": 5
+    },
+    {
+      "code": "000993.CSI",
+      "name": "科技指数",
+      "etf": "515000",
+      "score": 0.681,
+      "factors": {
+        "momentum": 0.5,
+        "volatility": 0.4496,
+        "trend": 0.5,
+        "value": 0.8542,
+        "relative_strength": 1.0
+      },
+      "rank": 6
+    }
+  ],
+  "factor_weights": {
+    "value": 0.25,
+    "momentum": 0.2,
+    "volatility": 0.15,
+    "trend": 0.2,
+    "relative_strength": 0.2
+  },
+  "strategy": {
+    "top_n": 5,
+    "buffer_n": 8,
+    "rebalance_frequency": "weekly",
+    "lookback_pe": 2520,
+    "momentum_window": 126
+  }
+}

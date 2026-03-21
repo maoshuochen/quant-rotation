@@ -1,0 +1,68 @@
+# 指数轮动策略配置
+
+# 监控的指数列表
+indices:
+  - code: "000300.SH"
+    name: "沪深 300"
+    etf: "510300"
+  - code: "000905.SH"
+    name: "中证 500"
+    etf: "510500"
+  - code: "000852.SH"
+    name: "中证 1000"
+    etf: "512100"
+  - code: "399006.SZ"
+    name: "创业板指"
+    etf: "159915"
+  - code: "000688.SH"
+    name: "科创 50"
+    etf: "588000"
+  - code: "000932.CSI"
+    name: "消费指数"
+    etf: "159928"
+  - code: "000933.CSI"
+    name: "医药指数"
+    etf: "512010"
+  - code: "000993.CSI"
+    name: "科技指数"
+    etf: "515000"
+
+# 策略参数
+strategy:
+  top_n: 5              # 选前几名
+  buffer_n: 8           # 跌出前几才卖出（缓冲）
+  rebalance_frequency: "weekly"  # weekly / monthly
+  lookback_pe: 2520     # PE 历史分位看多少天 (10 年)
+  momentum_window: 126  # 动量周期 (6 个月)
+  
+# 因子权重 (总和可超过 1，会自动归一化)
+factor_weights:
+  value: 0.25           # 估值 - 价格分位
+  momentum: 0.20        # 动量 - 6 月收益率
+  volatility: 0.15      # 波动 - 低波动高分
+  trend: 0.20           # 趋势 - 均线位置
+  flow: 0.15            # 资金流 - 成交量/金额趋势 (新增)
+  relative_strength: 0.20  # 相对强弱 - 相对沪深 300
+
+# 模拟账户
+portfolio:
+  initial_capital: 1000000  # 100 万
+  cash_reserve: 0.05        # 5% 现金
+  commission: 0.0003        # 万三手续费
+  slippage: 0.001           # 0.1% 滑点
+
+# Telegram 通知
+telegram:
+  enabled: true
+  bot_token: "${TELEGRAM_BOT_TOKEN}"
+  chat_id: "343221796"
+
+# 数据源
+data:
+  source: "akshare"       # akshare / tushare
+  cache_days: 7           # 缓存多少天
+
+# 日志
+logging:
+  level: "INFO"
+  file: "logs/strategy.log"
