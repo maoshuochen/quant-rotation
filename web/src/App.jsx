@@ -81,7 +81,7 @@ function App() {
   const [aiSummary, setAiSummary] = useState(null)
   const [loadingSummary, setLoadingSummary] = useState(false)
 
-  // 生成 AI 分析总结
+  // 生成 AI 深度分析总结（含归因和建议）
   const generateAiSummary = async () => {
     if (!selected || !selectedFactors) return
     
@@ -89,52 +89,203 @@ function App() {
     try {
       // 准备因子数据
       const factorData = factorKeys.map(key => ({
+        key,
         name: factorNames[key] || key,
         score: safeNum(selectedFactors[key], 0.5),
         weight: safeNum(weights[key], 0) * 100
       }))
       
+      // 获取归因数据
+      const attribution = selected.attribution || {}
+      
       const summary = {
         topFactor: factorData.reduce((a, b) => a.score > b.score ? a : b),
         weakFactor: factorData.reduce((a, b) => a.score < b.score ? a : b),
         avgScore: factorData.reduce((sum, f) => sum + f.score, 0) / factorData.length,
-        totalScore: selected.score
+        totalScore: selected.score,
+        attribution
       }
       
-      // 生成简短分析
-      const analysis = generateAnalysisText(summary, factorData, selectedName)
+      // 生成深度分析
+      const analysis = generateDeepAnalysis(summary, factorData, selectedName, selected.code)
       setAiSummary(analysis)
     } catch (err) {
       console.error('生成分析失败:', err)
+      setAiSummary({ text: '分析生成失败，请稍后重试。', suggestions: [] })
     }
     setLoadingSummary(false)
   }
 
-  // 生成分析文本
-  const generateAnalysisText = (summary, factors, name) => {
-    const top = summary.topFactor
-    const weak = summary.weakFactor
-    const avg = summary.avgScore
+  // 生成深度分析文本（含归因和建议）
+  const generateDeepAnalysis = (summary, factors, name, code) => {
+    const { attribution, topFactor, weakFactor, avgScore, totalScore } = summary
     
-    let text = `${name}综合得分${(summary.totalScore * 100).toFixed(0)}分，`
+    // ===== 第一部分：总体评价 =====
+    let analysis = ''
     
-    if (avg >= 0.7) {
-      text += '整体表现强势，'
-    } else if (avg >= 0.5) {
-      text += '整体表现中等，'
+    if (totalScore >= 0.75) {
+      analysis += `${name}综合得分${(totalScore * 100).toFixed(0)}分，处于强势区间。`
+    } else if (totalScore >= 0.6) {
+      analysis += `${name}综合得分${(totalScore * 100).toFixed(0)}分，整体表现中等偏上。`
+    } else if (totalScore >= 0.45) {
+      analysis += `${name}综合得分${(totalScore * 100).toFixed(0)}分，整体表现中等。`
     } else {
-      text += '整体表现偏弱，'
+      analysis += `${name}综合得分${(totalScore * 100).toFixed(0)}分，整体表现偏弱。`
     }
     
-    text += `${top.name}因子突出（${(top.score * 100).toFixed(0)}分），`
-    
-    if (weak.score < 0.4) {
-      text += `${weak.name}因子较弱（${(weak.score * 100).toFixed(0)}分）需关注。`
-    } else {
-      text += '各因子相对均衡。'
+    // ===== 第二部分：因子归因 =====
+    // 动量归因
+    if (factors.find(f => f.key === 'momentum')) {
+      const mom = factors.find(f => f.key === 'momentum')
+      const mom60d = attribution.momentum_6m_return || 0
+      const mom1m = attribution.momentum_1m_return || 0
+      
+      if (mom.score >= 0.7) {
+        analysis += `动量因子强势（${(mom.score * 100).toFixed(0)}分），近 6 个月上涨${mom60d.toFixed(1)}%，近 1 个月上涨${mom1m.toFixed(1)}%，趋势延续性好。`
+      } else if (mom.score <= 0.3) {
+        analysis += `动量因子弱势（${(mom.score * 100).toFixed(0)}分），近 6 个月下跌${Math.abs(mom60d).toFixed(1)}%，短期动能不足。`
+      }
     }
     
-    return text
+    // 波动归因
+    if (factors.find(f => f.key === 'volatility')) {
+      const vol = factors.find(f => f.key === 'volatility')
+      const volAnn = attribution.volatility_annual || 0
+      
+      if (vol.score >= 0.7) {
+        analysis += `波动率低（${volAnn.toFixed(1)}%），走势平稳，适合稳健配置。`
+      } else if (vol.score <= 0.3) {
+        analysis += `波动率高（${volAnn.toFixed(1)}%），价格波动剧烈，需注意风险控制。`
+      }
+    }
+    
+    // 趋势归因
+    if (factors.find(f => f.key === 'trend')) {
+      const trend = factors.find(f => f.key === 'trend')
+      const vsMa20 = attribution.price_vs_ma20 || 0
+      const vsMa60 = attribution.price_vs_ma60 || 0
+      const maGolden = attribution.ma20_above_ma60
+      
+      if (trend.score >= 0.7) {
+        analysis += `趋势向好，价格位于 MA20 上方${vsMa20.toFixed(1)}%、MA60 上方${vsMa60.toFixed(1)}%，${maGolden ? '均线呈多头排列' : '均线正在修复'}。`
+      } else if (trend.score <= 0.3) {
+        analysis += `趋势偏弱，价格低于 MA20 ${Math.abs(vsMa20).toFixed(1)}%、MA60 ${Math.abs(vsMa60).toFixed(1)}%，${maGolden ? '但均线仍为多头' : '均线呈空头排列'}。`
+      }
+    }
+    
+    // 估值归因
+    if (factors.find(f => f.key === 'value')) {
+      const val = factors.find(f => f.key === 'value')
+      const percentile = attribution.value_percentile || 50
+      const assessment = attribution.value_assessment || '合理'
+      
+      if (val.score >= 0.7) {
+        analysis += `估值处于历史低位（分位${percentile.toFixed(0)}%，${assessment}），安全边际较高。`
+      } else if (val.score <= 0.3) {
+        analysis += `估值处于历史高位（分位${percentile.toFixed(0)}%，${assessment}），需注意回调风险。`
+      } else {
+        analysis += `估值处于合理区间（分位${percentile.toFixed(0)}%）。`
+      }
+    }
+    
+    // 相对强弱归因
+    if (factors.find(f => f.key === 'relative_strength')) {
+      const rs = factors.find(f => f.key === 'relative_strength')
+      const relReturn = attribution.relative_60d_return || 0
+      
+      if (rs.score >= 0.7) {
+        analysis += `相对沪深 300 超额收益${relReturn.toFixed(1)}%（60 日），表现强势。`
+      } else if (rs.score <= 0.3) {
+        analysis += `相对沪深 300 落后${Math.abs(relReturn).toFixed(1)}%（60 日），表现弱势。`
+      }
+    }
+    
+    // 资金流归因
+    if (factors.find(f => f.key === 'flow')) {
+      const flow = factors.find(f => f.key === 'flow')
+      const nbSum = attribution.northbound_20d_sum || 0
+      const nbTrend = attribution.northbound_trend || '未知'
+      const etfChange = attribution.etf_shares_20d_change || 0
+      const etfTrend = attribution.etf_shares_trend || '未知'
+      
+      if (flow.score >= 0.7) {
+        analysis += `资金面积极：北向资金 20 日净流入${nbSum.toFixed(1)}亿（${nbTrend}），ETF 份额 20 日增长${etfChange.toFixed(1)}%（${etfTrend}）。`
+      } else if (flow.score <= 0.3) {
+        analysis += `资金面承压：北向资金 20 日净流出${Math.abs(nbSum).toFixed(1)}亿（${nbTrend}），ETF 份额 20 日变化${etfChange.toFixed(1)}%（${etfTrend}）。`
+      }
+    }
+    
+    // ===== 第三部分：投资建议 =====
+    const suggestions = []
+    
+    if (totalScore >= 0.7) {
+      suggestions.push({
+        action: '建议超配',
+        reason: '综合得分高，各因子表现良好',
+        weight: '可配置目标权重的 120-150%'
+      })
+      
+      if (attribution.value_percentile && attribution.value_percentile < 30) {
+        suggestions.push({
+          action: '逢低加仓',
+          reason: '估值处于历史低位，安全边际高',
+          weight: '分批建仓，避免追高'
+        })
+      }
+    } else if (totalScore >= 0.5) {
+      suggestions.push({
+        action: '标配持有',
+        reason: '综合得分中等，保持基准配置',
+        weight: '维持目标权重'
+      })
+      
+      if (attribution.price_vs_ma20 < -5) {
+        suggestions.push({
+          action: '关注反弹',
+          reason: '价格偏离 MA20 较多，可能有技术性反弹',
+          weight: '等待趋势确认'
+        })
+      }
+    } else {
+      suggestions.push({
+        action: '低配或观望',
+        reason: '综合得分偏低，多个因子表现弱势',
+        weight: '降至目标权重的 50% 以下'
+      })
+      
+      if (attribution.value_percentile && attribution.value_percentile > 70) {
+        suggestions.push({
+          action: '考虑减仓',
+          reason: '估值处于历史高位，回调风险较大',
+          weight: '逢高减持'
+        })
+      }
+    }
+    
+    // 弱势因子改进建议
+    if (weakFactor.score < 0.4) {
+      if (weakFactor.key === 'momentum') {
+        suggestions.push({
+          action: '关注动量拐点',
+          reason: '动量因子弱势，等待趋势反转信号',
+          weight: '结合成交量和技术面判断'
+        })
+      } else if (weakFactor.key === 'volatility') {
+        suggestions.push({
+          action: '控制仓位',
+          reason: '波动率过高，价格波动剧烈',
+          weight: '降低单品种风险敞口'
+        })
+      } else if (weakFactor.key === 'trend') {
+        suggestions.push({
+          action: '等待趋势确认',
+          reason: '趋势因子弱势，均线系统未走好',
+          weight: '关注 MA20/MA60 金叉信号'
+        })
+      }
+    }
+    
+    return { text: analysis, suggestions }
   }
 
   useEffect(() => {
@@ -335,25 +486,45 @@ function App() {
         {/* Factors Tab */}
         {tab === 'factors' && (
           <>
-            {/* AI 分析总结 */}
+            {/* AI 深度分析 */}
             <section className="bg-gradient-to-r from-violet-900/20 to-purple-900/20 border border-violet-800/30 rounded-lg p-4">
               <div className="flex items-start gap-3">
                 <div className="text-xl">✨</div>
-                <div className="flex-1">
-                  <div className="text-xs text-violet-400 font-medium mb-1">AI 分析摘要</div>
+                <div className="flex-1 space-y-3">
+                  <div className="text-xs text-violet-400 font-medium">AI 深度分析</div>
                   {loadingSummary ? (
                     <div className="flex items-center gap-2 text-sm text-gray-400">
                       <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-400 border-r-transparent" />
-                      生成中...
+                      正在分析因子归因...
                     </div>
                   ) : aiSummary ? (
-                    <p className="text-sm text-gray-300 leading-relaxed">{aiSummary}</p>
+                    <>
+                      <p className="text-sm text-gray-300 leading-relaxed">{aiSummary.text}</p>
+                      
+                      {aiSummary.suggestions && aiSummary.suggestions.length > 0 && (
+                        <div className="mt-3 pt-3 border-t border-violet-800/30">
+                          <div className="text-xs text-violet-400 font-medium mb-2">💡 投资建议</div>
+                          <div className="space-y-2">
+                            {aiSummary.suggestions.map((sug, i) => (
+                              <div key={i} className="flex items-start gap-2 text-xs">
+                                <span className="text-violet-400 mt-0.5">•</span>
+                                <div>
+                                  <span className="text-emerald-400 font-medium">{sug.action}</span>
+                                  <span className="text-gray-400"> — {sug.reason}</span>
+                                  {sug.weight && <span className="text-gray-500 block mt-0.5">({sug.weight})</span>}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
                   ) : (
                     <button
                       onClick={generateAiSummary}
                       className="text-xs text-violet-400 hover:text-violet-300"
                     >
-                      点击生成分析 →
+                      点击生成深度分析 →
                     </button>
                   )}
                 </div>

@@ -276,7 +276,7 @@ class ScoringEngine:
             etf_shares_metrics: ETF 份额指标 (可选)
             
         Returns:
-            包含各因子得分和总分
+            包含各因子得分、归因数据和总分
         """
         if etf_data.empty:
             return {'total_score': 0.0}
@@ -287,43 +287,100 @@ class ScoringEngine:
         returns = close.pct_change().dropna()
         
         scores = {}
+        attribution = {}  # 归因数据
         
-        # 动量 (20%)
-        scores['momentum'] = self.calc_momentum_score(returns)
+        # ===== 动量 (20%) =====
+        if len(returns) >= 126:
+            momentum_6m = returns.iloc[-126:].sum()
+            momentum_1m = returns.iloc[-21:].sum() if len(returns) >= 21 else 0
+            scores['momentum'] = self.calc_momentum_score(returns)
+            attribution['momentum_6m_return'] = round(momentum_6m * 100, 2)  # 百分比
+            attribution['momentum_1m_return'] = round(momentum_1m * 100, 2)
+        else:
+            scores['momentum'] = 0.5
+            attribution['momentum_6m_return'] = 0
+            attribution['momentum_1m_return'] = 0
         
-        # 波动 (15%)
-        scores['volatility'] = self.calc_volatility_score(returns)
+        # ===== 波动 (15%) =====
+        if len(returns) >= 20:
+            volatility = returns.std() * np.sqrt(252)
+            scores['volatility'] = self.calc_volatility_score(returns)
+            attribution['volatility_annual'] = round(volatility * 100, 2)  # 百分比
+        else:
+            scores['volatility'] = 0.5
+            attribution['volatility_annual'] = 0
         
-        # 趋势 (20%)
-        scores['trend'] = self.calc_trend_score(close)
+        # ===== 趋势 (20%) =====
+        if len(close) >= 60:
+            ma20 = close.rolling(20).mean().iloc[-1]
+            ma60 = close.rolling(60).mean().iloc[-1]
+            current = close.iloc[-1]
+            scores['trend'] = self.calc_trend_score(close)
+            attribution['price_vs_ma20'] = round((current - ma20) / ma20 * 100, 2)  # 相对 MA20 位置%
+            attribution['price_vs_ma60'] = round((current - ma60) / ma60 * 100, 2)  # 相对 MA60 位置%
+            attribution['ma20_above_ma60'] = ma20 > ma60  # 金叉状态
+        else:
+            scores['trend'] = 0.5
+            attribution['price_vs_ma20'] = 0
+            attribution['price_vs_ma60'] = 0
+            attribution['ma20_above_ma60'] = False
         
-        # 估值 (25%) - 简化版
-        scores['value'] = self.calc_value_score(close)
+        # ===== 估值 (25%) =====
+        if len(close) >= 252:
+            lookback = 252
+            recent_prices = close.iloc[-lookback:]
+            current = close.iloc[-1]
+            percentile = (recent_prices < current).mean()
+            scores['value'] = 1.0 - percentile
+            attribution['value_percentile'] = round(percentile * 100, 2)  # 价格分位%
+            attribution['value_assessment'] = '低估' if percentile < 0.3 else ('高估' if percentile > 0.7 else '合理')
+        else:
+            scores['value'] = 0.5
+            attribution['value_percentile'] = 50
+            attribution['value_assessment'] = '未知'
         
-        # 资金流 (15%) - 增强版 (含北向资金 + ETF 份额)
+        # ===== 资金流 (15%) =====
         scores['flow'] = self.calc_flow_score(
-            close, 
-            volume, 
+            close, volume, 
             amount if not amount.empty else None,
-            northbound_metrics,
-            etf_shares_metrics
+            northbound_metrics, etf_shares_metrics
         )
+        # 资金流归因
+        if northbound_metrics:
+            attribution['northbound_20d_sum'] = round(northbound_metrics.get('net_flow_20d_sum', 0), 2)
+            attribution['northbound_trend'] = '流入' if northbound_metrics.get('trend', 0) > 0 else '流出'
+        else:
+            attribution['northbound_20d_sum'] = 0
+            attribution['northbound_trend'] = '未知'
         
-        # 相对强弱 (20%)
+        if etf_shares_metrics:
+            attribution['etf_shares_20d_change'] = round(etf_shares_metrics.get('shares_change_20d', 0) * 100, 2)
+            attribution['etf_shares_trend'] = '申购' if etf_shares_metrics.get('shares_change_20d', 0) > 0 else '赎回'
+        else:
+            attribution['etf_shares_20d_change'] = 0
+            attribution['etf_shares_trend'] = '未知'
+        
+        # ===== 相对强弱 (20%) =====
         if benchmark_data is not None and not benchmark_data.empty:
-            scores['relative_strength'] = self.calc_relative_strength(
-                close, 
-                benchmark_data['close']
-            )
+            scores['relative_strength'] = self.calc_relative_strength(close, benchmark_data['close'])
+            # 计算相对收益
+            common_idx = close.index.intersection(benchmark_data['close'].index)
+            if len(common_idx) >= 60:
+                idx_return = (close.iloc[-1] / close.iloc[-60] - 1) * 100
+                bench_return = (benchmark_data['close'].iloc[-1] / benchmark_data['close'].iloc[-60] - 1) * 100
+                attribution['relative_60d_return'] = round(idx_return - bench_return, 2)  # 超额收益%
+            else:
+                attribution['relative_60d_return'] = 0
         else:
             scores['relative_strength'] = 0.5
+            attribution['relative_60d_return'] = 0
         
         # 确保所有值都是有效的数字（处理 NaN）
         for key in scores:
             if pd.isna(scores[key]) or scores[key] is None:
                 scores[key] = 0.5
         
-        # 加权总分 (使用配置中的权重)
+        # 加权总分
         total = (
             scores.get('momentum', 0.5) * self.weights.get('momentum', 0.20) +
             scores.get('volatility', 0.5) * self.weights.get('volatility', 0.15) +
@@ -333,20 +390,20 @@ class ScoringEngine:
             scores.get('relative_strength', 0.5) * self.weights.get('relative_strength', 0.20)
         )
         
-        # 重新归一化 (因为权重总和可能超过 1)
-        weight_sum = (
-            self.weights.get('momentum', 0.20) +
-            self.weights.get('volatility', 0.15) +
-            self.weights.get('trend', 0.20) +
-            self.weights.get('value', 0.25) +
-            self.weights.get('flow', 0.15) +
+        weight_sum = sum([
+            self.weights.get('momentum', 0.20),
+            self.weights.get('volatility', 0.15),
+            self.weights.get('trend', 0.20),
+            self.weights.get('value', 0.25),
+            self.weights.get('flow', 0.15),
             self.weights.get('relative_strength', 0.20)
-        )
+        ])
         
         if weight_sum > 0:
             total = total / weight_sum
         
         scores['total_score'] = total
+        scores['attribution'] = attribution  # 添加归因数据
         
         logger.debug(f"Scores: {scores}")
         

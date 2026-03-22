@@ -48,12 +48,24 @@ def run_scoring():
                 idx_info = idx
                 break
         
+        # 提取因子得分（排除归因数据）
+        factors = {}
+        attribution = {}
+        for k, v in row.items():
+            if k in ['code', 'total_score', 'rank']:
+                continue
+            if k == 'attribution':
+                attribution = v if isinstance(v, dict) else {}
+            else:
+                factors[k] = round(v, 4) if isinstance(v, (int, float)) else v
+        
         item = {
             'code': code,
             'name': idx_info.get('name', code),
             'etf': idx_info.get('etf', ''),
-            'score': round(row['total_score'], 4),  # 使用 total_score
-            'factors': {k: round(v, 4) for k, v in row.items() if k not in ['code', 'total_score', 'rank']},
+            'score': round(row['total_score'], 4),
+            'factors': factors,
+            'attribution': attribution,  # 添加归因数据
             'rank': int(row['rank'])
         }
         ranking.append(item)
