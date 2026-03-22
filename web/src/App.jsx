@@ -81,6 +81,35 @@ function App() {
   const [aiSummary, setAiSummary] = useState(null)
   const [loadingSummary, setLoadingSummary] = useState(false)
 
+  // 因子得分单元格组件
+  const FactorCell = ({ value }) => {
+    const safeVal = (value === null || value === undefined || (typeof value === 'number' && isNaN(value))) ? 0.5 : Number(value)
+    const color = safeVal >= 0.7 ? 'text-emerald-400' : safeVal >= 0.5 ? 'text-gray-300' : 'text-red-400'
+    const bg = safeVal >= 0.7 ? 'bg-emerald-500/20' : safeVal >= 0.5 ? 'bg-zinc-700' : 'bg-red-500/20'
+    
+    return (
+      <div className="flex items-center gap-1">
+        <span className={`font-mono text-xs ${color}`}>{safeVal.toFixed(2)}</span>
+        <div className="w-8 h-1 bg-zinc-800 rounded-full overflow-hidden">
+          <div className={`h-full rounded-full ${bg}`} style={{ width: `${safeVal * 100}%` }} />
+        </div>
+      </div>
+    )
+  }
+
+  // 因子迷你展示组件（移动端）
+  const FactorMini = ({ label, value }) => {
+    const safeVal = (value === null || value === undefined || (typeof value === 'number' && isNaN(value))) ? 0.5 : Number(value)
+    const color = safeVal >= 0.7 ? 'text-emerald-400' : safeVal >= 0.5 ? 'text-gray-400' : 'text-red-400'
+    
+    return (
+      <div className="text-center">
+        <div className="text-[10px] text-gray-600">{label}</div>
+        <div className={`text-xs font-mono ${color}`}>{safeVal.toFixed(1)}</div>
+      </div>
+    )
+  }
+
   // 生成 AI 深度分析总结（含归因和建议）
   const generateAiSummary = async () => {
     if (!selected || !selectedFactors) return
@@ -392,7 +421,9 @@ function App() {
           <>
             {/* Ranking */}
             <section>
-              <h2 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">指数排名</h2>
+              <h2 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+                指数排名（共 {ranking.length} 只）
+              </h2>
               
               {/* Desktop Table */}
               <div className="hidden md:block bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
@@ -404,6 +435,12 @@ function App() {
                       <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">名称</th>
                       <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">ETF</th>
                       <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">得分</th>
+                      <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">动量</th>
+                      <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">波动</th>
+                      <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">趋势</th>
+                      <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">估值</th>
+                      <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">强弱</th>
+                      <th className="text-left text-xs text-gray-500 font-medium px-4 py-2">资金流</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -433,6 +470,24 @@ function App() {
                             </div>
                           </div>
                         </td>
+                        <td className="px-4 py-3">
+                          <FactorCell value={item.factors?.momentum} />
+                        </td>
+                        <td className="px-4 py-3">
+                          <FactorCell value={item.factors?.volatility} />
+                        </td>
+                        <td className="px-4 py-3">
+                          <FactorCell value={item.factors?.trend} />
+                        </td>
+                        <td className="px-4 py-3">
+                          <FactorCell value={item.factors?.value} />
+                        </td>
+                        <td className="px-4 py-3">
+                          <FactorCell value={item.factors?.relative_strength} />
+                        </td>
+                        <td className="px-4 py-3">
+                          <FactorCell value={item.factors?.flow} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -458,10 +513,19 @@ function App() {
                       </div>
                       <span className="font-mono text-sm font-bold">{item.score.toFixed(3)}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs text-gray-500">{item.code}</span>
                       <span className="text-xs text-gray-600">·</span>
                       <span className="text-xs bg-zinc-800 px-1.5 py-0.5 rounded">{item.etf}</span>
+                    </div>
+                    {/* 因子迷你展示 */}
+                    <div className="grid grid-cols-6 gap-1 mt-2">
+                      <FactorMini label="动量" value={item.factors?.momentum} />
+                      <FactorMini label="波动" value={item.factors?.volatility} />
+                      <FactorMini label="趋势" value={item.factors?.trend} />
+                      <FactorMini label="估值" value={item.factors?.value} />
+                      <FactorMini label="强弱" value={item.factors?.relative_strength} />
+                      <FactorMini label="资金" value={item.factors?.flow} />
                     </div>
                   </div>
                 ))}
@@ -906,7 +970,7 @@ function App() {
 
         {/* Strategy Info */}
         <section className="border-t border-zinc-800 pt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs mb-6">
             <div>
               <div className="text-gray-500 mb-1">调仓频率</div>
               <div className="font-medium">{strategy?.rebalance_frequency === 'weekly' ? '每周一次' : '每月一次'}</div>
@@ -918,6 +982,35 @@ function App() {
             <div>
               <div className="text-gray-500 mb-1">交易成本</div>
               <div className="font-medium">佣金万三 · 滑点 0.1% · 现金 5%</div>
+            </div>
+          </div>
+
+          {/* 监控指数列表 */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+            <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+              监控指数（共 {ranking.length} 只）
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {ranking.map((item) => (
+                <div
+                  key={item.code}
+                  onClick={() => setSelectedCode(item.code)}
+                  className={`p-2 rounded border cursor-pointer transition-colors ${
+                    selectedCode === item.code
+                      ? 'border-white bg-zinc-800'
+                      : 'border-zinc-800 hover:border-zinc-700'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium">{item.name}</span>
+                    <span className={`text-[10px] px-1 rounded ${
+                      item.rank <= 3 ? 'bg-amber-500/20 text-amber-400' : 'bg-zinc-800 text-gray-500'
+                    }`}>#{item.rank}</span>
+                  </div>
+                  <div className="text-[10px] text-gray-500 font-mono">{item.code}</div>
+                  <div className="text-[10px] text-gray-600 mt-0.5">{item.etf}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
