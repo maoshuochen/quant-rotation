@@ -78,11 +78,76 @@ function App() {
   const [showLogic, setShowLogic] = useState(false)
   const [tab, setTab] = useState('overview')
   const [showFlowDetail, setShowFlowDetail] = useState(false)
+  const [aiSummary, setAiSummary] = useState(null)
+  const [loadingSummary, setLoadingSummary] = useState(false)
+
+  // 生成 AI 分析总结
+  const generateAiSummary = async () => {
+    if (!selected || !selectedFactors) return
+    
+    setLoadingSummary(true)
+    try {
+      // 准备因子数据
+      const factorData = factorKeys.map(key => ({
+        name: factorNames[key] || key,
+        score: safeNum(selectedFactors[key], 0.5),
+        weight: safeNum(weights[key], 0) * 100
+      }))
+      
+      const summary = {
+        topFactor: factorData.reduce((a, b) => a.score > b.score ? a : b),
+        weakFactor: factorData.reduce((a, b) => a.score < b.score ? a : b),
+        avgScore: factorData.reduce((sum, f) => sum + f.score, 0) / factorData.length,
+        totalScore: selected.score
+      }
+      
+      // 生成简短分析
+      const analysis = generateAnalysisText(summary, factorData, selectedName)
+      setAiSummary(analysis)
+    } catch (err) {
+      console.error('生成分析失败:', err)
+    }
+    setLoadingSummary(false)
+  }
+
+  // 生成分析文本
+  const generateAnalysisText = (summary, factors, name) => {
+    const top = summary.topFactor
+    const weak = summary.weakFactor
+    const avg = summary.avgScore
+    
+    let text = `${name}综合得分${(summary.totalScore * 100).toFixed(0)}分，`
+    
+    if (avg >= 0.7) {
+      text += '整体表现强势，'
+    } else if (avg >= 0.5) {
+      text += '整体表现中等，'
+    } else {
+      text += '整体表现偏弱，'
+    }
+    
+    text += `${top.name}因子突出（${(top.score * 100).toFixed(0)}分），`
+    
+    if (weak.score < 0.4) {
+      text += `${weak.name}因子较弱（${(weak.score * 100).toFixed(0)}分）需关注。`
+    } else {
+      text += '各因子相对均衡。'
+    }
+    
+    return text
+  }
 
   useEffect(() => {
     loadData().then(setData)
     loadBacktestData().then(setBacktestData)
   }, [])
+
+  // 切换标的或切换到因子 tab 时生成分析
+  useEffect(() => {
+    if (tab === 'factors' && selected && !aiSummary && !loadingSummary) {
+      generateAiSummary()
+    }
+  }, [tab, selectedCode])
 
   if (!data) {
     return (
@@ -270,6 +335,31 @@ function App() {
         {/* Factors Tab */}
         {tab === 'factors' && (
           <>
+            {/* AI 分析总结 */}
+            <section className="bg-gradient-to-r from-violet-900/20 to-purple-900/20 border border-violet-800/30 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <div className="text-xl">✨</div>
+                <div className="flex-1">
+                  <div className="text-xs text-violet-400 font-medium mb-1">AI 分析摘要</div>
+                  {loadingSummary ? (
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-violet-400 border-r-transparent" />
+                      生成中...
+                    </div>
+                  ) : aiSummary ? (
+                    <p className="text-sm text-gray-300 leading-relaxed">{aiSummary}</p>
+                  ) : (
+                    <button
+                      onClick={generateAiSummary}
+                      className="text-xs text-violet-400 hover:text-violet-300"
+                    >
+                      点击生成分析 →
+                    </button>
+                  )}
+                </div>
+              </div>
+            </section>
+
             <section>
               <h2 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
                 {selectedName} · 因子分析
