@@ -67,25 +67,55 @@ class ScoringEngine:
     def calc_relative_strength(self, prices: pd.Series, benchmark_prices: pd.Series) -> float:
         """
         相对强弱 (相对于基准)
+        
+        计算逻辑：
+        1. 优先使用 60 日相对收益，数据不足时降级到更短周期
+        2. 使用更宽的归一化范围（±50% 才到极值）
+        3. 数据严重不足时返回 0.5（中性）
         """
-        if len(prices) < 60 or len(benchmark_prices) < 60:
-            return 1.0
+        # 数据严重不足时返回中性分数（至少需要 10 天）
+        if benchmark_prices is None or len(benchmark_prices) < 10:
+            logger.warning("Benchmark data severely insufficient, returning neutral score 0.5")
+            return 0.5
+        
+        if len(prices) < 10:
+            logger.warning(f"Price data severely insufficient ({len(prices)} rows), returning neutral score 0.5")
+            return 0.5
         
         # 对齐
         common_idx = prices.index.intersection(benchmark_prices.index)
-        if len(common_idx) < 60:
-            return 1.0
+        if len(common_idx) < 10:
+            logger.warning(f"Common index severely insufficient ({len(common_idx)} rows), returning neutral score 0.5")
+            return 0.5
         
         prices_aligned = prices.loc[common_idx]
         bench_aligned = benchmark_prices.loc[common_idx]
         
-        # 计算相对强度
-        ratio = prices_aligned / bench_aligned
-        rs_60d = ratio.iloc[-1] / ratio.iloc[-60]
+        # 根据可用数据长度选择计算周期
+        available_days = len(common_idx)
+        if available_days >= 60:
+            lookback = 60
+            period_label = "60 日"
+        elif available_days >= 20:
+            lookback = 20
+            period_label = "20 日"
+        else:
+            lookback = min(10, available_days - 1)
+            period_label = f"{lookback}日"
         
-        # 归一化
-        score = 0.5 + (rs_60d - 1) * 2
-        return max(0, min(1, score))
+        # 计算相对收益
+        idx_return = prices_aligned.iloc[-1] / prices_aligned.iloc[-lookback] - 1
+        bench_return = bench_aligned.iloc[-1] / bench_aligned.iloc[-lookback] - 1
+        excess_return = idx_return - bench_return  # 超额收益
+        
+        # 归一化：±50% 超额收益对应 0~1 分
+        # 超额 +50% → 1.0 分，超额 0% → 0.5 分，超额 -50% → 0.0 分
+        score = 0.5 + excess_return / 1.0  # 除以 1.0 即 100% 的范围
+        score = max(0, min(1, score))
+        
+        logger.debug(f"RS ({period_label}): idx_return={idx_return*100:.2f}%, bench_return={bench_return*100:.2f}%, excess={excess_return*100:.2f}%, score={score:.3f}")
+        
+        return score
     
     def calc_value_score(self, prices: pd.Series) -> float:
         """
@@ -363,17 +393,38 @@ class ScoringEngine:
         # ===== 相对强弱 (20%) =====
         if benchmark_data is not None and not benchmark_data.empty:
             scores['relative_strength'] = self.calc_relative_strength(close, benchmark_data['close'])
-            # 计算相对收益
+            # 计算相对收益（用于归因展示，使用动态周期）
             common_idx = close.index.intersection(benchmark_data['close'].index)
-            if len(common_idx) >= 60:
-                idx_return = (close.iloc[-1] / close.iloc[-60] - 1) * 100
-                bench_return = (benchmark_data['close'].iloc[-1] / benchmark_data['close'].iloc[-60] - 1) * 100
-                attribution['relative_60d_return'] = round(idx_return - bench_return, 2)  # 超额收益%
+            available_days = len(common_idx)
+            
+            if available_days >= 10:
+                # 根据可用数据选择周期
+                if available_days >= 60:
+                    lookback = 60
+                elif available_days >= 20:
+                    lookback = 20
+                else:
+                    lookback = min(10, available_days - 1)
+                
+                idx_return = (close.iloc[-1] / close.iloc[-lookback] - 1) * 100
+                bench_return = (benchmark_data['close'].iloc[-1] / benchmark_data['close'].iloc[-lookback] - 1) * 100
+                excess_return = idx_return - bench_return
+                
+                attribution['relative_return'] = round(excess_return, 2)  # 超额收益%
+                attribution['index_return'] = round(idx_return, 2)  # 指数自身收益%
+                attribution['benchmark_return'] = round(bench_return, 2)  # 基准收益%
+                attribution['rs_lookback_days'] = lookback  # 计算周期
             else:
-                attribution['relative_60d_return'] = 0
+                attribution['relative_return'] = 0
+                attribution['index_return'] = 0
+                attribution['benchmark_return'] = 0
+                attribution['rs_lookback_days'] = 0
         else:
             scores['relative_strength'] = 0.5
-            attribution['relative_60d_return'] = 0
+            attribution['relative_return'] = 0
+            attribution['index_return'] = 0
+            attribution['benchmark_return'] = 0
+            attribution['rs_lookback_days'] = 0
         
         # 确保所有值都是有效的数字（处理 NaN）
         for key in scores:

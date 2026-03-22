@@ -191,12 +191,19 @@ function App() {
     // 相对强弱归因
     if (factors.find(f => f.key === 'relative_strength')) {
       const rs = factors.find(f => f.key === 'relative_strength')
-      const relReturn = attribution.relative_60d_return || 0
+      const excessReturn = attribution.relative_return || 0
+      const idxReturn = attribution.index_return || 0
+      const benchReturn = attribution.benchmark_return || 0
+      const lookback = attribution.rs_lookback_days || 60
       
       if (rs.score >= 0.7) {
-        analysis += `相对沪深 300 超额收益${relReturn.toFixed(1)}%（60 日），表现强势。`
+        analysis += `相对沪深 300 超额收益${excessReturn.toFixed(1)}%（${lookback}日，指数${idxReturn.toFixed(1)}% vs 基准${benchReturn.toFixed(1)}%），表现强势。`
+      } else if (rs.score >= 0.55) {
+        analysis += `相对沪深 300 超额收益${excessReturn.toFixed(1)}%（${lookback}日），小幅跑赢基准。`
       } else if (rs.score <= 0.3) {
-        analysis += `相对沪深 300 落后${Math.abs(relReturn).toFixed(1)}%（60 日），表现弱势。`
+        analysis += `相对沪深 300 落后${Math.abs(excessReturn).toFixed(1)}%（${lookback}日，指数${idxReturn.toFixed(1)}% vs 基准${benchReturn.toFixed(1)}%），表现弱势。`
+      } else {
+        analysis += `相对沪深 300 超额收益${excessReturn.toFixed(1)}%（${lookback}日），与基准持平。`
       }
     }
     
