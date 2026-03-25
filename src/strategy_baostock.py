@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
+from src.market_regime import DynamicWeightScoringEngine
 from src.portfolio import SimulatedPortfolio
 
 logger = logging.getLogger(__name__)
@@ -36,7 +37,9 @@ class RotationStrategy:
         
         # 初始化组件
         self.fetcher = IndexDataFetcher()
-        self.scorer = ScoringEngine(self.config)
+        
+        # 动态权重评分引擎
+        self.scorer = DynamicWeightScoringEngine(self.config)
         
         # 策略参数
         self.strategy = self.config.get('strategy', {})
@@ -59,21 +62,30 @@ class RotationStrategy:
         self.benchmark_data = None
     
     def load_benchmark(self):
-        """加载基准数据"""
+        """加载基准数据并更新市场状态"""
         logger.info(f"Loading benchmark: {self.benchmark_code}")
-        self.benchmark_data = self.fetcher.fetch_etf_history(self.benchmark_code, "20250101")
+        self.benchmark_data = self.fetcher.fetch_etf_history(self.benchmark_code, "20230101")
+        
+        # 更新市场状态和动态权重
+        if not self.benchmark_data.empty and 'close' in self.benchmark_data.columns:
+            self.scorer.update_market_regime(self.benchmark_data['close'])
+            logger.info(f"市场状态：{self.scorer.current_regime}")
+            logger.info(f"动态权重：{self.scorer.current_weights}")
     
     def fetch_all_data(self) -> Dict[str, pd.DataFrame]:
         """获取所有 ETF 数据"""
         data_dict = {}
+        
+        # 获取至少 252 天数据（1 年）用于估值因子计算
+        start_date = "20230101"
         
         for idx in self.indices:
             code = idx.get('code', '')
             etf = idx.get('etf', '')
             
             if etf:
-                logger.info(f"Fetching ETF data: {etf}")
-                df = self.fetcher.fetch_etf_history(etf, "20250101")
+                logger.info(f"Fetching ETF data: {etf} (since {start_date})")
+                df = self.fetcher.fetch_etf_history(etf, start_date)
                 if not df.empty:
                     data_dict[code] = df
                     logger.info(f"  -> {len(df)} rows")
@@ -112,12 +124,13 @@ class RotationStrategy:
                 except Exception as e:
                     logger.warning(f"Failed to fetch ETF shares for {etf_code}: {e}")
             
-            # 计算评分 (含北向资金 + ETF 份额)
+            # 计算评分 (含北向资金 + ETF 份额 + 动态权重)
             scores = self.scorer.score_index(
                 df, 
                 self.benchmark_data,
                 northbound_metrics=nb_metrics,
-                etf_shares_metrics=etf_metrics
+                etf_shares_metrics=etf_metrics,
+                dynamic_weights=self.scorer.current_weights
             )
             scores_dict[code] = scores
             

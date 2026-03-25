@@ -540,7 +540,7 @@ class IndexDataFetcher:
         return pd.DataFrame()
     
     def fetch_etf_history(self, etf_code: str, start_date: str = "20180101", force_refresh: bool = False) -> pd.DataFrame:
-        """获取 ETF 历史行情（用于替代指数数据）"""
+        """获取 ETF 历史行情（使用 AKShare Sina 接口）"""
         cache_file = self._get_cache_file(etf_code, "etf_history")
         
         if cache_file.exists() and not force_refresh:
@@ -551,18 +551,60 @@ class IndexDataFetcher:
             except Exception as e:
                 logger.warning(f"Cache read failed, will refresh: {e}")
         
-        # 转换代码格式 (如 510300 -> sh.510300)
-        if not '.' in etf_code:
-            etf_code = f"sh.{etf_code}"
+        # 转换代码格式 (如 510300 -> sh510300)
+        # 51/56 开头是上海，15/16 开头是深圳
+        etf_code_clean = etf_code.replace('.', '')
+        if len(etf_code_clean) == 6 and etf_code_clean.isdigit():
+            if etf_code_clean.startswith(('51', '56', '58')):
+                etf_code_clean = f'sh{etf_code_clean}'
+            elif etf_code_clean.startswith(('15', '16')):
+                etf_code_clean = f'sz{etf_code_clean}'
         
-        logger.info(f"Fetching ETF from Baostock: {etf_code}")
-        df = self.baostock_fetcher.fetch_stock_history(etf_code, start_date)
+        logger.info(f"Fetching ETF from AKShare Sina: {etf_code_clean}")
         
-        if not df.empty:
-            df.to_parquet(cache_file)
-            logger.info(f"ETF cached: {len(df)} rows")
-        
-        return df
+        try:
+            import akshare as ak
+            
+            # 使用 Sina 接口获取 ETF 历史数据
+            df = ak.fund_etf_hist_sina(symbol=etf_code_clean)
+            
+            if df.empty:
+                logger.warning(f"AKShare returned empty data for {etf_code_clean}")
+                return pd.DataFrame()
+            
+            # 重命名列以匹配预期格式
+            df = df.rename(columns={
+                'date': 'date',
+                'open': 'open',
+                'high': 'high',
+                'low': 'low',
+                'close': 'close',
+                'volume': 'volume',
+                'amount': 'amount'
+            })
+            
+            # 转换类型
+            for col in ['open', 'high', 'low', 'close', 'volume', 'amount']:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='coerce')
+            
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.set_index('date').sort_index()
+            
+            # 添加 preclose（用前一天的 close 近似）
+            df['preclose'] = df['close'].shift(1)
+            
+            logger.info(f"ETF data fetched: {len(df)} rows ({df.index.min().date()} ~ {df.index.max().date()})")
+            
+            if not df.empty:
+                df.to_parquet(cache_file)
+                logger.info(f"ETF cached: {len(df)} rows")
+            
+            return df
+            
+        except Exception as e:
+            logger.error(f"AKShare ETF fetch failed for {etf_code_clean}: {e}")
+            return pd.DataFrame()
     
     def fetch_index_pe_history(self, index_code: str) -> pd.DataFrame:
         """

@@ -20,7 +20,7 @@ def run_scoring():
     # 初始化策略
     strategy = RotationStrategy()
     
-    # 加载基准
+    # 加载基准（同时更新市场状态和动态权重）
     print("  加载基准数据...")
     strategy.load_benchmark()
     
@@ -28,8 +28,10 @@ def run_scoring():
     print("  获取 ETF 数据...")
     data_dict = strategy.fetch_all_data()
     
-    # 运行评分
+    # 运行评分（使用动态权重）
     print("  运行评分系统...")
+    print(f"  市场状态：{strategy.scorer.current_regime}")
+    print(f"  动态权重：{strategy.scorer.current_weights}")
     ranking_df = strategy.run_scoring(data_dict)
     
     # 转换为列表 (需要从 ranking_df 提取数据)
@@ -84,14 +86,24 @@ def run_scoring():
             return round(float(obj), 4)
         elif isinstance(obj, (np.integer, int)):
             return int(obj)
+        elif isinstance(obj, (np.bool_, bool)):
+            return bool(obj)
         return obj
     
     flow_details = convert_np(flow_details)
+    
+    # 也要转换 ranking 中的 attribution 数据
+    for item in ranking:
+        item['attribution'] = convert_np(item.get('attribution', {}))
+        item['factors'] = convert_np(item.get('factors', {}))
     
     # 生成 ranking.json
     ranking_data = {
         'ranking': ranking,
         'factor_weights': strategy.config.get('factor_weights', {}),
+        'dynamic_weights': strategy.scorer.current_weights,
+        'market_regime': strategy.scorer.current_regime,
+        'market_regime_desc': strategy.scorer.get_regime_description(),
         'strategy': strategy.config.get('strategy', {}),
         'update_time': datetime.now().strftime('%Y-%m-%d %H:%M'),
         'flow_details': flow_details

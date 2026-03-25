@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell } from 'recharts'
+import ReportsPage from './ReportsPage'
 
 const loadData = () => {
   return fetch('/ranking.json')
@@ -7,6 +8,9 @@ const loadData = () => {
     .then(data => ({
       ranking: data.ranking || [],
       factorWeights: data.factor_weights || {},
+      dynamicWeights: data.dynamic_weights || {},
+      marketRegime: data.market_regime || 'sideways',
+      marketRegimeDesc: data.market_regime_desc || '',
       strategy: data.strategy || {},
       updateTime: data.update_time || '',
       flowDetails: data.flow_details || {}  // 资金流子因子详情
@@ -51,14 +55,47 @@ const factorNames = {
 }
 
 const factorDescriptions = {
-  momentum: '6 个月收益率',
-  volatility: '年化波动率 (低波高分)',
-  trend: '价格相对 MA20/MA60 位置',
-  value: '近 3 年价格分位 (低估高分)',
-  relative_strength: '相对沪深 300 表现',
-  flow: '资金流 (成交量 + 北向资金+ETF 份额)',
-  fundamental: '基本面评分',
-  sentiment: '市场情绪指标'
+  momentum: {
+    short: '6 个月收益率',
+    full: '衡量过去 6 个月的累计收益率。收益率越高，得分越高。',
+    formula: 'Momentum = (当前价格 - 126 天前价格) / 126 天前价格',
+    range: '得分范围：0-1，全市场排序分位'
+  },
+  volatility: {
+    short: '年化波动率 (低波高分)',
+    full: '衡量价格波动程度，波动率越低得分越高（防御性因子）。',
+    formula: 'Volatility = 年化 (近 60 日收益率标准差)',
+    range: '得分范围：0-1，低波动率得高分'
+  },
+  trend: {
+    short: '价格相对 MA20/MA60 位置',
+    full: '衡量当前价格在均线系统中的位置，趋势越强得分越高。',
+    formula: 'Trend = (价格/MA20-1)×0.5 + (价格/MA60-1)×0.5 + MA20 是否在 MA60 之上',
+    range: '得分范围：0-1，强势趋势得 1 分'
+  },
+  value: {
+    short: '近 3 年价格分位 (低估高分)',
+    full: '衡量当前价格在近 3 年历史中的位置，分位越低（越低估）得分越高。',
+    formula: 'Value = 1 - (当前价格在 252 天中的百分位排名)',
+    range: '得分范围：0-1，历史低估得高分'
+  },
+  relative_strength: {
+    short: '相对沪深 300 表现',
+    full: '衡量相对基准指数（沪深 300）的超额收益，相对表现越强得分越高。',
+    formula: 'RS = 指数 20 日收益 - 沪深 300 20 日收益',
+    range: '得分范围：0-1，跑赢基准得高分'
+  },
+  flow: {
+    short: '资金流 (成交量 + 北向资金+ETF 份额)',
+    full: '综合衡量资金流入情况，包括成交量趋势、北向资金流向、ETF 份额变化。',
+    formula: 'Flow = 成交量趋势×40% + 北向资金×30% + ETF 份额变化×30%',
+    range: '得分范围：0-1，资金净流入得高分',
+    subFactors: [
+      '成交量趋势：近 20 日 vs 前 20 日成交量变化',
+      '北向资金：沪深股通净买入趋势',
+      'ETF 份额：基金份额申购/赎回变化'
+    ]
+  }
 }
 
 // 资金流子因子详情
@@ -347,7 +384,7 @@ function App() {
     )
   }
 
-  const { ranking, factorWeights, strategy, updateTime } = data
+  const { ranking, factorWeights, strategy, updateTime, marketRegime, marketRegimeDesc, dynamicWeights } = data
   const selected = ranking.find(d => d.code === selectedCode)
   const selectedName = selected?.name || selectedCode
   const selectedFactors = selected?.factors || {}
@@ -397,9 +434,14 @@ function App() {
             <div>
               <h1 className="text-lg font-semibold">指数轮动策略</h1>
               <p className="text-xs text-gray-500 mt-0.5">{updateTime || '2026-03-17'}</p>
+              {marketRegime && (
+                <div className="mt-1 inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800">
+                  <span className="text-xs">{marketRegimeDesc || marketRegime}</span>
+                </div>
+              )}
             </div>
             <div className="flex gap-1">
-              {['overview', 'factors', 'backtest'].map(t => (
+              {['overview', 'factors', 'backtest', 'reports'].map(t => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
@@ -407,7 +449,7 @@ function App() {
                     tab === t ? 'bg-white text-black' : 'text-gray-400 hover:text-white hover:bg-zinc-900'
                   }`}
                 >
-                  {t === 'overview' ? '排名' : t === 'factors' ? '因子' : '回测'}
+                  {t === 'overview' ? '排名' : t === 'factors' ? '因子' : t === 'backtest' ? '回测' : '报告'}
                 </button>
               ))}
             </div>
@@ -782,6 +824,38 @@ function App() {
               </section>
             )}
 
+            {/* 动态权重说明 */}
+            {Object.keys(dynamicWeights).length > 0 && (
+              <section className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 mb-6">
+                <h3 className="text-sm font-semibold text-gray-400 mb-3">动态因子权重</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                  {Object.entries(dynamicWeights).map(([key, weight]) => (
+                    <div key={key} className="bg-black/50 rounded p-2 text-center">
+                      <div className="text-xs text-gray-500 mb-1">{factorNames[key] || key}</div>
+                      <div className="text-sm font-mono font-bold text-white">{(weight * 100).toFixed(0)}%</div>
+                      <div className="text-xs text-gray-600 mt-0.5">
+                        {key === 'momentum' || key === 'trend' ? (marketRegime === 'bull' ? '↑' : marketRegime === 'bear' ? '↓' : '-') : ''}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 text-xs text-gray-500">
+                  <span className="inline-flex items-center gap-1 mr-3">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    牛市：动量 + 趋势 ↑
+                  </span>
+                  <span className="inline-flex items-center gap-1 mr-3">
+                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                    熊市：估值 + 低波 ↑
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+                    震荡：资金流 ↑
+                  </span>
+                </div>
+              </section>
+            )}
+
             {/* Factor Logic */}
             <section className="bg-zinc-900 border border-zinc-800 rounded-lg">
               <button
@@ -793,26 +867,65 @@ function App() {
               </button>
               {showLogic && (
                 <div className="px-4 pb-4 space-y-3 border-t border-zinc-800 pt-3">
-                  {/* 只显示实际存在的因子（同时有权重和得分） */}
+                  {/* 因子详细说明 */}
                   {factorKeys
                     .filter(key => weights[key] !== undefined && selectedFactors[key] !== undefined)
                     .map((key) => {
-                      const desc = factorDescriptions[key] || ''
+                      const desc = factorDescriptions[key]
                       const weight = weights[key] || 0
                       const score = selectedFactors[key] !== undefined ? selectedFactors[key] : 0.5
                       const safeScore = (typeof score === 'number' && isNaN(score)) ? 0.5 : Number(score)
+                      const descObj = typeof desc === 'object' ? desc : { short: desc || '', full: '', formula: '', range: '' }
                       
                       return (
-                        <div key={key} className="flex justify-between items-start py-2 border-b border-zinc-800 last:border-0">
-                          <div>
-                            <div className="text-sm font-medium">{factorNames[key]}</div>
-                            <div className="text-xs text-gray-500 mt-0.5">{desc}</div>
+                        <div key={key} className="bg-black/30 rounded-lg p-3 border border-zinc-800">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <div className="text-sm font-medium text-white">{factorNames[key]}</div>
+                              <div className="text-xs text-gray-500 mt-0.5">{descObj.short || ''}</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs text-gray-500">权重</div>
+                              <div className="text-sm font-mono text-white">{(weight * 100).toFixed(0)}%</div>
+                            </div>
                           </div>
-                          <div className="text-right">
-                            <div className="text-xs text-gray-500">权重</div>
-                            <div className="text-sm font-mono">{(weight * 100).toFixed(0)}%</div>
-                            <div className="text-xs text-gray-500 mt-1">得分</div>
-                            <div className="text-sm font-mono">{safeScore.toFixed(2)}</div>
+                          
+                          {/* 详细计算公式 */}
+                          {descObj.formula && (
+                            <div className="bg-black/50 rounded p-2 mb-2">
+                              <div className="text-xs text-gray-500 mb-1">计算公式</div>
+                              <div className="text-xs font-mono text-emerald-400">{descObj.formula}</div>
+                            </div>
+                          )}
+                          
+                          {/* 详细说明 */}
+                          {descObj.full && (
+                            <div className="text-xs text-gray-400 mb-2">{descObj.full}</div>
+                          )}
+                          
+                          {/* 得分范围 */}
+                          {descObj.range && (
+                            <div className="text-xs text-gray-500 mb-2">{descObj.range}</div>
+                          )}
+                          
+                          {/* 资金流子因子 */}
+                          {descObj.subFactors && (
+                            <div className="mt-2 space-y-1">
+                              <div className="text-xs text-gray-500">子因子构成：</div>
+                              {descObj.subFactors.map((sub, idx) => (
+                                <div key={idx} className="text-xs text-gray-400 pl-2 border-l-2 border-zinc-700">
+                                  {sub}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          
+                          {/* 当前得分 */}
+                          <div className="mt-2 pt-2 border-t border-zinc-800 flex justify-between items-center">
+                            <div className="text-xs text-gray-500">当前得分</div>
+                            <div className={`text-lg font-mono font-bold ${safeScore >= 0.7 ? 'text-emerald-400' : safeScore >= 0.5 ? 'text-gray-300' : 'text-red-400'}`}>
+                              {safeScore.toFixed(2)}
+                            </div>
                           </div>
                         </div>
                       )
@@ -1014,6 +1127,13 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* 报告页面 */}
+        {tab === 'reports' && (
+          <section>
+            <ReportsPage />
+          </section>
+        )}
       </main>
 
       {/* Footer */}

@@ -295,7 +295,8 @@ class ScoringEngine:
                     etf_data: pd.DataFrame, 
                     benchmark_data: Optional[pd.DataFrame] = None,
                     northbound_metrics: Optional[Dict[str, float]] = None,
-                    etf_shares_metrics: Optional[Dict[str, float]] = None) -> Dict[str, float]:
+                    etf_shares_metrics: Optional[Dict[str, float]] = None,
+                    dynamic_weights: Optional[Dict[str, float]] = None) -> Dict[str, float]:
         """
         计算综合评分 (增强版)
         
@@ -304,6 +305,7 @@ class ScoringEngine:
             benchmark_data: 基准数据 (可选，用于相对强弱)
             northbound_metrics: 北向资金指标 (可选)
             etf_shares_metrics: ETF 份额指标 (可选)
+            dynamic_weights: 动态权重 (可选，覆盖默认权重)
             
         Returns:
             包含各因子得分、归因数据和总分
@@ -318,6 +320,9 @@ class ScoringEngine:
         
         scores = {}
         attribution = {}  # 归因数据
+        
+        # 使用动态权重（如果提供）
+        weights_to_use = dynamic_weights if dynamic_weights else self.weights
         
         # ===== 动量 (20%) =====
         if len(returns) >= 126:
@@ -431,23 +436,23 @@ class ScoringEngine:
             if pd.isna(scores[key]) or scores[key] is None:
                 scores[key] = 0.5
         
-        # 加权总分
+        # 加权总分（使用动态权重）
         total = (
-            scores.get('momentum', 0.5) * self.weights.get('momentum', 0.20) +
-            scores.get('volatility', 0.5) * self.weights.get('volatility', 0.15) +
-            scores.get('trend', 0.5) * self.weights.get('trend', 0.20) +
-            scores.get('value', 0.5) * self.weights.get('value', 0.25) +
-            scores.get('flow', 0.5) * self.weights.get('flow', 0.15) +
-            scores.get('relative_strength', 0.5) * self.weights.get('relative_strength', 0.20)
+            scores.get('momentum', 0.5) * weights_to_use.get('momentum', 0.20) +
+            scores.get('volatility', 0.5) * weights_to_use.get('volatility', 0.15) +
+            scores.get('trend', 0.5) * weights_to_use.get('trend', 0.20) +
+            scores.get('value', 0.5) * weights_to_use.get('value', 0.25) +
+            scores.get('flow', 0.5) * weights_to_use.get('flow', 0.15) +
+            scores.get('relative_strength', 0.5) * weights_to_use.get('relative_strength', 0.20)
         )
         
         weight_sum = sum([
-            self.weights.get('momentum', 0.20),
-            self.weights.get('volatility', 0.15),
-            self.weights.get('trend', 0.20),
-            self.weights.get('value', 0.25),
-            self.weights.get('flow', 0.15),
-            self.weights.get('relative_strength', 0.20)
+            weights_to_use.get('momentum', 0.20),
+            weights_to_use.get('volatility', 0.15),
+            weights_to_use.get('trend', 0.20),
+            weights_to_use.get('value', 0.25),
+            weights_to_use.get('flow', 0.15),
+            weights_to_use.get('relative_strength', 0.20)
         ])
         
         if weight_sum > 0:
