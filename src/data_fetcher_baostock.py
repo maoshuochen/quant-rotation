@@ -15,6 +15,17 @@ from src.config_loader import load_app_config
 logger = logging.getLogger(__name__)
 
 
+def _coerce_datetime_index(df: pd.DataFrame, column: str = "date") -> pd.DataFrame:
+    if df.empty:
+        return df
+    if column in df.columns:
+        df[column] = pd.to_datetime(df[column], errors="coerce")
+        df = df.dropna(subset=[column]).set_index(column)
+    if not isinstance(df.index, pd.DatetimeIndex):
+        df.index = pd.to_datetime(df.index, errors="coerce")
+    return df[~df.index.isna()].sort_index()
+
+
 def load_config() -> dict:
     """加载统一配置"""
     return load_app_config(Path(__file__).parent.parent)
@@ -161,6 +172,14 @@ class BaostockFetcher:
             DataFrame with columns: date, net_flow (亿元)
         """
         try:
+            hist_df = self._fetch_northbound_flow_hist(start_date)
+            if not hist_df.empty:
+                logger.info(f"北向资金历史数据：{len(hist_df)} rows, 最新净流量={hist_df['net_flow'].iloc[-1]:.2f}亿元")
+                return hist_df
+        except Exception as e:
+            logger.warning(f"北向资金历史接口失败，回退摘要接口：{e}")
+
+        try:
             import akshare as ak
             
             # 获取北向资金历史数据 (按日)
@@ -199,26 +218,83 @@ class BaostockFetcher:
         except Exception as e:
             logger.error(f"获取北向资金失败：{e}")
             return pd.DataFrame()
-            
-            df = df.rename(columns={
-                '日期': 'date',
-                '净买入金额': 'net_flow',
-                '买入成交额': 'buy_amount',
-                '卖出成交额': 'sell_amount'
-            })
-            df['date'] = pd.to_datetime(df['date'])
-            df = df.set_index('date').sort_index()
-            
-            # 单位转换 (元 -> 亿元)
-            for col in ['net_flow', 'buy_amount', 'sell_amount']:
-                if col in df.columns:
-                    df[col] = pd.to_numeric(df[col], errors='coerce') / 1e8
-            
-            logger.info(f"北向资金数据：{len(df)} rows")
-            return df
-            
+
+    def _fetch_northbound_flow_hist(self, start_date: str = "20250101") -> pd.DataFrame:
+        """使用东方财富历史接口获取北向资金日序列。"""
+        import akshare as ak
+
+        df = ak.stock_hsgt_hist_em(symbol="北向资金")
+        if df is None or df.empty:
+            return pd.DataFrame()
+
+        df = df.rename(
+            columns={
+                "日期": "date",
+                "当日成交净买额": "net_flow",
+                "买入成交额": "buy_amount",
+                "卖出成交额": "sell_amount",
+                "历史累计净买额": "accum_net_flow",
+                "当日资金流入": "fund_inflow",
+                "当日余额": "quota_balance",
+                "持股市值": "holding_market_cap",
+            }
+        )
+        df = _coerce_datetime_index(df, "date")
+
+        for col in [
+            "net_flow",
+            "buy_amount",
+            "sell_amount",
+            "accum_net_flow",
+            "fund_inflow",
+            "quota_balance",
+            "holding_market_cap",
+        ]:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+
+        # 最新交易日偶尔只更新指数行情，资金列为空；这里过滤掉没有净买额的伪记录。
+        df = df.dropna(subset=["net_flow"])
+        if df.empty:
+            return pd.DataFrame()
+
+        start_ts = pd.to_datetime(start_date, format="%Y%m%d", errors="coerce")
+        if start_ts is not None and not pd.isna(start_ts):
+            df = df[df.index >= start_ts]
+
+        return df.sort_index()
+
+    def fetch_northbound_snapshot(self) -> pd.DataFrame:
+        """获取北向资金当日快照，作为健康检查补充。"""
+        try:
+            import akshare as ak
+
+            df = ak.stock_hsgt_fund_flow_summary_em()
+            if df is None or df.empty:
+                return pd.DataFrame()
+
+            df = df[df["资金方向"] == "北向"].copy()
+            if df.empty:
+                return pd.DataFrame()
+
+            date_col = "交易日" if "交易日" in df.columns else None
+            if date_col:
+                df = df.rename(columns={date_col: "date"})
+                df["date"] = pd.to_datetime(df["date"], errors="coerce")
+            else:
+                df["date"] = pd.Timestamp(datetime.now().date())
+
+            net_flow_col = "成交净买额" if "成交净买额" in df.columns else None
+            if net_flow_col:
+                df = df.rename(columns={net_flow_col: "net_flow"})
+                df["net_flow"] = pd.to_numeric(df["net_flow"], errors="coerce") / 1e8
+            else:
+                df["net_flow"] = pd.NA
+
+            df = _coerce_datetime_index(df, "date")
+            return df.sort_index()
         except Exception as e:
-            logger.error(f"获取北向资金失败：{e}")
+            logger.warning(f"获取北向资金快照失败：{e}")
             return pd.DataFrame()
     
     def fetch_northbound_flow_by_market(self, start_date: str = "20250101") -> Dict[str, pd.DataFrame]:
@@ -538,8 +614,45 @@ class IndexDataFetcher:
         self.config = load_config()
     
     def fetch_northbound_flow(self, start_date: str = "20250101") -> pd.DataFrame:
+        """优先读取缓存并刷新北向资金历史序列。"""
+        cache_file = self._get_cache_file("northbound", "history_v2")
+        cached_df = pd.DataFrame()
+
+        if cache_file.exists():
+            try:
+                cached_df = pd.read_parquet(cache_file)
+                cached_df = _coerce_datetime_index(cached_df)
+                if "net_flow" in cached_df.columns and "类型" not in cached_df.columns:
+                    logger.info(f"Loaded cached northbound data: {len(cached_df)} rows")
+                else:
+                    logger.warning("Northbound cache schema outdated, ignoring old cache")
+                    cached_df = pd.DataFrame()
+            except Exception as e:
+                logger.warning(f"Northbound cache read failed, will refresh: {e}")
+                cached_df = pd.DataFrame()
+
+        try:
+            fresh_df = self.baostock_fetcher.fetch_northbound_flow(start_date)
+            if not fresh_df.empty:
+                combined = pd.concat([cached_df, fresh_df]).sort_index()
+                combined = combined[~combined.index.duplicated(keep="last")]
+                combined.to_parquet(cache_file)
+                logger.info(f"Northbound cache updated: {len(combined)} rows")
+                return combined[combined.index >= pd.to_datetime(start_date, format="%Y%m%d")]
+        except Exception as e:
+            logger.warning(f"Northbound refresh failed, fallback to cache: {e}")
+
+        if not cached_df.empty:
+            start_ts = pd.to_datetime(start_date, format="%Y%m%d", errors="coerce")
+            if start_ts is not None and not pd.isna(start_ts):
+                return cached_df[cached_df.index >= start_ts]
+            return cached_df
+
+        return pd.DataFrame()
+
+    def fetch_northbound_snapshot(self) -> pd.DataFrame:
         """代理到 BaostockFetcher"""
-        return self.baostock_fetcher.fetch_northbound_flow(start_date)
+        return self.baostock_fetcher.fetch_northbound_snapshot()
     
     def calc_northbound_metrics(self, northbound_df: pd.DataFrame, window: int = 20) -> Dict[str, float]:
         """代理到 BaostockFetcher"""

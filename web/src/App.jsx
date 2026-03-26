@@ -145,7 +145,13 @@ function App() {
   const universe = data.universe || {}
   const overviewHealth = [
     { label: '价格数据', value: health.price_data?.status || 'unknown', detail: `${health.price_data?.available_count || 0}/${health.price_data?.expected_count || 0}` },
-    { label: '北向资金', value: health.northbound?.status || 'unknown', detail: `${health.northbound?.rows || 0} rows` },
+    {
+      label: '北向资金',
+      value: health.northbound?.status || 'unknown',
+      detail: health.northbound?.latest_valid_date
+        ? `历史 ${health.northbound.rows || 0} 日，最近有效 ${health.northbound.latest_valid_date}`
+        : `${health.northbound?.rows || 0} rows`
+    },
     { label: 'ETF 份额', value: health.etf_shares?.status || 'unknown', detail: `历史 ${health.etf_shares?.history_count || 0} / 快照 ${health.etf_shares?.snapshot_count || 0}` }
   ]
 
@@ -350,6 +356,12 @@ function App() {
                 {!!health.etf_shares?.missing_codes?.length && (
                   <div className="mt-2 text-sm text-zinc-400">
                     ETF 份额缺失标的：{health.etf_shares.missing_codes.join('、')}
+                  </div>
+                )}
+                {!!health.northbound?.latest_valid_date && (
+                  <div className="mt-2 text-sm text-zinc-400">
+                    北向资金历史最近有效日期：{health.northbound.latest_valid_date}
+                    {health.northbound.snapshot_date ? `，当前快照日期：${health.northbound.snapshot_date}` : ''}
                   </div>
                 )}
                 {!!inactiveUniverse.length && (

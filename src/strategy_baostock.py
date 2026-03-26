@@ -101,7 +101,8 @@ class RotationStrategy:
         
         # 获取北向资金数据 (一次获取，复用)
         logger.info("Fetching northbound flow data...")
-        nb_df = self.fetcher.fetch_northbound_flow("20260101")
+        nb_df = self.fetcher.fetch_northbound_flow("20240101")
+        nb_snapshot_df = self.fetcher.fetch_northbound_snapshot()
         nb_metrics = self.fetcher.calc_northbound_metrics(nb_df) if not nb_df.empty else None
         
         for code, df in data_dict.items():
@@ -172,11 +173,11 @@ class RotationStrategy:
         
         # 保存 flow_details 到 scorer 对象 (供外部访问)
         self.flow_details = flow_details
-        self.data_health = self._build_data_health(data_dict, nb_df, etf_shares_health)
+        self.data_health = self._build_data_health(data_dict, nb_df, nb_snapshot_df, etf_shares_health)
         
         return ranking
 
-    def _build_data_health(self, data_dict: Dict[str, pd.DataFrame], nb_df: pd.DataFrame, etf_shares_health: Dict[str, List[str]]) -> Dict:
+    def _build_data_health(self, data_dict: Dict[str, pd.DataFrame], nb_df: pd.DataFrame, nb_snapshot_df: pd.DataFrame, etf_shares_health: Dict[str, List[str]]) -> Dict:
         latest_dates = []
         stale_codes = []
         for code, df in data_dict.items():
@@ -189,9 +190,13 @@ class RotationStrategy:
                 stale_codes.append(code)
 
         northbound_rows = len(nb_df) if nb_df is not None else 0
-        if northbound_rows >= 20:
+        northbound_latest = nb_df.index.max() if northbound_rows else None
+        northbound_gap_days = (pd.Timestamp(datetime.now().date()) - northbound_latest).days if northbound_latest is not None else None
+        northbound_snapshot_date = nb_snapshot_df.index.max() if nb_snapshot_df is not None and not nb_snapshot_df.empty else None
+
+        if northbound_rows >= 20 and northbound_gap_days is not None and northbound_gap_days <= 30:
             northbound_status = 'ok'
-        elif northbound_rows > 0:
+        elif northbound_rows >= 20 or northbound_snapshot_date is not None:
             northbound_status = 'degraded'
         else:
             northbound_status = 'missing'
@@ -213,7 +218,10 @@ class RotationStrategy:
             },
             'northbound': {
                 'status': northbound_status,
-                'rows': northbound_rows
+                'rows': northbound_rows,
+                'latest_valid_date': northbound_latest.strftime('%Y-%m-%d') if northbound_latest is not None else '',
+                'gap_days': northbound_gap_days,
+                'snapshot_date': northbound_snapshot_date.strftime('%Y-%m-%d') if northbound_snapshot_date is not None else '',
             },
             'etf_shares': {
                 'status': shares_status,
