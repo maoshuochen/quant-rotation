@@ -1,4 +1,4 @@
-# 快速开始 - 量化轮动系统
+# 快速开始 - 正式运行链路
 
 ## 1. 运行每日策略
 
@@ -38,11 +38,11 @@ python3 scripts/backtest_baostock.py 20250101 20260317
   夏普比率：-1.48
 ```
 
-## 3. 刷新数据
+## 3. 生成前端数据
 
 ```bash
-# 手动刷新所有 ETF 数据
-python3 src/data_fetcher_baostock.py
+# 生成 ranking.json / backtest.json 等前端产物
+python3 scripts/generate_web_data.py
 ```
 
 ## 4. 配置 Cron (自动运行)
@@ -91,4 +91,4 @@ ls -la data/raw/
 
 ---
 
-**更多信息**: 参见 `README.md` 和 `BAOSTOCK_MIGRATION.md`
+**更多信息**: 参见 `README.md`、`INSTALL.md` 和 `legacy/README.md`

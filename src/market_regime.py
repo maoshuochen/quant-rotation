@@ -150,9 +150,10 @@ class DynamicWeightScoringEngine(ScoringEngine):
         """更新市场状态和权重"""
         self.benchmark_prices = benchmark_prices
         self.current_regime = self.regime_detector.detect_regime(benchmark_prices)
+        base_score_weights = {factor: self.weights.get(factor, 0.0) for factor in self.active_factors}
         self.current_weights = self.regime_detector.get_dynamic_weights(
             self.current_regime, 
-            self.weights
+            base_score_weights
         )
     
     def get_current_weights(self) -> Dict[str, float]:

@@ -1,4 +1,4 @@
-# 安装部署指南
+# 安装部署指南（正式运行链路）
 
 ## 系统要求
 
@@ -30,7 +30,7 @@ venv\Scripts\activate     # Windows
 ### 3. 安装 Python 依赖
 
 ```bash
-pip install -r requirements.txt
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn -r requirements.txt
 ```
 
 ### 4. 验证安装
@@ -141,9 +141,6 @@ database:
 ### 1. 首次运行
 
 ```bash
-# 获取历史数据
-python scripts/fetch_all_data.py
-
 # 运行回测
 python scripts/backtest_baostock.py
 
@@ -158,7 +155,7 @@ python scripts/generate_web_data.py
 python scripts/daily_run_baostock.py
 
 # 查看日志
-tail -f logs/rotation.log
+tail -f logs/strategy_$(date +%Y%m%d).log
 ```
 
 ### 3. 定时任务（可选）
@@ -290,12 +287,13 @@ python -c "from src.data_fetcher_baostock import IndexDataFetcher; f = IndexData
 
 数据自动缓存在 `data/raw/` 目录，避免重复请求。
 
-### 2. 并行处理（待实现）
+### 2. 当前正式入口
 
-```bash
-# 未来版本支持
-python scripts/daily_run_baostock.py --parallel
-```
+- `scripts/daily_run_baostock.py`: 每日评分与信号
+- `scripts/backtest_baostock.py`: 主线回测
+- `scripts/generate_web_data.py`: 前端数据生成
+- `report_server.py`: 报告静态服务
+- `web/`: 前端应用
 
 ### 3. 数据库（待实现）
 
@@ -305,10 +303,10 @@ python scripts/daily_run_baostock.py --parallel
 
 ## 九、更新日志
 
-### v0.2.0 (2026-03-21)
-- ✅ 新增资金流因子（北向资金+ETF 份额）
-- ✅ 前端资金流详情展示
-- ✅ 修复 ETF 份额数据源
+### v0.3.0 (2026-03-25)
+- ✅ 正式运行链路收敛到 `*_baostock.py` + `generate_web_data.py` + `web/`
+- ✅ 旧实现迁移到 `legacy/`
+- ✅ Python 3.9 安装链路修正
 
 ### v0.1.0 (2026-03-17)
 - ✅ MVP 版本发布

@@ -16,6 +16,7 @@ from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
 from src.portfolio import SimulatedPortfolio
 import yaml
+from src.config_loader import load_app_config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,11 +27,7 @@ logger = logging.getLogger(__name__)
 
 def load_config() -> dict:
     """加载配置"""
-    config_path = root_dir / 'config' / 'config.yaml'
-    if config_path.exists():
-        with open(config_path, 'r', encoding='utf-8') as f:
-            return yaml.safe_load(f)
-    return {}
+    return load_app_config(root_dir)
 
 
 def run_backtest(start_date: str = "20250101", 

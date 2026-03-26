@@ -4,23 +4,25 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Data](https://img.shields.io/badge/Data-Baostock%2FAKShare-orange.svg)](https://akshare.akfamily.xyz/)
 
-基于多因子评分的指数轮动量化交易系统，支持 A 股主要宽基指数和行业指数的自动评分、排名和交易信号生成。
+基于多因子评分的指数轮动研究系统，支持 A 股主要宽基指数和行业指数的评分、排名、信号生成、回测和前端可视化。
 
 ---
 
 ## 📊 策略特点
 
+### 当前正式链路
+- **唯一数据入口**: `src/data_fetcher_baostock.py`
+- **唯一策略入口**: `src/strategy_baostock.py`
+- **唯一回测入口**: `scripts/backtest_baostock.py`
+- **唯一前端数据入口**: `scripts/generate_web_data.py`
+- **唯一前端应用**: `web/`
+
 ### 核心功能
-- **6 大因子体系**: 估值 (25%) + 动量 (20%) + 趋势 (20%) + 波动 (15%) + 资金流 (15%) + 相对强弱 (20%)
-- **自动评分排名**: 每日对 6 大指数进行综合评分
+- **主线因子体系**: 估值 + 动量 + 趋势 + 波动 + 资金流 + 相对强弱
+- **自动评分排名**: 每日对监控指数进行综合评分
 - **交易信号生成**: 基于排名生成买入/卖出信号
 - **模拟回测**: 支持历史回测和绩效分析
 - **实时看板**: React 前端可视化展示
-
-### 资金流因子（增强版）
-- **基础指标 (60%)**: 成交量趋势、量价配合、金额趋势、流入强度
-- **北向资金 (20%)**: 沪深股通净买入趋势
-- **ETF 份额 (20%)**: 基金份额申购/赎回变化
 
 ---
 
@@ -64,9 +66,9 @@ strategy:
   rebalance_weekly: true  # 周度调仓
 ```
 
-### 3. 运行策略
+### 3. 运行正式链路
 
-#### 每日评分
+#### 每日评分与调仓信号
 ```bash
 python scripts/daily_run_baostock.py
 ```
@@ -99,23 +101,29 @@ quant-rotation/
 ├── config/                  # 配置文件
 │   ├── config.yaml         # 主配置
 │   └── secrets.yaml        # 敏感信息（不上传）
-├── src/                     # 核心代码
+├── src/                     # 正式主线代码
 │   ├── data_fetcher_baostock.py  # 数据获取
-│   ├── scoring_baostock.py       # 评分引擎
-│   ├── strategy_baostock.py      # 策略逻辑
-│   ├── portfolio.py        # 组合管理
-│   └── notifier.py         # 通知模块
-├── scripts/                 # 脚本工具
+│   ├── scoring_baostock.py       # 主线评分引擎
+│   ├── market_regime.py          # 市场状态与动态权重
+│   ├── strategy_baostock.py      # 主线策略逻辑
+│   ├── portfolio.py              # 组合管理
+│   └── notifier.py               # 通知模块
+├── scripts/                 # 正式脚本入口
 │   ├── daily_run_baostock.py     # 每日运行
-│   ├── backtest_baostock.py      # 回测
+│   ├── backtest_baostock.py      # 主线回测
 │   ├── generate_web_data.py      # 生成前端数据
-│   └── test_extended_flow.py     # 测试脚本
+│   ├── generate_backtest_json.py # 回测 JSON 产物
+│   └── test_*.py                 # 主线测试脚本
+├── legacy/                  # 已下线的旧实现
+│   ├── src/
+│   └── scripts/
 ├── web/                     # 前端看板
 │   ├── src/
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   ├── dist/               # 构建输出
 │   └── package.json
+├── report_server.py         # 报告静态服务
 ├── data/                    # 数据缓存
 │   └── raw/
 ├── backtest_results/        # 回测结果
@@ -125,6 +133,12 @@ quant-rotation/
 ```
 
 ---
+
+## 📈 当前说明
+
+- 当前仓库以“研究型策略系统”为定位，不宣称策略指标已达成产品化目标。
+- `legacy/` 下保留历史版本与实验代码，仅供参考。
+- 若文档与代码不一致，以本文件和 `src/*_baostock.py` / `scripts/*_baostock.py` 为准。
 
 ## 📈 因子体系
 
@@ -147,7 +161,7 @@ quant-rotation/
 - 最大回撤
 - 夏普比率
 
-### 5. 资金流因子 (15%) ⭐ 新增
+### 5. 资金流因子 (15%)
 - 成交量趋势
 - 量价配合
 - 成交金额趋势
@@ -160,7 +174,7 @@ quant-rotation/
 
 ---
 
-## 📊 回测表现
+## 📊 当前回测表现
 
 **回测期间**: 2025-01-01 ~ 2026-03-21
 
@@ -172,7 +186,7 @@ quant-rotation/
 | 夏普比率 | 0.45 |
 | 胜率 | 52% |
 
-*注：当前为 MVP 版本，因子仍需优化*
+*注：当前主线已可运行，但策略表现仍处于持续优化阶段。*
 
 ---
 
@@ -199,7 +213,7 @@ quant-rotation/
 
 ---
 
-## 📝 待办事项
+## 📝 当前优化方向
 
 ### 短期优化
 - [ ] 修复北向资金历史数据获取
@@ -208,10 +222,10 @@ quant-rotation/
 - [ ] 改进因子归一化方法
 
 ### 中期计划
-- [ ] 添加基本面因子（ROE、盈利增速）
-- [ ] 添加情绪因子
-- [ ] 支持自定义因子权重
-- [ ] 实盘交易对接
+- [ ] 主线回测框架统一
+- [ ] 动态权重效果验证
+- [ ] 首页重构为“建议持仓 + 调仓解释”
+- [ ] 报告产物协议标准化
 
 ### 长期规划
 - [ ] 多策略框架

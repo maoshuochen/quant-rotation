@@ -10,12 +10,14 @@ from datetime import datetime
 
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
+outputs_dir = root_dir / 'outputs' / 'frontend'
 
 from src.strategy_baostock import RotationStrategy
 
 def run_scoring():
     """运行评分并生成前端数据"""
     print("🚀 生成前端数据...")
+    outputs_dir.mkdir(parents=True, exist_ok=True)
     
     # 初始化策略
     strategy = RotationStrategy()
@@ -33,6 +35,7 @@ def run_scoring():
     print(f"  市场状态：{strategy.scorer.current_regime}")
     print(f"  动态权重：{strategy.scorer.current_weights}")
     ranking_df = strategy.run_scoring(data_dict)
+    signals = strategy.generate_signals(ranking_df)
     
     # 转换为列表 (需要从 ranking_df 提取数据)
     ranking = []
@@ -101,19 +104,28 @@ def run_scoring():
     ranking_data = {
         'ranking': ranking,
         'factor_weights': strategy.config.get('factor_weights', {}),
+        'score_weights': strategy.scorer.current_weights,
+        'factor_model': strategy.config.get('factor_model', {}),
         'dynamic_weights': strategy.scorer.current_weights,
         'market_regime': strategy.scorer.current_regime,
         'market_regime_desc': strategy.scorer.get_regime_description(),
         'strategy': strategy.config.get('strategy', {}),
         'update_time': datetime.now().strftime('%Y-%m-%d %H:%M'),
-        'flow_details': flow_details
+        'flow_details': flow_details,
+        'health': getattr(strategy, 'data_health', {}),
+        'recommendation': strategy.build_recommendation(ranking_df, signals),
     }
     
+    outputs_ranking_path = outputs_dir / 'ranking.json'
+    with open(outputs_ranking_path, 'w', encoding='utf-8') as f:
+        json.dump(ranking_data, f, ensure_ascii=False, indent=2)
+
     ranking_path = root_dir / 'web' / 'dist' / 'ranking.json'
     with open(ranking_path, 'w', encoding='utf-8') as f:
         json.dump(ranking_data, f, ensure_ascii=False, indent=2)
     
     print(f"  ✅ 已生成 {ranking_path}")
+    print(f"  ✅ 已生成 {outputs_ranking_path}")
     print(f"     共 {len(ranking)} 个指数")
     
     # 生成 backtest.json (如果有回测数据)
@@ -126,8 +138,13 @@ def run_scoring():
         dist_backtest_path = root_dir / 'web' / 'dist' / 'backtest.json'
         with open(dist_backtest_path, 'w', encoding='utf-8') as f:
             json.dump(backtest_data, f, ensure_ascii=False, indent=2)
+
+        outputs_backtest_path = outputs_dir / 'backtest.json'
+        with open(outputs_backtest_path, 'w', encoding='utf-8') as f:
+            json.dump(backtest_data, f, ensure_ascii=False, indent=2)
         
         print(f"  ✅ 已生成 {dist_backtest_path}")
+        print(f"  ✅ 已生成 {outputs_backtest_path}")
     else:
         print(f"  ⚠️ 回测数据不存在")
     

@@ -14,8 +14,10 @@ akshare>=1.12.0          # 财经数据接口
 # 配置
 pyyaml>=6.0
 
-# 回测
-vectorbt>=0.26.0         # 向量化回测框架
+# 回测（可选）
+# 仅旧版 scripts/backtest.py 使用；默认主线脚本不依赖它。
+# 如需启用，请单独安装兼容版本并按本机 Python / NumPy 版本做约束。
+# vectorbt>=0.26.0,<0.28.4  # 向量化回测框架
 
 # HTTP 请求
 requests>=2.31.0
@@ -24,7 +26,8 @@ requests>=2.31.0
 colorlog>=6.8.0
 
 # 图表（可选）
-mplfinance>=0.12.10      # K 线图
+# 当前 PyPI 对应的是 beta 版本，`>=0.12.10` 在 Python 3.9 环境下会匹配失败
+mplfinance>=0.12.10b0    # K 线图
 matplotlib>=3.7.0        # 绘图
 
 # 开发工具（可选）

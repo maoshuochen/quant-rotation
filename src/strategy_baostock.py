@@ -13,20 +13,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.data_fetcher_baostock import IndexDataFetcher
-from src.scoring_baostock import ScoringEngine
 from src.market_regime import DynamicWeightScoringEngine
 from src.portfolio import SimulatedPortfolio
+from src.config_loader import load_app_config
 
 logger = logging.getLogger(__name__)
 
 
 def load_config() -> dict:
     """加载配置"""
-    config_path = Path(__file__).parent.parent / 'config' / 'config.yaml'
-    if config_path.exists():
-        with open(config_path, 'r', encoding='utf-8') as f:
-            return yaml.safe_load(f)
-    return {}
+    return load_app_config(Path(__file__).parent.parent)
 
 
 class RotationStrategy:
@@ -60,6 +56,8 @@ class RotationStrategy:
         # 基准 (沪深 300 ETF)
         self.benchmark_code = "510300"
         self.benchmark_data = None
+        self.factor_model = self.config.get('factor_model', {})
+        self.data_health = {}
     
     def load_benchmark(self):
         """加载基准数据并更新市场状态"""
@@ -98,6 +96,7 @@ class RotationStrategy:
         """运行评分系统 (含扩展资金流因子)"""
         scores_dict = {}
         flow_details = {}
+        etf_shares_health = {'ok': [], 'snapshot': [], 'missing': []}
         
         # 获取北向资金数据 (一次获取，复用)
         logger.info("Fetching northbound flow data...")
@@ -121,8 +120,15 @@ class RotationStrategy:
                     shares_df = self.fetcher.fetch_etf_shares(etf_code, "20260101")
                     if not shares_df.empty:
                         etf_metrics = self.fetcher.calc_etf_shares_metrics(shares_df)
+                        if len(shares_df) >= 5:
+                            etf_shares_health['ok'].append(code)
+                        else:
+                            etf_shares_health['snapshot'].append(code)
+                    else:
+                        etf_shares_health['missing'].append(code)
                 except Exception as e:
                     logger.warning(f"Failed to fetch ETF shares for {etf_code}: {e}")
+                    etf_shares_health['missing'].append(code)
             
             # 计算评分 (含北向资金 + ETF 份额 + 动态权重)
             scores = self.scorer.score_index(
@@ -165,8 +171,95 @@ class RotationStrategy:
         
         # 保存 flow_details 到 scorer 对象 (供外部访问)
         self.flow_details = flow_details
+        self.data_health = self._build_data_health(data_dict, nb_df, etf_shares_health)
         
         return ranking
+
+    def _build_data_health(self, data_dict: Dict[str, pd.DataFrame], nb_df: pd.DataFrame, etf_shares_health: Dict[str, List[str]]) -> Dict:
+        latest_dates = []
+        stale_codes = []
+        for code, df in data_dict.items():
+            if df.empty:
+                stale_codes.append(code)
+                continue
+            latest = df.index.max()
+            latest_dates.append(latest)
+            if (pd.Timestamp(datetime.now().date()) - latest).days > 10:
+                stale_codes.append(code)
+
+        northbound_rows = len(nb_df) if nb_df is not None else 0
+        if northbound_rows >= 20:
+            northbound_status = 'ok'
+        elif northbound_rows > 0:
+            northbound_status = 'degraded'
+        else:
+            northbound_status = 'missing'
+
+        if etf_shares_health['missing']:
+            shares_status = 'degraded'
+        elif etf_shares_health['snapshot']:
+            shares_status = 'snapshot'
+        else:
+            shares_status = 'ok'
+
+        return {
+            'price_data': {
+                'status': 'ok' if not stale_codes else 'degraded',
+                'available_count': len(data_dict),
+                'expected_count': len(self.indices),
+                'stale_codes': stale_codes,
+                'latest_trade_date': max(latest_dates).strftime('%Y-%m-%d') if latest_dates else ''
+            },
+            'northbound': {
+                'status': northbound_status,
+                'rows': northbound_rows
+            },
+            'etf_shares': {
+                'status': shares_status,
+                'history_count': len(etf_shares_health['ok']),
+                'snapshot_count': len(etf_shares_health['snapshot']),
+                'missing_count': len(etf_shares_health['missing']),
+                'missing_codes': etf_shares_health['missing'],
+            }
+        }
+
+    def build_recommendation(self, ranking: pd.DataFrame, signals: List[Dict]) -> Dict:
+        if ranking.empty:
+            return {}
+
+        selected = ranking.head(self.top_n)
+        hold_range = ranking.head(self.buffer_n)
+        holdings = []
+        for _, row in selected.iterrows():
+            strongest = []
+            weakest = []
+            factor_scores = {
+                factor: row.get(factor, 0.5)
+                for factor in self.scorer.active_factors + self.scorer.auxiliary_factors
+                if factor in row
+            }
+            ordered = sorted(factor_scores.items(), key=lambda item: item[1], reverse=True)
+            strongest = [factor for factor, _ in ordered[:2]]
+            weakest = [factor for factor, _ in ordered[-1:]]
+            holdings.append({
+                'code': row['code'],
+                'rank': int(row['rank']),
+                'score': round(float(row['total_score']), 4),
+                'name': next((idx.get('name') for idx in self.indices if idx.get('code') == row['code']), row['code']),
+                'etf': next((idx.get('etf') for idx in self.indices if idx.get('code') == row['code']), ''),
+                'strongest_factors': strongest,
+                'weakest_factors': weakest,
+            })
+
+        return {
+            'top_n': self.top_n,
+            'buffer_n': self.buffer_n,
+            'rebalance_frequency': self.strategy.get('rebalance_frequency', 'weekly'),
+            'selected_codes': selected['code'].tolist(),
+            'hold_range_codes': hold_range['code'].tolist(),
+            'signals': signals,
+            'holdings': holdings,
+        }
     
     def generate_signals(self, ranking: pd.DataFrame) -> List[Dict]:
         """
@@ -289,7 +382,9 @@ class RotationStrategy:
             'date': date,
             'ranking': ranking,
             'signals': signals,
-            'portfolio': snapshot
+            'portfolio': snapshot,
+            'health': self.data_health,
+            'recommendation': self.build_recommendation(ranking, signals),
         }
         
         logger.info(f"Strategy completed. Portfolio value: {snapshot['total_value']:.2f}")

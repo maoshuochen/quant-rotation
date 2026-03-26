@@ -10,16 +10,14 @@ from typing import Optional, Dict
 import yaml
 import os
 
+from src.config_loader import load_app_config
+
 logger = logging.getLogger(__name__)
 
 
 def load_config() -> dict:
-    """加载配置"""
-    config_path = Path(__file__).parent.parent / 'config' / 'config.yaml'
-    if config_path.exists():
-        with open(config_path, 'r', encoding='utf-8') as f:
-            return yaml.safe_load(f)
-    return {}
+    """加载统一配置"""
+    return load_app_config(Path(__file__).parent.parent)
 
 
 class BaostockFetcher:
@@ -360,18 +358,40 @@ class BaostockFetcher:
             if df.empty:
                 logger.warning(f"未找到 ETF 份额数据：{etf_code}")
                 return pd.DataFrame()
-            
-            # 重命名列
-            df = df.rename(columns={
-                '统计日期': 'date',
-                '基金份额': 'shares'  # 单位：份
-            })
-            
-            df['date'] = pd.to_datetime(df['date'])
-            df = df.set_index('date').sort_index()
-            
-            # 转换类型
+
+            # 上交所返回历史快照，深交所当前接口通常只返回单条最新快照且没有日期列。
+            # 这里统一兼容不同列名，确保缺失日期时也能返回可计算的中性数据。
+            date_col = next(
+                (col for col in ('统计日期', '交易日期', '日期', '上市日期') if col in df.columns),
+                None
+            )
+            shares_col = next(
+                (col for col in ('基金份额', '份额') if col in df.columns),
+                None
+            )
+
+            if shares_col is None:
+                logger.warning(f"ETF 份额数据缺少份额列：{etf_code}, columns={list(df.columns)}")
+                return pd.DataFrame()
+
+            if date_col is not None:
+                df = df.rename(columns={date_col: 'date'})
+                df['date'] = pd.to_datetime(df['date'], errors='coerce')
+            else:
+                df['date'] = pd.Timestamp(datetime.now().date())
+                logger.info(f"ETF 份额数据 {etf_code} ({market}) 未提供日期列，使用当日快照")
+
+            df = df.rename(columns={shares_col: 'shares'})
             df['shares'] = pd.to_numeric(df['shares'], errors='coerce')
+
+            df = df.dropna(subset=['date', 'shares'])
+            if df.empty:
+                logger.warning(f"ETF 份额数据清洗后为空：{etf_code}")
+                return pd.DataFrame()
+
+            # 避免同一天多条记录干扰变化率计算，保留最后一条。
+            df = df.sort_values('date').drop_duplicates(subset=['date'], keep='last')
+            df = df.set_index('date').sort_index()
             
             # 计算份额变化百分比
             df['shares_change_1d'] = df['shares'].pct_change().fillna(0)
@@ -406,6 +426,15 @@ class BaostockFetcher:
             }
         
         shares = shares_df['shares']
+
+        # 深交所接口常常只提供单条快照；样本不足时返回中性值，避免误伤评分。
+        if len(shares) < 2:
+            return {
+                'shares_change_20d': 0.0,
+                'shares_change_5d': 0.0,
+                'inflow_days_ratio': 0.5,
+                'trend': 0.0
+            }
         
         # 20 日份额变化
         shares_change_20d = shares.iloc[-1] / shares.iloc[-20] - 1 if len(shares) >= 20 else 0

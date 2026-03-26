@@ -1,0 +1,18 @@
+portfolio:
+  initial_capital: 1000000
+  cash_reserve: 0.05
+  commission: 0.0003
+  slippage: 0.001
+
+telegram:
+  enabled: true
+  bot_token: "${TELEGRAM_BOT_TOKEN}"
+  chat_id: "343221796"
+
+data:
+  source: "akshare"
+  cache_days: 7
+
+logging:
+  level: "INFO"
+  file: "logs/strategy.log"

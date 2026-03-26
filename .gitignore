@@ -64,7 +64,11 @@ web/.env
 
 # Backtest results (optional)
 backtest_results/*.json
+backtest_results/backtest_*.csv
 !backtest_results/.gitkeep
+
+# Generated outputs
+outputs/
 
 # Temporary files
 *.tmp

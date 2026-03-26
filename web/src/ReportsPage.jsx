@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+const REPORTS_API_BASE = import.meta.env.VITE_REPORTS_API_BASE || 'http://localhost:5001'
+
 const ReportsPage = () => {
   const [reports, setReports] = useState([])
   const [loading, setLoading] = useState(true)
@@ -7,10 +9,13 @@ const ReportsPage = () => {
 
   useEffect(() => {
     // 加载报告列表
-    fetch('http://localhost:5001/api/reports')
+    fetch(`${REPORTS_API_BASE}/api/reports`)
       .then(res => res.json())
       .then(data => {
         setReports(data.reports || [])
+        if (!selectedReport && data.reports?.length) {
+          setSelectedReport(data.reports[0])
+        }
         setLoading(false)
       })
       .catch(err => {
@@ -24,7 +29,7 @@ const ReportsPage = () => {
   }
 
   const handleDownload = (report) => {
-    window.open(`http://localhost:5001/reports/${report.file}`, '_blank')
+    window.open(`${REPORTS_API_BASE}/reports/${report.file}`, '_blank')
   }
 
   if (loading) {
@@ -39,8 +44,8 @@ const ReportsPage = () => {
     return (
       <div style={styles.empty}>
         <h2>暂无报告</h2>
-        <p>请先运行回测生成可视化报告</p>
-        <code style={styles.code}>python3 scripts/backtest_enhanced.py 20250101</code>
+        <p>请先运行主线回测并启动报告服务</p>
+        <code style={styles.code}>python3 scripts/backtest_baostock.py 20250101</code>
       </div>
     )
   }
@@ -80,11 +85,17 @@ const ReportsPage = () => {
           {selectedReport.files.find(f => f.type === 'summary') && (
             <div style={styles.section}>
               <h4>📄 综合报告</h4>
-              <iframe
-                src={`http://localhost:5001/reports/${selectedReport.files.find(f => f.type === 'summary').name}`}
-                style={styles.iframe}
-                title="综合报告"
-              />
+              <div style={styles.summaryBox}>
+                <p style={styles.summaryHint}>
+                  报告摘要文件已生成。为避免旧版 HTML 的静态资源引用影响主页面，建议在新窗口查看。
+                </p>
+                <button
+                  style={styles.downloadBtn}
+                  onClick={() => handleDownload({ file: selectedReport.files.find(f => f.type === 'summary').name })}
+                >
+                  打开摘要报告
+                </button>
+              </div>
             </div>
           )}
 
@@ -96,7 +107,7 @@ const ReportsPage = () => {
                 <div key={i} style={styles.chartCard}>
                   <h5>{file.name.replace('.png', '').replace('_', ' ')}</h5>
                   <img 
-                    src={`http://localhost:5001/reports/${file.name}`} 
+                    src={`${REPORTS_API_BASE}/reports/${file.name}`} 
                     alt={file.name}
                     style={styles.chartImage}
                   />
@@ -220,6 +231,17 @@ const styles = {
     height: '600px',
     border: '1px solid #e2e8f0',
     borderRadius: '4px'
+  },
+  summaryBox: {
+    padding: '16px',
+    background: '#f7fafc',
+    borderRadius: '8px',
+    border: '1px solid #e2e8f0'
+  },
+  summaryHint: {
+    fontSize: '14px',
+    color: '#4a5568',
+    marginBottom: '12px'
   },
   charts: {
     marginBottom: '30px'

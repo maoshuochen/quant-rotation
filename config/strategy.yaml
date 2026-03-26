@@ -1,0 +1,30 @@
+strategy:
+  top_n: 5
+  buffer_n: 8
+  rebalance_frequency: "weekly"
+  lookback_pe: 2520
+  momentum_window: 126
+
+factor_model:
+  baseline_name: "core_rotation_v1"
+  active_factors:
+    - momentum
+    - trend
+    - value
+    - relative_strength
+  auxiliary_factors:
+    - volatility
+    - flow
+  experimental_factors:
+    - fundamental
+    - sentiment
+
+factor_weights:
+  momentum: 0.30
+  trend: 0.25
+  value: 0.20
+  relative_strength: 0.25
+  volatility: 0.10
+  flow: 0.10
+  fundamental: 0.00
+  sentiment: 0.00

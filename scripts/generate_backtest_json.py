@@ -8,6 +8,8 @@ from pathlib import Path
 
 root_dir = Path(__file__).parent.parent
 results_dir = root_dir / 'backtest_results'
+outputs_dir = root_dir / 'outputs' / 'frontend'
+outputs_dir.mkdir(parents=True, exist_ok=True)
 
 # 读取最新的回测结果
 csv_files = list(results_dir.glob('backtest_*.csv'))
@@ -68,12 +70,23 @@ output = {
     'chart_data': chart_data
 }
 
-# 保存到 web/dist 目录
+# 保存到 backtest_results/latest.json
+latest_output = results_dir / 'latest.json'
+with open(latest_output, 'w', encoding='utf-8') as f:
+    json.dump(output, f, indent=2, ensure_ascii=False)
+
+# 保存到 outputs/frontend 与 web/dist
+outputs_file = outputs_dir / 'backtest.json'
+with open(outputs_file, 'w', encoding='utf-8') as f:
+    json.dump(output, f, indent=2, ensure_ascii=False)
+
 output_file = root_dir / 'web' / 'dist' / 'backtest.json'
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(output, f, indent=2, ensure_ascii=False)
 
 print(f"回测数据已保存：{output_file}")
+print(f"回测数据已保存：{outputs_file}")
+print(f"回测数据已保存：{latest_output}")
 print(f"\n📊 回测摘要:")
 print(f"  总收益率：{total_return*100:.2f}%")
 print(f"  年化收益：{annual_return*100:.2f}%")

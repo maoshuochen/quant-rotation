@@ -15,6 +15,19 @@ class ScoringEngine:
     def __init__(self, config: dict):
         self.config = config
         self.weights = config.get('factor_weights', {})
+        factor_model = config.get('factor_model', {})
+        self.active_factors = factor_model.get(
+            'active_factors',
+            ['momentum', 'trend', 'value', 'relative_strength']
+        )
+        self.auxiliary_factors = factor_model.get(
+            'auxiliary_factors',
+            ['volatility', 'flow']
+        )
+        self.experimental_factors = factor_model.get(
+            'experimental_factors',
+            ['fundamental', 'sentiment']
+        )
     
     def calc_momentum_score(self, returns: pd.Series) -> float:
         """
@@ -187,7 +200,20 @@ class ScoringEngine:
         vol_returns = volumes.pct_change().dropna()
         common_idx = price_returns.index.intersection(vol_returns.index)
         if len(common_idx) >= 20:
-            corr = price_returns.loc[common_idx].corr(vol_returns.loc[common_idx])
+            price_slice = price_returns.loc[common_idx].replace([np.inf, -np.inf], np.nan).dropna()
+            vol_slice = vol_returns.loc[common_idx].replace([np.inf, -np.inf], np.nan).dropna()
+            common_valid_idx = price_slice.index.intersection(vol_slice.index)
+
+            if len(common_valid_idx) >= 20:
+                price_valid = price_slice.loc[common_valid_idx]
+                vol_valid = vol_slice.loc[common_valid_idx]
+                if price_valid.std() > 1e-12 and vol_valid.std() > 1e-12:
+                    corr = price_valid.corr(vol_valid)
+                else:
+                    corr = 0
+            else:
+                corr = 0
+
             corr_score = 0.5 + corr * 0.5
             corr_score = max(0, min(1, corr_score))
         else:
@@ -436,29 +462,21 @@ class ScoringEngine:
             if pd.isna(scores[key]) or scores[key] is None:
                 scores[key] = 0.5
         
-        # 加权总分（使用动态权重）
-        total = (
-            scores.get('momentum', 0.5) * weights_to_use.get('momentum', 0.20) +
-            scores.get('volatility', 0.5) * weights_to_use.get('volatility', 0.15) +
-            scores.get('trend', 0.5) * weights_to_use.get('trend', 0.20) +
-            scores.get('value', 0.5) * weights_to_use.get('value', 0.25) +
-            scores.get('flow', 0.5) * weights_to_use.get('flow', 0.15) +
-            scores.get('relative_strength', 0.5) * weights_to_use.get('relative_strength', 0.20)
-        )
-        
-        weight_sum = sum([
-            weights_to_use.get('momentum', 0.20),
-            weights_to_use.get('volatility', 0.15),
-            weights_to_use.get('trend', 0.20),
-            weights_to_use.get('value', 0.25),
-            weights_to_use.get('flow', 0.15),
-            weights_to_use.get('relative_strength', 0.20)
-        ])
+        # 基线总分只使用主模型中的活跃因子，辅助因子与实验因子仅展示不入主分。
+        total = 0.0
+        weight_sum = 0.0
+        for factor in self.active_factors:
+            weight = weights_to_use.get(factor, self.weights.get(factor, 0.0))
+            total += scores.get(factor, 0.5) * weight
+            weight_sum += weight
         
         if weight_sum > 0:
             total = total / weight_sum
+        else:
+            total = 0.5
         
         scores['total_score'] = total
+        scores['active_factors'] = list(self.active_factors)
         scores['attribution'] = attribution  # 添加归因数据
         
         logger.debug(f"Scores: {scores}")
