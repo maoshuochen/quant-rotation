@@ -193,8 +193,12 @@ class RotationStrategy:
         northbound_latest = nb_df.index.max() if northbound_rows else None
         northbound_gap_days = (pd.Timestamp(datetime.now().date()) - northbound_latest).days if northbound_latest is not None else None
         northbound_snapshot_date = nb_snapshot_df.index.max() if nb_snapshot_df is not None and not nb_snapshot_df.empty else None
+        recent_northbound_rows = 0
+        if nb_df is not None and not nb_df.empty and northbound_latest is not None:
+            recent_cutoff = northbound_latest - pd.Timedelta(days=30)
+            recent_northbound_rows = len(nb_df[nb_df.index >= recent_cutoff])
 
-        if northbound_rows >= 20 and northbound_gap_days is not None and northbound_gap_days <= 30:
+        if recent_northbound_rows >= 20 and northbound_gap_days is not None and northbound_gap_days <= 30:
             northbound_status = 'ok'
         elif northbound_rows >= 20 or northbound_snapshot_date is not None:
             northbound_status = 'degraded'
@@ -219,6 +223,7 @@ class RotationStrategy:
             'northbound': {
                 'status': northbound_status,
                 'rows': northbound_rows,
+                'recent_rows': recent_northbound_rows,
                 'latest_valid_date': northbound_latest.strftime('%Y-%m-%d') if northbound_latest is not None else '',
                 'gap_days': northbound_gap_days,
                 'snapshot_date': northbound_snapshot_date.strftime('%Y-%m-%d') if northbound_snapshot_date is not None else '',

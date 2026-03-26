@@ -26,6 +26,22 @@ def _coerce_datetime_index(df: pd.DataFrame, column: str = "date") -> pd.DataFra
     return df[~df.index.isna()].sort_index()
 
 
+def _latest_continuous_block(df: pd.DataFrame, max_gap_days: int = 7) -> pd.DataFrame:
+    if df.empty or not isinstance(df.index, pd.DatetimeIndex):
+        return df
+    ordered = df.sort_index()
+    if len(ordered) <= 1:
+        return ordered
+
+    keep_start = len(ordered) - 1
+    for idx in range(len(ordered) - 1, 0, -1):
+        gap = (ordered.index[idx] - ordered.index[idx - 1]).days
+        if gap > max_gap_days:
+            break
+        keep_start = idx - 1
+    return ordered.iloc[keep_start:]
+
+
 def load_config() -> dict:
     """加载统一配置"""
     return load_app_config(Path(__file__).parent.parent)
@@ -296,6 +312,23 @@ class BaostockFetcher:
         except Exception as e:
             logger.warning(f"获取北向资金快照失败：{e}")
             return pd.DataFrame()
+
+    def fetch_northbound_daily_snapshot(self) -> pd.DataFrame:
+        """聚合当日北向快照为单日记录。"""
+        snapshot = self.fetch_northbound_snapshot()
+        if snapshot.empty:
+            return pd.DataFrame()
+
+        agg_map = {}
+        for col in ["net_flow", "buy_amount", "sell_amount"]:
+            if col in snapshot.columns:
+                agg_map[col] = "sum"
+
+        if not agg_map:
+            return pd.DataFrame()
+
+        daily = snapshot.groupby(snapshot.index).agg(agg_map)
+        return daily.sort_index()
     
     def fetch_northbound_flow_by_market(self, start_date: str = "20250101") -> Dict[str, pd.DataFrame]:
         """
@@ -371,7 +404,17 @@ class BaostockFetcher:
                 'trend': 0
             }
         
-        net_flow = northbound_df['net_flow']
+        recent_df = _latest_continuous_block(northbound_df[['net_flow']].dropna())
+        if recent_df.empty or len(recent_df) < 5:
+            return {
+                'net_flow_20d_sum': 0,
+                'net_flow_5d_avg': 0,
+                'buy_ratio': 0.5,
+                'trend': 0,
+                'available_days': len(recent_df),
+            }
+
+        net_flow = recent_df['net_flow']
         
         # 近 20 日净买入总和
         net_flow_20d_sum = net_flow.iloc[-20:].sum() if len(net_flow) >= 20 else net_flow.sum()
@@ -395,7 +438,8 @@ class BaostockFetcher:
             'net_flow_20d_sum': float(net_flow_20d_sum),
             'net_flow_5d_avg': float(net_flow_5d_avg),
             'buy_ratio': float(buy_ratio),
-            'trend': float(trend)
+            'trend': float(trend),
+            'available_days': int(len(net_flow)),
         }
     
     def fetch_etf_shares(self, etf_code: str, start_date: str = "20250101") -> pd.DataFrame:
@@ -616,7 +660,9 @@ class IndexDataFetcher:
     def fetch_northbound_flow(self, start_date: str = "20250101") -> pd.DataFrame:
         """优先读取缓存并刷新北向资金历史序列。"""
         cache_file = self._get_cache_file("northbound", "history_v2")
+        snapshot_cache_file = self._get_cache_file("northbound", "daily_snapshot")
         cached_df = pd.DataFrame()
+        snapshot_cached_df = pd.DataFrame()
 
         if cache_file.exists():
             try:
@@ -631,22 +677,40 @@ class IndexDataFetcher:
                 logger.warning(f"Northbound cache read failed, will refresh: {e}")
                 cached_df = pd.DataFrame()
 
+        if snapshot_cache_file.exists():
+            try:
+                snapshot_cached_df = pd.read_parquet(snapshot_cache_file)
+                snapshot_cached_df = _coerce_datetime_index(snapshot_cached_df)
+            except Exception as e:
+                logger.warning(f"Northbound snapshot cache read failed: {e}")
+                snapshot_cached_df = pd.DataFrame()
+
         try:
             fresh_df = self.baostock_fetcher.fetch_northbound_flow(start_date)
             if not fresh_df.empty:
-                combined = pd.concat([cached_df, fresh_df]).sort_index()
-                combined = combined[~combined.index.duplicated(keep="last")]
-                combined.to_parquet(cache_file)
-                logger.info(f"Northbound cache updated: {len(combined)} rows")
-                return combined[combined.index >= pd.to_datetime(start_date, format="%Y%m%d")]
+                cached_df = pd.concat([cached_df, fresh_df]).sort_index()
+                cached_df = cached_df[~cached_df.index.duplicated(keep="last")]
+                cached_df.to_parquet(cache_file)
+                logger.info(f"Northbound cache updated: {len(cached_df)} rows")
         except Exception as e:
             logger.warning(f"Northbound refresh failed, fallback to cache: {e}")
 
-        if not cached_df.empty:
+        try:
+            snapshot_df = self.baostock_fetcher.fetch_northbound_daily_snapshot()
+            if not snapshot_df.empty:
+                snapshot_cached_df = pd.concat([snapshot_cached_df, snapshot_df]).sort_index()
+                snapshot_cached_df = snapshot_cached_df[~snapshot_cached_df.index.duplicated(keep="last")]
+                snapshot_cached_df.to_parquet(snapshot_cache_file)
+        except Exception as e:
+            logger.warning(f"Northbound daily snapshot refresh failed: {e}")
+
+        combined = pd.concat([cached_df, snapshot_cached_df]).sort_index()
+        if not combined.empty:
+            combined = combined[~combined.index.duplicated(keep="last")]
             start_ts = pd.to_datetime(start_date, format="%Y%m%d", errors="coerce")
             if start_ts is not None and not pd.isna(start_ts):
-                return cached_df[cached_df.index >= start_ts]
-            return cached_df
+                return combined[combined.index >= start_ts]
+            return combined
 
         return pd.DataFrame()
 

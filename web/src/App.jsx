@@ -149,7 +149,7 @@ function App() {
       label: '北向资金',
       value: health.northbound?.status || 'unknown',
       detail: health.northbound?.latest_valid_date
-        ? `历史 ${health.northbound.rows || 0} 日，最近有效 ${health.northbound.latest_valid_date}`
+        ? `历史 ${health.northbound.rows || 0} 日，最近连续 ${health.northbound.recent_rows || 0} 日`
         : `${health.northbound?.rows || 0} rows`
     },
     { label: 'ETF 份额', value: health.etf_shares?.status || 'unknown', detail: `历史 ${health.etf_shares?.history_count || 0} / 快照 ${health.etf_shares?.snapshot_count || 0}` }
@@ -362,6 +362,7 @@ function App() {
                   <div className="mt-2 text-sm text-zinc-400">
                     北向资金历史最近有效日期：{health.northbound.latest_valid_date}
                     {health.northbound.snapshot_date ? `，当前快照日期：${health.northbound.snapshot_date}` : ''}
+                    {health.northbound.recent_rows !== undefined ? `，最近连续窗口 ${health.northbound.recent_rows} 日` : ''}
                   </div>
                 )}
                 {!!inactiveUniverse.length && (

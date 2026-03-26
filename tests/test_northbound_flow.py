@@ -22,14 +22,20 @@ class NorthboundFlowTests(unittest.TestCase):
                 index=dates,
             )
             fetcher.baostock_fetcher.fetch_northbound_flow = MagicMock(return_value=fresh_df)
+            fetcher.baostock_fetcher.fetch_northbound_daily_snapshot = MagicMock(
+                return_value=pd.DataFrame(
+                    {"net_flow": [6.0], "buy_amount": [60.0], "sell_amount": [54.0]},
+                    index=pd.to_datetime(["2026-03-26"]),
+                )
+            )
 
             first = fetcher.fetch_northbound_flow("20260320")
-            self.assertEqual(len(first), 3)
+            self.assertEqual(len(first), 4)
 
             fetcher.baostock_fetcher.fetch_northbound_flow = MagicMock(side_effect=RuntimeError("boom"))
             second = fetcher.fetch_northbound_flow("20260320")
-            self.assertEqual(len(second), 3)
-            self.assertListEqual(second["net_flow"].tolist(), [10.0, 12.0, 8.0])
+            self.assertEqual(len(second), 4)
+            self.assertListEqual(second["net_flow"].tolist(), [10.0, 12.0, 8.0, 6.0])
 
 
 if __name__ == "__main__":
