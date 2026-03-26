@@ -20,6 +20,29 @@ class ConfigLoaderTests(unittest.TestCase):
             self.assertEqual(config["strategy"]["top_n"], 5)
             self.assertEqual(config["factor_model"]["active_factors"], ["momentum", "trend"])
 
+    def test_disabled_indices_are_filtered_from_active_universe(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            config_dir = root / "config"
+            config_dir.mkdir()
+            (config_dir / "universe.yaml").write_text(
+                (
+                    "indices:\n"
+                    "  - code: '000300.SH'\n"
+                    "    name: '沪深300'\n"
+                    "    etf: '510300'\n"
+                    "  - code: '000921.CSI'\n"
+                    "    name: '周期指数'\n"
+                    "    etf: '512340'\n"
+                    "    enabled: false\n"
+                ),
+                encoding="utf-8",
+            )
+            config = load_app_config(root)
+            self.assertEqual(len(config["indices"]), 1)
+            self.assertEqual(config["indices"][0]["code"], "000300.SH")
+            self.assertEqual(config["inactive_indices"][0]["code"], "000921.CSI")
+
 
 if __name__ == "__main__":
     unittest.main()

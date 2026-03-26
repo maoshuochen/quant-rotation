@@ -44,6 +44,7 @@ class RotationStrategy:
         
         # 指数列表
         self.indices = self.config.get('indices', [])
+        self.inactive_indices = self.config.get('inactive_indices', [])
         
         # 模拟账户
         portfolio_config = self.config.get('portfolio', {})
@@ -220,7 +221,12 @@ class RotationStrategy:
                 'snapshot_count': len(etf_shares_health['snapshot']),
                 'missing_count': len(etf_shares_health['missing']),
                 'missing_codes': etf_shares_health['missing'],
-            }
+            },
+            'universe': {
+                'active_count': len(self.indices),
+                'inactive_count': len(self.inactive_indices),
+                'inactive_codes': [idx.get('code') for idx in self.inactive_indices],
+            },
         }
 
     def build_recommendation(self, ranking: pd.DataFrame, signals: List[Dict]) -> Dict:

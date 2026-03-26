@@ -54,6 +54,9 @@ indices:
     etf: "512340"
     market: "sh"
     bucket: "sector"
+    enabled: false
+    status: "retired_proxy"
+    note: "原代理 ETF 512340 历史数据停更至 2021-01-11，已从正式池下线。"
   - code: "000922.CSI"
     name: "红利指数"
     etf: "510880"

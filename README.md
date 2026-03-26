@@ -37,7 +37,15 @@ pip install -r requirements.txt
 
 ### 2. 配置参数
 
-编辑 `config/config.yaml`:
+正式配置优先读取拆分后的：
+
+- `config/universe.yaml`
+- `config/strategy.yaml`
+- `config/runtime.yaml`
+
+若拆分配置不存在，才会回退到 `config/config.yaml`。
+
+例如 `config/universe.yaml`:
 
 ```yaml
 # 监控指数
@@ -49,6 +57,10 @@ indices:
     name: "中证 500"
     etf: "510500"
   # ... 更多指数
+  - code: "000921.CSI"
+    name: "周期指数"
+    etf: "512340"
+    enabled: false  # 旧代理 ETF 停更，已从正式池下线
 
 # 因子权重
 factor_weights:
@@ -139,6 +151,7 @@ quant-rotation/
 - 当前仓库以“研究型策略系统”为定位，不宣称策略指标已达成产品化目标。
 - `legacy/` 下保留历史版本与实验代码，仅供参考。
 - 若文档与代码不一致，以本文件和 `src/*_baostock.py` / `scripts/*_baostock.py` 为准。
+- 当前正式活跃池为 19 只指数；`000921.CSI -> 512340` 因代理 ETF 停更已下线保留记录。
 
 ## 📈 因子体系
 

@@ -33,7 +33,8 @@ const loadData = async () => {
       updateTime: data.update_time || '',
       flowDetails: data.flow_details || {},
       recommendation: data.recommendation || {},
-      health: data.health || {}
+      health: data.health || {},
+      universe: data.universe || {}
     }
   } catch (err) {
     console.error('加载 ranking.json 失败:', err)
@@ -73,6 +74,13 @@ const safeNum = (value, fallback = 0) => {
 }
 
 const pct = (value, digits = 1) => `${(safeNum(value) * 100).toFixed(digits)}%`
+
+const healthCopy = {
+  ok: '数据完整，可直接执行',
+  degraded: '部分数据降级，适合结合人工确认',
+  snapshot: '份额数据为快照，可用于辅助判断',
+  missing: '关键数据缺失，建议暂停执行'
+}
 
 const statusTone = {
   ok: 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10',
@@ -134,6 +142,7 @@ function App() {
 
   const recommendation = data.recommendation || {}
   const health = data.health || {}
+  const universe = data.universe || {}
   const overviewHealth = [
     { label: '价格数据', value: health.price_data?.status || 'unknown', detail: `${health.price_data?.available_count || 0}/${health.price_data?.expected_count || 0}` },
     { label: '北向资金', value: health.northbound?.status || 'unknown', detail: `${health.northbound?.rows || 0} rows` },
@@ -143,6 +152,16 @@ function App() {
   const holdings = recommendation.holdings || []
   const signals = recommendation.signals || []
   const backtestSummary = backtestData?.summary || {}
+  const inactiveUniverse = universe.inactive || []
+  const healthStates = [health.price_data?.status, health.northbound?.status, health.etf_shares?.status]
+  const overallHealth =
+    healthStates.includes('missing') ? 'missing' :
+      healthStates.includes('degraded') ? 'degraded' :
+        healthStates.includes('snapshot') ? 'snapshot' : 'ok'
+  const topNames = holdings.slice(0, 3).map(item => item.name).join('、')
+  const executionHeadline = signals.length
+    ? `当前建议执行 ${signals.length} 个动作，优先关注 ${topNames || '头部候选'}。`
+    : `当前无新增调仓动作，继续跟踪 ${topNames || '头部候选'}。`
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
@@ -183,13 +202,61 @@ function App() {
       <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6">
         {tab === 'overview' && (
           <>
+            <section className="grid gap-4 lg:grid-cols-[1.35fr_0.95fr]">
+              <section className="overflow-hidden rounded-3xl border border-zinc-800 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.16),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.14),_transparent_30%),linear-gradient(135deg,_rgba(24,24,27,0.96),_rgba(9,9,11,0.98))] p-6">
+                <div className="text-xs uppercase tracking-[0.28em] text-zinc-500">Weekly Decision Brief</div>
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight">
+                  本周主结论：{topNames || '等待新信号'} 仍是当前最值得优先配置的方向。
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-300">
+                  {executionHeadline} 当前市场处于
+                  <span className="mx-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-zinc-100">
+                    {data.marketRegimeDesc || data.marketRegime}
+                  </span>
+                  ，主模型只使用 {activeFactors.length} 个因子参与总分，辅助因子仅用于解释和人工复核。
+                </p>
+                <div className="mt-6 flex flex-wrap gap-2 text-sm">
+                  {holdings.slice(0, 5).map(item => (
+                    <button
+                      key={item.code}
+                      onClick={() => {
+                        setSelectedCode(item.code)
+                        setTab('factors')
+                      }}
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-zinc-100 transition hover:bg-white/10"
+                    >
+                      {item.name} · {safeNum(item.score).toFixed(3)}
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              <section className="grid gap-4">
+                <Card title="执行状态" subtitle="更像 PM 看板的摘要视图">
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                    <HighlightStat label="策略可信度" value={healthCopy[overallHealth] || '待确认'} tone={overallHealth} />
+                    <HighlightStat
+                      label="正式覆盖范围"
+                      value={`${health.universe?.active_count || data.ranking.length} 只活跃指数`}
+                      detail={inactiveUniverse.length ? `另有 ${inactiveUniverse.length} 只已下线代理` : '当前无下线代理'}
+                    />
+                    <HighlightStat
+                      label="建议动作"
+                      value={signals.length ? `${signals.length} 个待执行信号` : '以持有观察为主'}
+                      detail={`最近更新 ${data.updateTime || '--'}`}
+                    />
+                  </div>
+                </Card>
+              </section>
+            </section>
+
             <section className="grid gap-4 md:grid-cols-4">
               <MetricCard label="当前市场状态" value={data.marketRegimeDesc || data.marketRegime} sub="基于沪深 300 趋势识别" />
-              <MetricCard label="本周建议持仓数" value={`${recommendation.top_n || 0} 只`} sub={`缓冲卖出阈值 Top ${recommendation.buffer_n || 0}`} />
+              <MetricCard label="本周建议持仓" value={`${recommendation.top_n || 0} 只`} sub={`缓冲卖出阈值 Top ${recommendation.buffer_n || 0}`} />
               <MetricCard
-                label="主模型因子"
-                value={activeFactors.map(key => factorNames[key] || key).join(' / ')}
-                sub="辅助因子仅用于展示与解释"
+                label="活跃观察池"
+                value={`${health.universe?.active_count || data.ranking.length} 只`}
+                sub={inactiveUniverse.length ? `${inactiveUniverse.length} 只代理已下线` : '正式池运行中'}
               />
               <MetricCard
                 label="回测快照"
@@ -283,6 +350,11 @@ function App() {
                 {!!health.etf_shares?.missing_codes?.length && (
                   <div className="mt-2 text-sm text-zinc-400">
                     ETF 份额缺失标的：{health.etf_shares.missing_codes.join('、')}
+                  </div>
+                )}
+                {!!inactiveUniverse.length && (
+                  <div className="mt-2 text-sm text-zinc-400">
+                    已下线代理：{inactiveUniverse.map(item => `${item.name}(${item.etf})`).join('、')}
                   </div>
                 )}
               </Card>
@@ -468,6 +540,14 @@ const MetricCard = ({ label, value, sub, positive }) => (
       {value}
     </div>
     {sub ? <div className="mt-1 text-xs text-zinc-500">{sub}</div> : null}
+  </div>
+)
+
+const HighlightStat = ({ label, value, detail, tone }) => (
+  <div className={`rounded-2xl border p-4 ${statusTone[tone] || 'border-zinc-800 bg-zinc-900/60 text-zinc-50'}`}>
+    <div className="text-xs uppercase tracking-wider opacity-80">{label}</div>
+    <div className="mt-2 text-lg font-semibold">{value}</div>
+    {detail ? <div className="mt-1 text-xs opacity-80">{detail}</div> : null}
   </div>
 )
 

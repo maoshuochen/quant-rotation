@@ -39,6 +39,7 @@ def main() -> int:
       "checked_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
       "config": {
         "indices": len(config.get("indices", [])),
+        "inactive_indices": len(config.get("inactive_indices", [])),
         "active_factors": config.get("factor_model", {}).get("active_factors", []),
       },
       "artifacts": {

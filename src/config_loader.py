@@ -50,6 +50,25 @@ def load_app_config(root_dir: Path | None = None) -> Dict[str, Any]:
         legacy_path = config_dir / "config.yaml"
         if legacy_path.exists():
             config = _deep_merge(_read_yaml(legacy_path), config)
-        return config
+        return _normalize_config(config)
 
-    return _read_yaml(config_dir / "config.yaml")
+    return _normalize_config(_read_yaml(config_dir / "config.yaml"))
+
+
+def _normalize_config(config: Dict[str, Any]) -> Dict[str, Any]:
+    normalized = dict(config)
+    indices = normalized.get("indices", [])
+    if isinstance(indices, list):
+        active_indices = []
+        inactive_indices = []
+        for item in indices:
+            if not isinstance(item, dict):
+                continue
+            if item.get("enabled", True):
+                active_indices.append(item)
+            else:
+                inactive_indices.append(item)
+        normalized["indices"] = active_indices
+        if inactive_indices:
+            normalized["inactive_indices"] = inactive_indices
+    return normalized

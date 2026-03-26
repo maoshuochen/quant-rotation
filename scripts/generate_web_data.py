@@ -113,6 +113,22 @@ def run_scoring():
         'update_time': datetime.now().strftime('%Y-%m-%d %H:%M'),
         'flow_details': flow_details,
         'health': getattr(strategy, 'data_health', {}),
+        'universe': {
+            'active': [
+                {'code': idx.get('code'), 'name': idx.get('name'), 'etf': idx.get('etf')}
+                for idx in strategy.indices
+            ],
+            'inactive': [
+                {
+                    'code': idx.get('code'),
+                    'name': idx.get('name'),
+                    'etf': idx.get('etf'),
+                    'status': idx.get('status', 'inactive'),
+                    'note': idx.get('note', '')
+                }
+                for idx in getattr(strategy, 'inactive_indices', [])
+            ]
+        },
         'recommendation': strategy.build_recommendation(ranking_df, signals),
     }
     
