@@ -53,10 +53,12 @@ def run_backtest(start_date: str = "20250101",
     # 初始化组件
     fetcher = IndexDataFetcher()
     scorer = ScoringEngine(config)
+    stop_loss_config = config.get('stop_loss', {})
     portfolio = SimulatedPortfolio(
         initial_capital=initial_capital,
         commission_rate=config.get('portfolio', {}).get('commission', 0.0003),
-        slippage=config.get('portfolio', {}).get('slippage', 0.001)
+        slippage=config.get('portfolio', {}).get('slippage', 0.001),
+        stop_loss_config=stop_loss_config if stop_loss_config else None
     )
     
     # 策略参数
@@ -127,22 +129,34 @@ def run_backtest(start_date: str = "20250101",
     
     # 回测循环
     daily_values = []
-    
+    stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
+
     for date in trade_dates:
         date_str = date.strftime('%Y-%m-%d')
-        
+
         # 获取当日价格
         prices = {}
         for code, df in etf_data.items():
             if date in df.index:
                 prices[code] = df.loc[date, 'close']
-        
+
+        # 检查止损（在每个交易日）
+        if prices and portfolio.positions:
+            stop_loss_signals = portfolio.check_stop_loss(prices, date_str)
+            if any(stop_loss_signals.values()):
+                logger.warning(f"触发止损：{stop_loss_signals}")
+                for signal_type, codes in stop_loss_signals.items():
+                    if codes:
+                        stop_loss_stats[signal_type] += len(codes)
+                names = {idx['code']: idx['name'] for idx in indices}
+                portfolio.execute_stop_loss(stop_loss_signals, prices, names, date_str)
+
         # 记录每日净值
         if prices:
             portfolio.record_daily_value(date_str, prices)
             value = portfolio.get_portfolio_value(prices)
             daily_values.append({'date': date_str, 'value': value})
-        
+
         # 调仓日运行策略
         if date in rebalance_dates and len(trade_dates) - trade_dates.index(date) > 5:
             logger.info(f"\n调仓日：{date_str}")
@@ -236,6 +250,15 @@ def run_backtest(start_date: str = "20250101",
     print(f"  夏普比率：{sharpe:.2f}")
     print(f"  交易天数：{len(values_df)}")
     print(f"  调仓次数：{len(rebalance_dates)}")
+
+    # 止损统计
+    total_stop_loss = sum(stop_loss_stats.values())
+    if total_stop_loss > 0:
+        print(f"\n🛡️ 止损统计")
+        print(f"  个体止损：{stop_loss_stats['individual']} 次")
+        print(f"  移动止损：{stop_loss_stats['trailing']} 次")
+        print(f"  组合止损：{stop_loss_stats['portfolio']} 次")
+        print(f"  总计：{total_stop_loss} 次")
     
     # 保存结果
     results_dir = root_dir / 'backtest_results'
