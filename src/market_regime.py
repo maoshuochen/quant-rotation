@@ -70,67 +70,79 @@ class MarketRegimeDetector:
     def get_dynamic_weights(self, regime: str, base_weights: Dict[str, float]) -> Dict[str, float]:
         """
         根据市场状态返回动态因子权重
-        
+
+        使用调整因子（multipliers）方式：
+        - 牛市：提升动量、趋势因子权重
+        - 熊市：提升估值、波动因子权重
+        - 震荡市：提升资金流、相对强弱因子权重
+
         参数:
             regime: 市场状态 ('bull', 'bear', 'sideways')
-            base_weights: 基础权重配置
-        
+            base_weights: 基础权重配置（从 config.yaml 加载）
+
         返回:
-            调整后的权重字典
+            调整后的权重字典（已归一化）
         """
+        # 调整因子（乘数）
+        # >1.0 表示提升权重，<1.0 表示降低权重
+
         # 牛市配置：进攻型，重视动量和趋势
-        bull_weights = {
-            'momentum': 0.30,       # +10%
-            'trend': 0.25,          # +5%
-            'value': 0.15,          # -10%
-            'volatility': 0.10,     # -5%
-            'relative_strength': 0.15,  # -5%
-            'flow': 0.05            # -10%
+        bull_adjustments = {
+            'momentum': 1.5,        # +50%
+            'trend': 1.3,           # +30%
+            'value': 0.7,           # -30%
+            'volatility': 0.7,      # -30%
+            'relative_strength': 0.9,  # -10%
+            'flow': 0.7,            # -30%
+            'fundamental': 1.0,     # 不变
+            'sentiment': 1.0        # 不变
         }
-        
+
         # 熊市配置：防御型，重视估值和低波
-        bear_weights = {
-            'momentum': 0.10,       # -10%
-            'trend': 0.10,          # -10%
-            'value': 0.35,          # +10%
-            'volatility': 0.25,     # +10%
-            'relative_strength': 0.10,  # -10%
-            'flow': 0.10            # -5%
+        bear_adjustments = {
+            'momentum': 0.5,        # -50%
+            'trend': 0.5,           # -50%
+            'value': 1.5,           # +50%
+            'volatility': 1.5,      # +50%
+            'relative_strength': 0.7,  # -30%
+            'flow': 0.7,            # -30%
+            'fundamental': 1.2,     # +20%
+            'sentiment': 0.8        # -20%
         }
-        
+
         # 震荡市配置：平衡型，重视资金流和相对强弱
-        sideways_weights = {
-            'momentum': 0.15,       # -5%
-            'trend': 0.15,          # -5%
-            'value': 0.25,          # 0%
-            'volatility': 0.15,     # 0%
-            'relative_strength': 0.15,  # -5%
-            'flow': 0.15            # 0%
+        sideways_adjustments = {
+            'momentum': 0.8,        # -20%
+            'trend': 0.8,           # -20%
+            'value': 1.0,           # 不变
+            'volatility': 1.0,      # 不变
+            'relative_strength': 1.2,  # +20%
+            'flow': 1.2,            # +20%
+            'fundamental': 1.0,     # 不变
+            'sentiment': 1.0        # 不变
         }
-        
+
         regime_map = {
-            'bull': bull_weights,
-            'bear': bear_weights,
-            'sideways': sideways_weights
+            'bull': bull_adjustments,
+            'bear': bear_adjustments,
+            'sideways': sideways_adjustments
         }
-        
-        regime_weights = regime_map.get(regime, sideways_weights)
-        
-        # 只保留配置中存在的因子
+
+        adjustments = regime_map.get(regime, sideways_adjustments)
+
+        # 应用调整到基础权重
         final_weights = {}
-        for key in base_weights.keys():
-            if key in regime_weights:
-                final_weights[key] = regime_weights[key]
-            else:
-                final_weights[key] = base_weights[key]
-        
+        for key, base_weight in base_weights.items():
+            adjustment = adjustments.get(key, 1.0)
+            final_weights[key] = base_weight * adjustment
+
         # 归一化（确保总和为 1）
         total = sum(final_weights.values())
         if total > 0:
             final_weights = {k: v / total for k, v in final_weights.items()}
-        
+
         logger.info(f"动态权重 ({regime}): {final_weights}")
-        
+
         return final_weights
 
 
@@ -150,10 +162,10 @@ class DynamicWeightScoringEngine(ScoringEngine):
         """更新市场状态和权重"""
         self.benchmark_prices = benchmark_prices
         self.current_regime = self.regime_detector.detect_regime(benchmark_prices)
-        base_score_weights = {factor: self.weights.get(factor, 0.0) for factor in self.active_factors}
+        # 使用完整的 factor_weights 配置作为基础权重
         self.current_weights = self.regime_detector.get_dynamic_weights(
-            self.current_regime, 
-            base_score_weights
+            self.current_regime,
+            self.weights  # 直接使用父类的 weights（从 config 加载）
         )
     
     def get_current_weights(self) -> Dict[str, float]:
