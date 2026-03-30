@@ -48,10 +48,12 @@ class RotationStrategy:
         
         # 模拟账户
         portfolio_config = self.config.get('portfolio', {})
+        stop_loss_config = self.config.get('stop_loss', {})
         self.portfolio = SimulatedPortfolio(
             initial_capital=portfolio_config.get('initial_capital', 1000000),
             commission_rate=portfolio_config.get('commission', 0.0003),
-            slippage=portfolio_config.get('slippage', 0.001)
+            slippage=portfolio_config.get('slippage', 0.001),
+            stop_loss_config=stop_loss_config if stop_loss_config else None
         )
         
         # 基准 (沪深 300 ETF)
@@ -380,15 +382,25 @@ class RotationStrategy:
         ranking = self.run_scoring(data_dict)
         print("\n=== 指数排名 ===")
         print(ranking[['code', 'total_score', 'rank']].to_string(index=False))
-        
+
         # 生成信号
         signals = self.generate_signals(ranking)
-        
+
         # 获取当前价格
         prices = {}
         for code, df in data_dict.items():
             prices[code] = df['close'].iloc[-1]
-        
+
+        # 检查止损（在生成新信号之前）
+        date_str = date if isinstance(date, str) else date.strftime('%Y-%m-%d')
+        stop_loss_signals = self.portfolio.check_stop_loss(prices, date_str)
+
+        # 执行止损（优先于正常信号）
+        if any(stop_loss_signals.values()):
+            logger.warning(f"执行止损：{stop_loss_signals}")
+            names = {idx['code']: idx['name'] for idx in self.indices}
+            self.portfolio.execute_stop_loss(stop_loss_signals, prices, names, date_str)
+
         # 执行交易
         if signals:
             self.execute_signals(signals, prices, date)

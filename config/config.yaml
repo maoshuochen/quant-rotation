@@ -116,6 +116,12 @@ portfolio:
   commission: 0.0003        # 万三手续费
   slippage: 0.001           # 0.1% 滑点
 
+# 止损配置
+stop_loss:
+  individual: 0.15          # 个体止损 15%
+  trailing: 0.08            # 移动止损 8%
+  portfolio: 0.10           # 组合止损 10%
+
 # Telegram 通知
 telegram:
   enabled: true
