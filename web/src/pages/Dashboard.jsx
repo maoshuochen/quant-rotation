@@ -50,8 +50,18 @@ const SectionHeader = ({ title, subtitle, isExpanded, onClick }) => (
   </button>
 )
 
-const HoldingCard = ({ item, idx, isExpanded, onToggle, activeFactors }) => {
+// 从 ranking 中查找持仓的完整数据
+const getHoldingDetail = (code, ranking) => {
+  if (!ranking) return null
+  return ranking.find(item => item.code === code) || null
+}
+
+const HoldingCard = ({ item, idx, rankingData, isExpanded, onToggle, activeFactors }) => {
   const score = safeNum(item.score).toFixed(3)
+  // 从 ranking 中获取完整数据用于展开详情
+  const detail = getHoldingDetail(item.code, rankingData)
+  const factors = detail?.factors || item.factors || {}
+  const attribution = detail?.attribution || item.attribution || {}
 
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 transition-all duration-300 hover:border-zinc-700">
@@ -94,9 +104,9 @@ const HoldingCard = ({ item, idx, isExpanded, onToggle, activeFactors }) => {
                 <div key={key} className="flex items-center gap-2">
                   <span className="text-[10px] text-zinc-400 w-12 sm:w-16 flex-shrink-0">{factorNames[key]}</span>
                   <div className="flex-1 h-1.5 rounded-full bg-zinc-800 min-w-0">
-                    <div className="h-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400" style={{ width: `${safeNum(item.factors?.[key], 0.5) * 100}%` }} />
+                    <div className="h-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400" style={{ width: `${safeNum(factors[key], 0.5) * 100}%` }} />
                   </div>
-                  <span className="text-[10px] font-mono text-zinc-300 w-8 flex-shrink-0 text-right">{safeNum(item.factors?.[key], 0.5).toFixed(2)}</span>
+                  <span className="text-[10px] font-mono text-zinc-300 w-8 flex-shrink-0 text-right">{safeNum(factors[key], 0.5).toFixed(2)}</span>
                 </div>
               ))}
             </div>
@@ -104,10 +114,10 @@ const HoldingCard = ({ item, idx, isExpanded, onToggle, activeFactors }) => {
           <div className="pt-2 border-t border-zinc-800">
             <div className="text-[10px] text-zinc-500 mb-1.5">关键归因</div>
             <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">6 月收益</span><span className="text-zinc-200">{safeNum(item.attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300</span><span className="text-zinc-200">{safeNum(item.attribution?.relative_return, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">北向 20 日</span><span className="text-zinc-200">{safeNum(item.attribution?.northbound_20d_sum, 0).toFixed(1)}亿</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">ETF 份额</span><span className="text-zinc-200">{safeNum(item.attribution?.etf_shares_20d_change, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">6 月收益</span><span className="text-zinc-200">{safeNum(attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">北向 20 日</span><span className="text-zinc-200">{safeNum(attribution?.northbound_20d_sum, 0).toFixed(1)}亿</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">ETF 份额</span><span className="text-zinc-200">{safeNum(attribution?.etf_shares_20d_change, 0).toFixed(1)}%</span></div>
             </div>
           </div>
         </div>
@@ -177,6 +187,7 @@ const Dashboard = ({
   const signals = recommendation.signals || []
   const backtestSummary = backtestData?.summary || {}
   const inactiveUniverse = universe.inactive || []
+  const ranking = data?.ranking || []
 
   const healthStates = [health.price_data?.status, health.northbound?.status, health.etf_shares?.status]
   const overallHealth =
@@ -275,7 +286,7 @@ const Dashboard = ({
         {/* Quick Stats - Mobile: 2 columns, Desktop: 4 columns */}
         <section className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
           <HighlightStat label="可信度" value={healthCopy[overallHealth] || '待确认'} tone={overallHealth} />
-          <HighlightStat label="覆盖" value={`${health.universe?.active_count || data.ranking.length} 只`} detail="" />
+          <HighlightStat label="覆盖" value={`${health.universe?.active_count || ranking.length} 只`} detail="" />
           <HighlightStat label="信号" value={signals.length ? `${signals.length} 个` : '暂无'} detail="" />
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-3">
             <div className="text-[10px] uppercase tracking-wider text-zinc-500">回测</div>
@@ -296,13 +307,14 @@ const Dashboard = ({
           />
           {expandedSection !== 'holdings' && (
             <div className="space-y-2 sm:space-y-3">
-              {/* Holdings List - Mobile: Full width, Desktop: 2/3 */}
+              {/* Holdings List */}
               <div className="space-y-2">
                 {holdings.map((item, idx) => (
                   <HoldingCard
                     key={item.code}
                     item={item}
                     idx={idx}
+                    rankingData={ranking}
                     isExpanded={expandedCode === item.code}
                     onToggle={() => toggleCodeExpand(item.code)}
                     activeFactors={activeFactors}
@@ -310,7 +322,7 @@ const Dashboard = ({
                 ))}
               </div>
 
-              {/* Execution Checklist - Mobile: Full width */}
+              {/* Execution Checklist */}
               <Card title="执行清单">
                 <div className="space-y-2">
                   <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
@@ -365,7 +377,7 @@ const Dashboard = ({
           )}
         </div>
 
-        {/* Section 3: Ranking - Mobile: Cards, Desktop: Table */}
+        {/* Section 3: Ranking - Mobile: Full Cards, Desktop: Table */}
         <div>
           <SectionHeader
             title="完整排名"
@@ -375,9 +387,9 @@ const Dashboard = ({
           />
           {expandedSection !== 'ranking' && (
             <div>
-              {/* Mobile: Card View */}
+              {/* Mobile: Full Card List */}
               <div className="lg:hidden grid gap-2">
-                {data?.ranking?.slice(0, 10).map(item => (
+                {ranking.map(item => (
                   <RankingCard
                     key={item.code}
                     item={item}
@@ -385,11 +397,6 @@ const Dashboard = ({
                     isActive={selectedCode === item.code}
                   />
                 ))}
-                {data?.ranking?.length > 10 && (
-                  <div className="text-center text-xs text-zinc-500 py-2">
-                    共 {data.ranking.length} 只，PC 端查看完整列表
-                  </div>
-                )}
               </div>
 
               {/* Desktop: Table View */}
@@ -409,7 +416,7 @@ const Dashboard = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {data?.ranking?.map(item => (
+                      {ranking.map(item => (
                         <tr
                           key={item.code}
                           className={`border-b border-zinc-900 hover:bg-zinc-900/80 ${selectedCode === item.code ? 'bg-zinc-900' : ''}`}
