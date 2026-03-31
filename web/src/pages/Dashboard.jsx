@@ -126,32 +126,73 @@ const HoldingCard = ({ item, idx, rankingData, isExpanded, onToggle, activeFacto
   )
 }
 
-const RankingCard = ({ item, onSelect, isActive }) => (
-  <div
-    onClick={() => onSelect(item.code)}
-    className={`rounded-xl border p-3 cursor-pointer transition-all ${
-      isActive ? 'border-amber-500/50 bg-amber-500/5' : 'border-zinc-800 bg-zinc-900/70 hover:border-zinc-700'
-    }`}
-    role="button"
-    tabIndex={0}
-    onKeyDown={(e) => e.key === 'Enter' && onSelect(item.code)}
-  >
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <span className={`flex-shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
-          item.rank <= 3 ? 'bg-amber-500 text-white' : 'bg-zinc-800 text-zinc-400'
-        }`}>
-          {item.rank}
-        </span>
-        <div>
-          <div className="font-medium text-zinc-100">{item.name}</div>
-          <div className="text-[10px] text-zinc-500">{item.code}</div>
+const RankingCard = ({ item, onSelect, isActive, activeFactors }) => {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div
+      className={`rounded-xl border p-3 transition-all ${
+        isActive ? 'border-amber-500/50 bg-amber-500/5' : 'border-zinc-800 bg-zinc-900/70 hover:border-zinc-700'
+      }`}
+    >
+      <div
+        className="flex items-center justify-between cursor-pointer"
+        onClick={() => {
+          setExpanded(!expanded)
+          onSelect(item.code)
+        }}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter') { setExpanded(!expanded); onSelect(item.code); } }}
+      >
+        <div className="flex items-center gap-2">
+          <span className={`flex-shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
+            item.rank <= 3 ? 'bg-amber-500 text-white' : 'bg-zinc-800 text-zinc-400'
+          }`}>
+            {item.rank}
+          </span>
+          <div>
+            <div className="font-medium text-zinc-100">{item.name}</div>
+            <div className="text-[10px] text-zinc-500">{item.code}</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="font-mono text-sm text-gradient">{safeNum(item.score).toFixed(3)}</div>
+          <svg
+            className={`h-4 w-4 text-zinc-500 transition-transform ${expanded ? 'rotate-180' : ''}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
-      <div className="font-mono text-sm text-gradient">{safeNum(item.score).toFixed(3)}</div>
+
+      {expanded && (
+        <div className="mt-3 pt-3 border-t border-zinc-800">
+          <div className="text-[10px] text-zinc-500 mb-2">因子得分</div>
+          <div className="space-y-1.5">
+            {activeFactors.map(key => (
+              <div key={key} className="flex items-center gap-2">
+                <span className="text-[10px] text-zinc-400 w-12 flex-shrink-0">{factorNames[key]}</span>
+                <div className="flex-1 h-1.5 rounded-full bg-zinc-800 min-w-0">
+                  <div
+                    className="h-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400"
+                    style={{ width: `${safeNum(item.factors?.[key], 0.5) * 100}%` }}
+                  />
+                </div>
+                <span className="text-[10px] font-mono text-zinc-300 w-8 flex-shrink-0 text-right">
+                  {safeNum(item.factors?.[key], 0.5).toFixed(2)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-)
+  )
+}
 
 const Dashboard = ({
   data,
@@ -393,6 +434,7 @@ const Dashboard = ({
                     item={item}
                     onSelect={onSelectCode}
                     isActive={selectedCode === item.code}
+                    activeFactors={activeFactors}
                   />
                 ))}
               </div>
