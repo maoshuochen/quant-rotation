@@ -112,8 +112,7 @@ class MarketRegimeDetector:
             'trend': 1.3,           # +30%
             'value': 0.7,           # -30%
             'volatility': 0.7,      # -30%
-            'relative_strength': 0.9,  # -10%
-            'flow': 0.7,            # -30%
+            'flow': 1.2,            # +20% (IC 显著有效)
             'fundamental': 1.0,     # 不变
             'sentiment': 1.0        # 不变
         }
@@ -123,9 +122,8 @@ class MarketRegimeDetector:
             'momentum': 0.5,        # -50%
             'trend': 0.5,           # -50%
             'value': 1.5,           # +50%
-            'volatility': 1.5,      # +50%
-            'relative_strength': 0.7,  # -30%
-            'flow': 0.7,            # -30%
+            'volatility': 1.3,      # +30%
+            'flow': 1.3,            # +30% (IC 显著有效)
             'fundamental': 1.2,     # +20%
             'sentiment': 0.8        # -20%
         }
@@ -135,9 +133,8 @@ class MarketRegimeDetector:
             'momentum': 0.8,        # -20%
             'trend': 0.8,           # -20%
             'value': 1.0,           # 不变
-            'volatility': 1.0,      # 不变
-            'relative_strength': 1.2,  # +20%
-            'flow': 1.2,            # +20%
+            'volatility': 0.8,      # -20% (IC≈0 无效)
+            'flow': 1.5,            # +50% (IC 显著有效 ⭐)
             'fundamental': 1.0,     # 不变
             'sentiment': 1.0        # 不变
         }

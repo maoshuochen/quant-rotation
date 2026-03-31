@@ -1,0 +1,135 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quant-rotation"
+version = "1.0.0"
+description = "指数轮动量化系统 - 基于多因子评分的 A 股指数轮动策略"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Quant Team", email = "quant@example.com"}
+]
+keywords = [
+    "quant",
+    "finance",
+    "stock",
+    "factor-investing",
+    "portfolio-optimization",
+    "backtesting"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+dependencies = [
+    "numpy>=1.24.0,<2.0.0",
+    "pandas>=2.0.0,<3.0.0",
+    "pyarrow>=14.0.0",
+    "baostock>=0.8.8",
+    "akshare>=1.12.0",
+    "pyyaml>=6.0",
+    "requests>=2.31.0",
+    "colorlog>=6.8.0",
+    "mplfinance>=0.12.10b0",
+    "matplotlib>=3.7.0",
+    "scikit-optimize>=0.10.2",
+    "scipy>=1.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+web = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+]
+schedule = [
+    "apscheduler>=3.10.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/user/quant-rotation"
+Documentation = "https://github.com/user/quant-rotation#readme"
+Repository = "https://github.com/user/quant-rotation.git"
+Changelog = "https://github.com/user/quant-rotation/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "scripts*"]
+exclude = ["tests*", "legacy*", "web*", "data*", "reports*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.eggs
+  | \.mypy_cache
+  | \.pytest_cache
+  | build
+  | dist
+  | legacy
+  | web
+)/
+'''
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = [
+    "baostock.*",
+    "akshare.*",
+    "skopt.*",
+]
+ignore_missing_imports = true
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    ".venv",
+    ".eggs",
+    ".mypy_cache",
+    ".pytest_cache",
+    "build",
+    "dist",
+    "legacy",
+    "web",
+    "data",
+    "reports",
+    "optimization_results",
+]

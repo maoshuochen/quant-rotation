@@ -6,5 +6,18 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true
+  },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'recharts-vendor': ['recharts'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 400
   }
 })

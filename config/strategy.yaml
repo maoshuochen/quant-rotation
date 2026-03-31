@@ -19,12 +19,14 @@ factor_model:
     - fundamental
     - sentiment
 
+# 基于多目标贝叶斯优化结果 (2025-01 ~ 2026-03)
+# 优化目标：综合评分 (夏普比率 40% + 回撤 30% + 收益 30%)
 factor_weights:
-  momentum: 0.30
-  trend: 0.25
-  value: 0.20
-  relative_strength: 0.25
-  volatility: 0.10
-  flow: 0.10
+  momentum: 0.24        # 动量 - 6 月收益率 (优化权重 24% ⭐)
+  trend: 0.40           # 趋势 - 均线位置 (优化权重 40% ⭐)
+  value: 0.05           # 估值 - 价格分位 (优化权重 5%)
+  flow: 0.40            # 资金流 - 成交量/金额趋势 (优化权重 40% ⭐)
+  volatility: 0.04      # 波动 - 低波动高分 (优化权重 4%)
+  relative_strength: 0.00
   fundamental: 0.00
   sentiment: 0.00

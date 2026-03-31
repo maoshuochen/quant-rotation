@@ -47,6 +47,8 @@ logs/
 config/secrets.yaml
 *.key
 *.pem
+.env
+.env.local
 
 # Test
 .pytest_cache/
@@ -73,3 +75,16 @@ outputs/
 # Temporary files
 *.tmp
 *.bak
+
+# Optimization results (auto-generated)
+optimization_results/*.csv
+optimization_results/*.yaml
+!optimization_results/.gitkeep
+
+# Reports (auto-generated)
+reports/*.html
+reports/*.json
+!reports/.gitkeep
+
+# Jupyter notebooks
+*.ipynb_checkpoints/

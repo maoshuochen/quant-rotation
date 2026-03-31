@@ -16,17 +16,21 @@ class ScoringEngine:
         self.config = config
         self.weights = config.get('factor_weights', {})
         factor_model = config.get('factor_model', {})
-        self.active_factors = factor_model.get(
-            'active_factors',
-            ['momentum', 'trend', 'value', 'relative_strength']
-        )
+        # 从配置加载 active_factors，如果未配置则从 factor_weights 中推断
+        # 有权重 (>0) 的因子视为 active
+        if 'active_factors' in factor_model:
+            self.active_factors = factor_model['active_factors']
+        else:
+            # 自动推断：所有有权重配置的因子
+            self.active_factors = [k for k in self.weights.keys() if k not in ['fundamental', 'sentiment']]
+
         self.auxiliary_factors = factor_model.get(
             'auxiliary_factors',
-            ['volatility', 'flow']
+            []
         )
         self.experimental_factors = factor_model.get(
             'experimental_factors',
-            ['fundamental', 'sentiment']
+            []
         )
     
     def calc_momentum_score(self, returns: pd.Series) -> float:
@@ -133,19 +137,22 @@ class ScoringEngine:
     def calc_value_score(self, prices: pd.Series) -> float:
         """
         估值评分 (简化版：用价格分位代替 PE 分位)
-        假设近 3 年价格区间
+
+        逻辑：价格分位越低 (越接近区间低点) 得分越高
+        - 分位 0% (最低点) → 得分 1.0
+        - 分位 100% (最高点) → 得分 0.0
         """
         if len(prices) < 252:
             lookback = len(prices)
         else:
             lookback = 252
-        
+
         recent_prices = prices.iloc[-lookback:]
         current = prices.iloc[-1]
-        
+
         # 计算价格在历史中的分位
         percentile = (recent_prices < current).mean()
-        
+
         # 分位越低 (价格越低) 得分越高
         score = 1.0 - percentile
         return score

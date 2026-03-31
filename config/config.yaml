@@ -98,16 +98,20 @@ strategy:
   lookback_pe: 2520     # PE 历史分位看多少天 (10 年)
   momentum_window: 126  # 动量周期 (6 个月)
   
-# 因子权重 (增强版 - 总和可超过 1，会自动归一化)
+# 因子权重 (基于多目标贝叶斯优化结果 2025-01 ~ 2026-03)
+# 优化目标：综合评分 (夏普比率 40% + 回撤 30% + 收益 30%)
+# 优化发现：
+# - trend 因子获得 40% 最高权重
+# - flow 因子获得 40% 最高权重
+# - momentum 因子获得 24% 权重
+# - value 因子权重较低 (5%)
+# - volatility 因子权重较低 (4%)
 factor_weights:
-  value: 0.20           # 估值 - 价格分位
-  momentum: 0.20        # 动量 - 6 月收益率
-  volatility: 0.15      # 波动 - 低波动高分
-  trend: 0.20           # 趋势 - 均线位置
-  flow: 0.15            # 资金流 - 成交量/金额趋势
-  relative_strength: 0.20  # 相对强弱 - 相对沪深 300
-  fundamental: 0.15     # 基本面 - PE/PB/ROE/盈利增长 ✅
-  sentiment: 0.10       # 情绪 - ETF 份额/成交量异常
+  momentum: 0.24        # 动量 - 6 月收益率 (优化权重 24% ⭐)
+  trend: 0.40           # 趋势 - 均线位置 (优化权重 40% ⭐)
+  value: 0.05           # 估值 - 价格分位 (优化权重 5%)
+  flow: 0.40            # 资金流 - 成交量/金额趋势 (优化权重 40% ⭐)
+  volatility: 0.04      # 波动 - 低波动高分 (优化权重 4%)
 
 # 模拟账户
 portfolio:
@@ -120,7 +124,8 @@ portfolio:
 stop_loss:
   individual: 0.15          # 个体止损 15%
   trailing: 0.08            # 移动止损 8%
-  portfolio: 0.10           # 组合止损 10%
+  portfolio: 0.20           # 组合止损 20%
+  cooldown_days: 0          # 止损后冷却期（0=禁用）
 
 # Telegram 通知
 telegram:

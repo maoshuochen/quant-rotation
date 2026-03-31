@@ -49,11 +49,14 @@ class RotationStrategy:
         # 模拟账户
         portfolio_config = self.config.get('portfolio', {})
         stop_loss_config = self.config.get('stop_loss', {})
+        # 冷却期配置（从 stop_loss 配置中读取，默认 5 天）
+        cooldown_days = stop_loss_config.get('cooldown_days', 5) if stop_loss_config else 5
         self.portfolio = SimulatedPortfolio(
             initial_capital=portfolio_config.get('initial_capital', 1000000),
             commission_rate=portfolio_config.get('commission', 0.0003),
             slippage=portfolio_config.get('slippage', 0.001),
-            stop_loss_config=stop_loss_config if stop_loss_config else None
+            stop_loss_config=stop_loss_config if stop_loss_config else None,
+            cooldown_days=cooldown_days
         )
         
         # 基准 (沪深 300 ETF)

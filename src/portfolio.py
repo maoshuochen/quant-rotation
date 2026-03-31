@@ -41,7 +41,8 @@ class SimulatedPortfolio:
                  initial_capital: float = 1_000_000,
                  commission_rate: float = 0.0003,
                  slippage: float = 0.001,
-                 stop_loss_config: Optional[Dict[str, float]] = None):
+                 stop_loss_config: Optional[Dict[str, float]] = None,
+                 cooldown_days: int = 5):
         self.initial_capital = initial_capital
         self.cash = initial_capital
         self.commission_rate = commission_rate  # 万三
@@ -51,8 +52,12 @@ class SimulatedPortfolio:
         self.stop_loss_config = stop_loss_config or {
             'individual': 0.15,    # 个体止损 15%
             'trailing': 0.08,      # 移动止损 8%
-            'portfolio': 0.10      # 组合止损 10%
+            'portfolio': 0.20      # 组合止损 20%
         }
+
+        # 冷却期配置（止损后多少天内不买入同一标的）
+        self.cooldown_days = cooldown_days
+        self.stop_loss_cooldown: Dict[str, str] = {}  # {code: last_stop_loss_date}
 
         # 组合峰值（用于组合止损）
         self.peak_value = initial_capital
@@ -121,39 +126,44 @@ class SimulatedPortfolio:
         # 2. 再买入 (等权重)
         to_buy = signals.get('buy', [])
         num_buy = len(to_buy)
-        
+
         if num_buy > 0:
             # 可用资金 (留 5% 现金)
             available = self.cash * 0.95
             amount_per_stock = available / num_buy
-            
+
             for code in to_buy:
+                # 检查冷却期（止损后 cooldown_days 天内不买入）
+                if self.is_in_cooldown(code, date):
+                    logger.info(f"Skip buy {code}: in cooldown (stop loss within {self.cooldown_days} days)")
+                    continue
+
                 price = prices.get(code)
                 if price is None:
                     logger.warning(f"No price for {code}, skipping")
                     continue
-                
+
                 # 应用滑点 (买入价格更高)
                 exec_price = price * (1 + self.slippage)
-                
+
                 # 计算股数
                 shares = int(amount_per_stock / exec_price)
                 if shares == 0:
                     continue
-                
+
                 # 计算金额和手续费
                 amount = shares * exec_price
                 commission = amount * self.commission_rate
                 total_cost = amount + commission
-                
+
                 # 检查现金是否足够
                 if total_cost > self.cash:
                     logger.warning(f"Insufficient cash for {code}")
                     continue
-                
+
                 # 更新现金
                 self.cash -= total_cost
-                
+
                 # 更新持仓
                 self.positions[code] = Position(
                     code=code,
@@ -162,7 +172,7 @@ class SimulatedPortfolio:
                     avg_price=exec_price,
                     entry_date=date
                 )
-                
+
                 # 记录交易
                 trade = Trade(
                     date=date,
@@ -176,9 +186,9 @@ class SimulatedPortfolio:
                 )
                 executed_trades.append(trade)
                 self.trades.append(trade)
-                
+
                 logger.info(f"Bought {shares} shares of {code} @ {exec_price:.2f}")
-        
+
         return executed_trades
     
     def get_portfolio_value(self, current_prices: Dict[str, float]) -> float:
@@ -193,6 +203,50 @@ class SimulatedPortfolio:
         """计算收益率"""
         value = self.get_portfolio_value(current_prices)
         return (value - self.initial_capital) / self.initial_capital
+
+    def is_in_cooldown(self, code: str, date: str) -> bool:
+        """
+        检查标的是否在冷却期内
+
+        Args:
+            code: 标的代码
+            date: 当前日期 (YYYY-MM-DD)
+
+        Returns:
+            True 如果在冷却期内，False 否则
+        """
+        if code not in self.stop_loss_cooldown:
+            return False
+
+        last_stop_date = self.stop_loss_cooldown[code]
+        try:
+            from datetime import datetime
+            stop_dt = datetime.strptime(last_stop_date, '%Y-%m-%d')
+            current_dt = datetime.strptime(date, '%Y-%m-%d')
+            days_since_stop = (current_dt - stop_dt).days
+            return days_since_stop < self.cooldown_days
+        except Exception:
+            return False
+
+    def get_cooldown_status(self) -> Dict[str, int]:
+        """
+        获取所有冷却期状态
+
+        Returns:
+            {code: remaining_days}
+        """
+        status = {}
+        from datetime import datetime
+        today = datetime.now()
+        for code, stop_date in self.stop_loss_cooldown.items():
+            try:
+                stop_dt = datetime.strptime(stop_date, '%Y-%m-%d')
+                days_since = (today - stop_dt).days
+                if days_since < self.cooldown_days:
+                    status[code] = self.cooldown_days - days_since
+            except Exception:
+                continue
+        return status
     
     def check_stop_loss(self, current_prices: Dict[str, float], date: str) -> Dict[str, List[str]]:
         """
@@ -334,6 +388,9 @@ class SimulatedPortfolio:
                 'price': exec_price,
                 'loss_pct': (exec_price - pos.avg_price) / pos.avg_price
             })
+
+            # 记录冷却期（止损后 cooldown_days 天内不买入）
+            self.stop_loss_cooldown[code] = date
 
             # 删除持仓
             del self.positions[code]
