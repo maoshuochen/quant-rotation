@@ -15,7 +15,29 @@ import {
   XAxis,
   YAxis
 } from 'recharts'
+import ErrorBoundary from './ErrorBoundary'
+import { Card, MetricCard, HighlightStat, AttributionRow } from './components/Card'
+import { RankingTable } from './components/RankingTable'
 import ReportsPage from './ReportsPage'
+
+const factorNames = {
+  momentum: '动量',
+  trend: '趋势',
+  value: '估值',
+  relative_strength: '强弱',
+  volatility: '波动',
+  flow: '资金流',
+  fundamental: '基本面',
+  sentiment: '情绪'
+}
+
+const safeNum = (value, fallback = 0) => {
+  if (value === null || value === undefined) return fallback
+  const num = Number(value)
+  return Number.isFinite(num) ? num : fallback
+}
+
+const pct = (value, digits = 1) => `${(safeNum(value) * 100).toFixed(digits)}%`
 
 const loadData = async () => {
   try {
@@ -24,14 +46,12 @@ const loadData = async () => {
     return {
       ranking: data.ranking || [],
       factorWeights: data.factor_weights || {},
-      scoreWeights: data.score_weights || {},
       factorModel: data.factor_model || {},
       dynamicWeights: data.dynamic_weights || {},
       marketRegime: data.market_regime || 'sideways',
       marketRegimeDesc: data.market_regime_desc || '',
       strategy: data.strategy || {},
       updateTime: data.update_time || '',
-      flowDetails: data.flow_details || {},
       recommendation: data.recommendation || {},
       health: data.health || {},
       universe: data.universe || {}
@@ -56,25 +76,6 @@ const loadBacktestData = async () => {
   }
 }
 
-const factorNames = {
-  momentum: '动量',
-  trend: '趋势',
-  value: '估值',
-  relative_strength: '强弱',
-  volatility: '波动',
-  flow: '资金流',
-  fundamental: '基本面',
-  sentiment: '情绪'
-}
-
-const safeNum = (value, fallback = 0) => {
-  if (value === null || value === undefined) return fallback
-  const num = Number(value)
-  return Number.isFinite(num) ? num : fallback
-}
-
-const pct = (value, digits = 1) => `${(safeNum(value) * 100).toFixed(digits)}%`
-
 const healthCopy = {
   ok: '数据完整，可直接执行',
   degraded: '部分数据降级，适合结合人工确认',
@@ -88,135 +89,6 @@ const statusTone = {
   snapshot: 'text-sky-200 border-sky-500/30 bg-sky-500/10',
   missing: 'text-red-200 border-red-500/30 bg-red-500/10'
 }
-
-// 错误边界组件
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { hasError: false, error: null }
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error }
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo)
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center p-4">
-          <div className="max-w-md text-center">
-            <h2 className="text-2xl font-bold mb-4">页面出错了</h2>
-            <p className="text-zinc-400 mb-4">{this.state.error?.message || '未知错误'}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-white text-zinc-950 rounded-lg hover:bg-zinc-200 transition"
-            >
-              刷新页面
-            </button>
-          </div>
-        </div>
-      )
-    }
-    return this.props.children
-  }
-}
-
-// 缓存组件
-const Card = React.memo(({ title, subtitle, children }) => (
-  <section className="rounded-2xl border border-zinc-800 bg-zinc-925 bg-zinc-900/60 p-5">
-    <div className="mb-4">
-      <h2 className="text-lg font-semibold">{title}</h2>
-      {subtitle ? <p className="mt-1 text-sm text-zinc-500">{subtitle}</p> : null}
-    </div>
-    {children}
-  </section>
-))
-
-Card.displayName = 'Card'
-
-const MetricCard = React.memo(({ label, value, sub, positive }) => (
-  <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
-    <div className="text-xs uppercase tracking-wider text-zinc-500">{label}</div>
-    <div className={`mt-2 text-xl font-semibold ${
-      positive === true ? 'text-emerald-300' : positive === false ? 'text-red-300' : 'text-zinc-50'
-    }`}>
-      {value}
-    </div>
-    {sub ? <div className="mt-1 text-xs text-zinc-500">{sub}</div> : null}
-  </div>
-))
-
-MetricCard.displayName = 'MetricCard'
-
-const HighlightStat = React.memo(({ label, value, detail, tone }) => (
-  <div className={`rounded-2xl border p-4 ${statusTone[tone] || 'border-zinc-800 bg-zinc-900/60 text-zinc-50'}`}>
-    <div className="text-xs uppercase tracking-wider opacity-80">{label}</div>
-    <div className="mt-2 text-lg font-semibold">{value}</div>
-    {detail ? <div className="mt-1 text-xs opacity-80">{detail}</div> : null}
-  </div>
-))
-
-HighlightStat.displayName = 'HighlightStat'
-
-const AttributionRow = React.memo(({ label, value }) => (
-  <div className="flex items-center justify-between rounded-lg bg-zinc-900/70 px-3 py-2">
-    <span className="text-zinc-500">{label}</span>
-    <span className="font-mono text-zinc-100">{value}</span>
-  </div>
-))
-
-AttributionRow.displayName = 'AttributionRow'
-
-const RankingTable = React.memo(({ data, selectedCode, onSelect }) => {
-  const activeFactors = data?.factorModel?.active_factors || ['momentum', 'trend', 'value', 'relative_strength']
-
-  return (
-    <Card title={`指数排名（共 ${data?.ranking?.length || 0} 只）`} subtitle="保留完整横截面信息，服务复盘与人工判断">
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
-          <thead className="border-b border-zinc-800 text-left text-xs uppercase tracking-wider text-zinc-500">
-            <tr>
-              <th className="px-3 py-3">#</th>
-              <th className="px-3 py-3">名称</th>
-              <th className="px-3 py-3">代码</th>
-              <th className="px-3 py-3">ETF</th>
-              <th className="px-3 py-3">总分</th>
-              {activeFactors.map(key => (
-                <th key={key} className="px-3 py-3">{factorNames[key] || key}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data?.ranking?.map(item => (
-              <tr
-                key={item.code}
-                className={`border-b border-zinc-900 hover:bg-zinc-900/80 ${selectedCode === item.code ? 'bg-zinc-900' : ''}`}
-                onClick={() => onSelect(item.code)}
-              >
-                <td className="px-3 py-3 font-mono text-zinc-400">{item.rank}</td>
-                <td className="px-3 py-3">{item.name}</td>
-                <td className="px-3 py-3 font-mono text-xs text-zinc-400">{item.code}</td>
-                <td className="px-3 py-3 text-zinc-400">{item.etf}</td>
-                <td className="px-3 py-3 font-mono">{safeNum(item.score).toFixed(3)}</td>
-                {activeFactors.map(key => (
-                  <td key={key} className="px-3 py-3 font-mono text-zinc-300">
-                    {safeNum(item.factors?.[key], 0.5).toFixed(2)}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
-  )
-})
-
-RankingTable.displayName = 'RankingTable'
 
 function App() {
   const [data, setData] = useState(null)
@@ -283,6 +155,39 @@ function App() {
     setSelectedCode(code)
   }, [])
 
+  // 派生数据
+  const recommendation = data?.recommendation || {}
+  const health = data?.health || {}
+  const universe = data?.universe || {}
+  const holdings = recommendation.holdings || []
+  const signals = recommendation.signals || []
+  const backtestSummary = backtestData?.summary || {}
+  const inactiveUniverse = universe.inactive || []
+
+  const healthStates = [health.price_data?.status, health.northbound?.status, health.etf_shares?.status]
+  const overallHealth =
+    healthStates.includes('missing') ? 'missing' :
+    healthStates.includes('degraded') ? 'degraded' :
+    healthStates.includes('snapshot') ? 'snapshot' : 'ok'
+
+  const topNames = holdings.slice(0, 3).map(item => item.name).join('、')
+  const executionHeadline = signals.length
+    ? `当前建议执行 ${signals.length} 个动作，优先关注 ${topNames || '头部候选'}。`
+    : `当前无新增调仓动作，继续跟踪 ${topNames || '头部候选'}。`
+
+  const overviewHealth = [
+    { label: '价格数据', value: health.price_data?.status || 'unknown', detail: `${health.price_data?.available_count || 0}/${health.price_data?.expected_count || 0}` },
+    {
+      label: '北向资金',
+      value: health.northbound?.status || 'unknown',
+      detail: health.northbound?.latest_valid_date
+        ? `历史 ${health.northbound.rows || 0} 日，最近连续 ${health.northbound.recent_rows || 0} 日`
+        : `${health.northbound?.rows || 0} rows`
+    },
+    { label: 'ETF 份额', value: health.etf_shares?.status || 'unknown', detail: `历史 ${health.etf_shares?.history_count || 0} / 快照 ${health.etf_shares?.snapshot_count || 0}` }
+  ]
+
+  // 加载中
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
@@ -294,6 +199,7 @@ function App() {
     )
   }
 
+  // 加载错误
   if (loadError) {
     return (
       <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
@@ -310,6 +216,7 @@ function App() {
     )
   }
 
+  // 无数据
   if (!data) {
     return (
       <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
@@ -325,35 +232,6 @@ function App() {
       </div>
     )
   }
-
-  const recommendation = data.recommendation || {}
-  const health = data.health || {}
-  const universe = data.universe || {}
-  const overviewHealth = [
-    { label: '价格数据', value: health.price_data?.status || 'unknown', detail: `${health.price_data?.available_count || 0}/${health.price_data?.expected_count || 0}` },
-    {
-      label: '北向资金',
-      value: health.northbound?.status || 'unknown',
-      detail: health.northbound?.latest_valid_date
-        ? `历史 ${health.northbound.rows || 0} 日，最近连续 ${health.northbound.recent_rows || 0} 日`
-        : `${health.northbound?.rows || 0} rows`
-    },
-    { label: 'ETF 份额', value: health.etf_shares?.status || 'unknown', detail: `历史 ${health.etf_shares?.history_count || 0} / 快照 ${health.etf_shares?.snapshot_count || 0}` }
-  ]
-
-  const holdings = recommendation.holdings || []
-  const signals = recommendation.signals || []
-  const backtestSummary = backtestData?.summary || {}
-  const inactiveUniverse = universe.inactive || []
-  const healthStates = [health.price_data?.status, health.northbound?.status, health.etf_shares?.status]
-  const overallHealth =
-    healthStates.includes('missing') ? 'missing' :
-      healthStates.includes('degraded') ? 'degraded' :
-        healthStates.includes('snapshot') ? 'snapshot' : 'ok'
-  const topNames = holdings.slice(0, 3).map(item => item.name).join('、')
-  const executionHeadline = signals.length
-    ? `当前建议执行 ${signals.length} 个动作，优先关注 ${topNames || '头部候选'}。`
-    : `当前无新增调仓动作，继续跟踪 ${topNames || '头部候选'}。`
 
   return (
     <ErrorBoundary>
@@ -389,12 +267,10 @@ function App() {
                 </button>
               ))}
             </div>
-          </div>
-          <div className="absolute right-4 top-4">
             <button
               onClick={refreshData}
               disabled={refreshing}
-              className={`p-2 rounded-lg border border-zinc-700 hover:bg-zinc-800 transition ${
+              className={`absolute right-4 top-4 p-2 rounded-lg border border-zinc-700 hover:bg-zinc-800 transition ${
                 refreshing ? 'animate-spin' : ''
               }`}
               title="刷新数据"
