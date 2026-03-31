@@ -1,7 +1,23 @@
 import React from 'react'
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip, BarChart, CartesianGrid, XAxis, YAxis, Bar } from 'recharts'
-import { Card, AttributionRow } from '../components/Card'
 import { safeNum, factorNames } from '../utils'
+
+const Card = ({ title, subtitle, children }) => (
+  <section className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
+    <div className="mb-4">
+      <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
+      {subtitle ? <p className="mt-1 text-sm text-zinc-500">{subtitle}</p> : null}
+    </div>
+    {children}
+  </section>
+)
+
+const AttributionRow = ({ label, value }) => (
+  <div className="flex items-center justify-between rounded-lg bg-zinc-900/70 px-3 py-2">
+    <span className="text-zinc-500">{label}</span>
+    <span className="font-mono text-zinc-100">{value}</span>
+  </div>
+)
 
 const FactorsPage = ({ data, selected, activeFactors, auxFactors }) => {
   const selectedFactors = selected?.factors || {}

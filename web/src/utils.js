@@ -36,25 +36,12 @@ export const statusTone = {
   missing: 'text-red-200 border-red-500/30 bg-red-500/10'
 }
 
-// Tab 配置
-export const tabs = [
-  ['overview', '总览'],
-  ['factors', '因子'],
-  ['backtest', '回测'],
-  ['reports', '报告']
-]
-
-// 加载数据
+// 加载主数据
 export const loadData = async () => {
   try {
     const res = await fetch('./ranking.json')
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
     const data = await res.json()
-    if (!data.ranking || data.ranking.length === 0) {
-      console.warn('ranking.json 加载成功但数据为空')
-    }
     return {
       ranking: data.ranking || [],
       factorWeights: data.factor_weights || {},
@@ -78,9 +65,7 @@ export const loadData = async () => {
 export const loadBacktestData = async () => {
   try {
     const res = await fetch('./backtest.json')
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
     const data = await res.json()
     return {
       summary: data.summary || {},

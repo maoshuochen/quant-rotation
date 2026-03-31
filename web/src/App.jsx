@@ -3,8 +3,13 @@ import ErrorBoundary from './ErrorBoundary'
 import OverviewPage from './pages/OverviewPage'
 import FactorsPage from './pages/FactorsPage'
 import BacktestPage from './pages/BacktestPage'
-import ReportsPage from './pages/ReportsPage'
-import { loadData, loadBacktestData, tabs, factorNames } from './utils'
+import { loadData, loadBacktestData } from './utils'
+
+const tabs = [
+  ['overview', '总览'],
+  ['factors', '因子'],
+  ['backtest', '回测']
+]
 
 function App() {
   const [data, setData] = useState(null)
@@ -145,7 +150,6 @@ function App() {
             />
           )}
           {tab === 'backtest' && <BacktestPage backtestData={backtestData} />}
-          {tab === 'reports' && <ReportsPage />}
         </main>
       </div>
     </ErrorBoundary>

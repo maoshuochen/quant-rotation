@@ -1,7 +1,28 @@
 import React from 'react'
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
-import { Card, MetricCard } from '../components/Card'
 import { safeNum, pct } from '../utils'
+
+const Card = ({ title, subtitle, children }) => (
+  <section className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
+    <div className="mb-4">
+      <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
+      {subtitle ? <p className="mt-1 text-sm text-zinc-500">{subtitle}</p> : null}
+    </div>
+    {children}
+  </section>
+)
+
+const MetricCard = ({ label, value, sub, positive }) => (
+  <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
+    <div className="text-xs uppercase tracking-wider text-zinc-500">{label}</div>
+    <div className={`mt-2 text-xl font-semibold ${
+      positive === true ? 'text-emerald-300' : positive === false ? 'text-red-300' : 'text-zinc-50'
+    }`}>
+      {value}
+    </div>
+    {sub ? <div className="mt-1 text-xs text-zinc-500">{sub}</div> : null}
+  </div>
+)
 
 const BacktestPage = ({ backtestData }) => {
   const backtestSummary = backtestData?.summary || {}

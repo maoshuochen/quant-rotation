@@ -1,7 +1,52 @@
 import React from 'react'
-import { Card, MetricCard, HighlightStat } from '../components/Card'
-import { RankingTable } from '../components/RankingTable'
 import { safeNum, pct, healthCopy, statusTone, factorNames } from '../utils'
+
+// 内联组件 - Card
+const Card = ({ title, subtitle, children }) => (
+  <section className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
+    <div className="mb-4">
+      <h2 className="text-lg font-semibold text-zinc-100">{title}</h2>
+      {subtitle ? <p className="mt-1 text-sm text-zinc-500">{subtitle}</p> : null}
+    </div>
+    {children}
+  </section>
+)
+
+// 内联组件 - MetricCard
+const MetricCard = ({ label, value, sub, positive }) => (
+  <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4">
+    <div className="text-xs uppercase tracking-wider text-zinc-500">{label}</div>
+    <div className={`mt-2 text-xl font-semibold ${
+      positive === true ? 'text-emerald-300' : positive === false ? 'text-red-300' : 'text-zinc-50'
+    }`}>
+      {value}
+    </div>
+    {sub ? <div className="mt-1 text-xs text-zinc-500">{sub}</div> : null}
+  </div>
+)
+
+// 内联组件 - HighlightStat
+const HighlightStat = ({ label, value, detail, tone }) => (
+  <div className={`rounded-2xl border p-4 ${
+    tone === 'ok' ? 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10' :
+    tone === 'degraded' ? 'text-amber-200 border-amber-500/30 bg-amber-500/10' :
+    tone === 'snapshot' ? 'text-sky-200 border-sky-500/30 bg-sky-500/10' :
+    tone === 'missing' ? 'text-red-200 border-red-500/30 bg-red-500/10' :
+    'border-zinc-800 bg-zinc-900/60 text-zinc-50'
+  }`}>
+    <div className="text-xs uppercase tracking-wider opacity-80">{label}</div>
+    <div className="mt-2 text-lg font-semibold">{value}</div>
+    {detail ? <div className="mt-1 text-xs opacity-80">{detail}</div> : null}
+  </div>
+)
+
+// 内联组件 - AttributionRow（用于 FactorsPage）
+export const AttributionRow = ({ label, value }) => (
+  <div className="flex items-center justify-between rounded-lg bg-zinc-900/70 px-3 py-2">
+    <span className="text-zinc-500">{label}</span>
+    <span className="font-mono text-zinc-100">{value}</span>
+  </div>
+)
 
 const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
   const recommendation = data?.recommendation || {}
@@ -243,7 +288,48 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
         </Card>
       </section>
 
-      <RankingTable data={data} selectedCode={selectedCode} onSelect={onSelectCode} />
+      <section className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold text-zinc-100">指数排名（共 {data?.ranking?.length || 0} 只）</h2>
+          <p className="mt-1 text-sm text-zinc-500">保留完整横截面信息，服务复盘与人工判断</p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm">
+            <thead className="border-b border-zinc-800 text-left text-xs uppercase tracking-wider text-zinc-500">
+              <tr>
+                <th className="px-3 py-3">#</th>
+                <th className="px-3 py-3">名称</th>
+                <th className="px-3 py-3">代码</th>
+                <th className="px-3 py-3">ETF</th>
+                <th className="px-3 py-3">总分</th>
+                {activeFactors.map(key => (
+                  <th key={key} className="px-3 py-3">{factorNames[key] || key}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data?.ranking?.map(item => (
+                <tr
+                  key={item.code}
+                  className={`border-b border-zinc-900 hover:bg-zinc-900/80 ${selectedCode === item.code ? 'bg-zinc-900' : ''}`}
+                  onClick={() => onSelectCode(item.code)}
+                >
+                  <td className="px-3 py-3 font-mono text-zinc-400">{item.rank}</td>
+                  <td className="px-3 py-3">{item.name}</td>
+                  <td className="px-3 py-3 font-mono text-xs text-zinc-400">{item.code}</td>
+                  <td className="px-3 py-3 text-zinc-400">{item.etf}</td>
+                  <td className="px-3 py-3 font-mono">{safeNum(item.score).toFixed(3)}</td>
+                  {activeFactors.map(key => (
+                    <td key={key} className="px-3 py-3 font-mono text-zinc-300">
+                      {safeNum(item.factors?.[key], 0.5).toFixed(2)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </>
   )
 }
