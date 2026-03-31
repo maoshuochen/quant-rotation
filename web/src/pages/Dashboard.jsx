@@ -250,8 +250,6 @@ const Dashboard = ({
             <span className="text-zinc-300">{data.updateTime}</span>
             <span className="text-zinc-700">·</span>
             <span>{data.marketRegimeDesc || data.marketRegime}</span>
-            <span className="text-zinc-700">·</span>
-            <span>模型：{data.factorModel?.baseline_name || 'v1'}</span>
           </div>
         </div>
       </header>
