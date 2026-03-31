@@ -6,27 +6,31 @@ strategy:
   momentum_window: 126
 
 factor_model:
-  baseline_name: "core_rotation_v1"
+  baseline_name: "core_rotation_v2"
+  # 主模型因子 - 仅保留 3 个有效因子 (基于贝叶斯优化结果)
+  # trend (趋势): 40% - 均线位置，最重要
+  # flow (资金流): 36% - 成交量/北向/ETF 份额
+  # momentum (动量): 24% - 6 月收益率
   active_factors:
     - momentum
     - trend
-    - value
-    - relative_strength
-  auxiliary_factors:
-    - volatility
     - flow
-  experimental_factors:
-    - fundamental
-    - sentiment
 
-# 基于多目标贝叶斯优化结果 (2025-01 ~ 2026-03)
+  # 辅助因子 - 用于解释和人工复核，不参与主分计算
+  auxiliary_factors:
+    - value         # 估值分位
+    - volatility    # 年化波动
+    - relative_strength  # 相对强弱 (归因用)
+
+  # 实验因子 - 预留扩展
+  experimental_factors: []
+
+# 因子权重 (基于多目标贝叶斯优化结果 2025-01 ~ 2026-03)
 # 优化目标：综合评分 (夏普比率 40% + 回撤 30% + 收益 30%)
 factor_weights:
-  momentum: 0.24        # 动量 - 6 月收益率 (优化权重 24% ⭐)
-  trend: 0.40           # 趋势 - 均线位置 (优化权重 40% ⭐)
-  value: 0.05           # 估值 - 价格分位 (优化权重 5%)
-  flow: 0.40            # 资金流 - 成交量/金额趋势 (优化权重 40% ⭐)
-  volatility: 0.04      # 波动 - 低波动高分 (优化权重 4%)
-  relative_strength: 0.00
-  fundamental: 0.00
-  sentiment: 0.00
+  momentum: 0.24    # 动量 - 6 月收益率 (优化权重 24% ⭐)
+  trend: 0.40       # 趋势 - 均线位置 (优化权重 40% ⭐)
+  flow: 0.36        # 资金流 - 成交量/北向/ETF (优化权重 36% ⭐)
+  value: 0.00       # 估值 - 价格分位 (辅助因子)
+  volatility: 0.00  # 波动 - 低波动高分 (辅助因子)
+  relative_strength: 0.00  # 相对强弱 (辅助因子)
