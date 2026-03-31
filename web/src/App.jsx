@@ -42,7 +42,13 @@ const pct = (value, digits = 1) => `${(safeNum(value) * 100).toFixed(digits)}%`
 const loadData = async () => {
   try {
     const res = await fetch('./ranking.json')
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+    }
     const data = await res.json()
+    if (!data.ranking || data.ranking.length === 0) {
+      console.warn('ranking.json 加载成功但数据为空')
+    }
     return {
       ranking: data.ranking || [],
       factorWeights: data.factor_weights || {},
@@ -57,7 +63,7 @@ const loadData = async () => {
       universe: data.universe || {}
     }
   } catch (err) {
-    console.error('加载 ranking.json 失败:', err)
+    console.error('加载 ranking.json 失败:', err.message)
     return null
   }
 }
@@ -65,13 +71,16 @@ const loadData = async () => {
 const loadBacktestData = async () => {
   try {
     const res = await fetch('./backtest.json')
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+    }
     const data = await res.json()
     return {
       summary: data.summary || {},
       chartData: data.chart_data || []
     }
   } catch (err) {
-    console.error('加载 backtest.json 失败:', err)
+    console.error('加载 backtest.json 失败:', err.message)
     return null
   }
 }
