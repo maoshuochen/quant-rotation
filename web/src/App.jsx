@@ -41,7 +41,7 @@ const pct = (value, digits = 1) => `${(safeNum(value) * 100).toFixed(digits)}%`
 
 const loadData = async () => {
   try {
-    const res = await fetch('/ranking.json')
+    const res = await fetch('./ranking.json')
     const data = await res.json()
     return {
       ranking: data.ranking || [],
@@ -64,7 +64,7 @@ const loadData = async () => {
 
 const loadBacktestData = async () => {
   try {
-    const res = await fetch('/backtest.json')
+    const res = await fetch('./backtest.json')
     const data = await res.json()
     return {
       summary: data.summary || {},
