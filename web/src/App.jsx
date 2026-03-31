@@ -86,11 +86,11 @@ function App() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-zinc-950 text-zinc-50">
-        <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur">
+        <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-xl animate-fade-in">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-zinc-500">Core Rotation</div>
-              <h1 className="mt-1 text-xl font-semibold">指数轮动决策面板</h1>
+              <h1 className="mt-1 text-xl font-semibold text-gradient">指数轮动决策面板</h1>
               <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-zinc-400">
                 <span>{data.updateTime}</span>
                 <span className="text-zinc-700">·</span>
@@ -104,8 +104,8 @@ function App() {
                 <button
                   key={key}
                   onClick={() => setTab(key)}
-                  className={`rounded-lg px-3 py-1.5 text-sm transition ${
-                    tab === key ? 'bg-white text-zinc-950' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
+                  className={`rounded-lg px-3 py-1.5 text-sm transition-all duration-200 ${
+                    tab === key ? 'bg-white text-zinc-950 shadow-lg' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
                   }`}
                 >
                   {label}
@@ -115,7 +115,7 @@ function App() {
             <button
               onClick={refreshData}
               disabled={refreshing}
-              className={`absolute right-4 top-4 p-2 rounded-lg border border-zinc-700 hover:bg-zinc-800 transition ${
+              className={`absolute right-4 top-4 p-2 rounded-lg border border-zinc-700 transition-all duration-200 hover:bg-zinc-800 hover:scale-110 ${
                 refreshing ? 'animate-spin' : ''
               }`}
               title="刷新数据"

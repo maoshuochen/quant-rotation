@@ -39,9 +39,9 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
   return (
     <>
       <section className="grid gap-4 lg:grid-cols-[1.35fr_0.95fr]">
-        <section className="overflow-hidden rounded-3xl border border-zinc-800 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.16),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.14),_transparent_30%),linear-gradient(135deg,_rgba(24,24,27,0.96),_rgba(9,9,11,0.98))] p-6">
+        <section className="overflow-hidden rounded-3xl border border-zinc-800 gradient-hero p-6 backdrop-blur-xl animate-fade-in">
           <div className="text-xs uppercase tracking-[0.28em] text-zinc-500">Weekly Decision Brief</div>
-          <h2 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight">
+          <h2 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight text-gradient">
             本周主结论：{topNames || '等待新信号'} 仍是当前最值得优先配置的方向。
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-300">
@@ -51,12 +51,12 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
             </span>
             ，主模型只使用 {activeFactors.length} 个因子参与总分，辅助因子仅用于解释和人工复核。
           </p>
-          <div className="mt-6 flex flex-wrap gap-2 text-sm">
-            {holdings.slice(0, 5).map(item => (
+          <div className="mt-6 flex flex-wrap gap-2">
+            {holdings.slice(0, 5).map((item, idx) => (
               <button
                 key={item.code}
                 onClick={() => onSelectCode(item.code)}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-zinc-100 transition hover:bg-white/10"
+                className={`rounded-full border border-white/10 bg-white/5 px-3 py-2 text-zinc-100 transition hover:bg-white/10 hover:scale-105 active:scale-95 ${idx === 0 ? 'glow-amber' : ''}`}
               >
                 {item.name} · {safeNum(item.score).toFixed(3)}
               </button>
@@ -83,7 +83,7 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
         </section>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-4 animate-slide-up">
         <MetricCard label="当前市场状态" value={data.marketRegimeDesc || data.marketRegime} sub="基于沪深 300 趋势识别" />
         <MetricCard label="本周建议持仓" value={`${recommendation.top_n || 0} 只`} sub={`缓冲卖出阈值 Top ${recommendation.buffer_n || 0}`} />
         <MetricCard
@@ -102,30 +102,30 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
       <section className="grid gap-4 lg:grid-cols-[1.6fr_1fr]">
         <Card title="本周建议持仓" subtitle="优先回答&#39;现在该持有什么、为什么持有&#39;">
           <div className="space-y-3">
-            {holdings.map(item => (
+            {holdings.map((item, idx) => (
               <button
                 key={item.code}
                 onClick={() => onSelectCode(item.code)}
-                className="flex w-full items-start justify-between rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 text-left transition hover:border-zinc-700 hover:bg-zinc-900"
+                className={`flex w-full items-start justify-between rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 text-left transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-lg active:scale-[0.99] ${idx === 0 ? 'glow-amber/20' : ''}`}
               >
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-xs font-semibold text-white">
+                    <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold text-white ${idx === 0 ? 'bg-amber-500' : idx === 1 ? 'bg-zinc-400' : idx === 2 ? 'bg-amber-700' : 'bg-white/10'}`}>
                       {item.rank}
                     </span>
-                    <span className="font-medium">{item.name}</span>
+                    <span className="font-medium text-zinc-100">{item.name}</span>
                     <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400">{item.etf}</span>
                   </div>
                   <div className="mt-2 text-sm text-zinc-300">
-                    强项：{item.strongest_factors?.map(key => factorNames[key] || key).join('、') || '无'}
+                    强项：<span className="text-gradient-amber">{item.strongest_factors?.map(key => factorNames[key] || key).join('、') || '无'}</span>
                   </div>
                   <div className="mt-1 text-xs text-zinc-500">
-                    需关注：{item.weakest_factors?.map(key => factorNames[key] || key).join('、') || '无'}
+                    需关注：<span className="text-zinc-400">{item.weakest_factors?.map(key => factorNames[key] || key).join('、') || '无'}</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="text-xs text-zinc-500">综合得分</div>
-                  <div className="font-mono text-lg">{safeNum(item.score).toFixed(3)}</div>
+                  <div className="font-mono text-lg text-gradient">{safeNum(item.score).toFixed(3)}</div>
                 </div>
               </button>
             ))}
@@ -144,13 +144,32 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
               <div className="text-xs uppercase tracking-wider text-zinc-500">本次信号</div>
               <div className="mt-2 space-y-2 text-sm">
                 {signals.length === 0 ? (
-                  <div className="text-zinc-400">当前没有新增买卖信号，维持现有候选持仓。</div>
+                  <div className="flex items-center gap-2 text-zinc-400">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    当前没有新增买卖信号，维持现有候选持仓。
+                  </div>
                 ) : (
                   signals.map((signal, index) => (
                     <div key={`${signal.code}-${index}`} className="flex items-center justify-between rounded-lg bg-zinc-950 px-3 py-2">
-                      <span>{signal.code}</span>
-                      <span className={signal.action === 'buy' ? 'text-emerald-300' : 'text-red-300'}>
-                        {signal.action === 'buy' ? '买入候选' : '卖出候选'}
+                      <span className="font-mono text-sm">{signal.code}</span>
+                      <span className={`flex items-center gap-1 text-sm ${signal.action === 'buy' ? 'text-emerald-300' : 'text-red-300'}`}>
+                        {signal.action === 'buy' ? (
+                          <>
+                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            买入候选
+                          </>
+                        ) : (
+                          <>
+                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                            </svg>
+                            卖出候选
+                          </>
+                        )}
                       </span>
                     </div>
                   ))
@@ -165,7 +184,7 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
         <Card title="数据与运行健康度" subtitle="先看结果，再确认结果是否值得信任">
           <div className="grid gap-3 md:grid-cols-3">
             {overviewHealth.map(item => (
-              <div key={item.label} className={`rounded-xl border p-4 ${statusTone[item.value] || 'border-zinc-700 bg-zinc-900 text-zinc-200'}`}>
+              <div key={item.label} className={`rounded-xl border p-4 transition-all duration-300 hover:shadow-lg ${statusTone[item.value] || 'border-zinc-700 bg-zinc-900 text-zinc-200'}`}>
                 <div className="text-xs uppercase tracking-wider opacity-80">{item.label}</div>
                 <div className="mt-2 text-lg font-medium">{item.value}</div>
                 <div className="mt-1 text-xs opacity-80">{item.detail}</div>
@@ -173,12 +192,18 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
             ))}
           </div>
           {!!health.price_data?.stale_codes?.length && (
-            <div className="mt-4 text-sm text-amber-200">
+            <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-sm text-amber-200">
+              <svg className="mt-0.5 h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
               价格数据存在较久未更新标的：{health.price_data.stale_codes.join('、')}
             </div>
           )}
           {!!health.etf_shares?.missing_codes?.length && (
-            <div className="mt-2 text-sm text-zinc-400">
+            <div className="mt-2 flex items-start gap-2 rounded-xl border border-zinc-700 bg-zinc-800/50 p-3 text-sm text-zinc-400">
+              <svg className="mt-0.5 h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               ETF 份额缺失标的：{health.etf_shares.missing_codes.join('、')}
             </div>
           )}
@@ -203,16 +228,16 @@ const OverviewPage = ({ data, backtestData, selectedCode, onSelectCode }) => {
               .map(([key, weight]) => (
                 <div key={key}>
                   <div className="mb-1 flex items-center justify-between text-sm">
-                    <span>{factorNames[key] || key}</span>
+                    <span className="text-zinc-300">{factorNames[key] || key}</span>
                     <span className="font-mono text-zinc-300">{(safeNum(weight) * 100).toFixed(0)}%</span>
                   </div>
                   <div className="h-2 rounded-full bg-zinc-800">
-                    <div className="h-2 rounded-full bg-white" style={{ width: `${safeNum(weight) * 100}%` }} />
+                    <div className="h-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-400" style={{ width: `${safeNum(weight) * 100}%` }} />
                   </div>
                 </div>
               ))}
             <div className="pt-2 text-xs leading-6 text-zinc-500">
-              主模型因子：{activeFactors.map(key => factorNames[key] || key).join('、')}。
+              主模型因子：<span className="text-gradient">{activeFactors.map(key => factorNames[key] || key).join('、')}</span>。
             </div>
           </div>
         </Card>

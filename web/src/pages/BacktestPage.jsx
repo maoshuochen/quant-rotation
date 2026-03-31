@@ -8,7 +8,7 @@ const BacktestPage = ({ backtestData }) => {
 
   return (
     <div className="space-y-4">
-      <section className="grid gap-4 md:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-4 animate-fade-in">
         <MetricCard
           label="总收益"
           value={backtestSummary.total_return !== undefined ? pct(backtestSummary.total_return) : '暂无'}
@@ -35,12 +35,25 @@ const BacktestPage = ({ backtestData }) => {
         {backtestData?.chartData?.length ? (
           <ResponsiveContainer width="100%" height={320}>
             <AreaChart data={backtestData.chartData}>
+              <defs>
+                <linearGradient id="colorReturn" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                </linearGradient>
+                <linearGradient id="colorDrawdown" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#f87171" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#f87171" stopOpacity={0}/>
+                </linearGradient>
+              </defs>
               <CartesianGrid stroke="#27272a" strokeDasharray="3 3" />
               <XAxis dataKey="date" tick={{ fill: '#71717a', fontSize: 10 }} minTickGap={32} />
               <YAxis tick={{ fill: '#71717a', fontSize: 10 }} />
-              <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a' }} />
-              <Area type="monotone" dataKey="cum_return" stroke="#fafafa" fill="#fafafa" fillOpacity={0.16} />
-              <Area type="monotone" dataKey="drawdown" stroke="#f87171" fill="#f87171" fillOpacity={0.1} />
+              <Tooltip
+                contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }}
+                labelStyle={{ color: '#a1a1aa' }}
+              />
+              <Area type="monotone" dataKey="cum_return" stroke="#f59e0b" fill="url(#colorReturn)" strokeWidth={2} />
+              <Area type="monotone" dataKey="drawdown" stroke="#f87171" fill="url(#colorDrawdown)" />
             </AreaChart>
           </ResponsiveContainer>
         ) : (

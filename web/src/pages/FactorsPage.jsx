@@ -21,15 +21,20 @@ const FactorsPage = ({ data, selected, activeFactors, auxFactors }) => {
 
   return (
     <>
-      <section className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
+      <section className="grid gap-4 lg:grid-cols-[1.2fr_1fr] animate-fade-in">
         <Card title={`${selected.name} · 因子画像`} subtitle="主模型与辅助因子分开展示，避免解释和主分混淆">
           <div className="grid gap-3 md:grid-cols-3">
-            {[...activeFactors, ...auxFactors].map(key => (
-              <div key={key} className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+            {[...activeFactors, ...auxFactors].map((key, idx) => (
+              <div key={key} className="group rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-lg">
                 <div className="text-xs uppercase tracking-wider text-zinc-500">{factorNames[key] || key}</div>
-                <div className="mt-2 text-2xl font-semibold">{safeNum(selectedFactors[key], 0.5).toFixed(2)}</div>
+                <div className={`mt-2 text-2xl font-semibold ${idx < activeFactors.length ? 'text-gradient-amber' : 'text-gradient'}`}>
+                  {safeNum(selectedFactors[key], 0.5).toFixed(2)}
+                </div>
                 <div className="mt-2 h-2 rounded-full bg-zinc-800">
-                  <div className="h-2 rounded-full bg-white" style={{ width: `${safeNum(selectedFactors[key], 0.5) * 100}%` }} />
+                  <div
+                    className={`h-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-400 transition-all duration-500 ${idx >= activeFactors.length ? 'from-blue-400 to-cyan-400' : ''}`}
+                    style={{ width: `${safeNum(selectedFactors[key], 0.5) * 100}%` }}
+                  />
                 </div>
               </div>
             ))}
@@ -49,15 +54,15 @@ const FactorsPage = ({ data, selected, activeFactors, auxFactors }) => {
         </Card>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-2">
+      <section className="grid gap-4 lg:grid-cols-2 animate-slide-up">
         <Card title="主模型雷达图" subtitle="只看当前参与总分的因子">
           <ResponsiveContainer width="100%" height={260}>
             <RadarChart data={radarData}>
               <PolarGrid stroke="#3f3f46" />
               <PolarAngleAxis dataKey="factor" tick={{ fill: '#a1a1aa', fontSize: 12 }} />
               <PolarRadiusAxis angle={30} domain={[0, 1]} tick={{ fill: '#71717a', fontSize: 10 }} />
-              <Radar name="score" dataKey="score" stroke="#fafafa" fill="#fafafa" fillOpacity={0.15} />
-              <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a' }} />
+              <Radar name="score" dataKey="score" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.2} />
+              <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }} />
             </RadarChart>
           </ResponsiveContainer>
         </Card>
@@ -68,7 +73,7 @@ const FactorsPage = ({ data, selected, activeFactors, auxFactors }) => {
               <CartesianGrid stroke="#27272a" strokeDasharray="3 3" />
               <XAxis type="number" domain={[0, 1]} tick={{ fill: '#71717a', fontSize: 10 }} />
               <YAxis dataKey="name" type="category" tick={{ fill: '#a1a1aa', fontSize: 11 }} width={60} />
-              <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a' }} />
+              <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }} />
               <Bar dataKey="score" fill="#fafafa" radius={[0, 6, 6, 0]} />
             </BarChart>
           </ResponsiveContainer>
