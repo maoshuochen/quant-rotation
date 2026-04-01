@@ -91,61 +91,35 @@ class MarketRegimeDetector:
         """
         根据市场状态返回动态因子权重
 
-        使用调整因子（multipliers）方式：
-        - 牛市：提升动量、趋势因子权重
-        - 熊市：提升估值、波动因子权重
-        - 震荡市：提升资金流、相对强弱因子权重
-
         参数:
             regime: 市场状态 ('bull', 'bear', 'sideways')
-            base_weights: 基础权重配置（从 config.yaml 加载）
+            base_weights: 基础权重配置
 
         返回:
             调整后的权重字典（已归一化）
         """
-        # 调整因子（乘数）
-        # >1.0 表示提升权重，<1.0 表示降低权重
+        # 只调整活跃因子 (momentum, trend, flow)
+        # 牛市：进攻型，重视动量和趋势
+        # 熊市：防御型，重视资金流
+        # 震荡市：平衡型，重视资金流
 
-        # 牛市配置：进攻型，重视动量和趋势
-        bull_adjustments = {
-            'momentum': 1.5,        # +50%
-            'trend': 1.3,           # +30%
-            'value': 0.7,           # -30%
-            'volatility': 0.7,      # -30%
-            'flow': 1.2,            # +20% (IC 显著有效)
-            'fundamental': 1.0,     # 不变
-            'sentiment': 1.0        # 不变
-        }
-
-        # 熊市配置：防御型，重视估值和低波
-        bear_adjustments = {
-            'momentum': 0.5,        # -50%
-            'trend': 0.5,           # -50%
-            'value': 1.5,           # +50%
-            'volatility': 1.3,      # +30%
-            'flow': 1.3,            # +30% (IC 显著有效)
-            'fundamental': 1.2,     # +20%
-            'sentiment': 0.8        # -20%
-        }
-
-        # 震荡市配置：平衡型，重视资金流和相对强弱
-        sideways_adjustments = {
-            'momentum': 0.8,        # -20%
-            'trend': 0.8,           # -20%
-            'value': 1.0,           # 不变
-            'volatility': 0.8,      # -20% (IC≈0 无效)
-            'flow': 1.5,            # +50% (IC 显著有效 ⭐)
-            'fundamental': 1.0,     # 不变
-            'sentiment': 1.0        # 不变
-        }
-
-        regime_map = {
-            'bull': bull_adjustments,
-            'bear': bear_adjustments,
-            'sideways': sideways_adjustments
-        }
-
-        adjustments = regime_map.get(regime, sideways_adjustments)
+        adjustments = {
+            'bull': {
+                'momentum': 1.5,    # +50%
+                'trend': 1.3,       # +30%
+                'flow': 1.2         # +20%
+            },
+            'bear': {
+                'momentum': 0.5,    # -50%
+                'trend': 0.5,       # -50%
+                'flow': 1.3         # +30%
+            },
+            'sideways': {
+                'momentum': 0.8,    # -20%
+                'trend': 0.8,       # -20%
+                'flow': 1.5         # +50%
+            }
+        }.get(regime, {'momentum': 1.0, 'trend': 1.0, 'flow': 1.0})
 
         # 应用调整到基础权重
         final_weights = {}
@@ -159,7 +133,6 @@ class MarketRegimeDetector:
             final_weights = {k: v / total for k, v in final_weights.items()}
 
         logger.info(f"动态权重 ({regime}): {final_weights}")
-
         return final_weights
 
 

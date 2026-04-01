@@ -1,13 +1,8 @@
-// 因子名称映射
+// 因子名称映射（仅活跃因子）
 export const factorNames = {
   momentum: '动量',
   trend: '趋势',
-  value: '估值',
-  relative_strength: '强弱',
-  volatility: '波动',
-  flow: '资金流',
-  fundamental: '基本面',
-  sentiment: '情绪'
+  flow: '资金流'
 }
 
 // 安全数值转换

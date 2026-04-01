@@ -11,27 +11,19 @@ logger = logging.getLogger(__name__)
 
 class ScoringEngine:
     """评分引擎 - 基于 ETF 数据"""
-    
+
     def __init__(self, config: dict):
         self.config = config
         self.weights = config.get('factor_weights', {})
         factor_model = config.get('factor_model', {})
-        # 从配置加载 active_factors，如果未配置则从 factor_weights 中推断
-        # 有权重 (>0) 的因子视为 active
+        # 从配置加载 active_factors，如果未配置则使用默认值
         if 'active_factors' in factor_model:
             self.active_factors = factor_model['active_factors']
         else:
-            # 自动推断：所有有权重配置的因子
-            self.active_factors = [k for k in self.weights.keys() if k not in ['fundamental', 'sentiment']]
+            # 默认活跃因子：momentum, trend, flow
+            self.active_factors = ['momentum', 'trend', 'flow']
 
-        self.auxiliary_factors = factor_model.get(
-            'auxiliary_factors',
-            []
-        )
-        self.experimental_factors = factor_model.get(
-            'experimental_factors',
-            []
-        )
+        self.auxiliary_factors = factor_model.get('auxiliary_factors', [])
     
     def calc_momentum_score(self, returns: pd.Series) -> float:
         """
