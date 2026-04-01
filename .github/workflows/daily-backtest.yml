@@ -54,6 +54,16 @@ jobs:
         run: |
           python scripts/generate_web_data.py || echo "Generate web data skipped"
 
+      - name: Generate history data
+        run: |
+          python scripts/generate_history_data.py
+
+      - name: Build frontend
+        run: |
+          cd web
+          npm ci
+          npm run build
+
       - name: Collect results
         id: collect
         run: |
@@ -71,15 +81,15 @@ jobs:
           print(f'DATE={latest[\"date\"]}')
           " >> $GITHUB_OUTPUT
 
-      - name: Commit results to gh-pages
+      - name: Commit and push results
         uses: peaceiris/actions-gh-pages@v4
         if: github.event_name != 'pull_request'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./backtest_results
-          destination_dir: data
+          publish_dir: ./web/dist
+          destination_dir: .
           commit_message: |
-            chore: daily backtest update [skip ci]
+            chore: auto update backtest and history data [skip ci]
 
             Date: ${{ steps.collect.outputs.DATE }}
             Daily: ${{ steps.collect.outputs.DAILY_RETURN }}%
