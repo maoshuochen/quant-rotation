@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 import json
 from datetime import datetime
+import pandas as pd
 
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
@@ -39,31 +40,37 @@ def run_scoring():
     
     # 转换为列表 (需要从 ranking_df 提取数据)
     ranking = []
-    
+
     # 从 scores_dict 获取名称和 ETF 信息
     scores_dict = {}  # 需要在策略中保存
-    
+
+    # 只保存活跃因子
+    active_factors = strategy.config.get('factor_model', {}).get('active_factors', ['momentum', 'trend', 'flow'])
+
     for _, row in ranking_df.iterrows():
         code = row['code']
-        
+
         # 查找指数信息
         idx_info = {}
         for idx in strategy.indices:
             if idx.get('code') == code:
                 idx_info = idx
                 break
-        
-        # 提取因子得分（排除归因数据）
+
+        # 只提取活跃因子得分
         factors = {}
         attribution = {}
+        for factor in active_factors:
+            if factor in row and isinstance(row[factor], (int, float)) and not pd.isna(row[factor]):
+                factors[factor] = round(float(row[factor]), 4)
+            else:
+                factors[factor] = 0.5
+
+        # 归因数据保留所有
         for k, v in row.items():
-            if k in ['code', 'total_score', 'rank']:
-                continue
             if k == 'attribution':
                 attribution = v if isinstance(v, dict) else {}
-            else:
-                factors[k] = round(v, 4) if isinstance(v, (int, float)) else v
-        
+
         item = {
             'code': code,
             'name': idx_info.get('name', code),
@@ -101,9 +108,16 @@ def run_scoring():
         item['factors'] = convert_np(item.get('factors', {}))
     
     # 生成 ranking.json
+    # 只保留活跃因子的权重
+    active_factors = strategy.config.get('factor_model', {}).get('active_factors', ['momentum', 'trend', 'flow'])
+    factor_weights_filtered = {
+        k: v for k, v in strategy.config.get('factor_weights', {}).items()
+        if k in active_factors
+    }
+
     ranking_data = {
         'ranking': ranking,
-        'factor_weights': strategy.config.get('factor_weights', {}),
+        'factor_weights': factor_weights_filtered,
         'score_weights': strategy.scorer.current_weights,
         'factor_model': strategy.config.get('factor_model', {}),
         'dynamic_weights': strategy.scorer.current_weights,

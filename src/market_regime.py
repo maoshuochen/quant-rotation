@@ -96,9 +96,11 @@ class MarketRegimeDetector:
             base_weights: 基础权重配置
 
         返回:
-            调整后的权重字典（已归一化）
+            调整后的权重字典（仅包含活跃因子，已归一化）
         """
-        # 只调整活跃因子 (momentum, trend, flow)
+        # 只处理活跃因子 (momentum, trend, flow)
+        active_factors = ['momentum', 'trend', 'flow']
+
         # 牛市：进攻型，重视动量和趋势
         # 熊市：防御型，重视资金流
         # 震荡市：平衡型，重视资金流
@@ -121,11 +123,13 @@ class MarketRegimeDetector:
             }
         }.get(regime, {'momentum': 1.0, 'trend': 1.0, 'flow': 1.0})
 
-        # 应用调整到基础权重
+        # 只对活跃因子应用调整
         final_weights = {}
-        for key, base_weight in base_weights.items():
-            adjustment = adjustments.get(key, 1.0)
-            final_weights[key] = base_weight * adjustment
+        for factor in active_factors:
+            base_weight = base_weights.get(factor, 0)
+            if base_weight > 0:
+                adjustment = adjustments.get(factor, 1.0)
+                final_weights[factor] = base_weight * adjustment
 
         # 归一化（确保总和为 1）
         total = sum(final_weights.values())

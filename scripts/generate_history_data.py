@@ -107,19 +107,19 @@ def get_historical_rankings(
 
         # 提取前 20 名
         top_ranking = []
+        # 只保存活跃因子
+        active_factors = scorer.active_factors
         for _, row in ranking_df.head(20).iterrows():
             code = row['code']
             idx_info = next((idx for idx in indices if idx.get('code') == code), {})
 
-            # 提取因子得分
+            # 只提取活跃因子得分
             factors = {}
-            for col in ranking_df.columns:
-                if col not in ['code', 'total_score', 'rank', 'attribution']:
-                    val = row[col]
-                    if isinstance(val, (int, float)) and not pd.isna(val):
-                        factors[col] = round(float(val), 4)
-                    else:
-                        factors[col] = 0
+            for factor in active_factors:
+                if factor in row and isinstance(row[factor], (int, float)) and not pd.isna(row[factor]):
+                    factors[factor] = round(float(row[factor]), 4)
+                else:
+                    factors[factor] = 0.5
 
             top_ranking.append({
                 'code': code,
@@ -135,12 +135,20 @@ def get_historical_rankings(
         for _, row in ranking_df.head(5).iterrows():
             code = row['code']
             idx_info = next((idx for idx in indices if idx.get('code') == code), {})
+            # 持仓也需要因子数据
+            factors = {}
+            for factor in active_factors:
+                if factor in row and isinstance(row[factor], (int, float)) and not pd.isna(row[factor]):
+                    factors[factor] = round(float(row[factor]), 4)
+                else:
+                    factors[factor] = 0.5
             holdings.append({
                 'code': code,
                 'name': idx_info.get('name', code),
                 'etf': idx_info.get('etf', ''),
                 'rank': int(row['rank']),
-                'score': round(float(row['total_score']), 4)
+                'score': round(float(row['total_score']), 4),
+                'factors': factors
             })
 
         history.append({
