@@ -14,7 +14,7 @@ import json
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
-from src.datafetcher_baostock import IndexDataFetcher
+from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
 from src.portfolio import SimulatedPortfolio
 from src.config_loader import load_app_config
