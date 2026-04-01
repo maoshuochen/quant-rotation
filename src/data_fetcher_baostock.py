@@ -812,25 +812,91 @@ class IndexDataFetcher:
             logger.error(f"AKShare ETF fetch failed for {etf_code_clean}: {e}")
             return pd.DataFrame()
     
-    def fetch_index_pe_history(self, index_code: str) -> pd.DataFrame:
+    def fetch_index_pe_history(self, index_code: str, start_date: str = "20180101") -> pd.DataFrame:
         """
-        获取指数 PE 历史
-        注意：Baostock 没有直接的指数 PE 接口，这里返回空 DataFrame
-        后续可以通过其他方式获取（如 AKShare 或手动计算）
+        获取指数 PE 历史 (使用 AKShare 中证指数估值接口)
+
+        Args:
+            index_code: 指数代码 (如 000300.SH)
+            start_date: 开始日期 (格式 YYYYMMDD)
+
+        Returns:
+            DataFrame with columns: date, pe, pe_ttm, dividend_yield
         """
         cache_file = self._get_cache_file(index_code, "pe")
-        
+
+        # 尝试读取缓存
         if cache_file.exists():
             try:
                 df = pd.read_parquet(cache_file)
-                logger.info(f"Loaded cached PE data for {index_code}: {len(df)} rows")
-                return df
+                if not df.empty and len(df) > 0:
+                    latest_date = df.index.max()
+                    days_old = (pd.Timestamp(datetime.now().date()) - latest_date).days
+                    # 如果有较多历史数据（>100 天）且缓存不超过 7 天，直接使用
+                    if len(df) > 100 and days_old <= 7:
+                        logger.info(f"Loaded cached PE data for {index_code}: {len(df)} rows")
+                        return df
+                    # 否则刷新
+                    if len(df) > 100:
+                        logger.info(f"Cache has {len(df)} rows but stale ({days_old} days), refreshing...")
+                    # 如果数据少，继续尝试获取完整数据
             except Exception as e:
                 logger.warning(f"PE cache read failed: {e}")
-        
-        # Baostock 暂无指数 PE 数据接口
-        logger.warning(f"Baostock 不支持指数 PE 数据，返回空数据：{index_code}")
-        return pd.DataFrame()
+
+        # 从 AKShare 获取指数估值数据（总是获取完整历史）
+        try:
+            import akshare as ak
+
+            code_clean = index_code.replace('.SH', '').replace('.SZ', '').replace('.CSI', '')
+            logger.info(f"Fetching index PE from AKShare: {index_code} -> {code_clean}")
+            df = ak.stock_zh_index_value_csindex(symbol=code_clean)
+
+            if df is None or df.empty:
+                logger.warning(f"AKShare index PE data empty: {index_code}")
+                return pd.DataFrame()
+
+            # 重命名列（使用列位置）
+            new_columns = []
+            for i, col in enumerate(df.columns):
+                if i == 0:
+                    new_columns.append('date')
+                elif i == 6:
+                    new_columns.append('pe')
+                elif i == 7:
+                    new_columns.append('pe_ttm')
+                elif i == 8:
+                    new_columns.append('dividend_yield')
+                elif i == 9:
+                    new_columns.append('dividend_yield_ttm')
+                else:
+                    new_columns.append(col)
+            df.columns = new_columns
+            logger.debug(f"After rename columns: {df.columns.tolist()}")
+
+            # 转换日期并设置索引
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.set_index('date').sort_index()
+
+            # 过滤 start_date 之后的数据
+            start_dt = pd.to_datetime(start_date, format='%Y%m%d', errors='coerce')
+            if start_dt:
+                df = df[df.index >= start_dt]
+
+            # 保存到缓存
+            try:
+                cols_to_save = [c for c in ['pe', 'pe_ttm', 'dividend_yield', 'dividend_yield_ttm'] if c in df.columns]
+                if cols_to_save:
+                    df[cols_to_save].to_parquet(cache_file, compression='snappy')
+                    logger.info(f"Cached PE data for {index_code}: {len(df)} rows, cols={cols_to_save}")
+            except Exception as e:
+                logger.warning(f"PE cache write failed: {e}")
+
+            logger.info(f"AKShare index PE data: {index_code} ({len(df)} rows)")
+            return df
+
+        except Exception as e:
+            logger.error(f"AKShare index PE fetch failed {index_code}: {e}")
+            return pd.DataFrame()
     
     def get_current_price(self, index_code: str) -> Optional[float]:
         """获取当前价格"""

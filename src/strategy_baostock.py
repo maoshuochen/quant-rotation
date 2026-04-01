@@ -109,7 +109,7 @@ class RotationStrategy:
         nb_df = self.fetcher.fetch_northbound_flow("20240101")
         nb_snapshot_df = self.fetcher.fetch_northbound_snapshot()
         nb_metrics = self.fetcher.calc_northbound_metrics(nb_df) if not nb_df.empty else None
-        
+
         for code, df in data_dict.items():
             logger.info(f"Scoring {code}...")
             

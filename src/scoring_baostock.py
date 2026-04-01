@@ -136,17 +136,15 @@ class ScoringEngine:
     
     def calc_value_score(self, prices: pd.Series) -> float:
         """
-        估值评分 (简化版：用价格分位代替 PE 分位)
+        估值评分 (使用价格分位作为代理)
 
         逻辑：价格分位越低 (越接近区间低点) 得分越高
         - 分位 0% (最低点) → 得分 1.0
         - 分位 100% (最高点) → 得分 0.0
-        """
-        if len(prices) < 252:
-            lookback = len(prices)
-        else:
-            lookback = 252
 
+        注：优先使用 252 天 (1 年) 历史，不足时使用全部可用数据
+        """
+        lookback = min(252, len(prices))
         recent_prices = prices.iloc[-lookback:]
         current = prices.iloc[-1]
 
@@ -155,7 +153,7 @@ class ScoringEngine:
 
         # 分位越低 (价格越低) 得分越高
         score = 1.0 - percentile
-        return score
+        return max(0, min(1, score))
     
     def calc_flow_score(self, 
                         prices: pd.Series, 
@@ -324,39 +322,41 @@ class ScoringEngine:
         
         return flow_score
     
-    def score_index(self, 
-                    etf_data: pd.DataFrame, 
+    def score_index(self,
+                    etf_data: pd.DataFrame,
                     benchmark_data: Optional[pd.DataFrame] = None,
                     northbound_metrics: Optional[Dict[str, float]] = None,
                     etf_shares_metrics: Optional[Dict[str, float]] = None,
-                    dynamic_weights: Optional[Dict[str, float]] = None) -> Dict[str, float]:
+                    dynamic_weights: Optional[Dict[str, float]] = None,
+                    pe_data: Optional[pd.DataFrame] = None) -> Dict[str, float]:
         """
         计算综合评分 (增强版)
-        
+
         Args:
             etf_data: ETF 数据 (包含 close, volume, amount)
             benchmark_data: 基准数据 (可选，用于相对强弱)
             northbound_metrics: 北向资金指标 (可选)
             etf_shares_metrics: ETF 份额指标 (可选)
             dynamic_weights: 动态权重 (可选，覆盖默认权重)
-            
+            pe_data: PE 历史数据 (可选，用于真实估值评分)
+
         Returns:
             包含各因子得分、归因数据和总分
         """
         if etf_data.empty:
             return {'total_score': 0.0}
-        
+
         close = etf_data['close']
         volume = etf_data.get('volume', pd.Series())
         amount = etf_data.get('amount', pd.Series())
         returns = close.pct_change().dropna()
-        
+
         scores = {}
         attribution = {}  # 归因数据
-        
+
         # 使用动态权重（如果提供）
         weights_to_use = dynamic_weights if dynamic_weights else self.weights
-        
+
         # ===== 动量 (20%) =====
         if len(returns) >= 126:
             momentum_6m = returns.iloc[-126:].sum()
@@ -368,7 +368,7 @@ class ScoringEngine:
             scores['momentum'] = 0.5
             attribution['momentum_6m_return'] = 0
             attribution['momentum_1m_return'] = 0
-        
+
         # ===== 波动 (15%) =====
         if len(returns) >= 20:
             volatility = returns.std() * np.sqrt(252)
@@ -377,7 +377,7 @@ class ScoringEngine:
         else:
             scores['volatility'] = 0.5
             attribution['volatility_annual'] = 0
-        
+
         # ===== 趋势 (20%) =====
         if len(close) >= 60:
             ma20 = close.rolling(20).mean().iloc[-1]
@@ -392,20 +392,39 @@ class ScoringEngine:
             attribution['price_vs_ma20'] = 0
             attribution['price_vs_ma60'] = 0
             attribution['ma20_above_ma60'] = False
-        
-        # ===== 估值 (25%) =====
-        if len(close) >= 252:
-            lookback = 252
+
+        # ===== 估值 (使用真实 PE 数据) =====
+        value_score = self.calc_value_score(close)
+        scores['value'] = value_score
+        if pe_data is not None and not pe_data.empty and 'pe' in pe_data.columns:
+            current_pe = pe_data['pe'].iloc[-1] if len(pe_data) > 0 else None
+            if current_pe and 0 < current_pe < 100:
+                # 计算 PE 分位
+                lookback = min(2520, len(pe_data))
+                historical_pe = pe_data['pe'].iloc[-lookback:].dropna()
+                valid_pe = historical_pe[(historical_pe > 0) & (historical_pe < 100)]
+                if len(valid_pe) >= 60:
+                    pe_percentile = (valid_pe < current_pe).mean()
+                    attribution['value_percentile'] = round(pe_percentile * 100, 2)
+                    attribution['value_assessment'] = '低估' if pe_percentile < 0.3 else ('高估' if pe_percentile > 0.7 else '合理')
+                    attribution['current_pe'] = round(current_pe, 2)
+                else:
+                    attribution['value_percentile'] = 50
+                    attribution['value_assessment'] = '数据不足'
+                    attribution['current_pe'] = round(current_pe, 2)
+            else:
+                attribution['value_percentile'] = 50
+                attribution['value_assessment'] = 'PE 异常'
+                attribution['current_pe'] = current_pe if current_pe else None
+        else:
+            # 降级为价格分位
+            lookback = min(252, len(close))
             recent_prices = close.iloc[-lookback:]
             current = close.iloc[-1]
             percentile = (recent_prices < current).mean()
-            scores['value'] = 1.0 - percentile
-            attribution['value_percentile'] = round(percentile * 100, 2)  # 价格分位%
+            attribution['value_percentile'] = round(percentile * 100, 2)
             attribution['value_assessment'] = '低估' if percentile < 0.3 else ('高估' if percentile > 0.7 else '合理')
-        else:
-            scores['value'] = 0.5
-            attribution['value_percentile'] = 50
-            attribution['value_assessment'] = '未知'
+            attribution['current_pe'] = None
         
         # ===== 资金流 (15%) =====
         scores['flow'] = self.calc_flow_score(
