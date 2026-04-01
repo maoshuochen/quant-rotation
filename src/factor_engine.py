@@ -1,9 +1,12 @@
 """
-因子计算引擎
+因子计算引擎 - 增强版
+支持稳健归一化、中性化、IC 分析
 """
 import numpy as np
 import pandas as pd
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Tuple
+from sklearn.preprocessing import RobustScaler, QuantileTransformer
+from scipy import stats
 import logging
 
 logger = logging.getLogger(__name__)
@@ -212,5 +215,165 @@ class FactorEngine:
         factors['turnover_percentile'] = self.calc_turnover_percentile(price_df['volume'], 63)
         
         logger.debug(f"Calculated factors: {factors}")
-        
+
         return factors
+
+    def normalize_factor(self,
+                         factor_values: pd.Series,
+                         method: str = 'robust') -> pd.Series:
+        """
+        因子归一化 (增强版)
+
+        Args:
+            factor_values: 因子值序列
+            method: 'robust', 'quantile', 'zscore'
+
+        Returns:
+            归一化后的因子值
+        """
+        if factor_values.empty:
+            return factor_values
+
+        # 去极值 (3-sigma Winsorization)
+        mean = factor_values.mean()
+        std = factor_values.std()
+        lower = mean - 3 * std
+        upper = mean + 3 * std
+        factor_clean = factor_values.clip(lower, upper)
+
+        # 归一化
+        try:
+            if method == 'robust':
+                scaler = RobustScaler()
+            elif method == 'quantile':
+                scaler = QuantileTransformer(output_distribution='normal', n_quantiles=100)
+            else:  # zscore
+                scaler = RobustScaler()  # fallback
+
+            if factor_clean.ndim == 1:
+                normalized = scaler.fit_transform(
+                    factor_clean.values.reshape(-1, 1)
+                ).flatten()
+            else:
+                normalized = scaler.fit_transform(factor_clean.values)
+
+            return pd.Series(normalized, index=factor_values.index,
+                           name=factor_values.name)
+        except Exception as e:
+            logger.warning(f"Normalization failed: {e}, returning original")
+            return factor_values
+
+    def neutralize_factor(self,
+                          factor_values: pd.Series,
+                          benchmark_returns: pd.Series,
+                          market_cap: Optional[pd.Series] = None) -> pd.Series:
+        """
+        因子中性化 (去除市场和市值影响)
+
+        Args:
+            factor_values: 因子值
+            benchmark_returns: 基准收益率
+            market_cap: 市值 (可选)
+
+        Returns:
+            中性化后的因子 (回归残差)
+        """
+        # 对齐索引
+        common_idx = factor_values.index
+        if benchmark_returns is not None:
+            common_idx = common_idx.intersection(benchmark_returns.index)
+        if market_cap is not None:
+            common_idx = common_idx.intersection(market_cap.index)
+
+        if len(common_idx) < 30:
+            logger.warning("Sample size too small for neutralization")
+            return factor_values
+
+        factor = factor_values.loc[common_idx].values
+        market = benchmark_returns.loc[common_idx].values
+
+        # 构建回归矩阵
+        X = [market]
+        if market_cap is not None:
+            X.append(market_cap.loc[common_idx].values)
+        X = np.column_stack(X)
+        X = np.column_stack([np.ones(len(X)), X])
+
+        try:
+            # OLS 回归
+            coeffs = np.linalg.lstsq(X, factor, rcond=None)[0]
+            # 残差
+            residuals = factor - X @ coeffs
+            return pd.Series(residuals, index=common_idx,
+                           name=f'{factor_values.name}_neutralized')
+        except Exception as e:
+            logger.error(f"Neutralization failed: {e}")
+            return factor_values
+
+    def calc_ic(self,
+                factor_values: pd.Series,
+                forward_returns: pd.Series,
+                method: str = 'rank') -> Tuple[float, float]:
+        """
+        计算 IC (Information Coefficient)
+
+        Args:
+            factor_values: 因子值
+            forward_returns: 未来收益率
+            method: 'pearson' 或 'rank'
+
+        Returns:
+            (IC, IC_IR)
+        """
+        common_idx = factor_values.index.intersection(forward_returns.index)
+        if len(common_idx) < 30:
+            return 0.0, 0.0
+
+        factor = factor_values.loc[common_idx]
+        ret = forward_returns.loc[common_idx]
+
+        try:
+            if method == 'rank':
+                ic = stats.spearmanr(factor, ret)[0]
+            else:
+                ic = stats.pearsonr(factor, ret)[0]
+
+            if np.isnan(ic):
+                return 0.0, 0.0
+
+            ic_ir = abs(ic) / max(ic.std() if hasattr(ic, 'std') else 0.01, 0.01)
+            return float(ic), float(ic_ir)
+        except Exception as e:
+            logger.warning(f"IC calculation failed: {e}")
+            return 0.0, 0.0
+
+    def factor_decay_analysis(self,
+                              factor_values: pd.Series,
+                              returns: pd.Series,
+                              periods: List[int] = [1, 5, 10, 20]) -> Dict[int, float]:
+        """
+        因子衰减测试
+
+        Args:
+            factor_values: 因子值
+            returns: 收益率序列
+            periods: 测试的持有期
+
+        Returns:
+            {period: IC} 字典
+        """
+        results = {}
+
+        for period in periods:
+            forward_ret = returns.shift(-period)
+            common_idx = factor_values.index.intersection(forward_ret.dropna().index)
+
+            if len(common_idx) < 30:
+                results[period] = 0.0
+                continue
+
+            ic, _ = self.calc_ic(factor_values.loc[common_idx],
+                                 forward_ret.loc[common_idx])
+            results[period] = ic
+
+        return results

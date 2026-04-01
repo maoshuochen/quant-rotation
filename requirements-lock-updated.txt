@@ -1,0 +1,51 @@
+# =============================================
+# 指数轮动量化系统 - Python 依赖 (锁定版本)
+# 用于生产环境和 CI/CD
+# =============================================
+
+# 核心依赖
+numpy==1.26.3
+pandas==2.1.4
+pyarrow==14.0.2
+
+# 数据获取
+baostock==0.8.8
+akshare==1.12.0
+
+# 配置
+pyyaml==6.0.1
+
+# HTTP 请求
+requests==2.31.0
+
+# 日志
+colorlog==6.8.0
+
+# 图表
+mplfinance==0.12.10b0
+matplotlib==3.8.2
+
+# 优化
+scikit-optimize==0.10.2
+scipy==1.11.4
+
+# 机器学习（可选）
+scikit-learn==1.3.2
+
+# 开发工具
+pytest==7.4.3
+black==23.12.1
+flake8==7.0.0
+mypy==1.8.0
+pre-commit==3.6.0
+isort==5.13.2
+
+# Web
+fastapi==0.109.0
+uvicorn==0.27.0
+
+# 定时任务
+apscheduler==3.10.4
+
+# 数据验证
+pydantic==2.5.3

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  quant-rotation:
+    build: .
+    container_name: quant-rotation
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+
+  # 定时任务调度器
+  scheduler:
+    build: .
+    container_name: quant-scheduler
+    command: python scripts/scheduler.py
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    depends_on:
+      - quant-rotation
+    restart: unless-stopped
+
+  # Web 看板 (可选)
+  web:
+    image: node:18-alpine
+    container_name: quant-web
+    working_dir: /app/web
+    volumes:
+      - ./web:/app/web
+      - ./data:/app/data:ro
+    ports:
+      - "4173:4173"
+    command: sh -c "npm install && npm run build && npm run preview -- --host 0.0.0.0"
+    restart: unless-stopped

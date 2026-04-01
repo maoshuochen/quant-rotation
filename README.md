@@ -2,7 +2,8 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Data](https://img.shields.io/badge/Data-Baostock%2FAKShare-orange.svg)](https://akshare.akfamily.xyz/)
+[![Data](https://img.shields.io/badge/Data-Baostock%2FAKShare%2FTushare-orange.svg)](https://akshare.akfamily.xyz/)
+[![CI](https://github.com/maoshuochen/quant-rotation/actions/workflows/ci.yml/badge.svg)](https://github.com/maoshuochen/quant-rotation/actions)
 
 基于多因子评分的指数轮动研究系统，支持 A 股主要宽基指数和行业指数的评分、排名、信号生成、回测和前端可视化。
 
@@ -11,11 +12,11 @@
 ## 📊 策略特点
 
 ### 当前正式链路
-- **唯一数据入口**: `src/data_fetcher_baostock.py`
-- **唯一策略入口**: `src/strategy_baostock.py`
-- **唯一回测入口**: `scripts/backtest_baostock.py`
-- **唯一前端数据入口**: `scripts/generate_web_data.py`
-- **唯一前端应用**: `web/`
+- **数据入口**: `src/data_fetcher_baostock.py` / `src/data_sources/unified_fetcher.py`
+- **策略入口**: `src/strategy_baostock.py`
+- **回测入口**: `scripts/backtest_baostock.py`
+- **前端数据入口**: `scripts/generate_web_data.py`
+- **前端应用**: `web/`
 
 ### 核心功能
 - **主线因子体系**: 估值 + 动量 + 趋势 + 波动 + 资金流 + 相对强弱
@@ -23,6 +24,32 @@
 - **交易信号生成**: 基于排名生成买入/卖出信号
 - **模拟回测**: 支持历史回测和绩效分析
 - **实时看板**: React 前端可视化展示
+
+### 新增功能 (v2.0)
+
+**数据源优化**
+- 多数据源适配层 (Baostock, Tushare, AKShare)
+- 统一数据获取器 `UnifiedDataFetcher`
+- 缓存管理器 `CacheManager` (Parquet + SQLite 双缓存)
+- 数据源自动切换和故障转移
+
+**因子工程增强**
+- 稳健归一化 (RobustScaler, QuantileTransformer)
+- 因子中性化 (去除市场/市值影响)
+- IC 分析 (Pearson/Spearman IC, IC_IR)
+- 因子衰减测试
+
+**风险管理增强**
+- VaR / CVaR 计算
+- Kelly 公式仓位管理
+- 风险平价权重计算
+- 波动率自适应仓位调整
+- 时间止损机制
+
+**样本外验证**
+- Walk-Forward 分析
+- 参数敏感性测试
+- 过拟合检测
 
 ---
 
@@ -390,3 +417,249 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 ---
 
 *最后更新：2026-03-31*
+
+---
+
+## 📁 项目结构 (v2.0)
+
+```
+quant-rotation/
+├── src/
+│   ├── data_fetcher_baostock.py   # 主数据获取 (Baostock)
+│   ├── data_sources/              # 多数据源适配层 (新增)
+│   │   ├── __init__.py
+│   │   ├── base.py                # 抽象基类
+│   │   ├── baostock_adapter.py    # Baostock 适配器
+│   │   ├── tushare_adapter.py     # Tushare 适配器
+│   │   ├── akshare_adapter.py     # AKShare 适配器
+│   │   ├── cache_manager.py       # 缓存管理器
+│   │   └── unified_fetcher.py     # 统一数据获取器
+│   ├── factor_engine.py           # 因子计算引擎
+│   ├── factor_analysis.py         # 因子分析 (新增)
+│   ├── scoring_baostock.py        # 评分引擎
+│   ├── strategy_baostock.py       # 策略逻辑
+│   ├── portfolio.py               # 组合管理
+│   ├── risk_manager.py            # 风险管理 (新增)
+│   ├── validation.py              # 样本外验证 (新增)
+│   └── notifier.py                # 通知模块
+├── scripts/
+├── tests/
+│   ├── test_optimizer.py
+│   ├── test_portfolio.py
+│   ├── test_factor_engine.py
+│   ├── test_data_sources.py       # 数据源测试 (新增)
+│   ├── test_validation.py         # 验证测试 (新增)
+│   ├── test_risk_manager.py       # 风险测试 (新增)
+├── web/
+├── config/
+├── Dockerfile                     # Docker 配置 (新增)
+├── docker-compose.yml             # Docker Compose (新增)
+├── .pre-commit-config.yaml        # Pre-commit hooks (新增)
+├── .github/workflows/ci.yml       # CI/CD (新增)
+├── requirements.txt
+├── requirements-dev.txt           # 开发依赖 (新增)
+└── pyproject.toml
+```
+
+---
+
+## 🐳 Docker 部署
+
+### 快速启动
+
+```bash
+# 构建并运行
+docker-compose up -d
+
+# 查看日志
+docker-compose logs -f quant-rotation
+
+# 停止服务
+docker-compose down
+```
+
+### 手动 Docker
+
+```bash
+# 构建镜像
+docker build -t quant-rotation:latest .
+
+# 运行容器
+docker run --rm -v $(pwd)/data:/app/data quant-rotation:latest python scripts/daily_run_baostock.py
+```
+
+---
+
+## 🧪 测试
+
+```bash
+# 安装开发依赖
+pip install -r requirements-dev.txt
+
+# 运行所有测试
+pytest tests/ -v
+
+# 运行特定测试
+pytest tests/test_risk_manager.py -v
+pytest tests/test_validation.py -v
+pytest tests/test_data_sources.py -v
+
+# 生成覆盖率报告
+pytest tests/ --cov=src --cov-report=html
+```
+
+### Pre-commit Hooks
+
+```bash
+# 安装 pre-commit
+pip install pre-commit
+pre-commit install
+
+# 手动运行所有 hooks
+pre-commit run --all-files
+```
+
+---
+
+## 🔧 配置数据源
+
+### 使用 Tushare (可选)
+
+Tushare 提供更高质量的财务数据，需要积分才能访问。
+
+```bash
+# 设置环境变量
+export TUSHARE_TOKEN=your_tushare_token_here
+```
+
+系统会自动检测 `TUSHARE_TOKEN` 环境变量，如果设置则优先使用 Tushare 数据源。
+
+### 数据源优先级
+
+1. **Tushare** (如果有 token) - 数据质量最高
+2. **Baostock** - 主力免费数据源
+3. **AKShare** - 补充数据源 (北向资金、ETF 份额)
+
+---
+
+## 📈 新增 API 示例
+
+### 统一数据获取
+
+```python
+from src.data_sources import UnifiedDataFetcher
+
+fetcher = UnifiedDataFetcher(enable_cache=True)
+
+# 获取历史行情 (自动选择最优数据源)
+df = fetcher.fetch_price_history("000300.SH", "20240101")
+
+# 获取指数 PE 历史
+pe_df = fetcher.fetch_index_pe_history("000300.SH", "20240101")
+
+# 获取北向资金
+north_df = fetcher.fetch_northbound_flow("20250101")
+
+# 获取 ETF 份额
+etf_df = fetcher.fetch_etf_shares("510300", "20250101")
+```
+
+### 因子分析
+
+```python
+from src.factor_engine import FactorEngine
+from src.factor_analysis import FactorAnalyzer
+
+engine = FactorEngine()
+analyzer = FactorAnalyzer(method='robust')
+
+# 归一化因子
+normalized = analyzer.normalize(factor_series)
+
+# 中性化因子
+neutralized = analyzer.neutralize(factor_series, benchmark_returns)
+
+# 计算 IC
+ic, ic_ir = analyzer.calc_ic(factor_series, forward_returns)
+
+# 因子衰减
+decay = engine.factor_decay_analysis(factor_series, returns, periods=[1, 5, 10])
+```
+
+### 风险管理
+
+```python
+from src.risk_manager import RiskManager
+
+manager = RiskManager(
+    target_volatility=0.15,
+    use_kelly=True
+)
+
+# 计算 VaR / CVaR
+var_95 = manager.calc_var(returns, confidence=0.95)
+cvar_95 = manager.calc_cvar(returns, confidence=0.95)
+
+# 获取完整风险指标
+metrics = manager.get_risk_metrics(returns, prices)
+print(f"VaR(95%): {metrics.var_95:.2%}")
+print(f"Max DD: {metrics.max_drawdown:.2%}")
+print(f"Sharpe: {metrics.sharpe_ratio:.2f}")
+
+# Kelly 仓位
+kelly = manager.calc_kelly_fraction(win_rate=0.6, win_loss_ratio=2.0)
+
+# 风险平价权重
+weights = manager.calc_risk_parity_weights(cov_matrix)
+```
+
+### 样本外验证
+
+```python
+from src.validation import OutOfSampleValidator
+
+validator = OutOfSampleValidator(train_ratio=0.7)
+
+# 简单训练/测试分割
+train, test = validator.simple_train_test_split(data)
+
+# Walk-Forward 分析
+wf_result = validator.walk_forward_analysis(
+    data,
+    backtest_func=backtest,
+    train_window=252,
+    step_size=21,
+    test_window=63
+)
+
+print(f"OOS Score: {wf_result.oos_score:.3f}")
+print(f"Decay Ratio: {wf_result.decay_ratio:.1%}")
+
+# 参数敏感性
+sensitivity = validator.parameter_sensitivity(
+    data, backtest_func,
+    param_name='top_n',
+    param_range=[3, 5, 7, 10],
+    base_params={'top_n': 5}
+)
+```
+
+---
+
+## 📝 更新日志
+
+详见 [CHANGELOG.md](CHANGELOG.md)
+
+### v2.0.0 (2026-04-01)
+- ✅ 多数据源适配层
+- ✅ 因子工程增强
+- ✅ 风险管理模块
+- ✅ 样本外验证
+- ✅ Docker/CI-CD 支持
+
+### v1.0.0 (2026-03-31)
+- 初始发布版本
+
+---
+
+*最后更新：2026-04-01*
