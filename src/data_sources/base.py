@@ -6,80 +6,86 @@ from typing import Dict, Optional, List
 import pandas as pd
 from pathlib import Path
 import logging
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class DataSourceConfig:
+    """数据源配置"""
+    name: str
+    priority: int = 1
+    enabled: bool = True
+    rate_limit: Optional[float] = None
+    timeout: int = 30
 
 
 class BaseDataFetcher(ABC):
     """数据获取器抽象基类"""
 
-    def __init__(self, cache_dir: str = "data/raw"):
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self._connected = False
+    def __init__(self, config: Optional[DataSourceConfig] = None):
+        self.config = config or DataSourceConfig(name=self.__class__.__name__)
+        self._initialized = False
 
     @abstractmethod
-    def fetch_index_history(self, index_code: str, start_date: str = "20180101") -> pd.DataFrame:
-        """获取指数历史行情"""
+    def fetch_price_history(
+        self,
+        code: str,
+        start_date: str,
+        end_date: Optional[str] = None
+    ) -> pd.DataFrame:
+        """获取历史行情数据"""
         pass
 
     @abstractmethod
-    def fetch_etf_history(self, etf_code: str, start_date: str = "20180101") -> pd.DataFrame:
-        """获取 ETF 历史行情"""
+    def fetch_index_pe_history(
+        self,
+        index_code: str,
+        start_date: str,
+        end_date: Optional[str] = None
+    ) -> pd.DataFrame:
+        """获取指数 PE/PB 历史数据"""
         pass
 
     @abstractmethod
-    def fetch_index_pe_history(self, index_code: str) -> pd.DataFrame:
-        """获取指数 PE 历史"""
+    def fetch_northbound_flow(self, start_date: str) -> pd.DataFrame:
+        """获取北向资金流向数据"""
         pass
 
     @abstractmethod
-    def fetch_northbound_flow(self, start_date: str = "20250101") -> pd.DataFrame:
-        """获取北向资金流向"""
-        pass
-
-    @abstractmethod
-    def fetch_etf_shares(self, etf_code: str, start_date: str = "20250101") -> pd.DataFrame:
+    def fetch_etf_shares(self, etf_code: str, start_date: str) -> pd.DataFrame:
         """获取 ETF 份额数据"""
         pass
 
     @abstractmethod
-    def get_current_price(self, index_code: str) -> Optional[float]:
-        """获取当前价格"""
+    def fetch_fundamental_data(self, code: str, report_date: Optional[str] = None) -> Dict:
+        """获取基本面数据"""
         pass
 
-    @abstractmethod
-    def connect(self) -> bool:
-        """连接数据源"""
-        pass
+    @property
+    def source_name(self) -> str:
+        """返回数据源名称"""
+        return self.config.name
 
-    @abstractmethod
-    def disconnect(self):
-        """断开连接"""
-        pass
-
-    def check_health(self) -> Dict[str, bool]:
-        """检查数据源健康状态"""
-        return {
-            'connected': self._connected,
-            'name': self.__class__.__name__
-        }
+    @property
+    def is_available(self) -> bool:
+        """检查数据源是否可用"""
+        return self.config.enabled and self._initialized
 
 
 class DataSourceRegistry:
-    """数据源注册中心 - 支持自动切换"""
+    """数据源注册中心"""
 
     def __init__(self):
         self._sources: Dict[str, BaseDataFetcher] = {}
-        self._priority: List[str] = []  # 优先级列表，靠前的优先使用
-        self._current_source: Optional[str] = None
+        self._priority: List[str] = []
 
     def register(self, name: str, fetcher: BaseDataFetcher, priority: int = 0):
         """注册数据源"""
         self._sources[name] = fetcher
         self._priority.append(name)
         self._priority.sort(key=lambda x: priority if self._sources[x] == fetcher else 999)
-        logger.info(f"Registered data source: {name}")
 
     def get_source(self, name: str) -> Optional[BaseDataFetcher]:
         """获取指定数据源"""
@@ -89,20 +95,6 @@ class DataSourceRegistry:
         """获取第一个可用的数据源"""
         for name in self._priority:
             source = self._sources.get(name)
-            if source and source._connected:
+            if source and source.is_available:
                 return source
         return None
-
-    def set_primary(self, name: str):
-        """设置主要数据源"""
-        if name in self._sources:
-            self._priority.remove(name)
-            self._priority.insert(0, name)
-            logger.info(f"Set primary data source: {name}")
-
-    def check_all_health(self) -> Dict[str, Dict]:
-        """检查所有数据源健康状态"""
-        return {
-            name: source.check_health()
-            for name, source in self._sources.items()
-        }
