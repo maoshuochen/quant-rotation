@@ -29,8 +29,23 @@ jobs:
           cache: 'npm'
           cache-dependency-path: web/package-lock.json
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Generate history data
+        run: |
+          python scripts/generate_history_data.py
 
       - name: Install Node dependencies
         run: npm ci
