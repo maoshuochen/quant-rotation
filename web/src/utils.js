@@ -31,6 +31,22 @@ export const statusTone = {
   missing: 'text-red-200 border-red-500/30 bg-red-500/10'
 }
 
+// 加载历史数据
+export const loadHistoryData = async () => {
+  try {
+    const res = await fetch('./history.json')
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+    const data = await res.json()
+    return {
+      history: data.history || [],
+      updateTime: data.update_time || ''
+    }
+  } catch (err) {
+    console.error('加载 history.json 失败:', err.message)
+    return null
+  }
+}
+
 // 加载主数据
 export const loadData = async () => {
   try {
