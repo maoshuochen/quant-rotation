@@ -177,6 +177,18 @@ def run_incremental_backtest(end_date: str = None):
 
         # 恢复现金：最后净值 - 持仓市值
         portfolio.cash = last_value - stock_value
+
+        # 验证：现金不应该为负数（除非有杠杆或做空）
+        if portfolio.cash < 0:
+            print(f"⚠️ 警告：现金为负数！cash={portfolio.cash:,.2f}")
+            print(f"   净值={last_value:,.2f}, 持仓市值={stock_value:,.2f}")
+
+        # 验证：恢复后的总资产应该等于最后净值
+        restored_value = portfolio.cash + stock_value
+        if abs(restored_value - last_value) > 0.01:
+            print(f"⚠️ 警告：恢复后资产与最后净值不一致！")
+            print(f"   恢复后={restored_value:,.2f}, 最后净值={last_value:,.2f}, 差异={restored_value - last_value:,.2f}")
+
         print(f"恢复组合状态：净值={last_value:,.2f}, 持仓市值={stock_value:,.2f}, 现金={portfolio.cash:,.2f}")
 
     # 获取基准数据

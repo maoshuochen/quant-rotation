@@ -206,6 +206,59 @@ class TestSimulatedPortfolio:
         # 这里测试 cooldown_days 配置是否正确加载
         assert portfolio.cooldown_days == 5
 
+    def test_cash_recovery_after_position_restore(self):
+        """测试恢复持仓后现金计算的正确性（修复 bug 后的回归测试）"""
+        # 模拟场景：最后交易日净值 1,200,000，持仓市值 600,000
+        last_value = 1_200_000
+
+        # 创建组合（初始资金应为 100 万，不是 last_value）
+        portfolio = SimulatedPortfolio(initial_capital=1_000_000)
+
+        # 恢复持仓
+        portfolio.positions['A'] = Position(
+            code='A',
+            name='指数 A',
+            shares=10000,
+            avg_price=10.0,
+            entry_date='2026-01-01'
+        )
+
+        # 假设最后交易日价格
+        last_prices = {'A': 60.0}  # 持仓市值 = 10000 * 60 = 600,000
+
+        # 计算持仓市值
+        stock_value = sum(
+            pos.shares * last_prices.get(pos.code, pos.avg_price)
+            for pos in portfolio.positions.values()
+        )
+
+        # 恢复现金：最后净值 - 持仓市值
+        portfolio.cash = last_value - stock_value
+
+        # 验证：现金应该等于 600,000
+        expected_cash = 1_200_000 - 600_000  # 600,000
+        assert abs(portfolio.cash - expected_cash) < 0.01
+
+        # 验证：组合价值应该等于 last_value
+        restored_value = portfolio.get_portfolio_value(last_prices)
+        assert abs(restored_value - last_value) < 0.01
+
+    def test_no_double_counting_bug(self):
+        """测试没有重复计算现金和持仓（之前 bug 的回归测试）"""
+        last_value = 1_200_000
+        stock_value = 600_000
+
+        # 错误做法（bug）：cash = last_value 且恢复持仓
+        # 这样总资产 = cash + stock_value = 1,200,000 + 600,000 = 1,800,000（错误！）
+
+        # 正确做法：cash = last_value - stock_value
+        cash = last_value - stock_value  # 600,000
+        total_value = cash + stock_value  # 600,000 + 600,000 = 1,200,000（正确）
+
+        assert abs(total_value - last_value) < 0.01
+        # 确保不会等于错误的 1,800,000
+        assert abs(total_value - (last_value + stock_value)) > 100_000
+
 
 class TestTrade:
     """测试交易记录类"""

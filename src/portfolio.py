@@ -197,7 +197,17 @@ class SimulatedPortfolio:
             pos.shares * current_prices.get(pos.code, pos.avg_price)
             for pos in self.positions.values()
         )
-        return self.cash + stock_value
+        total_value = self.cash + stock_value
+
+        # 数据完整性检查：确保现金不为负数（除非有杠杆）
+        if self.cash < -1e-6:
+            logger.warning(f"现金为负数：cash={self.cash:.2f}, 日期可能有问题")
+
+        # 确保总价值合理（至少应该接近初始资金的一部分）
+        if total_value < 0:
+            logger.error(f"总资产为负数！cash={self.cash:.2f}, stock_value={stock_value:.2f}")
+
+        return total_value
     
     def get_return(self, current_prices: Dict[str, float]) -> float:
         """计算收益率"""
@@ -436,7 +446,27 @@ class SimulatedPortfolio:
         value = self.get_portfolio_value(current_prices)
         nav = value / self.initial_capital  # 单位净值
         return_pct = self.get_return(current_prices)
-        
+
+        # 数据验证：检查单日涨跌幅是否异常
+        if self.history:
+            prev_value = self.history[-1]['value']
+            daily_return = (value - prev_value) / prev_value if prev_value > 0 else 0
+
+            # 警告：单日涨跌幅超过 20%（阈值可配置）
+            if abs(daily_return) > 0.20:
+                logger.warning(
+                    f"单日涨跌幅异常：{date}, 涨跌幅={daily_return*100:.2f}%, "
+                    f"前一日={prev_value:,.2f}, 当日={value:,.2f}"
+                )
+
+            # 警告：单日涨跌幅超过 50% 视为严重错误
+            if abs(daily_return) > 0.50:
+                logger.error(
+                    f"严重异常：单日涨跌幅超过 50%！{date}, "
+                    f"涨跌幅={daily_return*100:.2f}%, cash={self.cash:.2f}, "
+                    f"positions={len(self.positions)}"
+                )
+
         record = {
             'date': date,
             'value': value,

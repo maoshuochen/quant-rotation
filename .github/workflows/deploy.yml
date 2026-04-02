@@ -79,6 +79,14 @@ jobs:
           python scripts/generate_history_data.py
           python scripts/generate_backtest_json.py
 
+      - name: Validate backtest results
+        run: |
+          python scripts/validate_backtest_results.py
+
+      - name: Run unit tests
+        run: |
+          python -m pytest tests/ -v --tb=short
+
       - name: Extract results
         id: collect
         run: |
