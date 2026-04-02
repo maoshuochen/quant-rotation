@@ -56,7 +56,6 @@ jobs:
         with:
           path: |
             data/
-            backtest_results/
           key: quant-data-${{ runner.os }}-${{ hashFiles('src/**') }}
           restore-keys: |
             quant-data-${{ runner.os }}-
@@ -64,7 +63,8 @@ jobs:
       - name: Run backtest
         run: |
           mkdir -p backtest_results data/raw
-          python scripts/backtest_incremental.py
+          # 始终运行全量回测确保数据一致性
+          python scripts/backtest_baostock.py
         env:
           PYTHONUNBUFFERED: 1
 
