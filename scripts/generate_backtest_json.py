@@ -18,6 +18,7 @@ if parquet_file.exists():
     print(f"读取回测结果：{parquet_file}")
     df = pd.read_parquet(parquet_file)
     df = df.copy()
+    df['date'] = pd.to_datetime(df['date'])  # 转换为 datetime
 else:
     # 回退到 CSV
     csv_files = list(results_dir.glob('backtest_*.csv'))
