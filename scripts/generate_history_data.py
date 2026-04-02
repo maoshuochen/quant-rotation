@@ -160,7 +160,18 @@ def get_historical_rankings(
         print(f"  {cutoff_date.strftime('%Y-%m-%d')}: {len(holdings)} 持仓")
 
     fetcher.close()
-    return history
+
+    # 去除重复日期（保留第一个）
+    seen_dates = set()
+    unique_history = []
+    for item in history:
+        if item['date'] not in seen_dates:
+            seen_dates.add(item['date'])
+            unique_history.append(item)
+        else:
+            print(f"  ⚠️ 去除重复日期：{item['date']}")
+
+    return unique_history
 
 
 def main():
