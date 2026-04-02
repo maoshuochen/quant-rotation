@@ -221,8 +221,6 @@ const Dashboard = ({
     setExpandedCode(expandedCode === code ? null : code)
   }
 
-  const chartHeight = typeof window !== 'undefined' && window.innerWidth < 640 ? 220 : 300
-
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
       {/* Mobile-optimized Header */}
@@ -452,28 +450,30 @@ const Dashboard = ({
           {expandedSection !== 'backtest' && (
             <div>
               {backtestData?.chartData?.length ? (
-                <Card>
-                  <ResponsiveContainer width="100%" height={chartHeight}>
-                    <AreaChart data={backtestData.chartData}>
-                      <defs>
-                        <linearGradient id="colorReturn" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
-                        </linearGradient>
-                        <linearGradient id="colorDrawdown" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#f87171" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="#f87171" stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid stroke="#27272a" strokeDasharray="3 3" />
-                      <XAxis dataKey="date" tick={{ fill: '#71717a', fontSize: 10 }} minTickGap={32} />
-                      <YAxis tick={{ fill: '#71717a', fontSize: 10 }} />
-                      <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }} />
-                      <Area type="monotone" dataKey="cum_return" stroke="#f59e0b" fill="url(#colorReturn)" strokeWidth={2} />
-                      <Area type="monotone" dataKey="drawdown" stroke="#f87171" fill="url(#colorDrawdown)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </Card>
+                <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
+                  <div className="h-[220px] sm:h-[300px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={backtestData.chartData}>
+                        <defs>
+                          <linearGradient id="colorReturn" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                          </linearGradient>
+                          <linearGradient id="colorDrawdown" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#f87171" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#f87171" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid stroke="#27272a" strokeDasharray="3 3" />
+                        <XAxis dataKey="date" tick={{ fill: '#71717a', fontSize: 10 }} minTickGap={32} />
+                        <YAxis tick={{ fill: '#71717a', fontSize: 10 }} />
+                        <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }} />
+                        <Area type="monotone" dataKey="cum_return" stroke="#f59e0b" fill="url(#colorReturn)" strokeWidth={2} />
+                        <Area type="monotone" dataKey="drawdown" stroke="#f87171" fill="url(#colorDrawdown)" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
               ) : (
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-6 text-sm text-zinc-400 text-center">
                   暂无回测数据
