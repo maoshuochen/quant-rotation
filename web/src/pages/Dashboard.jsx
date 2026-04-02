@@ -50,21 +50,32 @@ const SectionHeader = ({ title, subtitle, isExpanded, onClick }) => (
   </button>
 )
 
-// 从 ranking 中查找持仓的完整数据
-const getHoldingDetail = (code, ranking) => {
-  if (!ranking) return null
-  return ranking.find(item => item.code === code) || null
-}
-
-const HoldingCard = ({ item, idx, rankingData, isExpanded, onToggle, activeFactors }) => {
+// 统一的排名列表项组件
+const RankingListItem = ({ item, isExpanded, onToggle, activeFactors }) => {
   const score = safeNum(item.score).toFixed(3)
-  // 从 ranking 中获取完整数据用于展开详情
-  const detail = getHoldingDetail(item.code, rankingData)
-  const factors = detail?.factors || item.factors || {}
-  const attribution = detail?.attribution || item.attribution || {}
+  const factors = item.factors || {}
+  const attribution = item.attribution || {}
+  const isTop3 = item.rank <= 3
+  const isTop5 = item.rank <= 5
+
+  // 排名徽章样式
+  const getRankBadge = () => {
+    if (item.rank === 1) return 'bg-amber-500 text-white'
+    if (item.rank === 2) return 'bg-zinc-400 text-white'
+    if (item.rank === 3) return 'bg-amber-700 text-white'
+    if (isTop5) return 'bg-white/10 text-zinc-200'
+    return 'bg-zinc-800 text-zinc-400'
+  }
+
+  // 卡片背景样式
+  const getBgStyle = () => {
+    if (isTop3) return 'border-amber-500/30 bg-amber-500/5'
+    if (isTop5) return 'border-amber-500/20 bg-zinc-900/70'
+    return 'border-zinc-800 bg-zinc-900/70'
+  }
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 transition-all duration-300 hover:border-zinc-700">
+    <div className={`rounded-xl border transition-all duration-300 ${getBgStyle()}`}>
       <div
         className="flex items-center justify-between p-3 sm:p-4 cursor-pointer active:bg-zinc-800/50"
         onClick={onToggle}
@@ -74,29 +85,50 @@ const HoldingCard = ({ item, idx, rankingData, isExpanded, onToggle, activeFacto
         aria-expanded={isExpanded}
       >
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-          <span className={`flex-shrink-0 inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-xs sm:text-sm font-semibold text-white ${
-            idx === 0 ? 'bg-amber-500' : idx === 1 ? 'bg-zinc-400' : idx === 2 ? 'bg-amber-700' : 'bg-white/10'
-          }`}>
-            {item.rank}
+          {/* 排名徽章 */}
+          <span className={`flex-shrink-0 inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-xs sm:text-sm font-semibold ${getRankBadge()}`}>
+            {item.rank === 1 ? '🏆' : item.rank === 2 ? '🥈' : item.rank === 3 ? '🥉' : item.rank}
           </span>
+
+          {/* 名称和代码 */}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="font-medium text-zinc-100 truncate">{item.name}</span>
-              <span className="flex-shrink-0 rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] sm:text-xs text-zinc-400">{item.etf}</span>
+              <span className={`font-medium truncate ${isTop5 ? 'text-zinc-100' : 'text-zinc-300'}`}>
+                {item.name}
+              </span>
+              {isTop5 && (
+                <span className="flex-shrink-0 rounded bg-amber-500/20 px-1.5 py-0.5 text-[9px] sm:text-xs text-amber-300 font-medium">
+                  推荐
+                </span>
+              )}
+              <span className="flex-shrink-0 rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] sm:text-xs text-zinc-400 font-mono">
+                {item.etf}
+              </span>
             </div>
+            {/* 强项因子 */}
             <div className="text-[10px] sm:text-xs text-zinc-500 mt-0.5 truncate">
-              强项：{item.strongest_factors?.map(key => factorNames[key] || key).slice(0, 2).join('、') || '-'}
+              {(() => {
+                const sortedFactors = Object.entries(factors)
+                  .sort(([,a], [,b]) => b - a)
+                  .slice(0, 2)
+                  .map(([key]) => factorNames[key] || key)
+                return `强项：${sortedFactors.join('、') || '-'}`
+              })()}
             </div>
           </div>
         </div>
+
+        {/* 得分 */}
         <div className="flex-shrink-0 text-right ml-2">
           <div className="text-[10px] sm:text-xs text-zinc-500">得分</div>
           <div className="font-mono text-sm sm:text-lg text-gradient">{score}</div>
         </div>
       </div>
 
+      {/* 展开详情 */}
       {isExpanded && (
         <div className="border-t border-zinc-800 p-3 sm:p-4 bg-zinc-950/50 space-y-3">
+          {/* 因子得分 */}
           <div>
             <div className="text-[10px] text-zinc-500 mb-2">因子得分</div>
             <div className="space-y-1.5">
@@ -111,6 +143,8 @@ const HoldingCard = ({ item, idx, rankingData, isExpanded, onToggle, activeFacto
               ))}
             </div>
           </div>
+
+          {/* 关键归因 */}
           <div className="pt-2 border-t border-zinc-800">
             <div className="text-[10px] text-zinc-500 mb-1.5">关键归因</div>
             <div className="grid grid-cols-2 gap-x-3 gap-y-1">
@@ -119,74 +153,6 @@ const HoldingCard = ({ item, idx, rankingData, isExpanded, onToggle, activeFacto
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">北向 20 日</span><span className="text-zinc-200">{safeNum(attribution?.northbound_20d_sum, 0).toFixed(1)}亿</span></div>
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">ETF 份额</span><span className="text-zinc-200">{safeNum(attribution?.etf_shares_20d_change, 0).toFixed(1)}%</span></div>
             </div>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-const RankingCard = ({ item, onSelect, isActive, activeFactors }) => {
-  const [expanded, setExpanded] = useState(false)
-
-  return (
-    <div
-      className={`rounded-xl border p-3 transition-all ${
-        isActive ? 'border-amber-500/50 bg-amber-500/5' : 'border-zinc-800 bg-zinc-900/70 hover:border-zinc-700'
-      }`}
-    >
-      <div
-        className="flex items-center justify-between cursor-pointer"
-        onClick={() => {
-          setExpanded(!expanded)
-          onSelect(item.code)
-        }}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => { if (e.key === 'Enter') { setExpanded(!expanded); onSelect(item.code); } }}
-      >
-        <div className="flex items-center gap-2">
-          <span className={`flex-shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
-            item.rank <= 3 ? 'bg-amber-500 text-white' : 'bg-zinc-800 text-zinc-400'
-          }`}>
-            {item.rank}
-          </span>
-          <div>
-            <div className="font-medium text-zinc-100">{item.name}</div>
-            <div className="text-[10px] text-zinc-500">{item.code}</div>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="font-mono text-sm text-gradient">{safeNum(item.score).toFixed(3)}</div>
-          <svg
-            className={`h-4 w-4 text-zinc-500 transition-transform ${expanded ? 'rotate-180' : ''}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-      </div>
-
-      {expanded && (
-        <div className="mt-3 pt-3 border-t border-zinc-800">
-          <div className="text-[10px] text-zinc-500 mb-2">因子得分</div>
-          <div className="space-y-1.5">
-            {activeFactors.map(key => (
-              <div key={key} className="flex items-center gap-2">
-                <span className="text-[10px] text-zinc-400 w-12 flex-shrink-0">{factorNames[key]}</span>
-                <div className="flex-1 h-1.5 rounded-full bg-zinc-800 min-w-0">
-                  <div
-                    className="h-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400"
-                    style={{ width: `${safeNum(item.factors?.[key], 0.5) * 100}%` }}
-                  />
-                </div>
-                <span className="text-[10px] font-mono text-zinc-300 w-8 flex-shrink-0 text-right">
-                  {safeNum(item.factors?.[key], 0.5).toFixed(2)}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       )}
@@ -313,7 +279,10 @@ const Dashboard = ({
             {holdings.slice(0, 5).map((item, idx) => (
               <button
                 key={item.code}
-                onClick={() => onSelectCode(item.code)}
+                onClick={() => {
+                  onSelectCode(item.code)
+                  setExpandedCode(item.code)
+                }}
                 className="flex-shrink-0 rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs text-zinc-100 transition active:scale-95"
               >
                 {item.name} {safeNum(item.score).toFixed(2)}
@@ -336,61 +305,41 @@ const Dashboard = ({
           </div>
         </section>
 
-        {/* Section 1: Holdings */}
+        {/* Section 1: Execution Checklist */}
         <div>
           <SectionHeader
-            title="建议持仓"
-            subtitle="点击卡片查看因子详情"
-            isExpanded={expandedSection !== 'holdings' && expandedSection !== null}
-            onClick={() => toggleSection('holdings')}
+            title="执行清单"
+            subtitle="调仓信号和规则"
+            isExpanded={expandedSection !== 'signals' && expandedSection !== null}
+            onClick={() => toggleSection('signals')}
           />
-          {expandedSection !== 'holdings' && (
-            <div className="space-y-2 sm:space-y-3">
-              {/* Holdings List */}
-              <div className="space-y-2">
-                {holdings.map((item, idx) => (
-                  <HoldingCard
-                    key={item.code}
-                    item={item}
-                    idx={idx}
-                    rankingData={ranking}
-                    isExpanded={expandedCode === item.code}
-                    onToggle={() => toggleCodeExpand(item.code)}
-                    activeFactors={activeFactors}
-                  />
-                ))}
-              </div>
-
-              {/* Execution Checklist */}
-              <Card title="执行清单">
-                <div className="space-y-2">
-                  <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
-                    <div className="text-[10px] uppercase tracking-wider text-zinc-500">规则</div>
-                    <div className="mt-1 text-xs text-zinc-200">
-                      前 {recommendation.top_n || 0} 名买入，跌出前 {recommendation.buffer_n || 0} 名卖出，{recommendation.rebalance_frequency === 'weekly' ? '周' : '月'}度调仓。
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
-                    <div className="text-[10px] uppercase tracking-wider text-zinc-500">信号</div>
-                    <div className="mt-1 space-y-1">
-                      {signals.length === 0 ? (
-                        <div className="flex items-center gap-1.5 text-zinc-400 text-xs">
-                          <span>维持现有持仓</span>
-                        </div>
-                      ) : (
-                        signals.map((signal, index) => (
-                          <div key={`${signal.code}-${index}`} className="flex items-center justify-between rounded bg-zinc-950 px-2 py-1">
-                            <span className="font-mono text-xs">{signal.code}</span>
-                            <span className={`text-xs ${signal.action === 'buy' ? 'text-emerald-300' : 'text-red-300'}`}>
-                              {signal.action === 'buy' ? '买入' : '卖出'}
-                            </span>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </div>
+          {expandedSection !== 'signals' && (
+            <div className="space-y-2">
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
+                <div className="text-[10px] uppercase tracking-wider text-zinc-500">规则</div>
+                <div className="mt-1 text-xs text-zinc-200">
+                  前 {recommendation.top_n || 0} 名买入，跌出前 {recommendation.buffer_n || 0} 名卖出，{recommendation.rebalance_frequency === 'weekly' ? '周' : '月'}度调仓。
                 </div>
-              </Card>
+              </div>
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
+                <div className="text-[10px] uppercase tracking-wider text-zinc-500">信号</div>
+                <div className="mt-1 space-y-1">
+                  {signals.length === 0 ? (
+                    <div className="flex items-center gap-1.5 text-zinc-400 text-xs">
+                      <span>维持现有持仓</span>
+                    </div>
+                  ) : (
+                    signals.map((signal, index) => (
+                      <div key={`${signal.code}-${index}`} className="flex items-center justify-between rounded bg-zinc-950 px-2 py-1">
+                        <span className="font-mono text-xs">{signal.code}</span>
+                        <span className={`text-xs ${signal.action === 'buy' ? 'text-emerald-300' : 'text-red-300'}`}>
+                          {signal.action === 'buy' ? '买入' : '卖出'}
+                        </span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -416,30 +365,30 @@ const Dashboard = ({
           )}
         </div>
 
-        {/* Section 3: Ranking - Mobile: Full Cards, Desktop: Table */}
+        {/* Section 3: Unified Ranking List (merged holdings + ranking) */}
         <div>
           <SectionHeader
-            title="完整排名"
-            subtitle="全部标的比较"
+            title="全部排名"
+            subtitle="点击展开因子详情，前 5 名为推荐持仓"
             isExpanded={expandedSection !== 'ranking' && expandedSection !== null}
             onClick={() => toggleSection('ranking')}
           />
           {expandedSection !== 'ranking' && (
             <div>
-              {/* Mobile: Full Card List */}
+              {/* Mobile: Unified Card List */}
               <div className="lg:hidden grid gap-2">
                 {ranking.map(item => (
-                  <RankingCard
+                  <RankingListItem
                     key={item.code}
                     item={item}
-                    onSelect={onSelectCode}
-                    isActive={selectedCode === item.code}
+                    isExpanded={expandedCode === item.code}
+                    onToggle={() => toggleCodeExpand(item.code)}
                     activeFactors={activeFactors}
                   />
                 ))}
               </div>
 
-              {/* Desktop: Table View */}
+              {/* Desktop: Table View with visual distinction */}
               <div className="hidden lg:block rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-sm">
@@ -456,24 +405,34 @@ const Dashboard = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {ranking.map(item => (
-                        <tr
-                          key={item.code}
-                          className={`border-b border-zinc-900 hover:bg-zinc-900/80 ${selectedCode === item.code ? 'bg-zinc-900' : ''}`}
-                          onClick={() => onSelectCode(item.code)}
-                        >
-                          <td className="px-3 py-3 font-mono text-zinc-400">{item.rank}</td>
-                          <td className="px-3 py-3">{item.name}</td>
-                          <td className="px-3 py-3 font-mono text-xs text-zinc-400">{item.code}</td>
-                          <td className="px-3 py-3 text-zinc-400">{item.etf}</td>
-                          <td className="px-3 py-3 font-mono">{safeNum(item.score).toFixed(3)}</td>
-                          {activeFactors.map(key => (
-                            <td key={key} className="px-3 py-3 font-mono text-zinc-300">
-                              {safeNum(item.factors?.[key], 0.5).toFixed(2)}
+                      {ranking.map(item => {
+                        const isTop5 = item.rank <= 5
+                        return (
+                          <tr
+                            key={item.code}
+                            className={`border-b border-zinc-900 hover:bg-zinc-900/80 ${
+                              selectedCode === item.code ? 'bg-zinc-900' : ''
+                            } ${isTop5 ? 'bg-amber-500/5' : ''}`}
+                            onClick={() => onSelectCode(item.code)}
+                          >
+                            <td className="px-3 py-3 font-mono text-zinc-400">
+                              {item.rank === 1 ? '🏆' : item.rank === 2 ? '🥈' : item.rank === 3 ? '🥉' : item.rank}
                             </td>
-                          ))}
-                        </tr>
-                      ))}
+                            <td className={`px-3 py-3 ${isTop5 ? 'text-amber-100 font-medium' : 'text-zinc-200'}`}>
+                              {item.name}
+                              {isTop5 && <span className="ml-2 text-[9px] text-amber-400">推荐</span>}
+                            </td>
+                            <td className="px-3 py-3 font-mono text-xs text-zinc-400">{item.code}</td>
+                            <td className="px-3 py-3 text-zinc-400">{item.etf}</td>
+                            <td className={`px-3 py-3 font-mono ${isTop5 ? 'text-amber-300' : 'text-zinc-200'}`}>{safeNum(item.score).toFixed(3)}</td>
+                            {activeFactors.map(key => (
+                              <td key={key} className="px-3 py-3 font-mono text-zinc-300">
+                                {safeNum(item.factors?.[key], 0.5).toFixed(2)}
+                              </td>
+                            ))}
+                          </tr>
+                        )
+                      })}
                     </tbody>
                   </table>
                 </div>

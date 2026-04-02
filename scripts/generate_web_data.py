@@ -66,11 +66,8 @@ def run_scoring():
             else:
                 factors[factor] = 0.5
 
-        # 归因数据保留所有
-        for k, v in row.items():
-            if k == 'attribution':
-                attribution = v if isinstance(v, dict) else {}
-
+        # 添加 is_top_pick 标记（前 5 名）
+        rank = int(row['rank'])
         item = {
             'code': code,
             'name': idx_info.get('name', code),
@@ -78,7 +75,8 @@ def run_scoring():
             'score': round(row['total_score'], 4),
             'factors': factors,
             'attribution': attribution,  # 添加归因数据
-            'rank': int(row['rank'])
+            'rank': rank,
+            'is_top_pick': rank <= 5  # 新增：标记前 5 名为推荐持仓
         }
         ranking.append(item)
     
