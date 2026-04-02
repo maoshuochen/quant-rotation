@@ -1,0 +1,58 @@
+{
+  "version": "0.2.0",
+  "description": "Quant Rotation Agent Team - Claude Subagent 版本",
+  "agents": {
+    "data": {
+      "name": "Data Agent",
+      "role": "数据管家",
+      "prompt_file": "agents/prompts/data_agent.md",
+      "output_dir": "reports/agents/",
+      "output_prefix": "data_health"
+    },
+    "strategy": {
+      "name": "Strategy Agent",
+      "role": "策略分析师",
+      "prompt_file": "agents/prompts/strategy_agent.md",
+      "output_dir": "reports/agents/",
+      "output_prefix": "strategy_analysis"
+    },
+    "frontend": {
+      "name": "Frontend Agent",
+      "role": "前端工程师",
+      "prompt_file": "agents/prompts/frontend_agent.md",
+      "output_dir": "reports/agents/",
+      "output_prefix": "frontend_check"
+    },
+    "backtest": {
+      "name": "Backtest Agent",
+      "role": "回测专家",
+      "prompt_file": "agents/prompts/backtest_agent.md",
+      "output_dir": "reports/agents/",
+      "output_prefix": "backtest_analysis"
+    },
+    "risk": {
+      "name": "Risk Agent",
+      "role": "风控专家",
+      "prompt_file": "agents/prompts/risk_agent.md",
+      "output_dir": "reports/agents/",
+      "output_prefix": "risk_report"
+    },
+    "devops": {
+      "name": "DevOps Agent",
+      "role": "运维工程师",
+      "prompt_file": "agents/prompts/devops_agent.md",
+      "output_dir": "reports/agents/",
+      "output_prefix": "devops_status"
+    }
+  },
+  "orchestrator": {
+    "description": "总协调器 - 负责任务分配和报告汇总",
+    "default_mode": "daily",
+    "modes": {
+      "daily": ["data", "frontend", "devops"],
+      "weekly": ["data", "strategy", "backtest", "risk", "frontend", "devops"],
+      "monthly": ["data", "strategy", "backtest", "risk", "frontend", "devops"],
+      "emergency": []
+    }
+  }
+}

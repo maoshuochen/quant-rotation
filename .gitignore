@@ -87,6 +87,7 @@ optimization_results/*.yaml
 reports/*.html
 reports/*.json
 !reports/.gitkeep
+!reports/agents/
 
 # Jupyter notebooks
 *.ipynb_checkpoints/
