@@ -109,8 +109,11 @@ def run_incremental_backtest(end_date: str = None):
         print(f"增量回测：{start_date} ~ {end_date}")
 
         # 恢复投资组合状态
+        # 注意：initial_capital 应保持原始值（100 万），而不是最后净值
+        # 否则会导致现金重复计算（cash + positions 会重复）
+        last_value = cached_data['value']
         portfolio = SimulatedPortfolio(
-            initial_capital=cached_data['value'],
+            initial_capital=CONFIG.get('initial_capital', 1_000_000),
             commission_rate=CONFIG.get('portfolio', {}).get('commission', 0.0003),
             slippage=CONFIG.get('portfolio', {}).get('slippage', 0.001),
             stop_loss_config=CONFIG.get('stop_loss'),
@@ -152,6 +155,29 @@ def run_incremental_backtest(end_date: str = None):
     if not etf_data:
         print("没有获取到数据!")
         return
+
+    # 如果是增量回测且有持仓，需要恢复现金状态
+    # 现金 = 最后交易日净值 - 持仓市值（使用最后交易日价格计算）
+    if last_date and cached_data['positions']:
+        last_date_str = pd.to_datetime(last_date).strftime('%Y-%m-%d')
+        last_value = cached_data['value']
+
+        # 获取最后交易日的价格
+        last_prices = {}
+        for code, df in etf_data.items():
+            if last_date_str in df.index:
+                last_prices[code] = df.loc[last_date_str, 'close']
+
+        # 计算持仓市值
+        stock_value = 0
+        for pos_data in cached_data['positions']:
+            code = pos_data['code']
+            if code in last_prices:
+                stock_value += pos_data['shares'] * last_prices[code]
+
+        # 恢复现金：最后净值 - 持仓市值
+        portfolio.cash = last_value - stock_value
+        print(f"恢复组合状态：净值={last_value:,.2f}, 持仓市值={stock_value:,.2f}, 现金={portfolio.cash:,.2f}")
 
     # 获取基准数据
     benchmark_data = etf_data.get('000300.SH', pd.DataFrame())
