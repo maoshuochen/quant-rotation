@@ -6,7 +6,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+/dist/
 downloads/
 eggs/
 .eggs/
@@ -61,9 +61,10 @@ Thumbs.db
 
 # Frontend
 web/node_modules/
-web/dist/
+web/dist/*
 !web/dist/*.json
 !web/dist/index.html
+!web/dist/assets/
 web/.env
 
 # Backtest results (optional)
