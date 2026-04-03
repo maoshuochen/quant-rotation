@@ -21,7 +21,7 @@ concurrency:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     # 环境配置
     environment:
@@ -31,43 +31,104 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # 获取前一个 commit 用于增量比较
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
-          cache-dependency-path: requirements*.txt
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            __pycache__/
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-${{ hashFiles('requirements-dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-
+            ${{ runner.os }}-pip-
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: web/package-lock.json
 
-      - name: Install dependencies
+      - name: Cache Node dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            web/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('web/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Python dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-          cd web && npm ci
+
+      - name: Install Node dependencies
+        run: |
+          cd web
+          npm ci --prefer-offline --no-audit --no-fund
 
       - name: Cache data
         uses: actions/cache@v4
         with:
           path: |
             data/
-          key: quant-data-${{ runner.os }}-${{ hashFiles('src/**') }}
+            backtest_results/
+          key: quant-data-v2-${{ runner.os }}-${{ hashFiles('src/**/*.py', 'config/**/*.py', 'scripts/*.py') }}
           restore-keys: |
-            quant-data-${{ runner.os }}-
+            quant-data-v2-${{ runner.os }}-
 
-      - name: Run backtest
+      - name: Check for incremental backtest
+        id: backtest_check
+        run: |
+          if [ -f "backtest_results/current.parquet" ]; then
+            LAST_DATE=$(python -c "import pandas as pd; df = pd.read_parquet('backtest_results/current.parquet'); print(df.iloc[-1]['date'])" 2>/dev/null || echo "")
+            TODAY=$(date -u +%Y-%m-%d)
+            if [ "$LAST_DATE" = "$TODAY" ]; then
+              echo "INCREMENTAL=true" >> $GITHUB_OUTPUT
+              echo "Latest data already exists for $TODAY"
+            else
+              echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
+              echo "Need to update data (last: $LAST_DATE, today: $TODAY)"
+            fi
+          else
+            echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
+            echo "No existing backtest results, running full backtest"
+          fi
+
+      - name: Run incremental backtest
+        if: steps.backtest_check.outputs.incremental == 'true'
+        run: |
+          echo "Running incremental update..."
+          python scripts/backtest_incremental.py
+        env:
+          PYTHONUNBUFFERED: 1
+
+      - name: Run full backtest
+        if: steps.backtest_check.outputs.incremental == 'false'
         run: |
           mkdir -p backtest_results data/raw
-          # 始终运行全量回测确保数据一致性
           python scripts/backtest_baostock.py
         env:
           PYTHONUNBUFFERED: 1
+
+      - name: Cache Vite build
+        uses: actions/cache@v4
+        with:
+          path: |
+            web/node_modules/.vite
+            ~/.vite
+          key: ${{ runner.os }}-vite-${{ hashFiles('web/package-lock.json', 'web/src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
 
       - name: Build frontend
         run: |
