@@ -13,8 +13,8 @@ from datetime import datetime, timedelta
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
-from src.strategy_baostock import RotationStrategy
-from src.config_loader import load_app_config
+from src.strategy_baostock import RotationStrategy  # noqa: E402
+from src.config_loader import load_app_config  # noqa: E402
 
 CONFIG = load_app_config(root_dir)
 
@@ -43,7 +43,8 @@ def get_historical_rankings(
     print(f"动态权重：{strategy.scorer.current_weights}")
 
     indices = CONFIG.get('indices', [])
-    active_factors = CONFIG.get('factor_model', {}).get('active_factors', ['momentum', 'trend', 'flow'])
+    active_factors = CONFIG.get('factor_model', {}).get(
+        'active_factors', ['momentum', 'trend', 'flow'])
 
     # 获取所有 ETF 数据
     print("加载 ETF 历史数据...")
@@ -63,7 +64,9 @@ def get_historical_rankings(
     for date in dates:
         # 找到最接近的交易日（向前找）
         trade_date = date
-        first_code = active_indices[0]['code'] if (active_indices := [idx for idx in indices if idx.get('enabled', True)]) else None
+        # 获取活跃指数列表
+        active_indices = [idx for idx in indices if idx.get('enabled', True)]
+        first_code = active_indices[0]['code'] if active_indices else None
         if not first_code or first_code not in etf_data_dict:
             continue
 
@@ -94,12 +97,14 @@ def get_historical_rankings(
         top_ranking = []
         for _, row in ranking_df.head(20).iterrows():
             code = row['code']
-            idx_info = next((idx for idx in indices if idx.get('code') == code), {})
+            idx_info = next(
+                (idx for idx in indices if idx.get('code') == code), {})
 
             # 只提取活跃因子得分
             factors = {}
             for factor in active_factors:
-                if factor in row and isinstance(row[factor], (int, float)) and not pd.isna(row[factor]):
+                is_valid = isinstance(row[factor], (int, float))
+                if factor in row and is_valid and not pd.isna(row[factor]):
                     factors[factor] = round(float(row[factor]), 4)
                 else:
                     factors[factor] = 0.5
@@ -117,10 +122,12 @@ def get_historical_rankings(
         holdings = []
         for _, row in ranking_df.head(5).iterrows():
             code = row['code']
-            idx_info = next((idx for idx in indices if idx.get('code') == code), {})
+            idx_info = next(
+                (idx for idx in indices if idx.get('code') == code), {})
             factors = {}
             for factor in active_factors:
-                if factor in row and isinstance(row[factor], (int, float)) and not pd.isna(row[factor]):
+                is_valid = isinstance(row[factor], (int, float))
+                if factor in row and is_valid and not pd.isna(row[factor]):
                     factors[factor] = round(float(row[factor]), 4)
                 else:
                     factors[factor] = 0.5
