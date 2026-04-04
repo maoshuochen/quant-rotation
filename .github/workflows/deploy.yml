@@ -77,15 +77,23 @@ jobs:
           cd web
           npm ci --prefer-offline --no-audit --no-fund
 
-      - name: Cache data
+      - name: Cache raw data (ETF history, Northbound)
         uses: actions/cache@v4
         with:
-          path: |
-            data/
-            backtest_results/
-          key: quant-data-v2-${{ runner.os }}-${{ hashFiles('src/**/*.py', 'config/**/*.py', 'scripts/*.py') }}
+          path: data/raw/
+          # 数据缓存按月份划分，不依赖代码哈希，提高缓存命中率
+          key: quant-rawdata-${{ runner.os }}-${{ hashFiles('data/raw/*.parquet') }}
           restore-keys: |
-            quant-data-v2-${{ runner.os }}-
+            quant-rawdata-${{ runner.os }}-
+
+      - name: Cache backtest results
+        uses: actions/cache@v4
+        with:
+          path: backtest_results/
+          # 回测结果缓存，用于增量回测
+          key: quant-backtest-${{ runner.os }}-${{ hashFiles('backtest_results/*.parquet') }}
+          restore-keys: |
+            quant-backtest-${{ runner.os }}-
 
       - name: Check for incremental backtest
         id: backtest_check
