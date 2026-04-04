@@ -141,8 +141,9 @@ jobs:
           echo "Generating ranking.json..."
           python scripts/generate_web_data.py
 
-          echo "Generating history.json..."
-          python scripts/generate_history_data.py
+          # 跳过 history.json 生成（太慢，本地生成后提交）
+          # echo "Generating history.json..."
+          # python scripts/generate_history_data.py
 
           echo "Generating backtest.json..."
           python scripts/generate_backtest_json.py
