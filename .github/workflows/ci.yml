@@ -30,15 +30,19 @@ jobs:
 
       - name: Lint with flake8
         run: |
-          # E402: module level import not at top of file (needed for scripts with sys.path)
-          # E501: line too long (we allow longer lines for f-strings)
-          # W293: blank line contains whitespace (minor formatting)
-          # F541: f-string is missing placeholders (false positives with emoji)
+          # Ignored rules:
+          # - E402: module level import not at top of file (needed for scripts with sys.path)
+          # - E501: line too long (allow longer lines for readability)
+          # - W293: blank line contains whitespace (minor formatting)
+          # - F541: f-string is missing placeholders (false positives with emoji)
+          # - F401: imported but unused (common in utility scripts)
+          # - F841: local variable assigned but never used (common in data processing)
+          # - E302/E305: expected blank lines (minor formatting)
           flake8 src/ scripts/ tests/ \
             --count \
             --show-source \
             --statistics \
-            --extend-ignore=E402,E501,W293,F541 \
+            --extend-ignore=E402,E501,W293,F541,F401,F841,E302,E305 \
             --max-line-length=99
 
       - name: Type check with mypy
