@@ -78,10 +78,38 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vite-
 
+      # 备份数据文件（Vite build 会清空 dist 目录）
+      - name: Backup data files before build
+        run: |
+          echo "Backing up data files..."
+          mkdir -p /tmp/web-data
+          cp web/dist/*.json /tmp/web-data/ 2>/dev/null || echo "No .json files to backup"
+          ls -la /tmp/web-data/ || true
+
       - name: Build frontend
         run: |
           cd web
           npm run build
+
+      # 恢复数据文件到 dist
+      - name: Restore data files to dist
+        run: |
+          echo "Restoring data files to web/dist..."
+          mkdir -p web/dist
+          if [ -f "/tmp/web-data/ranking.json" ]; then
+            cp /tmp/web-data/ranking.json web/dist/
+            echo "✓ ranking.json"
+          fi
+          if [ -f "/tmp/web-data/history.json" ]; then
+            cp /tmp/web-data/history.json web/dist/
+            echo "✓ history.json"
+          fi
+          if [ -f "/tmp/web-data/backtest.json" ]; then
+            cp /tmp/web-data/backtest.json web/dist/
+            echo "✓ backtest.json"
+          fi
+          echo "Data files restored!"
+          ls -la web/dist/
 
       # ==================== 部署到 GitHub Pages ====================
       - name: Setup Pages
