@@ -1,0 +1,42 @@
+{
+  "agent": "risk_agent",
+  "timestamp": "2026-04-02T10:45:23.682846",
+  "report_type": "risk_assessment",
+  "risk_metrics": {
+    "var_95": -0.0179,
+    "var_99": -0.0315,
+    "expected_shortfall_95": -0.0348,
+    "expected_shortfall_99": -0.0759,
+    "portfolio_volatility": 0.5678,
+    "beta": 1.0
+  },
+  "position_risk": {
+    "concentration_hhi": 0.3631,
+    "top5_weight": 1.0,
+    "num_holdings": 3,
+    "total_value": 627455.46
+  },
+  "market_conditions": {
+    "volatility_regime": "extreme",
+    "correlation_risk": "low",
+    "warnings": [
+      "组合波动率过高：56.78%"
+    ]
+  },
+  "stress_test": {
+    "worst_daily": -0.148,
+    "worst_weekly": -0.144,
+    "worst_monthly": -0.1313,
+    "scenario_2015_proxy": -0.3,
+    "scenario_2020_proxy": -0.2,
+    "estimated_stress_loss": -0.3277
+  },
+  "alerts": [
+    {
+      "level": "warning",
+      "type": "volatility",
+      "message": "组合波动率过高：56.78%"
+    }
+  ],
+  "overall_risk": "medium"
+}

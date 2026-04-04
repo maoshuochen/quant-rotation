@@ -2,21 +2,20 @@
 """
 回测脚本 - Baostock 版本
 """
+import logging
 import sys
+from datetime import datetime
 from pathlib import Path
+
+import pandas as pd
 
 # 添加项目根目录到路径
 root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
-import logging
-import pandas as pd
-from datetime import datetime, timedelta
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
-from src.market_regime import DynamicWeightScoringEngine
 from src.portfolio import SimulatedPortfolio
-import yaml
 from src.config_loader import load_app_config
 
 # 优化日志：仅保留 warning 及以上，减少输出噪音
@@ -54,7 +53,7 @@ def run_backtest(start_date: str = "20250101",
     print(f"回测期间：{start_date} ~ {end_date}")
     print(f"初始资金：{initial_capital:,.0f}")
     print("=" * 60)
-    
+
     # 初始化组件
     fetcher = IndexDataFetcher()
     # 使用固定权重评分引擎（避免未来函数）
@@ -69,17 +68,16 @@ def run_backtest(start_date: str = "20250101",
         stop_loss_config=stop_loss_config if stop_loss_config else None,
         cooldown_days=cooldown_days
     )
-    
+
     # 策略参数
     strategy = config.get('strategy', {})
     top_n = strategy.get('top_n', 5)
     buffer_n = strategy.get('buffer_n', 8)
     rebalance_freq = strategy.get('rebalance_frequency', 'weekly')
-    
+
     # 指数列表
     indices = config.get('indices', [])
-    index_codes = [idx['code'] for idx in indices if idx.get('etf')]
-    
+
     # 获取所有 ETF 数据（优先使用缓存，仅获取需要的日期范围）
     print("获取 ETF 数据（优先缓存）...")
     etf_data = {}
@@ -93,7 +91,7 @@ def run_backtest(start_date: str = "20250101",
             if not df.empty:
                 etf_data[code] = df
                 print(f"  {code} ({etf}): {len(df)} rows")
-    
+
     if not etf_data:
         print("没有获取到任何数据!")
         return

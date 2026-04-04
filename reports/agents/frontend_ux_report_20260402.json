@@ -1,0 +1,88 @@
+{
+  "agent": "frontend_agent",
+  "timestamp": "2026-04-02T10:49:51.375365",
+  "report_type": "ux_assessment",
+  "files_check": {
+    "ranking.json": {
+      "exists": true,
+      "valid": true,
+      "size_kb": 31.7,
+      "structure_ok": true
+    },
+    "history.json": {
+      "exists": true,
+      "valid": true,
+      "size_kb": 348.1,
+      "structure_ok": true
+    },
+    "backtest.json": {
+      "exists": true,
+      "valid": true,
+      "size_kb": 63.2,
+      "structure_ok": true
+    }
+  },
+  "data_consistency": {
+    "factors_aligned": true,
+    "weights_normalized": true,
+    "active_factors": [
+      "momentum",
+      "trend",
+      "flow"
+    ]
+  },
+  "ux_assessment": {
+    "visual_design": {
+      "score": 4.0,
+      "max_score": 5,
+      "strengths": [
+        "深色模式设计",
+        "动画过渡效果",
+        "品牌色强调"
+      ],
+      "improvements": []
+    },
+    "accessibility": {
+      "score": 2,
+      "max_score": 5,
+      "strengths": [
+        "基础可访问性支持"
+      ],
+      "improvements": [
+        "需增加更多 aria 标签"
+      ]
+    },
+    "responsive": {
+      "score": 4,
+      "max_score": 5,
+      "strengths": [
+        "响应式断点"
+      ],
+      "improvements": []
+    },
+    "interaction": {
+      "score": 4,
+      "max_score": 5,
+      "strengths": [
+        "悬停效果"
+      ],
+      "improvements": []
+    }
+  },
+  "issues": [],
+  "recommendations": [
+    {
+      "category": "accessibility",
+      "priority": "medium",
+      "action": "增加更多 aria 标签以提升可访问性",
+      "expected_impact": "改善屏幕阅读器支持"
+    }
+  ],
+  "overall_status": "ok",
+  "ux_score": {
+    "total": 14.0,
+    "max": 20,
+    "percentage": 70.0,
+    "grade": "C"
+  }
+}
