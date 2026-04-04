@@ -24,9 +24,10 @@ jobs:
     timeout-minutes: 60
 
     # 环境配置
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # 注释 environment 以避免 GitHub Pages 环境审批
+    # environment:
+    #   name: github-pages
+    #   url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
