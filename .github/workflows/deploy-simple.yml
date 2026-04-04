@@ -1,21 +1,38 @@
-# 简化版部署 workflow - 用于排查部署问题
-name: Deploy (Simple)
+# 量化数据自动更新与部署
+name: Daily Data Update & Deploy
 
 on:
+  # 手动触发
   workflow_dispatch:
+
+  # 定时触发：每天 UTC 0 点（北京时间 8 点）
+  schedule:
+    - cron: '0 0 * * 1-5'  # 工作日运行，避开周末休市
+
+  # push 触发（前端代码变更时）
   push:
     branches:
       - main
     paths:
       - 'web/**'
+      - 'scripts/**'
+      - 'src/**'
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '20'
+
 jobs:
-  deploy:
+  data-update-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -24,22 +41,131 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      # ==================== 代码检出 ====================
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
+      # ==================== Python 环境 ====================
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # ==================== Node 环境 ====================
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: web/package-lock.json
 
-      - name: Install dependencies
-        run: cd web && npm ci --prefer-offline --no-audit --no-fund
+      - name: Install Node dependencies
+        run: |
+          cd web
+          npm ci --prefer-offline --no-audit --no-fund
+
+      # ==================== 数据缓存 ====================
+      - name: Cache raw data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/raw/
+            ~/.cache/baostock/
+          key: quant-rawdata-${{ runner.os }}-${{ hashFiles('scripts/*.py', 'src/**/*.py') }}
+          restore-keys: |
+            quant-rawdata-${{ runner.os }}-
+
+      # ==================== 回测数据缓存 ====================
+      - name: Cache backtest results
+        uses: actions/cache@v4
+        with:
+          path: |
+            backtest_results/
+          key: quant-backtest-${{ runner.os }}-${{ hashFiles('backtest_results/current.parquet') }}
+          restore-keys: |
+            quant-backtest-${{ runner.os }}-
+
+      # ==================== 增量回测判断 ====================
+      - name: Check if backtest update needed
+        id: backtest-check
+        run: |
+          if [ -f "backtest_results/current.parquet" ]; then
+            LAST_DATE=$(python -c "
+            import pandas as pd
+            df = pd.read_parquet('backtest_results/current.parquet')
+            print(df['date'].iloc[-1])
+            " 2>/dev/null || echo "")
+            TODAY=$(date -u +%Y-%m-%d)
+
+            echo "Last backtest date: $LAST_DATE"
+            echo "Today: $TODAY"
+
+            if [ "$LAST_DATE" = "$TODAY" ]; then
+              echo "SKIP_BACKTEST=true" >> $GITHUB_OUTPUT
+              echo "Backtest data is up to date"
+            else
+              echo "SKIP_BACKTEST=false" >> $GITHUB_OUTPUT
+              echo "Need to update backtest data"
+            fi
+          else
+            echo "SKIP_BACKTEST=false" >> $GITHUB_OUTPUT
+            echo "No existing backtest results"
+          fi
+
+      # ==================== 回测数据更新 ====================
+      - name: Run incremental backtest
+        if: steps.backtest-check.outputs.skip_backtest == 'false'
+        run: |
+          echo "Running incremental backtest..."
+          mkdir -p backtest_results
+          python scripts/backtest_incremental.py
+        env:
+          PYTHONUNBUFFERED: 1
+
+      - name: Skip backtest (already up to date)
+        if: steps.backtest-check.outputs.skip_backtest == 'true'
+        run: |
+          echo "Skipping backtest - data is up to date"
+
+      # ==================== 生成前端数据 ====================
+      - name: Generate frontend data
+        run: |
+          echo "Generating ranking.json..."
+          python scripts/generate_web_data.py
+
+          echo "Generating history.json..."
+          python scripts/generate_history_data.py
+
+          echo "Generating backtest.json..."
+          python scripts/generate_backtest_json.py
+        env:
+          PYTHONUNBUFFERED: 1
+
+      # ==================== 前端构建 ====================
+      - name: Cache Vite build
+        uses: actions/cache@v4
+        with:
+          path: |
+            web/node_modules/.vite
+            ~/.vite
+          key: ${{ runner.os }}-vite-${{ hashFiles('web/package-lock.json', 'web/src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-
 
       - name: Build frontend
-        run: cd web && npm run build
+        run: |
+          cd web
+          npm run build
 
+      # ==================== 部署到 GitHub Pages ====================
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -49,4 +175,37 @@ jobs:
           path: ./web/dist
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
+
+      # ==================== 运行摘要输出 ====================
+      - name: Output daily summary
+        id: summary
+        if: always()
+        run: |
+          python -c "
+          import pandas as pd
+          from pathlib import Path
+
+          parquet_file = Path('backtest_results/current.parquet')
+          if parquet_file.exists():
+              df = pd.read_parquet(parquet_file)
+              latest = df.iloc[-1]
+              prev = df.iloc[-2] if len(df) > 1 else latest
+              first = df.iloc[0]
+
+              daily_return = (latest['value'] - prev['value']) / prev['value'] * 100
+              total_return = (latest['value'] - first['value']) / first['value'] * 100
+
+              print('::group::Daily Summary')
+              print(f'Date: {latest[\"date\"]}')
+              print(f'NAV: {latest[\"value\"]:,.2f}')
+              print(f'Daily Return: {daily_return:+.4f}%')
+              print(f'Total Return: {total_return:+.2f}%')
+              print('::endgroup::')
+
+              print(f'DATE={latest[\"date\"]}')
+              print(f'NAV={latest[\"value\"]:.2f}')
+              print(f'DAILY_RETURN={daily_return:.4f}')
+              print(f'TOTAL_RETURN={total_return:.4f}')
+          " >> $GITHUB_OUTPUT
