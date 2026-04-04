@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true  # 新推送自动取消旧运行，避免超时和资源浪费
 
 jobs:
   build-deploy:
