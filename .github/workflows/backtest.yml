@@ -1,0 +1,189 @@
+name: Daily Backtest & Data Update
+
+on:
+  schedule:
+    # 每个交易日 UTC 0 点运行 (北京时间 8 点)
+    - cron: '0 0 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: "backtest"
+  cancel-in-progress: true
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            __pycache__/
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Cache raw data
+        uses: actions/cache@v4
+        with:
+          path: data/raw/
+          key: quant-rawdata-${{ runner.os }}-${{ hashFiles('data/raw/*.parquet') }}
+          restore-keys: |
+            quant-rawdata-${{ runner.os }}-
+
+      - name: Cache backtest results
+        uses: actions/cache@v4
+        with:
+          path: backtest_results/
+          key: quant-backtest-${{ runner.os }}-${{ hashFiles('backtest_results/*.parquet') }}
+          restore-keys: |
+            quant-backtest-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check for incremental backtest
+        id: backtest_check
+        run: |
+          if [ -f "backtest_results/current.parquet" ]; then
+            LAST_DATE=$(python -c "import pandas as pd; df = pd.read_parquet('backtest_results/current.parquet'); print(df.iloc[-1]['date'])" 2>/dev/null || echo "")
+            TODAY=$(date -u +%Y-%m-%d)
+            if [ "$LAST_DATE" = "$TODAY" ]; then
+              echo "INCREMENTAL=true" >> $GITHUB_OUTPUT
+              echo "Latest data already exists for $TODAY"
+            else
+              echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
+              echo "Need to update data (last: $LAST_DATE, today: $TODAY)"
+            fi
+          else
+            echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
+            echo "No existing backtest results, running full backtest"
+          fi
+
+      - name: Run incremental backtest
+        if: steps.backtest_check.outputs.incremental == 'true'
+        run: |
+          echo "Running incremental update..."
+          python scripts/backtest_incremental.py
+        env:
+          PYTHONUNBUFFERED: 1
+
+      - name: Run full backtest
+        if: steps.backtest_check.outputs.incremental == 'false'
+        run: |
+          mkdir -p backtest_results data/raw
+          python scripts/backtest_baostock.py
+        env:
+          PYTHONUNBUFFERED: 1
+
+      - name: Generate frontend data
+        run: |
+          python scripts/generate_web_data.py
+          python scripts/generate_history_data.py
+          python scripts/generate_backtest_json.py
+
+      - name: Validate results
+        run: |
+          python scripts/validate_backtest_results.py
+
+      - name: Extract metrics
+        id: collect
+        run: |
+          python -c "
+          import pandas as pd
+          df = pd.read_parquet('backtest_results/current.parquet')
+          latest = df.iloc[-1]
+          prev = df.iloc[-2] if len(df) > 1 else latest
+          daily_return = (latest['value'] - prev['value']) / prev['value'] * 100
+          total_return = (latest['value'] - df.iloc[0]['value']) / df.iloc[0]['value'] * 100
+          sharpe = df['sharpe'].iloc[-1] if 'sharpe' in df.columns else 0
+          max_dd = df['max_dd'].iloc[-1] if 'max_dd' in df.columns else 0
+          print(f'DAILY_RETURN={daily_return:.4f}')
+          print(f'TOTAL_RETURN={total_return:.4f}')
+          print(f'SHARPE={sharpe:.2f}')
+          print(f'MAX_DD={max_dd:.4f}')
+          print(f'NAV={latest[\"value\"]:.2f}')
+          print(f'DATE={latest[\"date\"]}')
+          " >> $GITHUB_OUTPUT
+
+      - name: Commit and push results
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add data/raw/ backtest_results/ web/dist/
+          git diff --staged --quiet || git commit -m "chore: update backtest data $(date -u +%Y-%m-%d)
+
+          Metrics:
+          - NAV: ${{ steps.collect.outputs.NAV }}
+          - Daily: ${{ steps.collect.outputs.DAILY_RETURN }}%
+          - Total: ${{ steps.collect.outputs.TOTAL_RETURN }}%
+          - Sharpe: ${{ steps.collect.outputs.SHARPE }}
+          - MaxDD: ${{ steps.collect.outputs.MAX_DD }}
+
+          Generated with [Claude Code](https://claude.ai/code)
+          via [Happy](https://happy.engineering)
+
+          Co-Authored-By: Claude <noreply@anthropic.com>
+          Co-Authored-By: Happy <yesreply@happy.engineering>"
+          git push origin main
+
+      - name: Send notification (optional)
+        if: always() && env.TELEGRAM_BOT_TOKEN != ''
+        run: |
+          python -c "
+          import os
+          import requests
+
+          token = os.environ.get('TELEGRAM_BOT_TOKEN')
+          chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+
+          if not token or not chat_id:
+              print('Telegram 配置缺失，跳过通知')
+              exit(0)
+
+          daily = '${{ steps.collect.outputs.DAILY_RETURN }}'
+          total = '${{ steps.collect.outputs.TOTAL_RETURN }}'
+          nav = '${{ steps.collect.outputs.NAV }}'
+          date = '${{ steps.collect.outputs.DATE }}'
+
+          message = f'''
+          📊 量化轮动日报
+
+          日期：{date}
+          单位净值：{nav}
+          日涨跌：{daily}%
+          夏普比率：${{ steps.collect.outputs.SHARPE }}
+          最大回撤：${{ steps.collect.outputs.MAX_DD }}
+
+          运行详情：https://github.com/maoshuochen/quant-rotation/actions
+          '''
+
+          url = f'https://api.telegram.org/bot{token}/sendMessage'
+          requests.post(url, json={
+              'chat_id': chat_id,
+              'text': message.strip()
+          })
+          " 2>/dev/null || echo "Notification failed"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

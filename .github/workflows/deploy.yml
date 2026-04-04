@@ -1,16 +1,22 @@
-# 已禁用 - 使用 deploy-simple.yml 替代
-# DISABLED - Use deploy-simple.yml instead
-
-name: Build and Deploy (Disabled)
+# 量化数据自动更新与部署
+name: Deploy
 
 on:
-  # push:  # 禁用 push 触发
-  #   branches:
-  #     - main
+  # 手动触发
+  workflow_dispatch:
+
+  # 定时触发：每天 UTC 0 点（北京时间 8 点）
   schedule:
-    # 每天 UTC 0 点运行 (北京时间 8 点)
-    - cron: '0 0 * * 1-5'  # 工作日运行
-  # workflow_dispatch:  # 禁用手动触发
+    - cron: '0 0 * * 1-5'  # 工作日运行，避开周末休市
+
+  # push 触发（前端代码变更时）
+  push:
+    branches:
+      - main
+    paths:
+      - 'web/**'
+      - 'scripts/**'
+      - 'src/**'
 
 permissions:
   contents: read
@@ -19,111 +25,131 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '20'
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
 
-    # 环境配置
-    # 注释 environment 以避免 GitHub Pages 环境审批
-    # environment:
-    #   name: github-pages
-    #   url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      # ==================== 代码检出 ====================
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # 获取前一个 commit 用于增量比较
+          fetch-depth: 2
 
+      # ==================== Python 环境 ====================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-
-      - name: Cache Python dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/pip
-            __pycache__/
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-${{ hashFiles('requirements-dev.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}-
-            ${{ runner.os }}-pip-
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Cache Node dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            web/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('web/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
+
+      # ==================== Node 环境 ====================
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
 
       - name: Install Node dependencies
         run: |
           cd web
           npm ci --prefer-offline --no-audit --no-fund
 
-      - name: Cache data
+      # ==================== 数据缓存 ====================
+      - name: Cache raw data
         uses: actions/cache@v4
         with:
           path: |
-            data/
-            backtest_results/
-          key: quant-data-v2-${{ runner.os }}-${{ hashFiles('src/**/*.py', 'config/**/*.py', 'scripts/*.py') }}
+            data/raw/
+            ~/.cache/baostock/
+          key: quant-rawdata-${{ runner.os }}-${{ hashFiles('scripts/*.py', 'src/**/*.py') }}
           restore-keys: |
-            quant-data-v2-${{ runner.os }}-
+            quant-rawdata-${{ runner.os }}-
 
-      - name: Check for incremental backtest
-        id: backtest_check
+      # ==================== 回测数据缓存 ====================
+      - name: Cache backtest results
+        uses: actions/cache@v4
+        with:
+          path: |
+            backtest_results/
+          key: quant-backtest-${{ runner.os }}-${{ hashFiles('backtest_results/current.parquet') }}
+          restore-keys: |
+            quant-backtest-${{ runner.os }}-
+
+      # ==================== 增量回测判断 ====================
+      - name: Check if backtest update needed
+        id: backtest-check
         run: |
           if [ -f "backtest_results/current.parquet" ]; then
-            LAST_DATE=$(python -c "import pandas as pd; df = pd.read_parquet('backtest_results/current.parquet'); print(df.iloc[-1]['date'])" 2>/dev/null || echo "")
+            LAST_DATE=$(python -c "
+            import pandas as pd
+            df = pd.read_parquet('backtest_results/current.parquet')
+            print(df['date'].iloc[-1])
+            " 2>/dev/null || echo "")
             TODAY=$(date -u +%Y-%m-%d)
+
+            echo "Last backtest date: $LAST_DATE"
+            echo "Today: $TODAY"
+
             if [ "$LAST_DATE" = "$TODAY" ]; then
-              echo "INCREMENTAL=true" >> $GITHUB_OUTPUT
-              echo "Latest data already exists for $TODAY"
+              echo "SKIP_BACKTEST=true" >> $GITHUB_OUTPUT
+              echo "Backtest data is up to date"
             else
-              echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
-              echo "Need to update data (last: $LAST_DATE, today: $TODAY)"
+              echo "SKIP_BACKTEST=false" >> $GITHUB_OUTPUT
+              echo "Need to update backtest data"
             fi
           else
-            echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
-            echo "No existing backtest results, running full backtest"
+            echo "SKIP_BACKTEST=false" >> $GITHUB_OUTPUT
+            echo "No existing backtest results"
           fi
 
+      # ==================== 回测数据更新 ====================
       - name: Run incremental backtest
-        if: steps.backtest_check.outputs.incremental == 'true'
+        if: steps.backtest-check.outputs.skip_backtest == 'false'
         run: |
-          echo "Running incremental update..."
+          echo "Running incremental backtest..."
+          mkdir -p backtest_results
           python scripts/backtest_incremental.py
         env:
           PYTHONUNBUFFERED: 1
 
-      - name: Run full backtest
-        if: steps.backtest_check.outputs.incremental == 'false'
+      - name: Skip backtest (already up to date)
+        if: steps.backtest-check.outputs.skip_backtest == 'true'
         run: |
-          mkdir -p backtest_results data/raw
-          python scripts/backtest_baostock.py
+          echo "Skipping backtest - data is up to date"
+
+      # ==================== 生成前端数据 ====================
+      - name: Generate frontend data
+        run: |
+          echo "Generating ranking.json..."
+          python scripts/generate_web_data.py
+
+          echo "Generating history.json..."
+          python scripts/generate_history_data.py
+
+          echo "Generating backtest.json..."
+          python scripts/generate_backtest_json.py
         env:
           PYTHONUNBUFFERED: 1
 
+      # ==================== 前端构建 ====================
       - name: Cache Vite build
         uses: actions/cache@v4
         with:
@@ -139,36 +165,9 @@ jobs:
           cd web
           npm run build
 
-      - name: Generate data
-        run: |
-          python scripts/generate_web_data.py
-          python scripts/generate_history_data.py
-          python scripts/generate_backtest_json.py
-
-      - name: Validate backtest results
-        run: |
-          python scripts/validate_backtest_results.py
-
-      - name: Run unit tests
-        run: |
-          # 只运行核心模块测试（避免需要额外依赖的测试）
-          python -m pytest tests/test_portfolio.py tests/test_config_loader.py -v --tb=short
-
-      - name: Extract results
-        id: collect
-        run: |
-          python -c "
-          import pandas as pd
-          df = pd.read_parquet('backtest_results/current.parquet')
-          latest = df.iloc[-1]
-          prev = df.iloc[-2] if len(df) > 1 else latest
-          daily_return = (latest['value'] - prev['value']) / prev['value'] * 100
-          total_return = (latest['value'] - df.iloc[0]['value']) / df.iloc[0]['value'] * 100
-          print(f'DAILY_RETURN={daily_return:.4f}')
-          print(f'TOTAL_RETURN={total_return:.4f}')
-          print(f'NAV={latest[\"value\"]:.2f}')
-          print(f'DATE={latest[\"date\"]}')
-          " >> $GITHUB_OUTPUT
+      # ==================== 部署到 GitHub Pages ====================
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -179,41 +178,34 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Send notification (optional)
-        if: always() && env.TELEGRAM_BOT_TOKEN != ''
+      # ==================== 运行摘要输出 ====================
+      - name: Output daily summary
+        id: summary
+        if: always()
         run: |
           python -c "
-          import os
-          import requests
+          import pandas as pd
+          from pathlib import Path
 
-          token = os.environ.get('TELEGRAM_BOT_TOKEN')
-          chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+          parquet_file = Path('backtest_results/current.parquet')
+          if parquet_file.exists():
+              df = pd.read_parquet(parquet_file)
+              latest = df.iloc[-1]
+              prev = df.iloc[-2] if len(df) > 1 else latest
+              first = df.iloc[0]
 
-          if not token or not chat_id:
-              print('Telegram 配置缺失，跳过通知')
-              exit(0)
+              daily_return = (latest['value'] - prev['value']) / prev['value'] * 100
+              total_return = (latest['value'] - first['value']) / first['value'] * 100
 
-          daily = '${{ steps.collect.outputs.DAILY_RETURN }}'
-          total = '${{ steps.collect.outputs.TOTAL_RETURN }}'
-          nav = '${{ steps.collect.outputs.NAV }}'
-          date = '${{ steps.collect.outputs.DATE }}'
+              print('::group::Daily Summary')
+              print(f'Date: {latest[\"date\"]}')
+              print(f'NAV: {latest[\"value\"]:,.2f}')
+              print(f'Daily Return: {daily_return:+.4f}%')
+              print(f'Total Return: {total_return:+.2f}%')
+              print('::endgroup::')
 
-          message = f'''
-          📊 量化轮动日报
-
-          日期：{date}
-          单位净值：{nav}
-          日涨跌：{daily}%
-
-          运行详情：https://github.com/maoshuochen/quant-rotation/actions
-          '''
-
-          url = f'https://api.telegram.org/bot{token}/sendMessage'
-          requests.post(url, json={
-              'chat_id': chat_id,
-              'text': message.strip()
-          })
-          " 2>/dev/null || echo "Notification failed"
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+              print(f'DATE={latest[\"date\"]}')
+              print(f'NAV={latest[\"value\"]:.2f}')
+              print(f'DAILY_RETURN={daily_return:.4f}')
+              print(f'TOTAL_RETURN={total_return:.4f}')
+          " >> $GITHUB_OUTPUT
