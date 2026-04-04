@@ -1,13 +1,16 @@
-name: Build and Deploy
+# 已禁用 - 使用 deploy-simple.yml 替代
+# DISABLED - Use deploy-simple.yml instead
+
+name: Build and Deploy (Disabled)
 
 on:
-  push:
-    branches:
-      - main
+  # push:  # 禁用 push 触发
+  #   branches:
+  #     - main
   schedule:
     # 每天 UTC 0 点运行 (北京时间 8 点)
     - cron: '0 0 * * 1-5'  # 工作日运行
-  workflow_dispatch:
+  # workflow_dispatch:  # 禁用手动触发
 
 permissions:
   contents: read

@@ -1,5 +1,5 @@
 # 量化数据自动更新与部署
-name: Daily Data Update & Deploy
+name: Deploy
 
 on:
   # 手动触发
@@ -25,7 +25,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   PYTHON_VERSION: '3.11'
