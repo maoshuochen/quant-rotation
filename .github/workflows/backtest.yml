@@ -99,7 +99,8 @@ jobs:
       - name: Generate frontend data
         run: |
           python scripts/generate_web_data.py
-          python scripts/generate_history_data.py
+          # 跳过 history.json 生成（太慢，本地生成后提交）
+          # python scripts/generate_history_data.py
           python scripts/generate_backtest_json.py
 
       - name: Validate results
