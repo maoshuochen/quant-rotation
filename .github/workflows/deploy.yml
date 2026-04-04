@@ -34,7 +34,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     environment:
       name: github-pages
@@ -183,7 +183,7 @@ jobs:
         id: summary
         if: always()
         run: |
-          python -c "
+          python3 << 'PYTHON_SCRIPT'
           import pandas as pd
           from pathlib import Path
 
@@ -197,15 +197,19 @@ jobs:
               daily_return = (latest['value'] - prev['value']) / prev['value'] * 100
               total_return = (latest['value'] - first['value']) / first['value'] * 100
 
-              print('::group::Daily Summary')
-              print(f'Date: {latest[\"date\"]}')
-              print(f'NAV: {latest[\"value\"]:,.2f}')
-              print(f'Daily Return: {daily_return:+.4f}%')
-              print(f'Total Return: {total_return:+.2f}%')
-              print('::endgroup::')
+              print(f"Date: {latest['date']}")
+              print(f"NAV: {latest['value']:,.2f}")
+              print(f"Daily Return: {daily_return:+.4f}%")
+              print(f"Total Return: {total_return:+.2f}%")
 
-              print(f'DATE={latest[\"date\"]}')
-              print(f'NAV={latest[\"value\"]:.2f}')
-              print(f'DAILY_RETURN={daily_return:.4f}')
-              print(f'TOTAL_RETURN={total_return:.4f}')
-          " >> $GITHUB_OUTPUT
+              with open('/tmp/summary.txt', 'w') as f:
+                  f.write(f"DATE={latest['date']}\n")
+                  f.write(f"NAV={latest['value']:.2f}\n")
+                  f.write(f"DAILY_RETURN={daily_return:.4f}\n")
+                  f.write(f"TOTAL_RETURN={total_return:.4f}\n")
+          PYTHON_SCRIPT
+
+          # Read and output to GitHub
+          if [ -f /tmp/summary.txt ]; then
+              cat /tmp/summary.txt >> $GITHUB_OUTPUT
+          fi
