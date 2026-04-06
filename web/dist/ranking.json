@@ -74,11 +74,11 @@
       "code": "399006.SZ",
       "name": "创业板指",
       "etf": "159915",
-      "score": 0.5091,
+      "score": 0.509,
       "factors": {
         "momentum": 0.5531,
         "trend": 0.5,
-        "flow": 0.4989
+        "flow": 0.4986
       },
       "attribution": {},
       "rank": 6,
@@ -186,11 +186,11 @@
       "code": "399965.SZ",
       "name": "恒生指数",
       "etf": "159920",
-      "score": 0.4464,
+      "score": 0.4339,
       "factors": {
         "momentum": 0.4125,
         "trend": 0.5,
-        "flow": 0.4268
+        "flow": 0.4023
       },
       "attribution": {},
       "rank": 14,
@@ -228,11 +228,11 @@
       "code": "000932.CSI",
       "name": "消费指数",
       "etf": "159928",
-      "score": 0.4152,
+      "score": 0.3956,
       "factors": {
         "momentum": 0.3575,
         "trend": 0.5,
-        "flow": 0.3855
+        "flow": 0.3474
       },
       "attribution": {},
       "rank": 17,
@@ -299,7 +299,7 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-04 15:26",
+  "update_time": "2026-04-06 02:04",
   "flow_details": {
     "000300.SH": {
       "volume_trend": 0.2102,
@@ -312,7 +312,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -333,7 +333,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -354,7 +354,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -365,25 +365,20 @@
       }
     },
     "399006.SZ": {
-      "volume_trend": 0.3989,
-      "price_volume_corr": 0.4489,
-      "amount_trend": 0.4239,
-      "flow_intensity": 0.4489,
+      "volume_trend": 0.3986,
+      "price_volume_corr": 0.4486,
+      "amount_trend": 0.4236,
+      "flow_intensity": 0.4486,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0,
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
-      "etf_shares_metrics": {
-        "shares_change_20d": 0.0,
-        "shares_change_5d": 0.0,
-        "inflow_days_ratio": 0.5,
-        "trend": 0.0
-      }
+      "etf_shares_metrics": {}
     },
     "000688.SH": {
       "volume_trend": 0.3891,
@@ -396,7 +391,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -407,25 +402,20 @@
       }
     },
     "000932.CSI": {
-      "volume_trend": 0.2908,
-      "price_volume_corr": 0.3381,
-      "amount_trend": 0.3145,
-      "flow_intensity": 0.3381,
+      "volume_trend": 0.2567,
+      "price_volume_corr": 0.302,
+      "amount_trend": 0.2794,
+      "flow_intensity": 0.302,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0,
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
-      "etf_shares_metrics": {
-        "shares_change_20d": 0.0,
-        "shares_change_5d": 0.0,
-        "inflow_days_ratio": 0.5,
-        "trend": 0.0
-      }
+      "etf_shares_metrics": {}
     },
     "000933.CSI": {
       "volume_trend": 0.3426,
@@ -438,7 +428,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -459,7 +449,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -480,7 +470,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -501,7 +491,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -522,7 +512,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -543,7 +533,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -564,7 +554,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -585,7 +575,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -606,7 +596,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -627,7 +617,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -648,7 +638,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -669,7 +659,7 @@
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
       "etf_shares_metrics": {
@@ -680,25 +670,20 @@
       }
     },
     "399965.SZ": {
-      "volume_trend": 0.3289,
-      "price_volume_corr": 0.3778,
-      "amount_trend": 0.3534,
-      "flow_intensity": 0.3778,
+      "volume_trend": 0.3062,
+      "price_volume_corr": 0.3542,
+      "amount_trend": 0.3302,
+      "flow_intensity": 0.3542,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0,
         "net_flow_5d_avg": 0,
         "buy_ratio": 0.5,
         "trend": 0,
-        "available_days": 3
+        "available_days": 4
       },
       "etf_shares": 0.5,
-      "etf_shares_metrics": {
-        "shares_change_20d": 0.0,
-        "shares_change_5d": 0.0,
-        "inflow_days_ratio": 0.5,
-        "trend": 0.0
-      }
+      "etf_shares_metrics": {}
     }
   },
   "health": {
@@ -711,18 +696,22 @@
     },
     "northbound": {
       "status": "degraded",
-      "rows": 151,
-      "recent_rows": 3,
-      "latest_valid_date": "2026-04-04",
+      "rows": 152,
+      "recent_rows": 4,
+      "latest_valid_date": "2026-04-06",
       "gap_days": 0,
-      "snapshot_date": "2026-04-04"
+      "snapshot_date": "2026-04-06"
     },
     "etf_shares": {
-      "status": "snapshot",
+      "status": "degraded",
       "history_count": 0,
-      "snapshot_count": 19,
-      "missing_count": 0,
-      "missing_codes": []
+      "snapshot_count": 16,
+      "missing_count": 3,
+      "missing_codes": [
+        "399006.SZ",
+        "000932.CSI",
+        "399965.SZ"
+      ]
     },
     "universe": {
       "active_count": 19,
