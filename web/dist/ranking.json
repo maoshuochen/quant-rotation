@@ -299,7 +299,7 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-06 02:04",
+  "update_time": "2026-04-07 01:59",
   "flow_details": {
     "000300.SH": {
       "volume_trend": 0.2102,
@@ -699,7 +699,7 @@
       "rows": 152,
       "recent_rows": 4,
       "latest_valid_date": "2026-04-06",
-      "gap_days": 0,
+      "gap_days": 1,
       "snapshot_date": "2026-04-06"
     },
     "etf_shares": {
