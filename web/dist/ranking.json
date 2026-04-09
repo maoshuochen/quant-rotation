@@ -299,7 +299,7 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-08 02:01",
+  "update_time": "2026-04-09 01:53",
   "flow_details": {
     "000300.SH": {
       "volume_trend": 0.1828,
@@ -698,9 +698,9 @@
       "status": "degraded",
       "rows": 153,
       "recent_rows": 5,
-      "latest_valid_date": "2026-04-08",
+      "latest_valid_date": "2026-04-09",
       "gap_days": 0,
-      "snapshot_date": "2026-04-08"
+      "snapshot_date": "2026-04-09"
     },
     "etf_shares": {
       "status": "degraded",
