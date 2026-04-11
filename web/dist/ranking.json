@@ -1,28 +1,28 @@
 {
   "ranking": [
     {
-      "code": "399986.SZ",
-      "name": "银行指数",
-      "etf": "512800",
-      "score": 0.6446,
+      "code": "000993.CSI",
+      "name": "科技指数",
+      "etf": "515000",
+      "score": 0.6928,
       "factors": {
-        "momentum": 0.501,
+        "momentum": 0.5512,
         "trend": 1.0,
-        "flow": 0.485
+        "flow": 0.5612
       },
       "attribution": {},
       "rank": 1,
       "is_top_pick": true
     },
     {
-      "code": "399990.SZ",
-      "name": "煤炭指数",
-      "etf": "515220",
-      "score": 0.6252,
+      "code": "399006.SZ",
+      "name": "创业板指",
+      "etf": "159915",
+      "score": 0.6521,
       "factors": {
-        "momentum": 0.6224,
-        "trend": 0.75,
-        "flow": 0.5522
+        "momentum": 0.5877,
+        "trend": 1.0,
+        "flow": 0.4689
       },
       "attribution": {},
       "rank": 2,
@@ -32,221 +32,221 @@
       "code": "399808.SZ",
       "name": "新能源指数",
       "etf": "516160",
-      "score": 0.6168,
+      "score": 0.6138,
       "factors": {
-        "momentum": 0.662,
+        "momentum": 0.645,
         "trend": 0.5,
-        "flow": 0.67
+        "flow": 0.6702
       },
       "attribution": {},
       "rank": 3,
       "is_top_pick": true
     },
     {
-      "code": "000993.CSI",
-      "name": "科技指数",
-      "etf": "515000",
-      "score": 0.5325,
+      "code": "399975.SZ",
+      "name": "证券指数",
+      "etf": "512000",
+      "score": 0.5847,
       "factors": {
-        "momentum": 0.5377,
-        "trend": 0.5,
-        "flow": 0.55
+        "momentum": 0.374,
+        "trend": 0.75,
+        "flow": 0.5616
       },
       "attribution": {},
       "rank": 4,
       "is_top_pick": true
     },
     {
-      "code": "000933.CSI",
-      "name": "医药指数",
-      "etf": "512010",
-      "score": 0.5004,
+      "code": "000688.SH",
+      "name": "科创 50",
+      "etf": "588000",
+      "score": 0.574,
       "factors": {
-        "momentum": 0.3448,
+        "momentum": 0.4493,
         "trend": 0.75,
-        "flow": 0.4078
+        "flow": 0.5141
       },
       "attribution": {},
       "rank": 5,
       "is_top_pick": true
     },
     {
-      "code": "399006.SZ",
-      "name": "创业板指",
-      "etf": "159915",
-      "score": 0.4918,
+      "code": "399990.SZ",
+      "name": "煤炭指数",
+      "etf": "515220",
+      "score": 0.5679,
       "factors": {
-        "momentum": 0.5531,
-        "trend": 0.5,
-        "flow": 0.4652
+        "momentum": 0.6196,
+        "trend": 0.75,
+        "flow": 0.4416
       },
       "attribution": {},
       "rank": 6,
       "is_top_pick": false
     },
     {
-      "code": "000922.CSI",
-      "name": "红利指数",
-      "etf": "510880",
-      "score": 0.4905,
+      "code": "990001.SSI",
+      "name": "半导体指数",
+      "etf": "512480",
+      "score": 0.5616,
       "factors": {
-        "momentum": 0.535,
+        "momentum": 0.5425,
         "trend": 0.75,
-        "flow": 0.3209
+        "flow": 0.4567
       },
       "attribution": {},
       "rank": 7,
       "is_top_pick": false
     },
     {
-      "code": "000688.SH",
-      "name": "科创 50",
-      "etf": "588000",
-      "score": 0.4722,
+      "code": "000933.CSI",
+      "name": "医药指数",
+      "etf": "512010",
+      "score": 0.5377,
       "factors": {
-        "momentum": 0.472,
-        "trend": 0.5,
-        "flow": 0.4557
+        "momentum": 0.3385,
+        "trend": 0.75,
+        "flow": 0.4828
       },
       "attribution": {},
       "rank": 8,
       "is_top_pick": false
     },
     {
-      "code": "990001.SSI",
-      "name": "半导体指数",
-      "etf": "512480",
-      "score": 0.4654,
+      "code": "000852.SH",
+      "name": "中证 1000",
+      "etf": "512100",
+      "score": 0.5325,
       "factors": {
-        "momentum": 0.567,
-        "trend": 0.5,
-        "flow": 0.4088
+        "momentum": 0.5664,
+        "trend": 0.75,
+        "flow": 0.3916
       },
       "attribution": {},
       "rank": 9,
       "is_top_pick": false
     },
     {
-      "code": "000992.CSI",
-      "name": "金融指数",
-      "etf": "510230",
-      "score": 0.4638,
+      "code": "000905.SH",
+      "name": "中证 500",
+      "etf": "510500",
+      "score": 0.5301,
       "factors": {
-        "momentum": 0.4726,
-        "trend": 0.5,
-        "flow": 0.4393
+        "momentum": 0.5918,
+        "trend": 0.75,
+        "flow": 0.3779
       },
       "attribution": {},
       "rank": 10,
       "is_top_pick": false
     },
     {
-      "code": "000988.CSI",
-      "name": "制造指数",
-      "etf": "516880",
-      "score": 0.4474,
+      "code": "000300.SH",
+      "name": "沪深 300",
+      "etf": "510300",
+      "score": 0.5268,
       "factors": {
-        "momentum": 0.662,
-        "trend": 0.5,
-        "flow": 0.3399
+        "momentum": 0.4952,
+        "trend": 0.75,
+        "flow": 0.4057
       },
       "attribution": {},
       "rank": 11,
       "is_top_pick": false
     },
     {
-      "code": "399967.SZ",
-      "name": "军工指数",
-      "etf": "512660",
-      "score": 0.4439,
+      "code": "399986.SZ",
+      "name": "银行指数",
+      "etf": "512800",
+      "score": 0.5098,
       "factors": {
-        "momentum": 0.6236,
+        "momentum": 0.5033,
         "trend": 0.5,
-        "flow": 0.3467
+        "flow": 0.518
       },
       "attribution": {},
       "rank": 12,
       "is_top_pick": false
     },
     {
-      "code": "399975.SZ",
-      "name": "证券指数",
-      "etf": "512000",
-      "score": 0.4344,
+      "code": "000992.CSI",
+      "name": "金融指数",
+      "etf": "510230",
+      "score": 0.5055,
       "factors": {
-        "momentum": 0.3157,
+        "momentum": 0.4945,
         "trend": 0.5,
-        "flow": 0.4378
+        "flow": 0.5126
       },
       "attribution": {},
       "rank": 13,
       "is_top_pick": false
     },
     {
-      "code": "399965.SZ",
-      "name": "恒生指数",
-      "etf": "159920",
-      "score": 0.4168,
+      "code": "399967.SZ",
+      "name": "军工指数",
+      "etf": "512660",
+      "score": 0.505,
       "factors": {
-        "momentum": 0.4125,
-        "trend": 0.5,
-        "flow": 0.369
+        "momentum": 0.6394,
+        "trend": 0.75,
+        "flow": 0.3121
       },
       "attribution": {},
       "rank": 14,
       "is_top_pick": false
     },
     {
-      "code": "000852.SH",
-      "name": "中证 1000",
-      "etf": "512100",
-      "score": 0.4067,
+      "code": "000922.CSI",
+      "name": "红利指数",
+      "etf": "510880",
+      "score": 0.5008,
       "factors": {
-        "momentum": 0.529,
-        "trend": 0.5,
-        "flow": 0.3079
+        "momentum": 0.5444,
+        "trend": 0.75,
+        "flow": 0.3376
       },
       "attribution": {},
       "rank": 15,
       "is_top_pick": false
     },
     {
-      "code": "000905.SH",
-      "name": "中证 500",
-      "etf": "510500",
-      "score": 0.3999,
+      "code": "399965.SZ",
+      "name": "恒生指数",
+      "etf": "159920",
+      "score": 0.4757,
       "factors": {
-        "momentum": 0.5734,
-        "trend": 0.5,
-        "flow": 0.2788
+        "momentum": 0.4449,
+        "trend": 0.75,
+        "flow": 0.3242
       },
       "attribution": {},
       "rank": 16,
       "is_top_pick": false
     },
     {
-      "code": "000932.CSI",
-      "name": "消费指数",
-      "etf": "159928",
-      "score": 0.3785,
+      "code": "000988.CSI",
+      "name": "制造指数",
+      "etf": "516880",
+      "score": 0.4507,
       "factors": {
-        "momentum": 0.3575,
+        "momentum": 0.6355,
         "trend": 0.5,
-        "flow": 0.314
+        "flow": 0.3557
       },
       "attribution": {},
       "rank": 17,
       "is_top_pick": false
     },
     {
-      "code": "000300.SH",
-      "name": "沪深 300",
-      "etf": "510300",
-      "score": 0.373,
+      "code": "000932.CSI",
+      "name": "消费指数",
+      "etf": "159928",
+      "score": 0.4406,
       "factors": {
-        "momentum": 0.4799,
+        "momentum": 0.3843,
         "trend": 0.5,
-        "flow": 0.2597
+        "flow": 0.4255
       },
       "attribution": {},
       "rank": 18,
@@ -256,11 +256,11 @@
       "code": "399997.SZ",
       "name": "白酒指数",
       "etf": "512690",
-      "score": 0.3589,
+      "score": 0.4102,
       "factors": {
-        "momentum": 0.3038,
+        "momentum": 0.3328,
         "trend": 0.5,
-        "flow": 0.2949
+        "flow": 0.3844
       },
       "attribution": {},
       "rank": 19,
@@ -299,13 +299,13 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-11 15:35",
+  "update_time": "2026-04-11 23:38",
   "flow_details": {
     "000300.SH": {
-      "volume_trend": 0.1828,
-      "price_volume_corr": 0.2212,
-      "amount_trend": 0.202,
-      "flow_intensity": 0.2212,
+      "volume_trend": 0.3092,
+      "price_volume_corr": 0.3575,
+      "amount_trend": 0.3334,
+      "flow_intensity": 0.3575,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -323,10 +323,10 @@
       }
     },
     "000905.SH": {
-      "volume_trend": 0.1984,
-      "price_volume_corr": 0.2386,
-      "amount_trend": 0.2185,
-      "flow_intensity": 0.2386,
+      "volume_trend": 0.2838,
+      "price_volume_corr": 0.3309,
+      "amount_trend": 0.3073,
+      "flow_intensity": 0.3309,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -344,10 +344,10 @@
       }
     },
     "000852.SH": {
-      "volume_trend": 0.2226,
-      "price_volume_corr": 0.2653,
-      "amount_trend": 0.244,
-      "flow_intensity": 0.2653,
+      "volume_trend": 0.2963,
+      "price_volume_corr": 0.3439,
+      "amount_trend": 0.3201,
+      "flow_intensity": 0.3439,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -365,10 +365,10 @@
       }
     },
     "399006.SZ": {
-      "volume_trend": 0.3657,
-      "price_volume_corr": 0.4155,
-      "amount_trend": 0.3906,
-      "flow_intensity": 0.4155,
+      "volume_trend": 0.3693,
+      "price_volume_corr": 0.4191,
+      "amount_trend": 0.3942,
+      "flow_intensity": 0.4191,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -378,13 +378,18 @@
         "available_days": 6
       },
       "etf_shares": 0.5,
-      "etf_shares_metrics": {}
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
     },
     "000688.SH": {
-      "volume_trend": 0.3565,
-      "price_volume_corr": 0.4061,
-      "amount_trend": 0.3813,
-      "flow_intensity": 0.4061,
+      "volume_trend": 0.4142,
+      "price_volume_corr": 0.4642,
+      "amount_trend": 0.4392,
+      "flow_intensity": 0.4642,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -402,10 +407,10 @@
       }
     },
     "000932.CSI": {
-      "volume_trend": 0.2279,
-      "price_volume_corr": 0.2709,
-      "amount_trend": 0.2494,
-      "flow_intensity": 0.2709,
+      "volume_trend": 0.3277,
+      "price_volume_corr": 0.3766,
+      "amount_trend": 0.3521,
+      "flow_intensity": 0.3766,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -415,13 +420,18 @@
         "available_days": 6
       },
       "etf_shares": 0.5,
-      "etf_shares_metrics": {}
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
     },
     "000933.CSI": {
-      "volume_trend": 0.3112,
-      "price_volume_corr": 0.3595,
-      "amount_trend": 0.3354,
-      "flow_intensity": 0.3595,
+      "volume_trend": 0.3829,
+      "price_volume_corr": 0.4328,
+      "amount_trend": 0.4079,
+      "flow_intensity": 0.4328,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -439,10 +449,10 @@
       }
     },
     "000993.CSI": {
-      "volume_trend": 0.451,
-      "price_volume_corr": 0.5005,
-      "amount_trend": 0.4757,
-      "flow_intensity": 0.5005,
+      "volume_trend": 0.4627,
+      "price_volume_corr": 0.5119,
+      "amount_trend": 0.4873,
+      "flow_intensity": 0.5119,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -460,10 +470,10 @@
       }
     },
     "000992.CSI": {
-      "volume_trend": 0.3408,
-      "price_volume_corr": 0.39,
-      "amount_trend": 0.3654,
-      "flow_intensity": 0.39,
+      "volume_trend": 0.4127,
+      "price_volume_corr": 0.4626,
+      "amount_trend": 0.4377,
+      "flow_intensity": 0.4626,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -481,10 +491,10 @@
       }
     },
     "000988.CSI": {
-      "volume_trend": 0.2501,
-      "price_volume_corr": 0.295,
-      "amount_trend": 0.2726,
-      "flow_intensity": 0.295,
+      "volume_trend": 0.264,
+      "price_volume_corr": 0.3098,
+      "amount_trend": 0.2869,
+      "flow_intensity": 0.3098,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -502,10 +512,10 @@
       }
     },
     "000922.CSI": {
-      "volume_trend": 0.2337,
-      "price_volume_corr": 0.2773,
-      "amount_trend": 0.2555,
-      "flow_intensity": 0.2773,
+      "volume_trend": 0.2482,
+      "price_volume_corr": 0.2929,
+      "amount_trend": 0.2705,
+      "flow_intensity": 0.2929,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -523,10 +533,10 @@
       }
     },
     "399967.SZ": {
-      "volume_trend": 0.2561,
-      "price_volume_corr": 0.3014,
-      "amount_trend": 0.2788,
-      "flow_intensity": 0.3014,
+      "volume_trend": 0.2262,
+      "price_volume_corr": 0.2692,
+      "amount_trend": 0.2477,
+      "flow_intensity": 0.2692,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -544,10 +554,10 @@
       }
     },
     "399808.SZ": {
-      "volume_trend": 0.5816,
-      "price_volume_corr": 0.6258,
-      "amount_trend": 0.6037,
-      "flow_intensity": 0.6258,
+      "volume_trend": 0.5817,
+      "price_volume_corr": 0.626,
+      "amount_trend": 0.6039,
+      "flow_intensity": 0.626,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -565,10 +575,10 @@
       }
     },
     "990001.SSI": {
-      "volume_trend": 0.3121,
-      "price_volume_corr": 0.3604,
-      "amount_trend": 0.3363,
-      "flow_intensity": 0.3604,
+      "volume_trend": 0.3575,
+      "price_volume_corr": 0.4071,
+      "amount_trend": 0.3823,
+      "flow_intensity": 0.4071,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -586,10 +596,10 @@
       }
     },
     "399997.SZ": {
-      "volume_trend": 0.2117,
-      "price_volume_corr": 0.2533,
-      "amount_trend": 0.2325,
-      "flow_intensity": 0.2533,
+      "volume_trend": 0.2898,
+      "price_volume_corr": 0.3371,
+      "amount_trend": 0.3135,
+      "flow_intensity": 0.3371,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -607,10 +617,10 @@
       }
     },
     "399986.SZ": {
-      "volume_trend": 0.3851,
-      "price_volume_corr": 0.4351,
-      "amount_trend": 0.4101,
-      "flow_intensity": 0.4351,
+      "volume_trend": 0.4181,
+      "price_volume_corr": 0.468,
+      "amount_trend": 0.4431,
+      "flow_intensity": 0.468,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -628,10 +638,10 @@
       }
     },
     "399975.SZ": {
-      "volume_trend": 0.3393,
-      "price_volume_corr": 0.3885,
-      "amount_trend": 0.3639,
-      "flow_intensity": 0.3885,
+      "volume_trend": 0.4631,
+      "price_volume_corr": 0.5124,
+      "amount_trend": 0.4877,
+      "flow_intensity": 0.5124,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -649,10 +659,10 @@
       }
     },
     "399990.SZ": {
-      "volume_trend": 0.4533,
-      "price_volume_corr": 0.5027,
-      "amount_trend": 0.478,
-      "flow_intensity": 0.5027,
+      "volume_trend": 0.343,
+      "price_volume_corr": 0.3923,
+      "amount_trend": 0.3677,
+      "flow_intensity": 0.3923,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -670,10 +680,10 @@
       }
     },
     "399965.SZ": {
-      "volume_trend": 0.2759,
-      "price_volume_corr": 0.3224,
-      "amount_trend": 0.2992,
-      "flow_intensity": 0.3224,
+      "volume_trend": 0.2365,
+      "price_volume_corr": 0.2803,
+      "amount_trend": 0.2584,
+      "flow_intensity": 0.2803,
       "northbound": 0.5,
       "northbound_metrics": {
         "net_flow_20d_sum": 0.0,
@@ -683,7 +693,12 @@
         "available_days": 6
       },
       "etf_shares": 0.5,
-      "etf_shares_metrics": {}
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
     }
   },
   "health": {
@@ -692,7 +707,7 @@
       "available_count": 19,
       "expected_count": 19,
       "stale_codes": [],
-      "latest_trade_date": "2026-04-01"
+      "latest_trade_date": "2026-04-10"
     },
     "northbound": {
       "status": "degraded",
@@ -703,15 +718,11 @@
       "snapshot_date": "2026-04-10"
     },
     "etf_shares": {
-      "status": "degraded",
+      "status": "snapshot",
       "history_count": 0,
-      "snapshot_count": 16,
-      "missing_count": 3,
-      "missing_codes": [
-        "399006.SZ",
-        "000932.CSI",
-        "399965.SZ"
-      ]
+      "snapshot_count": 19,
+      "missing_count": 0,
+      "missing_codes": []
     },
     "universe": {
       "active_count": 19,
@@ -834,31 +845,31 @@
     "buffer_n": 8,
     "rebalance_frequency": "weekly",
     "selected_codes": [
-      "399986.SZ",
-      "399990.SZ",
-      "399808.SZ",
       "000993.CSI",
-      "000933.CSI"
+      "399006.SZ",
+      "399808.SZ",
+      "399975.SZ",
+      "000688.SH"
     ],
     "hold_range_codes": [
-      "399986.SZ",
-      "399990.SZ",
-      "399808.SZ",
       "000993.CSI",
-      "000933.CSI",
       "399006.SZ",
-      "000922.CSI",
-      "000688.SH"
+      "399808.SZ",
+      "399975.SZ",
+      "000688.SH",
+      "399990.SZ",
+      "990001.SSI",
+      "000933.CSI"
     ],
     "signals": [
       {
         "action": "buy",
-        "code": "399986.SZ",
+        "code": "000993.CSI",
         "weight": 0.2
       },
       {
         "action": "buy",
-        "code": "399990.SZ",
+        "code": "399006.SZ",
         "weight": 0.2
       },
       {
@@ -868,36 +879,36 @@
       },
       {
         "action": "buy",
-        "code": "000993.CSI",
+        "code": "399975.SZ",
         "weight": 0.2
       },
       {
         "action": "buy",
-        "code": "000933.CSI",
+        "code": "000688.SH",
         "weight": 0.2
       }
     ],
     "holdings": [
       {
-        "code": "399986.SZ",
+        "code": "000993.CSI",
         "rank": 1,
-        "score": 0.6446,
-        "name": "银行指数",
-        "etf": "512800",
+        "score": 0.6928,
+        "name": "科技指数",
+        "etf": "515000",
         "strongest_factors": [
           "trend",
-          "momentum"
+          "flow"
         ],
         "weakest_factors": [
-          "flow"
+          "momentum"
         ]
       },
       {
-        "code": "399990.SZ",
+        "code": "399006.SZ",
         "rank": 2,
-        "score": 0.6252,
-        "name": "煤炭指数",
-        "etf": "515220",
+        "score": 0.6521,
+        "name": "创业板指",
+        "etf": "159915",
         "strongest_factors": [
           "trend",
           "momentum"
@@ -909,7 +920,7 @@
       {
         "code": "399808.SZ",
         "rank": 3,
-        "score": 0.6168,
+        "score": 0.6138,
         "name": "新能源指数",
         "etf": "516160",
         "strongest_factors": [
@@ -921,25 +932,25 @@
         ]
       },
       {
-        "code": "000993.CSI",
+        "code": "399975.SZ",
         "rank": 4,
-        "score": 0.5325,
-        "name": "科技指数",
-        "etf": "515000",
+        "score": 0.5847,
+        "name": "证券指数",
+        "etf": "512000",
         "strongest_factors": [
-          "flow",
-          "momentum"
+          "trend",
+          "flow"
         ],
         "weakest_factors": [
-          "trend"
+          "momentum"
         ]
       },
       {
-        "code": "000933.CSI",
+        "code": "000688.SH",
         "rank": 5,
-        "score": 0.5004,
-        "name": "医药指数",
-        "etf": "512010",
+        "score": 0.574,
+        "name": "科创 50",
+        "etf": "588000",
         "strongest_factors": [
           "trend",
           "flow"
