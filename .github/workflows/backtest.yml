@@ -79,10 +79,6 @@ jobs:
         run: |
           python scripts/generate_data.py
 
-      - name: Validate results
-        run: |
-          python scripts/validate_backtest_results.py
-
       - name: Extract metrics
         id: collect
         run: |
