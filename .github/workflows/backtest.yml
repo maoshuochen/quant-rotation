@@ -103,11 +103,18 @@ jobs:
           print(f'DATE={pd.to_datetime(latest[\"date\"]).strftime(\"%Y-%m-%d\")}')
           " >> $GITHUB_OUTPUT
 
+      - name: Copy web files to root for GitHub Pages
+        run: |
+          cp web/dist/index.html .
+          cp web/dist/data.json .
+          cp web/dist/ranking.json .
+          cp -r web/dist/assets ./assets
+
       - name: Commit and push results
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add data/raw/ backtest_results/ web/dist/
+          git add data/raw/ backtest_results/ web/dist/ index.html data.json ranking.json assets/
           git diff --staged --quiet || git commit -m "chore: update backtest data $(date -u +%Y-%m-%d)
 
           Metrics:
