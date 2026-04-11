@@ -1,16 +1,16 @@
 {
   "summary": {
     "initial_capital": 1000000.0,
-    "final_value": 1264021.83,
-    "total_return": 0.264,
-    "annual_return": 0.2073,
+    "final_value": 1284751.07,
+    "total_return": 0.2848,
+    "annual_return": 0.2184,
     "max_drawdown": -0.1456,
     "max_drawdown_date": "2025-07-07",
-    "sharpe_ratio": 0.96,
-    "trading_days": 300,
+    "sharpe_ratio": 1.0,
+    "trading_days": 306,
     "period": {
       "start": "2025-01-02",
-      "end": "2026-04-01"
+      "end": "2026-04-10"
     }
   },
   "chart_data": [
@@ -1804,15 +1804,51 @@
     },
     {
       "date": "2026-03-31",
-      "value": 1256897.29,
-      "cum_return": 0.2569,
-      "drawdown": -0.0769
+      "value": 1258964.0,
+      "cum_return": 0.259,
+      "drawdown": -0.0754
     },
     {
       "date": "2026-04-01",
-      "value": 1264021.83,
-      "cum_return": 0.264,
-      "drawdown": -0.0717
+      "value": 1266088.54,
+      "cum_return": 0.2661,
+      "drawdown": -0.0702
+    },
+    {
+      "date": "2026-04-02",
+      "value": 1260278.23,
+      "cum_return": 0.2603,
+      "drawdown": -0.0744
+    },
+    {
+      "date": "2026-04-03",
+      "value": 1253129.95,
+      "cum_return": 0.2531,
+      "drawdown": -0.0797
+    },
+    {
+      "date": "2026-04-07",
+      "value": 1252923.24,
+      "cum_return": 0.2529,
+      "drawdown": -0.0798
+    },
+    {
+      "date": "2026-04-08",
+      "value": 1277882.16,
+      "cum_return": 0.2779,
+      "drawdown": -0.0615
+    },
+    {
+      "date": "2026-04-09",
+      "value": 1272673.2,
+      "cum_return": 0.2727,
+      "drawdown": -0.0653
+    },
+    {
+      "date": "2026-04-10",
+      "value": 1284751.07,
+      "cum_return": 0.2848,
+      "drawdown": -0.0564
     }
   ]
 }
