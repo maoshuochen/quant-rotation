@@ -1,0 +1,2872 @@
+{
+  "backtest": {
+    "summary": {
+      "initial_capital": 1000000.0,
+      "final_value": 1284751.07,
+      "total_return": 0.2848,
+      "annual_return": 0.2184,
+      "max_drawdown": -0.1456,
+      "max_drawdown_date": "2025-07-07",
+      "sharpe_ratio": 1.0,
+      "trading_days": 306,
+      "period": {
+        "start": "2025-01-02",
+        "end": "2026-04-10"
+      }
+    },
+    "chart_data": [
+      {
+        "date": "2025-01-02",
+        "value": 1000000.0,
+        "cum_return": 0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-03",
+        "value": 1000000.0,
+        "cum_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-06",
+        "value": 1000000.0,
+        "cum_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-07",
+        "value": 1011070.83,
+        "cum_return": 0.0111,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-08",
+        "value": 1010576.78,
+        "cum_return": 0.0106,
+        "drawdown": -0.0005
+      },
+      {
+        "date": "2025-01-09",
+        "value": 1005398.1,
+        "cum_return": 0.0054,
+        "drawdown": -0.0056
+      },
+      {
+        "date": "2025-01-10",
+        "value": 995961.76,
+        "cum_return": -0.004,
+        "drawdown": -0.0149
+      },
+      {
+        "date": "2025-01-13",
+        "value": 990158.81,
+        "cum_return": -0.0098,
+        "drawdown": -0.0207
+      },
+      {
+        "date": "2025-01-14",
+        "value": 1020914.91,
+        "cum_return": 0.0209,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-15",
+        "value": 1019089.93,
+        "cum_return": 0.0191,
+        "drawdown": -0.0018
+      },
+      {
+        "date": "2025-01-16",
+        "value": 1017739.38,
+        "cum_return": 0.0177,
+        "drawdown": -0.0031
+      },
+      {
+        "date": "2025-01-17",
+        "value": 1022863.68,
+        "cum_return": 0.0229,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-20",
+        "value": 1025164.17,
+        "cum_return": 0.0252,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-21",
+        "value": 1028239.72,
+        "cum_return": 0.0282,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-22",
+        "value": 1019641.04,
+        "cum_return": 0.0196,
+        "drawdown": -0.0084
+      },
+      {
+        "date": "2025-01-23",
+        "value": 1025175.56,
+        "cum_return": 0.0252,
+        "drawdown": -0.003
+      },
+      {
+        "date": "2025-01-24",
+        "value": 1034080.26,
+        "cum_return": 0.0341,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-01-27",
+        "value": 1022174.88,
+        "cum_return": 0.0222,
+        "drawdown": -0.0115
+      },
+      {
+        "date": "2025-02-05",
+        "value": 1020092.45,
+        "cum_return": 0.0201,
+        "drawdown": -0.0135
+      },
+      {
+        "date": "2025-02-06",
+        "value": 1036819.81,
+        "cum_return": 0.0368,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-07",
+        "value": 1048994.28,
+        "cum_return": 0.049,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-10",
+        "value": 1054170.17,
+        "cum_return": 0.0542,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-11",
+        "value": 1052168.38,
+        "cum_return": 0.0522,
+        "drawdown": -0.0019
+      },
+      {
+        "date": "2025-02-12",
+        "value": 1067188.0,
+        "cum_return": 0.0672,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-13",
+        "value": 1057461.59,
+        "cum_return": 0.0575,
+        "drawdown": -0.0091
+      },
+      {
+        "date": "2025-02-14",
+        "value": 1062699.28,
+        "cum_return": 0.0627,
+        "drawdown": -0.0042
+      },
+      {
+        "date": "2025-02-17",
+        "value": 1067920.73,
+        "cum_return": 0.0679,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-18",
+        "value": 1053865.45,
+        "cum_return": 0.0539,
+        "drawdown": -0.0132
+      },
+      {
+        "date": "2025-02-19",
+        "value": 1069925.47,
+        "cum_return": 0.0699,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-20",
+        "value": 1072182.62,
+        "cum_return": 0.0722,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-21",
+        "value": 1092247.83,
+        "cum_return": 0.0922,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-24",
+        "value": 1092555.86,
+        "cum_return": 0.0926,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-25",
+        "value": 1088013.82,
+        "cum_return": 0.088,
+        "drawdown": -0.0042
+      },
+      {
+        "date": "2025-02-26",
+        "value": 1108343.36,
+        "cum_return": 0.1083,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-02-27",
+        "value": 1106219.35,
+        "cum_return": 0.1062,
+        "drawdown": -0.0019
+      },
+      {
+        "date": "2025-02-28",
+        "value": 1077614.39,
+        "cum_return": 0.0776,
+        "drawdown": -0.0277
+      },
+      {
+        "date": "2025-03-03",
+        "value": 1094600.43,
+        "cum_return": 0.0946,
+        "drawdown": -0.0124
+      },
+      {
+        "date": "2025-03-04",
+        "value": 1088283.95,
+        "cum_return": 0.0883,
+        "drawdown": -0.0181
+      },
+      {
+        "date": "2025-03-05",
+        "value": 1080332.24,
+        "cum_return": 0.0803,
+        "drawdown": -0.0253
+      },
+      {
+        "date": "2025-03-06",
+        "value": 1099805.98,
+        "cum_return": 0.0998,
+        "drawdown": -0.0077
+      },
+      {
+        "date": "2025-03-07",
+        "value": 1089191.0,
+        "cum_return": 0.0892,
+        "drawdown": -0.0173
+      },
+      {
+        "date": "2025-03-10",
+        "value": 1088688.84,
+        "cum_return": 0.0887,
+        "drawdown": -0.0177
+      },
+      {
+        "date": "2025-03-11",
+        "value": 1092301.12,
+        "cum_return": 0.0923,
+        "drawdown": -0.0145
+      },
+      {
+        "date": "2025-03-12",
+        "value": 1088242.5,
+        "cum_return": 0.0882,
+        "drawdown": -0.0181
+      },
+      {
+        "date": "2025-03-13",
+        "value": 1079098.1,
+        "cum_return": 0.0791,
+        "drawdown": -0.0264
+      },
+      {
+        "date": "2025-03-14",
+        "value": 1102974.32,
+        "cum_return": 0.103,
+        "drawdown": -0.0048
+      },
+      {
+        "date": "2025-03-17",
+        "value": 1103572.31,
+        "cum_return": 0.1036,
+        "drawdown": -0.0043
+      },
+      {
+        "date": "2025-03-18",
+        "value": 1103302.51,
+        "cum_return": 0.1033,
+        "drawdown": -0.0045
+      },
+      {
+        "date": "2025-03-19",
+        "value": 1100577.91,
+        "cum_return": 0.1006,
+        "drawdown": -0.007
+      },
+      {
+        "date": "2025-03-20",
+        "value": 1091680.1,
+        "cum_return": 0.0917,
+        "drawdown": -0.015
+      },
+      {
+        "date": "2025-03-21",
+        "value": 1076302.59,
+        "cum_return": 0.0763,
+        "drawdown": -0.0289
+      },
+      {
+        "date": "2025-03-24",
+        "value": 1072581.05,
+        "cum_return": 0.0726,
+        "drawdown": -0.0323
+      },
+      {
+        "date": "2025-03-25",
+        "value": 1078025.5,
+        "cum_return": 0.078,
+        "drawdown": -0.0274
+      },
+      {
+        "date": "2025-03-26",
+        "value": 1080760.11,
+        "cum_return": 0.0808,
+        "drawdown": -0.0249
+      },
+      {
+        "date": "2025-03-27",
+        "value": 1075196.7,
+        "cum_return": 0.0752,
+        "drawdown": -0.0299
+      },
+      {
+        "date": "2025-03-28",
+        "value": 1066175.05,
+        "cum_return": 0.0662,
+        "drawdown": -0.038
+      },
+      {
+        "date": "2025-03-31",
+        "value": 1045650.63,
+        "cum_return": 0.0457,
+        "drawdown": -0.0566
+      },
+      {
+        "date": "2025-04-01",
+        "value": 1054994.42,
+        "cum_return": 0.055,
+        "drawdown": -0.0481
+      },
+      {
+        "date": "2025-04-02",
+        "value": 1052271.01,
+        "cum_return": 0.0523,
+        "drawdown": -0.0506
+      },
+      {
+        "date": "2025-04-03",
+        "value": 1052437.25,
+        "cum_return": 0.0524,
+        "drawdown": -0.0504
+      },
+      {
+        "date": "2025-04-07",
+        "value": 1000825.36,
+        "cum_return": 0.0008,
+        "drawdown": -0.097
+      },
+      {
+        "date": "2025-04-08",
+        "value": 1027369.59,
+        "cum_return": 0.0274,
+        "drawdown": -0.0731
+      },
+      {
+        "date": "2025-04-09",
+        "value": 1047819.35,
+        "cum_return": 0.0478,
+        "drawdown": -0.0546
+      },
+      {
+        "date": "2025-04-10",
+        "value": 1054967.58,
+        "cum_return": 0.055,
+        "drawdown": -0.0482
+      },
+      {
+        "date": "2025-04-11",
+        "value": 1052451.02,
+        "cum_return": 0.0525,
+        "drawdown": -0.0504
+      },
+      {
+        "date": "2025-04-14",
+        "value": 1057173.33,
+        "cum_return": 0.0572,
+        "drawdown": -0.0462
+      },
+      {
+        "date": "2025-04-15",
+        "value": 1049344.37,
+        "cum_return": 0.0493,
+        "drawdown": -0.0532
+      },
+      {
+        "date": "2025-04-16",
+        "value": 1048575.65,
+        "cum_return": 0.0486,
+        "drawdown": -0.0539
+      },
+      {
+        "date": "2025-04-17",
+        "value": 1052957.75,
+        "cum_return": 0.053,
+        "drawdown": -0.05
+      },
+      {
+        "date": "2025-04-18",
+        "value": 1046550.65,
+        "cum_return": 0.0466,
+        "drawdown": -0.0558
+      },
+      {
+        "date": "2025-04-21",
+        "value": 1052708.01,
+        "cum_return": 0.0527,
+        "drawdown": -0.0502
+      },
+      {
+        "date": "2025-04-22",
+        "value": 1054582.65,
+        "cum_return": 0.0546,
+        "drawdown": -0.0485
+      },
+      {
+        "date": "2025-04-23",
+        "value": 1051882.81,
+        "cum_return": 0.0519,
+        "drawdown": -0.0509
+      },
+      {
+        "date": "2025-04-24",
+        "value": 1052998.23,
+        "cum_return": 0.053,
+        "drawdown": -0.0499
+      },
+      {
+        "date": "2025-04-25",
+        "value": 1051339.59,
+        "cum_return": 0.0513,
+        "drawdown": -0.0514
+      },
+      {
+        "date": "2025-04-28",
+        "value": 1052446.45,
+        "cum_return": 0.0524,
+        "drawdown": -0.0504
+      },
+      {
+        "date": "2025-04-29",
+        "value": 1052212.77,
+        "cum_return": 0.0522,
+        "drawdown": -0.0506
+      },
+      {
+        "date": "2025-04-30",
+        "value": 1046424.07,
+        "cum_return": 0.0464,
+        "drawdown": -0.0559
+      },
+      {
+        "date": "2025-05-06",
+        "value": 1053100.48,
+        "cum_return": 0.0531,
+        "drawdown": -0.0498
+      },
+      {
+        "date": "2025-05-07",
+        "value": 1059133.51,
+        "cum_return": 0.0591,
+        "drawdown": -0.0444
+      },
+      {
+        "date": "2025-05-08",
+        "value": 1064394.28,
+        "cum_return": 0.0644,
+        "drawdown": -0.0397
+      },
+      {
+        "date": "2025-05-09",
+        "value": 1064257.78,
+        "cum_return": 0.0643,
+        "drawdown": -0.0398
+      },
+      {
+        "date": "2025-05-12",
+        "value": 1070582.24,
+        "cum_return": 0.0706,
+        "drawdown": -0.0341
+      },
+      {
+        "date": "2025-05-13",
+        "value": 1071053.69,
+        "cum_return": 0.0711,
+        "drawdown": -0.0336
+      },
+      {
+        "date": "2025-05-14",
+        "value": 1078786.43,
+        "cum_return": 0.0788,
+        "drawdown": -0.0267
+      },
+      {
+        "date": "2025-05-15",
+        "value": 1070477.11,
+        "cum_return": 0.0705,
+        "drawdown": -0.0342
+      },
+      {
+        "date": "2025-05-16",
+        "value": 1064216.47,
+        "cum_return": 0.0642,
+        "drawdown": -0.0398
+      },
+      {
+        "date": "2025-05-19",
+        "value": 1065697.33,
+        "cum_return": 0.0657,
+        "drawdown": -0.0385
+      },
+      {
+        "date": "2025-05-20",
+        "value": 1066762.88,
+        "cum_return": 0.0668,
+        "drawdown": -0.0375
+      },
+      {
+        "date": "2025-05-21",
+        "value": 1071910.23,
+        "cum_return": 0.0719,
+        "drawdown": -0.0329
+      },
+      {
+        "date": "2025-05-22",
+        "value": 1073869.48,
+        "cum_return": 0.0739,
+        "drawdown": -0.0311
+      },
+      {
+        "date": "2025-05-23",
+        "value": 1065900.01,
+        "cum_return": 0.0659,
+        "drawdown": -0.0383
+      },
+      {
+        "date": "2025-05-26",
+        "value": 1063082.69,
+        "cum_return": 0.0631,
+        "drawdown": -0.0408
+      },
+      {
+        "date": "2025-05-27",
+        "value": 1064274.0,
+        "cum_return": 0.0643,
+        "drawdown": -0.0398
+      },
+      {
+        "date": "2025-05-28",
+        "value": 1063051.73,
+        "cum_return": 0.0631,
+        "drawdown": -0.0409
+      },
+      {
+        "date": "2025-05-29",
+        "value": 1070001.14,
+        "cum_return": 0.07,
+        "drawdown": -0.0346
+      },
+      {
+        "date": "2025-05-30",
+        "value": 1074047.68,
+        "cum_return": 0.074,
+        "drawdown": -0.0309
+      },
+      {
+        "date": "2025-06-03",
+        "value": 1082502.42,
+        "cum_return": 0.0825,
+        "drawdown": -0.0233
+      },
+      {
+        "date": "2025-06-04",
+        "value": 1086335.33,
+        "cum_return": 0.0863,
+        "drawdown": -0.0199
+      },
+      {
+        "date": "2025-06-05",
+        "value": 1081682.12,
+        "cum_return": 0.0817,
+        "drawdown": -0.0241
+      },
+      {
+        "date": "2025-06-06",
+        "value": 1079873.99,
+        "cum_return": 0.0799,
+        "drawdown": -0.0257
+      },
+      {
+        "date": "2025-06-09",
+        "value": 1086993.98,
+        "cum_return": 0.087,
+        "drawdown": -0.0193
+      },
+      {
+        "date": "2025-06-10",
+        "value": 1082723.53,
+        "cum_return": 0.0827,
+        "drawdown": -0.0231
+      },
+      {
+        "date": "2025-06-11",
+        "value": 1085093.98,
+        "cum_return": 0.0851,
+        "drawdown": -0.021
+      },
+      {
+        "date": "2025-06-12",
+        "value": 1088474.04,
+        "cum_return": 0.0885,
+        "drawdown": -0.0179
+      },
+      {
+        "date": "2025-06-13",
+        "value": 1081839.67,
+        "cum_return": 0.0818,
+        "drawdown": -0.0239
+      },
+      {
+        "date": "2025-06-16",
+        "value": 1087614.19,
+        "cum_return": 0.0876,
+        "drawdown": -0.0187
+      },
+      {
+        "date": "2025-06-17",
+        "value": 1080039.7,
+        "cum_return": 0.08,
+        "drawdown": -0.0255
+      },
+      {
+        "date": "2025-06-18",
+        "value": 1084729.88,
+        "cum_return": 0.0847,
+        "drawdown": -0.0213
+      },
+      {
+        "date": "2025-06-19",
+        "value": 1077487.85,
+        "cum_return": 0.0775,
+        "drawdown": -0.0278
+      },
+      {
+        "date": "2025-06-20",
+        "value": 1079447.71,
+        "cum_return": 0.0794,
+        "drawdown": -0.0261
+      },
+      {
+        "date": "2025-06-23",
+        "value": 1088229.5,
+        "cum_return": 0.0882,
+        "drawdown": -0.0181
+      },
+      {
+        "date": "2025-06-24",
+        "value": 1096160.74,
+        "cum_return": 0.0962,
+        "drawdown": -0.011
+      },
+      {
+        "date": "2025-06-25",
+        "value": 1125352.46,
+        "cum_return": 0.1254,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-06-26",
+        "value": 1123289.54,
+        "cum_return": 0.1233,
+        "drawdown": -0.0018
+      },
+      {
+        "date": "2025-06-27",
+        "value": 1116530.21,
+        "cum_return": 0.1165,
+        "drawdown": -0.0078
+      },
+      {
+        "date": "2025-06-30",
+        "value": 1125960.56,
+        "cum_return": 0.126,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-07-01",
+        "value": 1127246.82,
+        "cum_return": 0.1272,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-07-02",
+        "value": 1119009.13,
+        "cum_return": 0.119,
+        "drawdown": -0.0073
+      },
+      {
+        "date": "2025-07-03",
+        "value": 1124798.72,
+        "cum_return": 0.1248,
+        "drawdown": -0.0022
+      },
+      {
+        "date": "2025-07-04",
+        "value": 1130047.48,
+        "cum_return": 0.13,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-07-07",
+        "value": 965504.45,
+        "cum_return": -0.0345,
+        "drawdown": -0.1456
+      },
+      {
+        "date": "2025-07-08",
+        "value": 986432.9,
+        "cum_return": -0.0136,
+        "drawdown": -0.1271
+      },
+      {
+        "date": "2025-07-09",
+        "value": 982353.58,
+        "cum_return": -0.0176,
+        "drawdown": -0.1307
+      },
+      {
+        "date": "2025-07-10",
+        "value": 989290.85,
+        "cum_return": -0.0107,
+        "drawdown": -0.1246
+      },
+      {
+        "date": "2025-07-11",
+        "value": 999034.93,
+        "cum_return": -0.001,
+        "drawdown": -0.1159
+      },
+      {
+        "date": "2025-07-14",
+        "value": 995106.46,
+        "cum_return": -0.0049,
+        "drawdown": -0.1194
+      },
+      {
+        "date": "2025-07-15",
+        "value": 988354.05,
+        "cum_return": -0.0116,
+        "drawdown": -0.1254
+      },
+      {
+        "date": "2025-07-16",
+        "value": 986608.42,
+        "cum_return": -0.0134,
+        "drawdown": -0.1269
+      },
+      {
+        "date": "2025-07-17",
+        "value": 995497.4,
+        "cum_return": -0.0045,
+        "drawdown": -0.1191
+      },
+      {
+        "date": "2025-07-18",
+        "value": 999143.72,
+        "cum_return": -0.0009,
+        "drawdown": -0.1158
+      },
+      {
+        "date": "2025-07-21",
+        "value": 1007998.92,
+        "cum_return": 0.008,
+        "drawdown": -0.108
+      },
+      {
+        "date": "2025-07-22",
+        "value": 1014415.59,
+        "cum_return": 0.0144,
+        "drawdown": -0.1023
+      },
+      {
+        "date": "2025-07-23",
+        "value": 1014299.06,
+        "cum_return": 0.0143,
+        "drawdown": -0.1024
+      },
+      {
+        "date": "2025-07-24",
+        "value": 1032637.95,
+        "cum_return": 0.0326,
+        "drawdown": -0.0862
+      },
+      {
+        "date": "2025-07-25",
+        "value": 1031939.03,
+        "cum_return": 0.0319,
+        "drawdown": -0.0868
+      },
+      {
+        "date": "2025-07-28",
+        "value": 1036695.89,
+        "cum_return": 0.0367,
+        "drawdown": -0.0826
+      },
+      {
+        "date": "2025-07-29",
+        "value": 1046657.79,
+        "cum_return": 0.0467,
+        "drawdown": -0.0738
+      },
+      {
+        "date": "2025-07-30",
+        "value": 1037008.75,
+        "cum_return": 0.037,
+        "drawdown": -0.0823
+      },
+      {
+        "date": "2025-07-31",
+        "value": 1014817.3,
+        "cum_return": 0.0148,
+        "drawdown": -0.102
+      },
+      {
+        "date": "2025-08-01",
+        "value": 1013726.84,
+        "cum_return": 0.0137,
+        "drawdown": -0.1029
+      },
+      {
+        "date": "2025-08-04",
+        "value": 1021623.15,
+        "cum_return": 0.0216,
+        "drawdown": -0.0959
+      },
+      {
+        "date": "2025-08-05",
+        "value": 1028510.29,
+        "cum_return": 0.0285,
+        "drawdown": -0.0899
+      },
+      {
+        "date": "2025-08-06",
+        "value": 1044100.33,
+        "cum_return": 0.0441,
+        "drawdown": -0.0761
+      },
+      {
+        "date": "2025-08-07",
+        "value": 1041187.22,
+        "cum_return": 0.0412,
+        "drawdown": -0.0786
+      },
+      {
+        "date": "2025-08-08",
+        "value": 1035303.46,
+        "cum_return": 0.0353,
+        "drawdown": -0.0838
+      },
+      {
+        "date": "2025-08-11",
+        "value": 1039224.94,
+        "cum_return": 0.0392,
+        "drawdown": -0.0804
+      },
+      {
+        "date": "2025-08-12",
+        "value": 1048884.92,
+        "cum_return": 0.0489,
+        "drawdown": -0.0718
+      },
+      {
+        "date": "2025-08-13",
+        "value": 1056369.58,
+        "cum_return": 0.0564,
+        "drawdown": -0.0652
+      },
+      {
+        "date": "2025-08-14",
+        "value": 1045929.27,
+        "cum_return": 0.0459,
+        "drawdown": -0.0744
+      },
+      {
+        "date": "2025-08-15",
+        "value": 1057697.1,
+        "cum_return": 0.0577,
+        "drawdown": -0.064
+      },
+      {
+        "date": "2025-08-18",
+        "value": 1066992.09,
+        "cum_return": 0.067,
+        "drawdown": -0.0558
+      },
+      {
+        "date": "2025-08-19",
+        "value": 1059346.8,
+        "cum_return": 0.0593,
+        "drawdown": -0.0626
+      },
+      {
+        "date": "2025-08-20",
+        "value": 1074685.39,
+        "cum_return": 0.0747,
+        "drawdown": -0.049
+      },
+      {
+        "date": "2025-08-21",
+        "value": 1077910.64,
+        "cum_return": 0.0779,
+        "drawdown": -0.0461
+      },
+      {
+        "date": "2025-08-22",
+        "value": 1111287.95,
+        "cum_return": 0.1113,
+        "drawdown": -0.0166
+      },
+      {
+        "date": "2025-08-25",
+        "value": 1138825.51,
+        "cum_return": 0.1388,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-08-26",
+        "value": 1134537.02,
+        "cum_return": 0.1345,
+        "drawdown": -0.0038
+      },
+      {
+        "date": "2025-08-27",
+        "value": 1119537.18,
+        "cum_return": 0.1195,
+        "drawdown": -0.0169
+      },
+      {
+        "date": "2025-08-28",
+        "value": 1153127.57,
+        "cum_return": 0.1531,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-08-29",
+        "value": 1164050.67,
+        "cum_return": 0.1641,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-09-01",
+        "value": 1175434.51,
+        "cum_return": 0.1754,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-09-02",
+        "value": 1153174.14,
+        "cum_return": 0.1532,
+        "drawdown": -0.0189
+      },
+      {
+        "date": "2025-09-03",
+        "value": 1139965.38,
+        "cum_return": 0.14,
+        "drawdown": -0.0302
+      },
+      {
+        "date": "2025-09-04",
+        "value": 1107534.36,
+        "cum_return": 0.1075,
+        "drawdown": -0.0578
+      },
+      {
+        "date": "2025-09-05",
+        "value": 1119834.83,
+        "cum_return": 0.1198,
+        "drawdown": -0.0473
+      },
+      {
+        "date": "2025-09-08",
+        "value": 1117540.44,
+        "cum_return": 0.1175,
+        "drawdown": -0.0493
+      },
+      {
+        "date": "2025-09-09",
+        "value": 1099158.77,
+        "cum_return": 0.0992,
+        "drawdown": -0.0649
+      },
+      {
+        "date": "2025-09-10",
+        "value": 1095658.0,
+        "cum_return": 0.0957,
+        "drawdown": -0.0679
+      },
+      {
+        "date": "2025-09-11",
+        "value": 1135568.96,
+        "cum_return": 0.1356,
+        "drawdown": -0.0339
+      },
+      {
+        "date": "2025-09-12",
+        "value": 1131954.16,
+        "cum_return": 0.132,
+        "drawdown": -0.037
+      },
+      {
+        "date": "2025-09-15",
+        "value": 1138480.37,
+        "cum_return": 0.1385,
+        "drawdown": -0.0314
+      },
+      {
+        "date": "2025-09-16",
+        "value": 1145635.29,
+        "cum_return": 0.1456,
+        "drawdown": -0.0254
+      },
+      {
+        "date": "2025-09-17",
+        "value": 1160941.79,
+        "cum_return": 0.1609,
+        "drawdown": -0.0123
+      },
+      {
+        "date": "2025-09-18",
+        "value": 1149344.1,
+        "cum_return": 0.1493,
+        "drawdown": -0.0222
+      },
+      {
+        "date": "2025-09-19",
+        "value": 1143349.37,
+        "cum_return": 0.1433,
+        "drawdown": -0.0273
+      },
+      {
+        "date": "2025-09-22",
+        "value": 1150429.36,
+        "cum_return": 0.1504,
+        "drawdown": -0.0213
+      },
+      {
+        "date": "2025-09-23",
+        "value": 1151257.48,
+        "cum_return": 0.1513,
+        "drawdown": -0.0206
+      },
+      {
+        "date": "2025-09-24",
+        "value": 1187836.2,
+        "cum_return": 0.1878,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-09-25",
+        "value": 1202361.68,
+        "cum_return": 0.2024,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-09-26",
+        "value": 1184385.71,
+        "cum_return": 0.1844,
+        "drawdown": -0.015
+      },
+      {
+        "date": "2025-09-29",
+        "value": 1209898.97,
+        "cum_return": 0.2099,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-09-30",
+        "value": 1225406.91,
+        "cum_return": 0.2254,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-10-09",
+        "value": 1256130.6,
+        "cum_return": 0.2561,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2025-10-10",
+        "value": 1199411.24,
+        "cum_return": 0.1994,
+        "drawdown": -0.0452
+      },
+      {
+        "date": "2025-10-13",
+        "value": 1197516.76,
+        "cum_return": 0.1975,
+        "drawdown": -0.0467
+      },
+      {
+        "date": "2025-10-14",
+        "value": 1169570.76,
+        "cum_return": 0.1696,
+        "drawdown": -0.0689
+      },
+      {
+        "date": "2025-10-15",
+        "value": 1181074.72,
+        "cum_return": 0.1811,
+        "drawdown": -0.0598
+      },
+      {
+        "date": "2025-10-16",
+        "value": 1182118.1,
+        "cum_return": 0.1821,
+        "drawdown": -0.0589
+      },
+      {
+        "date": "2025-10-17",
+        "value": 1149864.73,
+        "cum_return": 0.1499,
+        "drawdown": -0.0846
+      },
+      {
+        "date": "2025-10-20",
+        "value": 1152259.19,
+        "cum_return": 0.1523,
+        "drawdown": -0.0827
+      },
+      {
+        "date": "2025-10-21",
+        "value": 1158730.14,
+        "cum_return": 0.1587,
+        "drawdown": -0.0775
+      },
+      {
+        "date": "2025-10-22",
+        "value": 1152211.52,
+        "cum_return": 0.1522,
+        "drawdown": -0.0827
+      },
+      {
+        "date": "2025-10-23",
+        "value": 1162985.5,
+        "cum_return": 0.163,
+        "drawdown": -0.0742
+      },
+      {
+        "date": "2025-10-24",
+        "value": 1170661.28,
+        "cum_return": 0.1707,
+        "drawdown": -0.068
+      },
+      {
+        "date": "2025-10-27",
+        "value": 1177515.96,
+        "cum_return": 0.1775,
+        "drawdown": -0.0626
+      },
+      {
+        "date": "2025-10-28",
+        "value": 1172460.91,
+        "cum_return": 0.1725,
+        "drawdown": -0.0666
+      },
+      {
+        "date": "2025-10-29",
+        "value": 1207122.69,
+        "cum_return": 0.2071,
+        "drawdown": -0.039
+      },
+      {
+        "date": "2025-10-30",
+        "value": 1207439.77,
+        "cum_return": 0.2074,
+        "drawdown": -0.0388
+      },
+      {
+        "date": "2025-10-31",
+        "value": 1197010.56,
+        "cum_return": 0.197,
+        "drawdown": -0.0471
+      },
+      {
+        "date": "2025-11-03",
+        "value": 1215770.68,
+        "cum_return": 0.2158,
+        "drawdown": -0.0321
+      },
+      {
+        "date": "2025-11-04",
+        "value": 1196671.67,
+        "cum_return": 0.1967,
+        "drawdown": -0.0473
+      },
+      {
+        "date": "2025-11-05",
+        "value": 1220144.64,
+        "cum_return": 0.2201,
+        "drawdown": -0.0286
+      },
+      {
+        "date": "2025-11-06",
+        "value": 1234813.5,
+        "cum_return": 0.2348,
+        "drawdown": -0.017
+      },
+      {
+        "date": "2025-11-07",
+        "value": 1245269.33,
+        "cum_return": 0.2453,
+        "drawdown": -0.0086
+      },
+      {
+        "date": "2025-11-10",
+        "value": 1245972.96,
+        "cum_return": 0.246,
+        "drawdown": -0.0081
+      },
+      {
+        "date": "2025-11-11",
+        "value": 1239198.14,
+        "cum_return": 0.2392,
+        "drawdown": -0.0135
+      },
+      {
+        "date": "2025-11-12",
+        "value": 1220173.4,
+        "cum_return": 0.2202,
+        "drawdown": -0.0286
+      },
+      {
+        "date": "2025-11-13",
+        "value": 1244272.39,
+        "cum_return": 0.2443,
+        "drawdown": -0.0094
+      },
+      {
+        "date": "2025-11-14",
+        "value": 1230491.61,
+        "cum_return": 0.2305,
+        "drawdown": -0.0204
+      },
+      {
+        "date": "2025-11-17",
+        "value": 1226187.99,
+        "cum_return": 0.2262,
+        "drawdown": -0.0238
+      },
+      {
+        "date": "2025-11-18",
+        "value": 1200635.5,
+        "cum_return": 0.2006,
+        "drawdown": -0.0442
+      },
+      {
+        "date": "2025-11-19",
+        "value": 1201318.59,
+        "cum_return": 0.2013,
+        "drawdown": -0.0436
+      },
+      {
+        "date": "2025-11-20",
+        "value": 1189889.78,
+        "cum_return": 0.1899,
+        "drawdown": -0.0527
+      },
+      {
+        "date": "2025-11-21",
+        "value": 1156896.75,
+        "cum_return": 0.1569,
+        "drawdown": -0.079
+      },
+      {
+        "date": "2025-11-24",
+        "value": 1158058.88,
+        "cum_return": 0.1581,
+        "drawdown": -0.0781
+      },
+      {
+        "date": "2025-11-25",
+        "value": 1172106.66,
+        "cum_return": 0.1721,
+        "drawdown": -0.0669
+      },
+      {
+        "date": "2025-11-26",
+        "value": 1175843.11,
+        "cum_return": 0.1758,
+        "drawdown": -0.0639
+      },
+      {
+        "date": "2025-11-27",
+        "value": 1174242.15,
+        "cum_return": 0.1742,
+        "drawdown": -0.0652
+      },
+      {
+        "date": "2025-11-28",
+        "value": 1180644.34,
+        "cum_return": 0.1806,
+        "drawdown": -0.0601
+      },
+      {
+        "date": "2025-12-01",
+        "value": 1186072.23,
+        "cum_return": 0.1861,
+        "drawdown": -0.0558
+      },
+      {
+        "date": "2025-12-02",
+        "value": 1175498.63,
+        "cum_return": 0.1755,
+        "drawdown": -0.0642
+      },
+      {
+        "date": "2025-12-03",
+        "value": 1165394.91,
+        "cum_return": 0.1654,
+        "drawdown": -0.0722
+      },
+      {
+        "date": "2025-12-04",
+        "value": 1169376.18,
+        "cum_return": 0.1694,
+        "drawdown": -0.0691
+      },
+      {
+        "date": "2025-12-05",
+        "value": 1181709.35,
+        "cum_return": 0.1817,
+        "drawdown": -0.0592
+      },
+      {
+        "date": "2025-12-08",
+        "value": 1201419.79,
+        "cum_return": 0.2014,
+        "drawdown": -0.0436
+      },
+      {
+        "date": "2025-12-09",
+        "value": 1197797.47,
+        "cum_return": 0.1978,
+        "drawdown": -0.0464
+      },
+      {
+        "date": "2025-12-10",
+        "value": 1195981.62,
+        "cum_return": 0.196,
+        "drawdown": -0.0479
+      },
+      {
+        "date": "2025-12-11",
+        "value": 1187337.43,
+        "cum_return": 0.1873,
+        "drawdown": -0.0548
+      },
+      {
+        "date": "2025-12-12",
+        "value": 1195580.8,
+        "cum_return": 0.1956,
+        "drawdown": -0.0482
+      },
+      {
+        "date": "2025-12-15",
+        "value": 1186459.23,
+        "cum_return": 0.1865,
+        "drawdown": -0.0555
+      },
+      {
+        "date": "2025-12-16",
+        "value": 1169493.3,
+        "cum_return": 0.1695,
+        "drawdown": -0.069
+      },
+      {
+        "date": "2025-12-17",
+        "value": 1190245.55,
+        "cum_return": 0.1902,
+        "drawdown": -0.0525
+      },
+      {
+        "date": "2025-12-18",
+        "value": 1184519.87,
+        "cum_return": 0.1845,
+        "drawdown": -0.057
+      },
+      {
+        "date": "2025-12-19",
+        "value": 1189840.16,
+        "cum_return": 0.1898,
+        "drawdown": -0.0528
+      },
+      {
+        "date": "2025-12-22",
+        "value": 1203565.82,
+        "cum_return": 0.2036,
+        "drawdown": -0.0418
+      },
+      {
+        "date": "2025-12-23",
+        "value": 1203809.04,
+        "cum_return": 0.2038,
+        "drawdown": -0.0417
+      },
+      {
+        "date": "2025-12-24",
+        "value": 1213312.35,
+        "cum_return": 0.2133,
+        "drawdown": -0.0341
+      },
+      {
+        "date": "2025-12-25",
+        "value": 1221814.97,
+        "cum_return": 0.2218,
+        "drawdown": -0.0273
+      },
+      {
+        "date": "2025-12-26",
+        "value": 1225630.56,
+        "cum_return": 0.2256,
+        "drawdown": -0.0243
+      },
+      {
+        "date": "2025-12-29",
+        "value": 1224246.08,
+        "cum_return": 0.2242,
+        "drawdown": -0.0254
+      },
+      {
+        "date": "2025-12-30",
+        "value": 1228628.79,
+        "cum_return": 0.2286,
+        "drawdown": -0.0219
+      },
+      {
+        "date": "2025-12-31",
+        "value": 1223455.32,
+        "cum_return": 0.2235,
+        "drawdown": -0.026
+      },
+      {
+        "date": "2026-01-05",
+        "value": 1256680.03,
+        "cum_return": 0.2567,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-06",
+        "value": 1278934.43,
+        "cum_return": 0.2789,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-07",
+        "value": 1285420.27,
+        "cum_return": 0.2854,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-08",
+        "value": 1290516.28,
+        "cum_return": 0.2905,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-09",
+        "value": 1309692.39,
+        "cum_return": 0.3097,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-12",
+        "value": 1339811.79,
+        "cum_return": 0.3398,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-13",
+        "value": 1309363.39,
+        "cum_return": 0.3094,
+        "drawdown": -0.0227
+      },
+      {
+        "date": "2026-01-14",
+        "value": 1316205.19,
+        "cum_return": 0.3162,
+        "drawdown": -0.0176
+      },
+      {
+        "date": "2026-01-15",
+        "value": 1316987.31,
+        "cum_return": 0.317,
+        "drawdown": -0.017
+      },
+      {
+        "date": "2026-01-16",
+        "value": 1321850.96,
+        "cum_return": 0.3219,
+        "drawdown": -0.0134
+      },
+      {
+        "date": "2026-01-19",
+        "value": 1316565.53,
+        "cum_return": 0.3166,
+        "drawdown": -0.0174
+      },
+      {
+        "date": "2026-01-20",
+        "value": 1296553.98,
+        "cum_return": 0.2966,
+        "drawdown": -0.0323
+      },
+      {
+        "date": "2026-01-21",
+        "value": 1311406.14,
+        "cum_return": 0.3114,
+        "drawdown": -0.0212
+      },
+      {
+        "date": "2026-01-22",
+        "value": 1317640.8,
+        "cum_return": 0.3176,
+        "drawdown": -0.0165
+      },
+      {
+        "date": "2026-01-23",
+        "value": 1361613.97,
+        "cum_return": 0.3616,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2026-01-26",
+        "value": 1337819.99,
+        "cum_return": 0.3378,
+        "drawdown": -0.0175
+      },
+      {
+        "date": "2026-01-27",
+        "value": 1350057.54,
+        "cum_return": 0.3501,
+        "drawdown": -0.0085
+      },
+      {
+        "date": "2026-01-28",
+        "value": 1345566.96,
+        "cum_return": 0.3456,
+        "drawdown": -0.0118
+      },
+      {
+        "date": "2026-01-29",
+        "value": 1325110.86,
+        "cum_return": 0.3251,
+        "drawdown": -0.0268
+      },
+      {
+        "date": "2026-01-30",
+        "value": 1314052.09,
+        "cum_return": 0.3141,
+        "drawdown": -0.0349
+      },
+      {
+        "date": "2026-02-02",
+        "value": 1274298.03,
+        "cum_return": 0.2743,
+        "drawdown": -0.0641
+      },
+      {
+        "date": "2026-02-03",
+        "value": 1312352.21,
+        "cum_return": 0.3124,
+        "drawdown": -0.0362
+      },
+      {
+        "date": "2026-02-04",
+        "value": 1313113.77,
+        "cum_return": 0.3131,
+        "drawdown": -0.0356
+      },
+      {
+        "date": "2026-02-05",
+        "value": 1281836.44,
+        "cum_return": 0.2818,
+        "drawdown": -0.0586
+      },
+      {
+        "date": "2026-02-06",
+        "value": 1279246.66,
+        "cum_return": 0.2792,
+        "drawdown": -0.0605
+      },
+      {
+        "date": "2026-02-09",
+        "value": 1316480.69,
+        "cum_return": 0.3165,
+        "drawdown": -0.0331
+      },
+      {
+        "date": "2026-02-10",
+        "value": 1312592.13,
+        "cum_return": 0.3126,
+        "drawdown": -0.036
+      },
+      {
+        "date": "2026-02-11",
+        "value": 1304340.28,
+        "cum_return": 0.3043,
+        "drawdown": -0.0421
+      },
+      {
+        "date": "2026-02-12",
+        "value": 1322949.12,
+        "cum_return": 0.3229,
+        "drawdown": -0.0284
+      },
+      {
+        "date": "2026-02-13",
+        "value": 1304656.64,
+        "cum_return": 0.3047,
+        "drawdown": -0.0418
+      },
+      {
+        "date": "2026-02-24",
+        "value": 1317470.31,
+        "cum_return": 0.3175,
+        "drawdown": -0.0324
+      },
+      {
+        "date": "2026-02-25",
+        "value": 1332628.08,
+        "cum_return": 0.3326,
+        "drawdown": -0.0213
+      },
+      {
+        "date": "2026-02-26",
+        "value": 1337914.97,
+        "cum_return": 0.3379,
+        "drawdown": -0.0174
+      },
+      {
+        "date": "2026-02-27",
+        "value": 1341454.59,
+        "cum_return": 0.3415,
+        "drawdown": -0.0148
+      },
+      {
+        "date": "2026-03-02",
+        "value": 1331871.27,
+        "cum_return": 0.3319,
+        "drawdown": -0.0218
+      },
+      {
+        "date": "2026-03-03",
+        "value": 1307235.04,
+        "cum_return": 0.3072,
+        "drawdown": -0.0399
+      },
+      {
+        "date": "2026-03-04",
+        "value": 1297660.03,
+        "cum_return": 0.2977,
+        "drawdown": -0.047
+      },
+      {
+        "date": "2026-03-05",
+        "value": 1305338.19,
+        "cum_return": 0.3053,
+        "drawdown": -0.0413
+      },
+      {
+        "date": "2026-03-06",
+        "value": 1307547.61,
+        "cum_return": 0.3075,
+        "drawdown": -0.0397
+      },
+      {
+        "date": "2026-03-09",
+        "value": 1316488.16,
+        "cum_return": 0.3165,
+        "drawdown": -0.0331
+      },
+      {
+        "date": "2026-03-10",
+        "value": 1327299.88,
+        "cum_return": 0.3273,
+        "drawdown": -0.0252
+      },
+      {
+        "date": "2026-03-11",
+        "value": 1345114.12,
+        "cum_return": 0.3451,
+        "drawdown": -0.0121
+      },
+      {
+        "date": "2026-03-12",
+        "value": 1353277.49,
+        "cum_return": 0.3533,
+        "drawdown": -0.0061
+      },
+      {
+        "date": "2026-03-13",
+        "value": 1339846.58,
+        "cum_return": 0.3398,
+        "drawdown": -0.016
+      },
+      {
+        "date": "2026-03-16",
+        "value": 1322267.84,
+        "cum_return": 0.3223,
+        "drawdown": -0.0289
+      },
+      {
+        "date": "2026-03-17",
+        "value": 1298641.96,
+        "cum_return": 0.2986,
+        "drawdown": -0.0462
+      },
+      {
+        "date": "2026-03-18",
+        "value": 1302174.28,
+        "cum_return": 0.3022,
+        "drawdown": -0.0437
+      },
+      {
+        "date": "2026-03-19",
+        "value": 1284924.26,
+        "cum_return": 0.2849,
+        "drawdown": -0.0563
+      },
+      {
+        "date": "2026-03-20",
+        "value": 1301641.13,
+        "cum_return": 0.3016,
+        "drawdown": -0.044
+      },
+      {
+        "date": "2026-03-23",
+        "value": 1281498.11,
+        "cum_return": 0.2815,
+        "drawdown": -0.0588
+      },
+      {
+        "date": "2026-03-24",
+        "value": 1291598.75,
+        "cum_return": 0.2916,
+        "drawdown": -0.0514
+      },
+      {
+        "date": "2026-03-25",
+        "value": 1305045.17,
+        "cum_return": 0.305,
+        "drawdown": -0.0415
+      },
+      {
+        "date": "2026-03-26",
+        "value": 1289955.31,
+        "cum_return": 0.29,
+        "drawdown": -0.0526
+      },
+      {
+        "date": "2026-03-27",
+        "value": 1297148.61,
+        "cum_return": 0.2971,
+        "drawdown": -0.0473
+      },
+      {
+        "date": "2026-03-30",
+        "value": 1281478.24,
+        "cum_return": 0.2815,
+        "drawdown": -0.0589
+      },
+      {
+        "date": "2026-03-31",
+        "value": 1258964.0,
+        "cum_return": 0.259,
+        "drawdown": -0.0754
+      },
+      {
+        "date": "2026-04-01",
+        "value": 1266088.54,
+        "cum_return": 0.2661,
+        "drawdown": -0.0702
+      },
+      {
+        "date": "2026-04-02",
+        "value": 1260278.23,
+        "cum_return": 0.2603,
+        "drawdown": -0.0744
+      },
+      {
+        "date": "2026-04-03",
+        "value": 1253129.95,
+        "cum_return": 0.2531,
+        "drawdown": -0.0797
+      },
+      {
+        "date": "2026-04-07",
+        "value": 1252923.24,
+        "cum_return": 0.2529,
+        "drawdown": -0.0798
+      },
+      {
+        "date": "2026-04-08",
+        "value": 1277882.16,
+        "cum_return": 0.2779,
+        "drawdown": -0.0615
+      },
+      {
+        "date": "2026-04-09",
+        "value": 1272673.2,
+        "cum_return": 0.2727,
+        "drawdown": -0.0653
+      },
+      {
+        "date": "2026-04-10",
+        "value": 1284751.07,
+        "cum_return": 0.2848,
+        "drawdown": -0.0564
+      }
+    ]
+  },
+  "history": [
+    {
+      "date": "2026-01-01",
+      "holdings": [
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 1,
+          "score": 0.7175,
+          "factors": {
+            "momentum": 0.7499,
+            "trend": 1.0,
+            "flow": 0.5386
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 2,
+          "score": 0.6928,
+          "factors": {
+            "momentum": 0.9398,
+            "trend": 1.0,
+            "flow": 0.4229
+          }
+        },
+        {
+          "code": "399967.SZ",
+          "name": "军工指数",
+          "etf": "512660",
+          "rank": 3,
+          "score": 0.684,
+          "factors": {
+            "momentum": 0.6936,
+            "trend": 1.0,
+            "flow": 0.4934
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 4,
+          "score": 0.6702,
+          "factors": {
+            "momentum": 0.8666,
+            "trend": 1.0,
+            "flow": 0.405
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 5,
+          "score": 0.6662,
+          "factors": {
+            "momentum": 0.6915,
+            "trend": 1.0,
+            "flow": 0.4594
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-01-08",
+      "holdings": [
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 1,
+          "score": 0.7586,
+          "factors": {
+            "momentum": 0.9705,
+            "trend": 1.0,
+            "flow": 0.5401
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 2,
+          "score": 0.7378,
+          "factors": {
+            "momentum": 0.8064,
+            "trend": 1.0,
+            "flow": 0.558
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 3,
+          "score": 0.7204,
+          "factors": {
+            "momentum": 0.9872,
+            "trend": 1.0,
+            "flow": 0.4598
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 4,
+          "score": 0.7105,
+          "factors": {
+            "momentum": 0.9189,
+            "trend": 1.0,
+            "flow": 0.4648
+          }
+        },
+        {
+          "code": "399967.SZ",
+          "name": "军工指数",
+          "etf": "512660",
+          "rank": 5,
+          "score": 0.7057,
+          "factors": {
+            "momentum": 0.8144,
+            "trend": 1.0,
+            "flow": 0.4926
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-01-15",
+      "holdings": [
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 1,
+          "score": 0.804,
+          "factors": {
+            "momentum": 0.9557,
+            "trend": 1.0,
+            "flow": 0.6338
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 2,
+          "score": 0.797,
+          "factors": {
+            "momentum": 0.8244,
+            "trend": 1.0,
+            "flow": 0.667
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 3,
+          "score": 0.7811,
+          "factors": {
+            "momentum": 0.8844,
+            "trend": 1.0,
+            "flow": 0.6147
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 4,
+          "score": 0.7669,
+          "factors": {
+            "momentum": 1.0,
+            "trend": 1.0,
+            "flow": 0.5459
+          }
+        },
+        {
+          "code": "399967.SZ",
+          "name": "军工指数",
+          "etf": "512660",
+          "rank": 5,
+          "score": 0.7599,
+          "factors": {
+            "momentum": 0.8096,
+            "trend": 1.0,
+            "flow": 0.6
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-01-22",
+      "holdings": [
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 1,
+          "score": 0.8089,
+          "factors": {
+            "momentum": 0.8276,
+            "trend": 1.0,
+            "flow": 0.689
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 2,
+          "score": 0.8042,
+          "factors": {
+            "momentum": 0.9544,
+            "trend": 1.0,
+            "flow": 0.6348
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 3,
+          "score": 0.8021,
+          "factors": {
+            "momentum": 0.9468,
+            "trend": 1.0,
+            "flow": 0.6334
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 4,
+          "score": 0.8012,
+          "factors": {
+            "momentum": 1.0,
+            "trend": 1.0,
+            "flow": 0.6127
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 5,
+          "score": 0.7974,
+          "factors": {
+            "momentum": 0.91,
+            "trend": 1.0,
+            "flow": 0.6374
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-01-29",
+      "holdings": [
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 1,
+          "score": 0.8197,
+          "factors": {
+            "momentum": 0.986,
+            "trend": 1.0,
+            "flow": 0.6537
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 2,
+          "score": 0.8166,
+          "factors": {
+            "momentum": 0.889,
+            "trend": 1.0,
+            "flow": 0.6821
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 3,
+          "score": 0.8051,
+          "factors": {
+            "momentum": 0.8105,
+            "trend": 1.0,
+            "flow": 0.6877
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 4,
+          "score": 0.8034,
+          "factors": {
+            "momentum": 0.916,
+            "trend": 1.0,
+            "flow": 0.647
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 5,
+          "score": 0.7774,
+          "factors": {
+            "momentum": 0.7189,
+            "trend": 1.0,
+            "flow": 0.6662
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-02-05",
+      "holdings": [
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 1,
+          "score": 0.8144,
+          "factors": {
+            "momentum": 0.9389,
+            "trend": 1.0,
+            "flow": 0.6601
+          }
+        },
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 2,
+          "score": 0.761,
+          "factors": {
+            "momentum": 0.5877,
+            "trend": 1.0,
+            "flow": 0.681
+          }
+        },
+        {
+          "code": "000932.CSI",
+          "name": "消费指数",
+          "etf": "159928",
+          "rank": 3,
+          "score": 0.7522,
+          "factors": {
+            "momentum": 0.5091,
+            "trend": 1.0,
+            "flow": 0.6917
+          }
+        },
+        {
+          "code": "399997.SZ",
+          "name": "白酒指数",
+          "etf": "512690",
+          "rank": 4,
+          "score": 0.7458,
+          "factors": {
+            "momentum": 0.5098,
+            "trend": 1.0,
+            "flow": 0.679
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 5,
+          "score": 0.7267,
+          "factors": {
+            "momentum": 0.7804,
+            "trend": 0.75,
+            "flow": 0.6939
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-02-12",
+      "holdings": [
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 1,
+          "score": 0.8145,
+          "factors": {
+            "momentum": 0.962,
+            "trend": 1.0,
+            "flow": 0.6522
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 2,
+          "score": 0.7981,
+          "factors": {
+            "momentum": 0.7988,
+            "trend": 1.0,
+            "flow": 0.6781
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 3,
+          "score": 0.773,
+          "factors": {
+            "momentum": 0.6994,
+            "trend": 1.0,
+            "flow": 0.6646
+          }
+        },
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 4,
+          "score": 0.7613,
+          "factors": {
+            "momentum": 0.5774,
+            "trend": 1.0,
+            "flow": 0.6851
+          }
+        },
+        {
+          "code": "000300.SH",
+          "name": "沪深 300",
+          "etf": "510300",
+          "rank": 5,
+          "score": 0.7507,
+          "factors": {
+            "momentum": 0.6285,
+            "trend": 1.0,
+            "flow": 0.6464
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-02-19",
+      "holdings": [
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 1,
+          "score": 0.7615,
+          "factors": {
+            "momentum": 0.5602,
+            "trend": 1.0,
+            "flow": 0.6918
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 2,
+          "score": 0.7285,
+          "factors": {
+            "momentum": 0.9131,
+            "trend": 0.75,
+            "flow": 0.6502
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 3,
+          "score": 0.7127,
+          "factors": {
+            "momentum": 0.7718,
+            "trend": 0.75,
+            "flow": 0.6697
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 4,
+          "score": 0.6914,
+          "factors": {
+            "momentum": 0.6696,
+            "trend": 0.75,
+            "flow": 0.6643
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 5,
+          "score": 0.6718,
+          "factors": {
+            "momentum": 0.9631,
+            "trend": 0.75,
+            "flow": 0.5218
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-02-26",
+      "holdings": [
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 1,
+          "score": 0.8002,
+          "factors": {
+            "momentum": 0.9346,
+            "trend": 1.0,
+            "flow": 0.634
+          }
+        },
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 2,
+          "score": 0.7818,
+          "factors": {
+            "momentum": 0.5958,
+            "trend": 1.0,
+            "flow": 0.7186
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 3,
+          "score": 0.7567,
+          "factors": {
+            "momentum": 0.7943,
+            "trend": 1.0,
+            "flow": 0.5991
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 4,
+          "score": 0.7316,
+          "factors": {
+            "momentum": 0.6958,
+            "trend": 1.0,
+            "flow": 0.5854
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 5,
+          "score": 0.7204,
+          "factors": {
+            "momentum": 0.9466,
+            "trend": 1.0,
+            "flow": 0.4744
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-03-05",
+      "holdings": [
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 1,
+          "score": 0.7852,
+          "factors": {
+            "momentum": 0.655,
+            "trend": 1.0,
+            "flow": 0.7043
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 2,
+          "score": 0.7363,
+          "factors": {
+            "momentum": 0.885,
+            "trend": 1.0,
+            "flow": 0.5271
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 3,
+          "score": 0.6792,
+          "factors": {
+            "momentum": 0.882,
+            "trend": 1.0,
+            "flow": 0.4171
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 4,
+          "score": 0.6771,
+          "factors": {
+            "momentum": 0.5163,
+            "trend": 1.0,
+            "flow": 0.543
+          }
+        },
+        {
+          "code": "399967.SZ",
+          "name": "军工指数",
+          "etf": "512660",
+          "rank": 5,
+          "score": 0.636,
+          "factors": {
+            "momentum": 0.7164,
+            "trend": 1.0,
+            "flow": 0.3918
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-03-12",
+      "holdings": [
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 1,
+          "score": 0.761,
+          "factors": {
+            "momentum": 0.7521,
+            "trend": 1.0,
+            "flow": 0.6225
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 2,
+          "score": 0.6883,
+          "factors": {
+            "momentum": 0.9064,
+            "trend": 1.0,
+            "flow": 0.4261
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 3,
+          "score": 0.6514,
+          "factors": {
+            "momentum": 0.8917,
+            "trend": 1.0,
+            "flow": 0.3595
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 4,
+          "score": 0.6153,
+          "factors": {
+            "momentum": 0.5593,
+            "trend": 1.0,
+            "flow": 0.4072
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 5,
+          "score": 0.5871,
+          "factors": {
+            "momentum": 0.6861,
+            "trend": 1.0,
+            "flow": 0.3072
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-03-19",
+      "holdings": [
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 1,
+          "score": 0.7694,
+          "factors": {
+            "momentum": 0.728,
+            "trend": 1.0,
+            "flow": 0.6475
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 2,
+          "score": 0.6461,
+          "factors": {
+            "momentum": 0.7899,
+            "trend": 0.75,
+            "flow": 0.5333
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 3,
+          "score": 0.615,
+          "factors": {
+            "momentum": 0.7033,
+            "trend": 1.0,
+            "flow": 0.3555
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 4,
+          "score": 0.6115,
+          "factors": {
+            "momentum": 0.5469,
+            "trend": 1.0,
+            "flow": 0.4043
+          }
+        },
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 5,
+          "score": 0.6017,
+          "factors": {
+            "momentum": 0.4565,
+            "trend": 1.0,
+            "flow": 0.4172
+          }
+        }
+      ]
+    }
+  ],
+  "ranking": {
+    "ranking": [
+      {
+        "code": "000993.CSI",
+        "name": "科技指数",
+        "etf": "515000",
+        "rank": 1,
+        "score": 0.6928,
+        "factors": {
+          "momentum": 0.5512,
+          "trend": 1.0,
+          "flow": 0.5612
+        }
+      },
+      {
+        "code": "399006.SZ",
+        "name": "创业板指",
+        "etf": "159915",
+        "rank": 2,
+        "score": 0.6521,
+        "factors": {
+          "momentum": 0.5877,
+          "trend": 1.0,
+          "flow": 0.4689
+        }
+      },
+      {
+        "code": "399808.SZ",
+        "name": "新能源指数",
+        "etf": "516160",
+        "rank": 3,
+        "score": 0.6138,
+        "factors": {
+          "momentum": 0.645,
+          "trend": 0.5,
+          "flow": 0.6702
+        }
+      },
+      {
+        "code": "399975.SZ",
+        "name": "证券指数",
+        "etf": "512000",
+        "rank": 4,
+        "score": 0.5847,
+        "factors": {
+          "momentum": 0.374,
+          "trend": 0.75,
+          "flow": 0.5616
+        }
+      },
+      {
+        "code": "000688.SH",
+        "name": "科创 50",
+        "etf": "588000",
+        "rank": 5,
+        "score": 0.574,
+        "factors": {
+          "momentum": 0.4493,
+          "trend": 0.75,
+          "flow": 0.5141
+        }
+      },
+      {
+        "code": "399990.SZ",
+        "name": "煤炭指数",
+        "etf": "515220",
+        "rank": 6,
+        "score": 0.5679,
+        "factors": {
+          "momentum": 0.6196,
+          "trend": 0.75,
+          "flow": 0.4416
+        }
+      },
+      {
+        "code": "990001.SSI",
+        "name": "半导体指数",
+        "etf": "512480",
+        "rank": 7,
+        "score": 0.5616,
+        "factors": {
+          "momentum": 0.5425,
+          "trend": 0.75,
+          "flow": 0.4567
+        }
+      },
+      {
+        "code": "000933.CSI",
+        "name": "医药指数",
+        "etf": "512010",
+        "rank": 8,
+        "score": 0.5377,
+        "factors": {
+          "momentum": 0.3385,
+          "trend": 0.75,
+          "flow": 0.4828
+        }
+      },
+      {
+        "code": "000852.SH",
+        "name": "中证 1000",
+        "etf": "512100",
+        "rank": 9,
+        "score": 0.5325,
+        "factors": {
+          "momentum": 0.5664,
+          "trend": 0.75,
+          "flow": 0.3916
+        }
+      },
+      {
+        "code": "000905.SH",
+        "name": "中证 500",
+        "etf": "510500",
+        "rank": 10,
+        "score": 0.5301,
+        "factors": {
+          "momentum": 0.5918,
+          "trend": 0.75,
+          "flow": 0.3779
+        }
+      },
+      {
+        "code": "000300.SH",
+        "name": "沪深 300",
+        "etf": "510300",
+        "rank": 11,
+        "score": 0.5268,
+        "factors": {
+          "momentum": 0.4952,
+          "trend": 0.75,
+          "flow": 0.4057
+        }
+      },
+      {
+        "code": "399986.SZ",
+        "name": "银行指数",
+        "etf": "512800",
+        "rank": 12,
+        "score": 0.5098,
+        "factors": {
+          "momentum": 0.5033,
+          "trend": 0.5,
+          "flow": 0.518
+        }
+      },
+      {
+        "code": "000992.CSI",
+        "name": "金融指数",
+        "etf": "510230",
+        "rank": 13,
+        "score": 0.5055,
+        "factors": {
+          "momentum": 0.4945,
+          "trend": 0.5,
+          "flow": 0.5126
+        }
+      },
+      {
+        "code": "399967.SZ",
+        "name": "军工指数",
+        "etf": "512660",
+        "rank": 14,
+        "score": 0.505,
+        "factors": {
+          "momentum": 0.6394,
+          "trend": 0.75,
+          "flow": 0.3121
+        }
+      },
+      {
+        "code": "000922.CSI",
+        "name": "红利指数",
+        "etf": "510880",
+        "rank": 15,
+        "score": 0.5008,
+        "factors": {
+          "momentum": 0.5444,
+          "trend": 0.75,
+          "flow": 0.3376
+        }
+      },
+      {
+        "code": "399965.SZ",
+        "name": "恒生指数",
+        "etf": "159920",
+        "rank": 16,
+        "score": 0.4757,
+        "factors": {
+          "momentum": 0.4449,
+          "trend": 0.75,
+          "flow": 0.3242
+        }
+      },
+      {
+        "code": "000988.CSI",
+        "name": "制造指数",
+        "etf": "516880",
+        "rank": 17,
+        "score": 0.4507,
+        "factors": {
+          "momentum": 0.6355,
+          "trend": 0.5,
+          "flow": 0.3557
+        }
+      },
+      {
+        "code": "000932.CSI",
+        "name": "消费指数",
+        "etf": "159928",
+        "rank": 18,
+        "score": 0.4406,
+        "factors": {
+          "momentum": 0.3843,
+          "trend": 0.5,
+          "flow": 0.4255
+        }
+      },
+      {
+        "code": "399997.SZ",
+        "name": "白酒指数",
+        "etf": "512690",
+        "rank": 19,
+        "score": 0.4102,
+        "factors": {
+          "momentum": 0.3328,
+          "trend": 0.5,
+          "flow": 0.3844
+        }
+      }
+    ],
+    "update_time": "2026-04-12 00:27"
+  },
+  "update_time": "2026-04-12 00:27"
+}

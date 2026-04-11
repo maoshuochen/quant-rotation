@@ -77,10 +77,7 @@ jobs:
 
       - name: Generate frontend data
         run: |
-          python scripts/generate_web_data.py
-          # 跳过 history.json 生成（太慢，本地生成后提交）
-          # python scripts/generate_history_data.py
-          python scripts/generate_backtest_json.py
+          python scripts/generate_data.py
 
       - name: Validate results
         run: |
@@ -96,14 +93,14 @@ jobs:
           prev = df.iloc[-2] if len(df) > 1 else latest
           daily_return = (latest['value'] - prev['value']) / prev['value'] * 100
           total_return = (latest['value'] - df.iloc[0]['value']) / df.iloc[0]['value'] * 100
-          sharpe = df['sharpe'].iloc[-1] if 'sharpe' in df.columns else 0
-          max_dd = df['max_dd'].iloc[-1] if 'max_dd' in df.columns else 0
+          sharpe = latest['sharpe'] if 'sharpe' in df.columns else 0
+          max_dd = latest['max_dd'] if 'max_dd' in df.columns else 0
           print(f'DAILY_RETURN={daily_return:.4f}')
           print(f'TOTAL_RETURN={total_return:.4f}')
           print(f'SHARPE={sharpe:.2f}')
           print(f'MAX_DD={max_dd:.4f}')
           print(f'NAV={latest[\"value\"]:.2f}')
-          print(f'DATE={latest[\"date\"]}')
+          print(f'DATE={pd.to_datetime(latest[\"date\"]).strftime(\"%Y-%m-%d\")}')
           " >> $GITHUB_OUTPUT
 
       - name: Commit and push results
