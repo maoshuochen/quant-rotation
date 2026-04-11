@@ -2,8 +2,9 @@ name: Daily Backtest & Data Update
 
 on:
   schedule:
-    # 每个交易日 UTC 0 点运行 (北京时间 8 点)
-    - cron: '0 0 * * 1-5'
+    # 每天 UTC 19 点运行 (北京时间凌晨 3 点，确保当日数据已更新)
+    # 周一到周五运行，避开周末
+    - cron: '0 19 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -20,12 +21,14 @@ jobs:
     timeout-minutes: 60
 
     steps:
+      # ==================== 代码检出 ====================
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # ==================== Python 环境 ====================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -62,34 +65,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Check for incremental backtest
-        id: backtest_check
-        run: |
-          if [ -f "backtest_results/current.parquet" ]; then
-            LAST_DATE=$(python -c "import pandas as pd; df = pd.read_parquet('backtest_results/current.parquet'); print(df.iloc[-1]['date'])" 2>/dev/null || echo "")
-            TODAY=$(date -u +%Y-%m-%d)
-            if [ "$LAST_DATE" = "$TODAY" ]; then
-              echo "INCREMENTAL=true" >> $GITHUB_OUTPUT
-              echo "Latest data already exists for $TODAY"
-            else
-              echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
-              echo "Need to update data (last: $LAST_DATE, today: $TODAY)"
-            fi
-          else
-            echo "INCREMENTAL=false" >> $GITHUB_OUTPUT
-            echo "No existing backtest results, running full backtest"
-          fi
-
-      - name: Run incremental backtest
-        if: steps.backtest_check.outputs.incremental == 'true'
-        run: |
-          echo "Running incremental update..."
-          python scripts/backtest_incremental.py
-        env:
-          PYTHONUNBUFFERED: 1
-
-      - name: Run full backtest
-        if: steps.backtest_check.outputs.incremental == 'false'
+      # ==================== 运行全量回测 ====================
+      # 简化逻辑：始终运行全量回测，确保数据一致性
+      # backtest_baostock.py 现在会同时更新 CSV 和 current.parquet
+      - name: Run backtest
         run: |
           mkdir -p backtest_results data/raw
           python scripts/backtest_baostock.py

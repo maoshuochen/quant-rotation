@@ -86,7 +86,7 @@ def fetch_etfs_parallel(indices, start_date, max_workers=5):
 
 def run_incremental_backtest(end_date: str = None):
     """
-    增量回测
+    增量回测 - 同步更新所有数据到最新日期
 
     Args:
         end_date: 结束日期，默认今天
@@ -98,6 +98,7 @@ def run_incremental_backtest(end_date: str = None):
     last_date, cached_data = get_last_trading_date()
 
     if last_date:
+        # 从已有数据的第二天开始
         start_date = (pd.to_datetime(last_date) + timedelta(days=1)).strftime('%Y%m%d')
         start_dt = pd.to_datetime(start_date)
 
@@ -107,10 +108,9 @@ def run_incremental_backtest(end_date: str = None):
             return
 
         print(f"增量回测：{start_date} ~ {end_date}")
+        print(f"已有数据：{cached_data['history']['date'].iloc[-1] if 'date' in cached_data['history'].columns else cached_data['history'].iloc[-1]['date']}")
 
         # 恢复投资组合状态
-        # 注意：initial_capital 应保持原始值（100 万），而不是最后净值
-        # 否则会导致现金重复计算（cash + positions 会重复）
         last_value = cached_data['value']
         portfolio = SimulatedPortfolio(
             initial_capital=CONFIG.get('initial_capital', 1_000_000),
@@ -125,12 +125,14 @@ def run_incremental_backtest(end_date: str = None):
             from src.portfolio import Position
             for pos_data in cached_data['positions']:
                 portfolio.positions[pos_data['code']] = Position(**pos_data)
+            print(f"恢复持仓：{len(portfolio.positions)} 只股票")
 
-        # 加载历史数据用于计算
+        # 历史数据用于计算指标（需要完整历史，不仅仅是不止日期）
         history_df = cached_data['history'].copy()
-        history_df['date'] = pd.to_datetime(history_df['date'])
-        history_df = history_df.set_index('date')
-        daily_values = []
+        if 'date' in history_df.columns:
+            history_df['date'] = pd.to_datetime(history_df['date'])
+            history_df = history_df.set_index('date')
+        daily_values = list(cached_data['history'].to_dict('records'))
 
     else:
         # 全量回测
@@ -146,10 +148,11 @@ def run_incremental_backtest(end_date: str = None):
             cooldown_days=CONFIG.get('stop_loss', {}).get('cooldown_days', 5)
         )
         daily_values = []
+        history_df = None
 
-    # 获取 ETF 数据 (从 start_date 前推 1 年用于计算指标)
-    data_start = (start_dt - timedelta(days=365)).strftime('%Y%m%d')
-    print("获取 ETF 数据...")
+    # 获取 ETF 数据 - 从最初开始，确保有足够历史计算指标
+    data_start = "20240101"
+    print(f"获取 ETF 数据（从 {data_start} 开始）...")
     etf_data = fetch_etfs_parallel(CONFIG.get('indices', []), data_start)
 
     if not etf_data:

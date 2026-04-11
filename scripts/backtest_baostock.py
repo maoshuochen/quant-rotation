@@ -224,10 +224,10 @@ def run_backtest(start_date: str = "20250101",
     values_df['date'] = pd.to_datetime(values_df['date'])
     values_df['return'] = values_df['value'].pct_change()
     values_df['cum_return'] = (1 + values_df['return']).cumprod() - 1
-    
+
     final_value = values_df['value'].iloc[-1]
     total_return = (final_value - initial_capital) / initial_capital
-    
+
     # 年化收益
     days = (values_df['date'].iloc[-1] - values_df['date'].iloc[0]).days
     years = days / 365
@@ -235,19 +235,25 @@ def run_backtest(start_date: str = "20250101",
         annual_return = (1 + total_return) ** (1 / years) - 1
     else:
         annual_return = total_return
-    
+
     # 最大回撤
     values_df['rolling_max'] = values_df['value'].cummax()
     values_df['drawdown'] = (values_df['value'] - values_df['rolling_max']) / values_df['rolling_max']
     max_drawdown = values_df['drawdown'].min()
-    
+
     # 夏普比率
     daily_returns = values_df['return'].dropna()
     if len(daily_returns) > 20:
         sharpe = daily_returns.mean() / daily_returns.std() * (252 ** 0.5)
     else:
         sharpe = 0
-    
+
+    # 保存为 parquet（添加最后一行的汇总统计）
+    # 注意：sharpe 和 max_dd 只需要在最后一行有值即可，用于提取指标
+    # 使用 forward fill 确保整个文件一致性
+    values_df['sharpe'] = sharpe
+    values_df['max_dd'] = max_drawdown
+
     # 输出结果（精简版）
     print(f"\n📊 回测结果")
     print(f"  初始资金：{initial_capital:,.0f}")
@@ -272,10 +278,16 @@ def run_backtest(start_date: str = "20250101",
     results_dir = root_dir / 'backtest_results'
     results_dir.mkdir(exist_ok=True)
 
+    # 保存 CSV
     result_file = results_dir / f'backtest_{start_date}_{end_date}.csv'
     values_df.to_csv(result_file, index=False)
     logger.warning(f"\n结果已保存：{result_file}")
-    
+
+    # 更新 current.parquet（供增量回测和前端使用）
+    current_file = results_dir / 'current.parquet'
+    values_df.to_parquet(current_file, compression='snappy', index=False)
+    logger.warning(f"current.parquet 已更新")
+
     # 清理
     fetcher.close()
 
