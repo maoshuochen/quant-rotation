@@ -2,16 +2,16 @@
   "backtest": {
     "summary": {
       "initial_capital": 1000000.0,
-      "final_value": 1284751.07,
-      "total_return": 0.2848,
-      "annual_return": 0.2184,
-      "max_drawdown": -0.1456,
+      "final_value": 1198093.36,
+      "total_return": 0.1981,
+      "annual_return": 0.1564,
+      "max_drawdown": -0.1354,
       "max_drawdown_date": "2025-07-07",
-      "sharpe_ratio": 1.0,
-      "trading_days": 306,
+      "sharpe_ratio": 0.82,
+      "trading_days": 300,
       "period": {
         "start": "2025-01-02",
-        "end": "2026-04-10"
+        "end": "2026-04-01"
       }
     },
     "chart_data": [
@@ -383,1473 +383,1437 @@
       },
       {
         "date": "2025-04-08",
-        "value": 1027369.59,
-        "cum_return": 0.0274,
-        "drawdown": -0.0731
+        "value": 1013418.46,
+        "cum_return": 0.0134,
+        "drawdown": -0.0856
       },
       {
         "date": "2025-04-09",
-        "value": 1047819.35,
-        "cum_return": 0.0478,
-        "drawdown": -0.0546
+        "value": 1014756.07,
+        "cum_return": 0.0148,
+        "drawdown": -0.0844
       },
       {
         "date": "2025-04-10",
-        "value": 1054967.58,
-        "cum_return": 0.055,
-        "drawdown": -0.0482
+        "value": 1017327.46,
+        "cum_return": 0.0173,
+        "drawdown": -0.0821
       },
       {
         "date": "2025-04-11",
-        "value": 1052451.02,
-        "cum_return": 0.0525,
-        "drawdown": -0.0504
+        "value": 1014788.8,
+        "cum_return": 0.0148,
+        "drawdown": -0.0844
       },
       {
         "date": "2025-04-14",
-        "value": 1057173.33,
-        "cum_return": 0.0572,
-        "drawdown": -0.0462
+        "value": 1021660.23,
+        "cum_return": 0.0217,
+        "drawdown": -0.0782
       },
       {
         "date": "2025-04-15",
-        "value": 1049344.37,
-        "cum_return": 0.0493,
-        "drawdown": -0.0532
+        "value": 1013966.86,
+        "cum_return": 0.014,
+        "drawdown": -0.0852
       },
       {
         "date": "2025-04-16",
-        "value": 1048575.65,
-        "cum_return": 0.0486,
-        "drawdown": -0.0539
+        "value": 1013109.63,
+        "cum_return": 0.0131,
+        "drawdown": -0.0859
       },
       {
         "date": "2025-04-17",
-        "value": 1052957.75,
-        "cum_return": 0.053,
-        "drawdown": -0.05
+        "value": 1017003.89,
+        "cum_return": 0.017,
+        "drawdown": -0.0824
       },
       {
         "date": "2025-04-18",
-        "value": 1046550.65,
-        "cum_return": 0.0466,
-        "drawdown": -0.0558
+        "value": 1011231.21,
+        "cum_return": 0.0112,
+        "drawdown": -0.0876
       },
       {
         "date": "2025-04-21",
-        "value": 1052708.01,
-        "cum_return": 0.0527,
-        "drawdown": -0.0502
+        "value": 1018110.44,
+        "cum_return": 0.0181,
+        "drawdown": -0.0814
       },
       {
         "date": "2025-04-22",
-        "value": 1054582.65,
-        "cum_return": 0.0546,
-        "drawdown": -0.0485
+        "value": 1019512.83,
+        "cum_return": 0.0195,
+        "drawdown": -0.0801
       },
       {
         "date": "2025-04-23",
-        "value": 1051882.81,
-        "cum_return": 0.0519,
-        "drawdown": -0.0509
+        "value": 1017779.78,
+        "cum_return": 0.0178,
+        "drawdown": -0.0817
       },
       {
         "date": "2025-04-24",
-        "value": 1052998.23,
-        "cum_return": 0.053,
-        "drawdown": -0.0499
+        "value": 1016755.33,
+        "cum_return": 0.0168,
+        "drawdown": -0.0826
       },
       {
         "date": "2025-04-25",
-        "value": 1051339.59,
-        "cum_return": 0.0513,
-        "drawdown": -0.0514
+        "value": 1015332.11,
+        "cum_return": 0.0153,
+        "drawdown": -0.0839
       },
       {
         "date": "2025-04-28",
-        "value": 1052446.45,
-        "cum_return": 0.0524,
-        "drawdown": -0.0504
+        "value": 1015348.76,
+        "cum_return": 0.0153,
+        "drawdown": -0.0839
       },
       {
         "date": "2025-04-29",
-        "value": 1052212.77,
-        "cum_return": 0.0522,
-        "drawdown": -0.0506
+        "value": 1016304.36,
+        "cum_return": 0.0163,
+        "drawdown": -0.083
       },
       {
         "date": "2025-04-30",
-        "value": 1046424.07,
-        "cum_return": 0.0464,
-        "drawdown": -0.0559
+        "value": 1013429.08,
+        "cum_return": 0.0134,
+        "drawdown": -0.0856
       },
       {
         "date": "2025-05-06",
-        "value": 1053100.48,
-        "cum_return": 0.0531,
-        "drawdown": -0.0498
+        "value": 1022353.73,
+        "cum_return": 0.0224,
+        "drawdown": -0.0776
       },
       {
         "date": "2025-05-07",
-        "value": 1059133.51,
-        "cum_return": 0.0591,
-        "drawdown": -0.0444
+        "value": 1026749.5,
+        "cum_return": 0.0267,
+        "drawdown": -0.0736
       },
       {
         "date": "2025-05-08",
-        "value": 1064394.28,
-        "cum_return": 0.0644,
-        "drawdown": -0.0397
+        "value": 1031511.82,
+        "cum_return": 0.0315,
+        "drawdown": -0.0693
       },
       {
         "date": "2025-05-09",
-        "value": 1064257.78,
-        "cum_return": 0.0643,
-        "drawdown": -0.0398
+        "value": 1028415.81,
+        "cum_return": 0.0284,
+        "drawdown": -0.0721
       },
       {
         "date": "2025-05-12",
-        "value": 1070582.24,
-        "cum_return": 0.0706,
-        "drawdown": -0.0341
+        "value": 1035238.73,
+        "cum_return": 0.0352,
+        "drawdown": -0.066
       },
       {
         "date": "2025-05-13",
-        "value": 1071053.69,
-        "cum_return": 0.0711,
-        "drawdown": -0.0336
+        "value": 1032347.74,
+        "cum_return": 0.0323,
+        "drawdown": -0.0686
       },
       {
         "date": "2025-05-14",
-        "value": 1078786.43,
-        "cum_return": 0.0788,
-        "drawdown": -0.0267
+        "value": 1038719.3,
+        "cum_return": 0.0387,
+        "drawdown": -0.0628
       },
       {
         "date": "2025-05-15",
-        "value": 1070477.11,
-        "cum_return": 0.0705,
-        "drawdown": -0.0342
+        "value": 1028861.53,
+        "cum_return": 0.0289,
+        "drawdown": -0.0717
       },
       {
         "date": "2025-05-16",
-        "value": 1064216.47,
-        "cum_return": 0.0642,
-        "drawdown": -0.0398
+        "value": 1023553.2,
+        "cum_return": 0.0236,
+        "drawdown": -0.0765
       },
       {
         "date": "2025-05-19",
-        "value": 1065697.33,
-        "cum_return": 0.0657,
-        "drawdown": -0.0385
+        "value": 1025662.1,
+        "cum_return": 0.0257,
+        "drawdown": -0.0746
       },
       {
         "date": "2025-05-20",
-        "value": 1066762.88,
-        "cum_return": 0.0668,
-        "drawdown": -0.0375
+        "value": 1026217.72,
+        "cum_return": 0.0262,
+        "drawdown": -0.0741
       },
       {
         "date": "2025-05-21",
-        "value": 1071910.23,
-        "cum_return": 0.0719,
-        "drawdown": -0.0329
+        "value": 1030319.82,
+        "cum_return": 0.0303,
+        "drawdown": -0.0704
       },
       {
         "date": "2025-05-22",
-        "value": 1073869.48,
-        "cum_return": 0.0739,
-        "drawdown": -0.0311
+        "value": 1031434.95,
+        "cum_return": 0.0314,
+        "drawdown": -0.0694
       },
       {
         "date": "2025-05-23",
-        "value": 1065900.01,
-        "cum_return": 0.0659,
-        "drawdown": -0.0383
+        "value": 1024262.76,
+        "cum_return": 0.0243,
+        "drawdown": -0.0759
       },
       {
         "date": "2025-05-26",
-        "value": 1063082.69,
-        "cum_return": 0.0631,
-        "drawdown": -0.0408
+        "value": 1022785.35,
+        "cum_return": 0.0228,
+        "drawdown": -0.0772
       },
       {
         "date": "2025-05-27",
-        "value": 1064274.0,
-        "cum_return": 0.0643,
-        "drawdown": -0.0398
+        "value": 1023877.67,
+        "cum_return": 0.0239,
+        "drawdown": -0.0762
       },
       {
         "date": "2025-05-28",
-        "value": 1063051.73,
-        "cum_return": 0.0631,
-        "drawdown": -0.0409
+        "value": 1022249.45,
+        "cum_return": 0.0222,
+        "drawdown": -0.0777
       },
       {
         "date": "2025-05-29",
-        "value": 1070001.14,
-        "cum_return": 0.07,
-        "drawdown": -0.0346
+        "value": 1030626.74,
+        "cum_return": 0.0306,
+        "drawdown": -0.0701
       },
       {
         "date": "2025-05-30",
-        "value": 1074047.68,
-        "cum_return": 0.074,
-        "drawdown": -0.0309
+        "value": 1034147.87,
+        "cum_return": 0.0341,
+        "drawdown": -0.0669
       },
       {
         "date": "2025-06-03",
-        "value": 1082502.42,
+        "value": 1041409.4,
+        "cum_return": 0.0414,
+        "drawdown": -0.0604
+      },
+      {
+        "date": "2025-06-04",
+        "value": 1045447.27,
+        "cum_return": 0.0454,
+        "drawdown": -0.0567
+      },
+      {
+        "date": "2025-06-05",
+        "value": 1041463.08,
+        "cum_return": 0.0415,
+        "drawdown": -0.0603
+      },
+      {
+        "date": "2025-06-06",
+        "value": 1038809.66,
+        "cum_return": 0.0388,
+        "drawdown": -0.0627
+      },
+      {
+        "date": "2025-06-09",
+        "value": 1046936.45,
+        "cum_return": 0.0469,
+        "drawdown": -0.0554
+      },
+      {
+        "date": "2025-06-10",
+        "value": 1042509.43,
+        "cum_return": 0.0425,
+        "drawdown": -0.0594
+      },
+      {
+        "date": "2025-06-11",
+        "value": 1044562.79,
+        "cum_return": 0.0446,
+        "drawdown": -0.0575
+      },
+      {
+        "date": "2025-06-12",
+        "value": 1047991.06,
+        "cum_return": 0.048,
+        "drawdown": -0.0545
+      },
+      {
+        "date": "2025-06-13",
+        "value": 1042209.9,
+        "cum_return": 0.0422,
+        "drawdown": -0.0597
+      },
+      {
+        "date": "2025-06-16",
+        "value": 1046067.06,
+        "cum_return": 0.0461,
+        "drawdown": -0.0562
+      },
+      {
+        "date": "2025-06-17",
+        "value": 1038140.88,
+        "cum_return": 0.0381,
+        "drawdown": -0.0633
+      },
+      {
+        "date": "2025-06-18",
+        "value": 1041813.75,
+        "cum_return": 0.0418,
+        "drawdown": -0.06
+      },
+      {
+        "date": "2025-06-19",
+        "value": 1033673.16,
+        "cum_return": 0.0337,
+        "drawdown": -0.0674
+      },
+      {
+        "date": "2025-06-20",
+        "value": 1035039.54,
+        "cum_return": 0.035,
+        "drawdown": -0.0661
+      },
+      {
+        "date": "2025-06-23",
+        "value": 1043374.51,
+        "cum_return": 0.0434,
+        "drawdown": -0.0586
+      },
+      {
+        "date": "2025-06-24",
+        "value": 1051484.55,
+        "cum_return": 0.0515,
+        "drawdown": -0.0513
+      },
+      {
+        "date": "2025-06-25",
+        "value": 1082543.95,
         "cum_return": 0.0825,
         "drawdown": -0.0233
       },
       {
-        "date": "2025-06-04",
-        "value": 1086335.33,
-        "cum_return": 0.0863,
-        "drawdown": -0.0199
-      },
-      {
-        "date": "2025-06-05",
-        "value": 1081682.12,
-        "cum_return": 0.0817,
-        "drawdown": -0.0241
-      },
-      {
-        "date": "2025-06-06",
-        "value": 1079873.99,
-        "cum_return": 0.0799,
-        "drawdown": -0.0257
-      },
-      {
-        "date": "2025-06-09",
-        "value": 1086993.98,
-        "cum_return": 0.087,
-        "drawdown": -0.0193
-      },
-      {
-        "date": "2025-06-10",
-        "value": 1082723.53,
-        "cum_return": 0.0827,
-        "drawdown": -0.0231
-      },
-      {
-        "date": "2025-06-11",
-        "value": 1085093.98,
-        "cum_return": 0.0851,
-        "drawdown": -0.021
-      },
-      {
-        "date": "2025-06-12",
-        "value": 1088474.04,
-        "cum_return": 0.0885,
-        "drawdown": -0.0179
-      },
-      {
-        "date": "2025-06-13",
-        "value": 1081839.67,
-        "cum_return": 0.0818,
-        "drawdown": -0.0239
-      },
-      {
-        "date": "2025-06-16",
-        "value": 1087614.19,
-        "cum_return": 0.0876,
-        "drawdown": -0.0187
-      },
-      {
-        "date": "2025-06-17",
-        "value": 1080039.7,
-        "cum_return": 0.08,
-        "drawdown": -0.0255
-      },
-      {
-        "date": "2025-06-18",
-        "value": 1084729.88,
-        "cum_return": 0.0847,
-        "drawdown": -0.0213
-      },
-      {
-        "date": "2025-06-19",
-        "value": 1077487.85,
-        "cum_return": 0.0775,
-        "drawdown": -0.0278
-      },
-      {
-        "date": "2025-06-20",
-        "value": 1079447.71,
-        "cum_return": 0.0794,
-        "drawdown": -0.0261
-      },
-      {
-        "date": "2025-06-23",
-        "value": 1088229.5,
-        "cum_return": 0.0882,
-        "drawdown": -0.0181
-      },
-      {
-        "date": "2025-06-24",
-        "value": 1096160.74,
-        "cum_return": 0.0962,
-        "drawdown": -0.011
-      },
-      {
-        "date": "2025-06-25",
-        "value": 1125352.46,
-        "cum_return": 0.1254,
-        "drawdown": 0.0
-      },
-      {
         "date": "2025-06-26",
-        "value": 1123289.54,
-        "cum_return": 0.1233,
-        "drawdown": -0.0018
+        "value": 1079014.25,
+        "cum_return": 0.079,
+        "drawdown": -0.0265
       },
       {
         "date": "2025-06-27",
-        "value": 1116530.21,
-        "cum_return": 0.1165,
-        "drawdown": -0.0078
+        "value": 1074171.96,
+        "cum_return": 0.0742,
+        "drawdown": -0.0308
       },
       {
         "date": "2025-06-30",
-        "value": 1125960.56,
-        "cum_return": 0.126,
-        "drawdown": 0.0
+        "value": 1085004.37,
+        "cum_return": 0.085,
+        "drawdown": -0.0211
       },
       {
         "date": "2025-07-01",
-        "value": 1127246.82,
-        "cum_return": 0.1272,
-        "drawdown": 0.0
+        "value": 1084935.62,
+        "cum_return": 0.0849,
+        "drawdown": -0.0211
       },
       {
         "date": "2025-07-02",
-        "value": 1119009.13,
-        "cum_return": 0.119,
-        "drawdown": -0.0073
+        "value": 1075845.87,
+        "cum_return": 0.0758,
+        "drawdown": -0.0293
       },
       {
         "date": "2025-07-03",
-        "value": 1124798.72,
-        "cum_return": 0.1248,
-        "drawdown": -0.0022
+        "value": 1081443.84,
+        "cum_return": 0.0814,
+        "drawdown": -0.0243
       },
       {
         "date": "2025-07-04",
-        "value": 1130047.48,
-        "cum_return": 0.13,
-        "drawdown": 0.0
+        "value": 1084851.56,
+        "cum_return": 0.0849,
+        "drawdown": -0.0212
       },
       {
         "date": "2025-07-07",
-        "value": 965504.45,
-        "cum_return": -0.0345,
-        "drawdown": -0.1456
+        "value": 958225.0,
+        "cum_return": -0.0418,
+        "drawdown": -0.1354
       },
       {
         "date": "2025-07-08",
-        "value": 986432.9,
-        "cum_return": -0.0136,
-        "drawdown": -0.1271
+        "value": 976942.57,
+        "cum_return": -0.0231,
+        "drawdown": -0.1186
       },
       {
         "date": "2025-07-09",
-        "value": 982353.58,
-        "cum_return": -0.0176,
-        "drawdown": -0.1307
+        "value": 972543.32,
+        "cum_return": -0.0275,
+        "drawdown": -0.1225
       },
       {
         "date": "2025-07-10",
-        "value": 989290.85,
-        "cum_return": -0.0107,
-        "drawdown": -0.1246
+        "value": 979251.63,
+        "cum_return": -0.0207,
+        "drawdown": -0.1165
       },
       {
         "date": "2025-07-11",
-        "value": 999034.93,
-        "cum_return": -0.001,
-        "drawdown": -0.1159
+        "value": 990327.71,
+        "cum_return": -0.0097,
+        "drawdown": -0.1065
       },
       {
         "date": "2025-07-14",
-        "value": 995106.46,
-        "cum_return": -0.0049,
-        "drawdown": -0.1194
+        "value": 985860.14,
+        "cum_return": -0.0141,
+        "drawdown": -0.1105
       },
       {
         "date": "2025-07-15",
-        "value": 988354.05,
-        "cum_return": -0.0116,
-        "drawdown": -0.1254
+        "value": 979501.01,
+        "cum_return": -0.0205,
+        "drawdown": -0.1162
       },
       {
         "date": "2025-07-16",
-        "value": 986608.42,
-        "cum_return": -0.0134,
-        "drawdown": -0.1269
+        "value": 977611.23,
+        "cum_return": -0.0224,
+        "drawdown": -0.118
       },
       {
         "date": "2025-07-17",
-        "value": 995497.4,
-        "cum_return": -0.0045,
-        "drawdown": -0.1191
+        "value": 987422.29,
+        "cum_return": -0.0126,
+        "drawdown": -0.1091
       },
       {
         "date": "2025-07-18",
-        "value": 999143.72,
-        "cum_return": -0.0009,
-        "drawdown": -0.1158
+        "value": 991404.08,
+        "cum_return": -0.0086,
+        "drawdown": -0.1055
       },
       {
         "date": "2025-07-21",
-        "value": 1007998.92,
-        "cum_return": 0.008,
-        "drawdown": -0.108
+        "value": 1000928.41,
+        "cum_return": 0.0009,
+        "drawdown": -0.0969
       },
       {
         "date": "2025-07-22",
-        "value": 1014415.59,
-        "cum_return": 0.0144,
-        "drawdown": -0.1023
+        "value": 1006547.3,
+        "cum_return": 0.0065,
+        "drawdown": -0.0918
       },
       {
         "date": "2025-07-23",
-        "value": 1014299.06,
-        "cum_return": 0.0143,
-        "drawdown": -0.1024
+        "value": 1006064.27,
+        "cum_return": 0.0061,
+        "drawdown": -0.0923
       },
       {
         "date": "2025-07-24",
-        "value": 1032637.95,
-        "cum_return": 0.0326,
-        "drawdown": -0.0862
+        "value": 1025417.38,
+        "cum_return": 0.0254,
+        "drawdown": -0.0748
       },
       {
         "date": "2025-07-25",
-        "value": 1031939.03,
-        "cum_return": 0.0319,
-        "drawdown": -0.0868
+        "value": 1024371.51,
+        "cum_return": 0.0244,
+        "drawdown": -0.0758
       },
       {
         "date": "2025-07-28",
-        "value": 1036695.89,
-        "cum_return": 0.0367,
-        "drawdown": -0.0826
+        "value": 1030263.59,
+        "cum_return": 0.0303,
+        "drawdown": -0.0704
       },
       {
         "date": "2025-07-29",
-        "value": 1046657.79,
-        "cum_return": 0.0467,
-        "drawdown": -0.0738
+        "value": 1039953.42,
+        "cum_return": 0.04,
+        "drawdown": -0.0617
       },
       {
         "date": "2025-07-30",
-        "value": 1037008.75,
-        "cum_return": 0.037,
-        "drawdown": -0.0823
+        "value": 1030531.18,
+        "cum_return": 0.0305,
+        "drawdown": -0.0702
       },
       {
         "date": "2025-07-31",
-        "value": 1014817.3,
-        "cum_return": 0.0148,
-        "drawdown": -0.102
+        "value": 1009325.54,
+        "cum_return": 0.0093,
+        "drawdown": -0.0893
       },
       {
         "date": "2025-08-01",
-        "value": 1013726.84,
-        "cum_return": 0.0137,
-        "drawdown": -0.1029
+        "value": 1007297.6,
+        "cum_return": 0.0073,
+        "drawdown": -0.0912
       },
       {
         "date": "2025-08-04",
-        "value": 1021623.15,
-        "cum_return": 0.0216,
-        "drawdown": -0.0959
+        "value": 1016504.19,
+        "cum_return": 0.0165,
+        "drawdown": -0.0829
       },
       {
         "date": "2025-08-05",
-        "value": 1028510.29,
-        "cum_return": 0.0285,
-        "drawdown": -0.0899
+        "value": 1023633.06,
+        "cum_return": 0.0236,
+        "drawdown": -0.0764
       },
       {
         "date": "2025-08-06",
-        "value": 1044100.33,
-        "cum_return": 0.0441,
-        "drawdown": -0.0761
+        "value": 1041243.16,
+        "cum_return": 0.0412,
+        "drawdown": -0.0605
       },
       {
         "date": "2025-08-07",
-        "value": 1041187.22,
-        "cum_return": 0.0412,
-        "drawdown": -0.0786
+        "value": 1038221.45,
+        "cum_return": 0.0382,
+        "drawdown": -0.0633
       },
       {
         "date": "2025-08-08",
-        "value": 1035303.46,
-        "cum_return": 0.0353,
-        "drawdown": -0.0838
+        "value": 1032798.06,
+        "cum_return": 0.0328,
+        "drawdown": -0.0682
       },
       {
         "date": "2025-08-11",
-        "value": 1039224.94,
-        "cum_return": 0.0392,
-        "drawdown": -0.0804
+        "value": 1036551.1,
+        "cum_return": 0.0366,
+        "drawdown": -0.0648
       },
       {
         "date": "2025-08-12",
-        "value": 1048884.92,
-        "cum_return": 0.0489,
-        "drawdown": -0.0718
+        "value": 1045125.44,
+        "cum_return": 0.0451,
+        "drawdown": -0.057
       },
       {
         "date": "2025-08-13",
-        "value": 1056369.58,
-        "cum_return": 0.0564,
-        "drawdown": -0.0652
+        "value": 1051746.56,
+        "cum_return": 0.0517,
+        "drawdown": -0.0511
       },
       {
         "date": "2025-08-14",
-        "value": 1045929.27,
-        "cum_return": 0.0459,
-        "drawdown": -0.0744
+        "value": 1040183.32,
+        "cum_return": 0.0402,
+        "drawdown": -0.0615
       },
       {
         "date": "2025-08-15",
-        "value": 1057697.1,
-        "cum_return": 0.0577,
-        "drawdown": -0.064
+        "value": 1051705.44,
+        "cum_return": 0.0517,
+        "drawdown": -0.0511
       },
       {
         "date": "2025-08-18",
-        "value": 1066992.09,
-        "cum_return": 0.067,
-        "drawdown": -0.0558
+        "value": 1060808.44,
+        "cum_return": 0.0608,
+        "drawdown": -0.0429
       },
       {
         "date": "2025-08-19",
-        "value": 1059346.8,
-        "cum_return": 0.0593,
-        "drawdown": -0.0626
+        "value": 1053154.3,
+        "cum_return": 0.0532,
+        "drawdown": -0.0498
       },
       {
         "date": "2025-08-20",
-        "value": 1074685.39,
-        "cum_return": 0.0747,
-        "drawdown": -0.049
+        "value": 1067374.26,
+        "cum_return": 0.0674,
+        "drawdown": -0.037
       },
       {
         "date": "2025-08-21",
-        "value": 1077910.64,
-        "cum_return": 0.0779,
-        "drawdown": -0.0461
+        "value": 1070054.39,
+        "cum_return": 0.0701,
+        "drawdown": -0.0345
       },
       {
         "date": "2025-08-22",
-        "value": 1111287.95,
-        "cum_return": 0.1113,
-        "drawdown": -0.0166
+        "value": 1099898.5,
+        "cum_return": 0.0999,
+        "drawdown": -0.0076
       },
       {
         "date": "2025-08-25",
-        "value": 1138825.51,
-        "cum_return": 0.1388,
+        "value": 1126795.69,
+        "cum_return": 0.1268,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-26",
-        "value": 1134537.02,
-        "cum_return": 0.1345,
-        "drawdown": -0.0038
+        "value": 1123262.31,
+        "cum_return": 0.1233,
+        "drawdown": -0.0031
       },
       {
         "date": "2025-08-27",
-        "value": 1119537.18,
-        "cum_return": 0.1195,
-        "drawdown": -0.0169
+        "value": 1107097.03,
+        "cum_return": 0.1071,
+        "drawdown": -0.0175
       },
       {
         "date": "2025-08-28",
-        "value": 1153127.57,
-        "cum_return": 0.1531,
+        "value": 1136620.61,
+        "cum_return": 0.1366,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-29",
-        "value": 1164050.67,
-        "cum_return": 0.1641,
+        "value": 1148737.03,
+        "cum_return": 0.1487,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-01",
-        "value": 1175434.51,
-        "cum_return": 0.1754,
+        "value": 1158017.52,
+        "cum_return": 0.158,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-02",
-        "value": 1153174.14,
-        "cum_return": 0.1532,
-        "drawdown": -0.0189
+        "value": 1136887.56,
+        "cum_return": 0.1369,
+        "drawdown": -0.0182
       },
       {
         "date": "2025-09-03",
-        "value": 1139965.38,
-        "cum_return": 0.14,
-        "drawdown": -0.0302
+        "value": 1121077.97,
+        "cum_return": 0.1211,
+        "drawdown": -0.0319
       },
       {
         "date": "2025-09-04",
-        "value": 1107534.36,
-        "cum_return": 0.1075,
-        "drawdown": -0.0578
+        "value": 1093845.05,
+        "cum_return": 0.0938,
+        "drawdown": -0.0554
       },
       {
         "date": "2025-09-05",
-        "value": 1119834.83,
-        "cum_return": 0.1198,
-        "drawdown": -0.0473
+        "value": 1104676.41,
+        "cum_return": 0.1047,
+        "drawdown": -0.0461
       },
       {
         "date": "2025-09-08",
-        "value": 1117540.44,
-        "cum_return": 0.1175,
-        "drawdown": -0.0493
+        "value": 1102656.05,
+        "cum_return": 0.1027,
+        "drawdown": -0.0478
       },
       {
         "date": "2025-09-09",
-        "value": 1099158.77,
-        "cum_return": 0.0992,
-        "drawdown": -0.0649
+        "value": 1088456.75,
+        "cum_return": 0.0885,
+        "drawdown": -0.0601
       },
       {
         "date": "2025-09-10",
-        "value": 1095658.0,
-        "cum_return": 0.0957,
-        "drawdown": -0.0679
+        "value": 1082335.66,
+        "cum_return": 0.0823,
+        "drawdown": -0.0654
       },
       {
         "date": "2025-09-11",
-        "value": 1135568.96,
-        "cum_return": 0.1356,
-        "drawdown": -0.0339
+        "value": 1109256.09,
+        "cum_return": 0.1093,
+        "drawdown": -0.0421
       },
       {
         "date": "2025-09-12",
-        "value": 1131954.16,
-        "cum_return": 0.132,
-        "drawdown": -0.037
+        "value": 1103674.41,
+        "cum_return": 0.1037,
+        "drawdown": -0.0469
       },
       {
         "date": "2025-09-15",
-        "value": 1138480.37,
-        "cum_return": 0.1385,
-        "drawdown": -0.0314
+        "value": 1109407.36,
+        "cum_return": 0.1094,
+        "drawdown": -0.042
       },
       {
         "date": "2025-09-16",
-        "value": 1145635.29,
-        "cum_return": 0.1456,
-        "drawdown": -0.0254
+        "value": 1114287.63,
+        "cum_return": 0.1143,
+        "drawdown": -0.0378
       },
       {
         "date": "2025-09-17",
-        "value": 1160941.79,
-        "cum_return": 0.1609,
-        "drawdown": -0.0123
+        "value": 1127581.1,
+        "cum_return": 0.1276,
+        "drawdown": -0.0263
       },
       {
         "date": "2025-09-18",
-        "value": 1149344.1,
-        "cum_return": 0.1493,
-        "drawdown": -0.0222
+        "value": 1114219.09,
+        "cum_return": 0.1142,
+        "drawdown": -0.0378
       },
       {
         "date": "2025-09-19",
-        "value": 1143349.37,
-        "cum_return": 0.1433,
-        "drawdown": -0.0273
+        "value": 1109869.75,
+        "cum_return": 0.1099,
+        "drawdown": -0.0416
       },
       {
         "date": "2025-09-22",
-        "value": 1150429.36,
-        "cum_return": 0.1504,
-        "drawdown": -0.0213
+        "value": 1112107.12,
+        "cum_return": 0.1121,
+        "drawdown": -0.0396
       },
       {
         "date": "2025-09-23",
-        "value": 1151257.48,
-        "cum_return": 0.1513,
-        "drawdown": -0.0206
+        "value": 1113239.69,
+        "cum_return": 0.1132,
+        "drawdown": -0.0387
       },
       {
         "date": "2025-09-24",
-        "value": 1187836.2,
-        "cum_return": 0.1878,
-        "drawdown": 0.0
+        "value": 1149837.73,
+        "cum_return": 0.1498,
+        "drawdown": -0.0071
       },
       {
         "date": "2025-09-25",
-        "value": 1202361.68,
-        "cum_return": 0.2024,
+        "value": 1162855.7,
+        "cum_return": 0.1629,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-26",
-        "value": 1184385.71,
-        "cum_return": 0.1844,
-        "drawdown": -0.015
+        "value": 1145886.59,
+        "cum_return": 0.1459,
+        "drawdown": -0.0146
       },
       {
         "date": "2025-09-29",
-        "value": 1209898.97,
-        "cum_return": 0.2099,
+        "value": 1170464.13,
+        "cum_return": 0.1705,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-30",
-        "value": 1225406.91,
-        "cum_return": 0.2254,
+        "value": 1186119.08,
+        "cum_return": 0.1861,
         "drawdown": 0.0
       },
       {
         "date": "2025-10-09",
-        "value": 1256130.6,
-        "cum_return": 0.2561,
+        "value": 1215912.83,
+        "cum_return": 0.2159,
         "drawdown": 0.0
       },
       {
         "date": "2025-10-10",
-        "value": 1199411.24,
-        "cum_return": 0.1994,
-        "drawdown": -0.0452
+        "value": 1161056.24,
+        "cum_return": 0.1611,
+        "drawdown": -0.0451
       },
       {
         "date": "2025-10-13",
-        "value": 1197516.76,
-        "cum_return": 0.1975,
-        "drawdown": -0.0467
+        "value": 1160052.74,
+        "cum_return": 0.1601,
+        "drawdown": -0.0459
       },
       {
         "date": "2025-10-14",
-        "value": 1169570.76,
-        "cum_return": 0.1696,
-        "drawdown": -0.0689
+        "value": 1132873.03,
+        "cum_return": 0.1329,
+        "drawdown": -0.0683
       },
       {
         "date": "2025-10-15",
-        "value": 1181074.72,
-        "cum_return": 0.1811,
-        "drawdown": -0.0598
+        "value": 1144462.63,
+        "cum_return": 0.1445,
+        "drawdown": -0.0588
       },
       {
         "date": "2025-10-16",
-        "value": 1182118.1,
-        "cum_return": 0.1821,
-        "drawdown": -0.0589
+        "value": 1145645.42,
+        "cum_return": 0.1456,
+        "drawdown": -0.0578
       },
       {
         "date": "2025-10-17",
-        "value": 1149864.73,
-        "cum_return": 0.1499,
+        "value": 1113102.51,
+        "cum_return": 0.1131,
         "drawdown": -0.0846
       },
       {
         "date": "2025-10-20",
-        "value": 1152259.19,
-        "cum_return": 0.1523,
-        "drawdown": -0.0827
+        "value": 1115704.79,
+        "cum_return": 0.1157,
+        "drawdown": -0.0824
       },
       {
         "date": "2025-10-21",
-        "value": 1158730.14,
-        "cum_return": 0.1587,
-        "drawdown": -0.0775
+        "value": 1117717.62,
+        "cum_return": 0.1177,
+        "drawdown": -0.0808
       },
       {
         "date": "2025-10-22",
-        "value": 1152211.52,
-        "cum_return": 0.1522,
+        "value": 1115394.34,
+        "cum_return": 0.1154,
         "drawdown": -0.0827
       },
       {
         "date": "2025-10-23",
-        "value": 1162985.5,
-        "cum_return": 0.163,
-        "drawdown": -0.0742
+        "value": 1121589.45,
+        "cum_return": 0.1216,
+        "drawdown": -0.0776
       },
       {
         "date": "2025-10-24",
-        "value": 1170661.28,
-        "cum_return": 0.1707,
-        "drawdown": -0.068
+        "value": 1123687.25,
+        "cum_return": 0.1237,
+        "drawdown": -0.0758
       },
       {
         "date": "2025-10-27",
-        "value": 1177515.96,
-        "cum_return": 0.1775,
-        "drawdown": -0.0626
+        "value": 1127624.34,
+        "cum_return": 0.1276,
+        "drawdown": -0.0726
       },
       {
         "date": "2025-10-28",
-        "value": 1172460.91,
-        "cum_return": 0.1725,
-        "drawdown": -0.0666
+        "value": 1122139.76,
+        "cum_return": 0.1221,
+        "drawdown": -0.0771
       },
       {
         "date": "2025-10-29",
-        "value": 1207122.69,
-        "cum_return": 0.2071,
-        "drawdown": -0.039
+        "value": 1157203.99,
+        "cum_return": 0.1572,
+        "drawdown": -0.0483
       },
       {
         "date": "2025-10-30",
-        "value": 1207439.77,
-        "cum_return": 0.2074,
-        "drawdown": -0.0388
+        "value": 1157560.36,
+        "cum_return": 0.1576,
+        "drawdown": -0.048
       },
       {
         "date": "2025-10-31",
-        "value": 1197010.56,
-        "cum_return": 0.197,
-        "drawdown": -0.0471
+        "value": 1147169.7,
+        "cum_return": 0.1472,
+        "drawdown": -0.0565
       },
       {
         "date": "2025-11-03",
-        "value": 1215770.68,
-        "cum_return": 0.2158,
-        "drawdown": -0.0321
+        "value": 1165856.5,
+        "cum_return": 0.1659,
+        "drawdown": -0.0412
       },
       {
         "date": "2025-11-04",
-        "value": 1196671.67,
-        "cum_return": 0.1967,
-        "drawdown": -0.0473
+        "value": 1147326.35,
+        "cum_return": 0.1473,
+        "drawdown": -0.0564
       },
       {
         "date": "2025-11-05",
-        "value": 1220144.64,
-        "cum_return": 0.2201,
-        "drawdown": -0.0286
+        "value": 1170860.64,
+        "cum_return": 0.1709,
+        "drawdown": -0.0371
       },
       {
         "date": "2025-11-06",
-        "value": 1234813.5,
-        "cum_return": 0.2348,
-        "drawdown": -0.017
+        "value": 1184916.41,
+        "cum_return": 0.1849,
+        "drawdown": -0.0255
       },
       {
         "date": "2025-11-07",
-        "value": 1245269.33,
-        "cum_return": 0.2453,
-        "drawdown": -0.0086
+        "value": 1195462.37,
+        "cum_return": 0.1955,
+        "drawdown": -0.0168
       },
       {
         "date": "2025-11-10",
-        "value": 1245972.96,
-        "cum_return": 0.246,
-        "drawdown": -0.0081
+        "value": 1196044.46,
+        "cum_return": 0.196,
+        "drawdown": -0.0163
       },
       {
         "date": "2025-11-11",
-        "value": 1239198.14,
-        "cum_return": 0.2392,
-        "drawdown": -0.0135
+        "value": 1189542.52,
+        "cum_return": 0.1895,
+        "drawdown": -0.0217
       },
       {
         "date": "2025-11-12",
-        "value": 1220173.4,
-        "cum_return": 0.2202,
-        "drawdown": -0.0286
+        "value": 1170497.06,
+        "cum_return": 0.1705,
+        "drawdown": -0.0374
       },
       {
         "date": "2025-11-13",
-        "value": 1244272.39,
-        "cum_return": 0.2443,
-        "drawdown": -0.0094
+        "value": 1194099.19,
+        "cum_return": 0.1941,
+        "drawdown": -0.0179
       },
       {
         "date": "2025-11-14",
-        "value": 1230491.61,
-        "cum_return": 0.2305,
-        "drawdown": -0.0204
+        "value": 1181004.74,
+        "cum_return": 0.181,
+        "drawdown": -0.0287
       },
       {
         "date": "2025-11-17",
-        "value": 1226187.99,
-        "cum_return": 0.2262,
-        "drawdown": -0.0238
+        "value": 1176877.11,
+        "cum_return": 0.1769,
+        "drawdown": -0.0321
       },
       {
         "date": "2025-11-18",
-        "value": 1200635.5,
-        "cum_return": 0.2006,
-        "drawdown": -0.0442
+        "value": 1151943.65,
+        "cum_return": 0.1519,
+        "drawdown": -0.0526
       },
       {
         "date": "2025-11-19",
-        "value": 1201318.59,
-        "cum_return": 0.2013,
-        "drawdown": -0.0436
+        "value": 1152765.82,
+        "cum_return": 0.1528,
+        "drawdown": -0.0519
       },
       {
         "date": "2025-11-20",
-        "value": 1189889.78,
-        "cum_return": 0.1899,
-        "drawdown": -0.0527
+        "value": 1141349.45,
+        "cum_return": 0.1413,
+        "drawdown": -0.0613
       },
       {
         "date": "2025-11-21",
-        "value": 1156896.75,
-        "cum_return": 0.1569,
-        "drawdown": -0.079
+        "value": 1109449.16,
+        "cum_return": 0.1094,
+        "drawdown": -0.0876
       },
       {
         "date": "2025-11-24",
-        "value": 1158058.88,
-        "cum_return": 0.1581,
-        "drawdown": -0.0781
+        "value": 1110256.11,
+        "cum_return": 0.1103,
+        "drawdown": -0.0869
       },
       {
         "date": "2025-11-25",
-        "value": 1172106.66,
-        "cum_return": 0.1721,
-        "drawdown": -0.0669
+        "value": 1116674.14,
+        "cum_return": 0.1167,
+        "drawdown": -0.0816
       },
       {
         "date": "2025-11-26",
-        "value": 1175843.11,
-        "cum_return": 0.1758,
-        "drawdown": -0.0639
+        "value": 1118831.42,
+        "cum_return": 0.1188,
+        "drawdown": -0.0798
       },
       {
         "date": "2025-11-27",
-        "value": 1174242.15,
-        "cum_return": 0.1742,
-        "drawdown": -0.0652
+        "value": 1118588.43,
+        "cum_return": 0.1186,
+        "drawdown": -0.08
       },
       {
         "date": "2025-11-28",
-        "value": 1180644.34,
-        "cum_return": 0.1806,
-        "drawdown": -0.0601
+        "value": 1119286.81,
+        "cum_return": 0.1193,
+        "drawdown": -0.0795
       },
       {
         "date": "2025-12-01",
-        "value": 1186072.23,
-        "cum_return": 0.1861,
-        "drawdown": -0.0558
+        "value": 1123877.2,
+        "cum_return": 0.1239,
+        "drawdown": -0.0757
       },
       {
         "date": "2025-12-02",
-        "value": 1175498.63,
-        "cum_return": 0.1755,
-        "drawdown": -0.0642
+        "value": 1113791.42,
+        "cum_return": 0.1138,
+        "drawdown": -0.084
       },
       {
         "date": "2025-12-03",
-        "value": 1165394.91,
-        "cum_return": 0.1654,
-        "drawdown": -0.0722
+        "value": 1104555.22,
+        "cum_return": 0.1046,
+        "drawdown": -0.0916
       },
       {
         "date": "2025-12-04",
-        "value": 1169376.18,
-        "cum_return": 0.1694,
-        "drawdown": -0.0691
+        "value": 1108877.07,
+        "cum_return": 0.1089,
+        "drawdown": -0.088
       },
       {
         "date": "2025-12-05",
-        "value": 1181709.35,
-        "cum_return": 0.1817,
-        "drawdown": -0.0592
+        "value": 1119844.15,
+        "cum_return": 0.1198,
+        "drawdown": -0.079
       },
       {
         "date": "2025-12-08",
-        "value": 1201419.79,
-        "cum_return": 0.2014,
-        "drawdown": -0.0436
+        "value": 1138220.55,
+        "cum_return": 0.1382,
+        "drawdown": -0.0639
       },
       {
         "date": "2025-12-09",
-        "value": 1197797.47,
-        "cum_return": 0.1978,
-        "drawdown": -0.0464
+        "value": 1134864.15,
+        "cum_return": 0.1349,
+        "drawdown": -0.0667
       },
       {
         "date": "2025-12-10",
-        "value": 1195981.62,
-        "cum_return": 0.196,
-        "drawdown": -0.0479
+        "value": 1133261.21,
+        "cum_return": 0.1333,
+        "drawdown": -0.068
       },
       {
         "date": "2025-12-11",
-        "value": 1187337.43,
-        "cum_return": 0.1873,
-        "drawdown": -0.0548
+        "value": 1124722.75,
+        "cum_return": 0.1247,
+        "drawdown": -0.075
       },
       {
         "date": "2025-12-12",
-        "value": 1195580.8,
-        "cum_return": 0.1956,
-        "drawdown": -0.0482
+        "value": 1132826.09,
+        "cum_return": 0.1328,
+        "drawdown": -0.0683
       },
       {
         "date": "2025-12-15",
-        "value": 1186459.23,
-        "cum_return": 0.1865,
-        "drawdown": -0.0555
+        "value": 1124161.55,
+        "cum_return": 0.1242,
+        "drawdown": -0.0755
       },
       {
         "date": "2025-12-16",
-        "value": 1169493.3,
-        "cum_return": 0.1695,
-        "drawdown": -0.069
+        "value": 1108218.08,
+        "cum_return": 0.1082,
+        "drawdown": -0.0886
       },
       {
         "date": "2025-12-17",
-        "value": 1190245.55,
-        "cum_return": 0.1902,
-        "drawdown": -0.0525
+        "value": 1128092.68,
+        "cum_return": 0.1281,
+        "drawdown": -0.0722
       },
       {
         "date": "2025-12-18",
-        "value": 1184519.87,
-        "cum_return": 0.1845,
-        "drawdown": -0.057
+        "value": 1122463.78,
+        "cum_return": 0.1225,
+        "drawdown": -0.0769
       },
       {
         "date": "2025-12-19",
-        "value": 1189840.16,
-        "cum_return": 0.1898,
-        "drawdown": -0.0528
+        "value": 1127161.37,
+        "cum_return": 0.1272,
+        "drawdown": -0.073
       },
       {
         "date": "2025-12-22",
-        "value": 1203565.82,
-        "cum_return": 0.2036,
-        "drawdown": -0.0418
+        "value": 1140471.66,
+        "cum_return": 0.1405,
+        "drawdown": -0.062
       },
       {
         "date": "2025-12-23",
-        "value": 1203809.04,
-        "cum_return": 0.2038,
-        "drawdown": -0.0417
+        "value": 1140807.2,
+        "cum_return": 0.1408,
+        "drawdown": -0.0618
       },
       {
         "date": "2025-12-24",
-        "value": 1213312.35,
-        "cum_return": 0.2133,
-        "drawdown": -0.0341
+        "value": 1149245.02,
+        "cum_return": 0.1492,
+        "drawdown": -0.0548
       },
       {
         "date": "2025-12-25",
-        "value": 1221814.97,
-        "cum_return": 0.2218,
-        "drawdown": -0.0273
+        "value": 1156865.86,
+        "cum_return": 0.1569,
+        "drawdown": -0.0486
       },
       {
         "date": "2025-12-26",
-        "value": 1225630.56,
-        "cum_return": 0.2256,
-        "drawdown": -0.0243
+        "value": 1160272.63,
+        "cum_return": 0.1603,
+        "drawdown": -0.0458
       },
       {
         "date": "2025-12-29",
-        "value": 1224246.08,
-        "cum_return": 0.2242,
-        "drawdown": -0.0254
+        "value": 1158922.73,
+        "cum_return": 0.1589,
+        "drawdown": -0.0469
       },
       {
         "date": "2025-12-30",
-        "value": 1228628.79,
-        "cum_return": 0.2286,
-        "drawdown": -0.0219
+        "value": 1163165.45,
+        "cum_return": 0.1632,
+        "drawdown": -0.0434
       },
       {
         "date": "2025-12-31",
-        "value": 1223455.32,
-        "cum_return": 0.2235,
-        "drawdown": -0.026
+        "value": 1157721.54,
+        "cum_return": 0.1577,
+        "drawdown": -0.0479
       },
       {
         "date": "2026-01-05",
-        "value": 1256680.03,
-        "cum_return": 0.2567,
-        "drawdown": 0.0
+        "value": 1189141.21,
+        "cum_return": 0.1891,
+        "drawdown": -0.022
       },
       {
         "date": "2026-01-06",
-        "value": 1278934.43,
-        "cum_return": 0.2789,
-        "drawdown": 0.0
+        "value": 1209943.13,
+        "cum_return": 0.2099,
+        "drawdown": -0.0049
       },
       {
         "date": "2026-01-07",
-        "value": 1285420.27,
-        "cum_return": 0.2854,
+        "value": 1216241.47,
+        "cum_return": 0.2162,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-08",
-        "value": 1290516.28,
-        "cum_return": 0.2905,
+        "value": 1220466.63,
+        "cum_return": 0.2205,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-09",
-        "value": 1309692.39,
-        "cum_return": 0.3097,
+        "value": 1237663.38,
+        "cum_return": 0.2377,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-12",
-        "value": 1339811.79,
-        "cum_return": 0.3398,
+        "value": 1265095.7,
+        "cum_return": 0.2651,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-13",
-        "value": 1309363.39,
-        "cum_return": 0.3094,
-        "drawdown": -0.0227
+        "value": 1236882.57,
+        "cum_return": 0.2369,
+        "drawdown": -0.0223
       },
       {
         "date": "2026-01-14",
-        "value": 1316205.19,
-        "cum_return": 0.3162,
-        "drawdown": -0.0176
-      },
-      {
-        "date": "2026-01-15",
-        "value": 1316987.31,
-        "cum_return": 0.317,
-        "drawdown": -0.017
-      },
-      {
-        "date": "2026-01-16",
-        "value": 1321850.96,
-        "cum_return": 0.3219,
-        "drawdown": -0.0134
-      },
-      {
-        "date": "2026-01-19",
-        "value": 1316565.53,
-        "cum_return": 0.3166,
+        "value": 1243114.12,
+        "cum_return": 0.2431,
         "drawdown": -0.0174
       },
       {
+        "date": "2026-01-15",
+        "value": 1244587.82,
+        "cum_return": 0.2446,
+        "drawdown": -0.0162
+      },
+      {
+        "date": "2026-01-16",
+        "value": 1249722.41,
+        "cum_return": 0.2497,
+        "drawdown": -0.0122
+      },
+      {
+        "date": "2026-01-19",
+        "value": 1244055.65,
+        "cum_return": 0.2441,
+        "drawdown": -0.0166
+      },
+      {
         "date": "2026-01-20",
-        "value": 1296553.98,
-        "cum_return": 0.2966,
-        "drawdown": -0.0323
+        "value": 1224505.56,
+        "cum_return": 0.2245,
+        "drawdown": -0.0321
       },
       {
         "date": "2026-01-21",
-        "value": 1311406.14,
-        "cum_return": 0.3114,
-        "drawdown": -0.0212
+        "value": 1238597.75,
+        "cum_return": 0.2386,
+        "drawdown": -0.0209
       },
       {
         "date": "2026-01-22",
-        "value": 1317640.8,
-        "cum_return": 0.3176,
-        "drawdown": -0.0165
+        "value": 1244394.0,
+        "cum_return": 0.2444,
+        "drawdown": -0.0164
       },
       {
         "date": "2026-01-23",
-        "value": 1361613.97,
-        "cum_return": 0.3616,
+        "value": 1286365.86,
+        "cum_return": 0.2864,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-26",
-        "value": 1337819.99,
-        "cum_return": 0.3378,
+        "value": 1263840.29,
+        "cum_return": 0.2638,
         "drawdown": -0.0175
       },
       {
         "date": "2026-01-27",
-        "value": 1350057.54,
-        "cum_return": 0.3501,
-        "drawdown": -0.0085
+        "value": 1275618.5,
+        "cum_return": 0.2756,
+        "drawdown": -0.0084
       },
       {
         "date": "2026-01-28",
-        "value": 1345566.96,
-        "cum_return": 0.3456,
-        "drawdown": -0.0118
-      },
-      {
-        "date": "2026-01-29",
-        "value": 1325110.86,
-        "cum_return": 0.3251,
-        "drawdown": -0.0268
-      },
-      {
-        "date": "2026-01-30",
-        "value": 1314052.09,
-        "cum_return": 0.3141,
-        "drawdown": -0.0349
-      },
-      {
-        "date": "2026-02-02",
-        "value": 1274298.03,
-        "cum_return": 0.2743,
-        "drawdown": -0.0641
-      },
-      {
-        "date": "2026-02-03",
-        "value": 1312352.21,
-        "cum_return": 0.3124,
-        "drawdown": -0.0362
-      },
-      {
-        "date": "2026-02-04",
-        "value": 1313113.77,
-        "cum_return": 0.3131,
-        "drawdown": -0.0356
-      },
-      {
-        "date": "2026-02-05",
-        "value": 1281836.44,
-        "cum_return": 0.2818,
-        "drawdown": -0.0586
-      },
-      {
-        "date": "2026-02-06",
-        "value": 1279246.66,
-        "cum_return": 0.2792,
-        "drawdown": -0.0605
-      },
-      {
-        "date": "2026-02-09",
-        "value": 1316480.69,
-        "cum_return": 0.3165,
-        "drawdown": -0.0331
-      },
-      {
-        "date": "2026-02-10",
-        "value": 1312592.13,
-        "cum_return": 0.3126,
-        "drawdown": -0.036
-      },
-      {
-        "date": "2026-02-11",
-        "value": 1304340.28,
-        "cum_return": 0.3043,
-        "drawdown": -0.0421
-      },
-      {
-        "date": "2026-02-12",
-        "value": 1322949.12,
-        "cum_return": 0.3229,
-        "drawdown": -0.0284
-      },
-      {
-        "date": "2026-02-13",
-        "value": 1304656.64,
-        "cum_return": 0.3047,
-        "drawdown": -0.0418
-      },
-      {
-        "date": "2026-02-24",
-        "value": 1317470.31,
-        "cum_return": 0.3175,
-        "drawdown": -0.0324
-      },
-      {
-        "date": "2026-02-25",
-        "value": 1332628.08,
-        "cum_return": 0.3326,
-        "drawdown": -0.0213
-      },
-      {
-        "date": "2026-02-26",
-        "value": 1337914.97,
-        "cum_return": 0.3379,
-        "drawdown": -0.0174
-      },
-      {
-        "date": "2026-02-27",
-        "value": 1341454.59,
-        "cum_return": 0.3415,
-        "drawdown": -0.0148
-      },
-      {
-        "date": "2026-03-02",
-        "value": 1331871.27,
-        "cum_return": 0.3319,
-        "drawdown": -0.0218
-      },
-      {
-        "date": "2026-03-03",
-        "value": 1307235.04,
-        "cum_return": 0.3072,
-        "drawdown": -0.0399
-      },
-      {
-        "date": "2026-03-04",
-        "value": 1297660.03,
-        "cum_return": 0.2977,
-        "drawdown": -0.047
-      },
-      {
-        "date": "2026-03-05",
-        "value": 1305338.19,
-        "cum_return": 0.3053,
-        "drawdown": -0.0413
-      },
-      {
-        "date": "2026-03-06",
-        "value": 1307547.61,
-        "cum_return": 0.3075,
-        "drawdown": -0.0397
-      },
-      {
-        "date": "2026-03-09",
-        "value": 1316488.16,
-        "cum_return": 0.3165,
-        "drawdown": -0.0331
-      },
-      {
-        "date": "2026-03-10",
-        "value": 1327299.88,
-        "cum_return": 0.3273,
-        "drawdown": -0.0252
-      },
-      {
-        "date": "2026-03-11",
-        "value": 1345114.12,
-        "cum_return": 0.3451,
+        "value": 1270802.64,
+        "cum_return": 0.2708,
         "drawdown": -0.0121
       },
       {
+        "date": "2026-01-29",
+        "value": 1251082.68,
+        "cum_return": 0.2511,
+        "drawdown": -0.0274
+      },
+      {
+        "date": "2026-01-30",
+        "value": 1240954.16,
+        "cum_return": 0.241,
+        "drawdown": -0.0353
+      },
+      {
+        "date": "2026-02-02",
+        "value": 1204202.43,
+        "cum_return": 0.2042,
+        "drawdown": -0.0639
+      },
+      {
+        "date": "2026-02-03",
+        "value": 1234535.88,
+        "cum_return": 0.2345,
+        "drawdown": -0.0403
+      },
+      {
+        "date": "2026-02-04",
+        "value": 1243105.4,
+        "cum_return": 0.2431,
+        "drawdown": -0.0336
+      },
+      {
+        "date": "2026-02-05",
+        "value": 1217359.65,
+        "cum_return": 0.2174,
+        "drawdown": -0.0536
+      },
+      {
+        "date": "2026-02-06",
+        "value": 1218136.59,
+        "cum_return": 0.2181,
+        "drawdown": -0.053
+      },
+      {
+        "date": "2026-02-09",
+        "value": 1241642.17,
+        "cum_return": 0.2416,
+        "drawdown": -0.0348
+      },
+      {
+        "date": "2026-02-10",
+        "value": 1237403.39,
+        "cum_return": 0.2374,
+        "drawdown": -0.0381
+      },
+      {
+        "date": "2026-02-11",
+        "value": 1236893.09,
+        "cum_return": 0.2369,
+        "drawdown": -0.0385
+      },
+      {
+        "date": "2026-02-12",
+        "value": 1244897.69,
+        "cum_return": 0.2449,
+        "drawdown": -0.0322
+      },
+      {
+        "date": "2026-02-13",
+        "value": 1221266.53,
+        "cum_return": 0.2213,
+        "drawdown": -0.0506
+      },
+      {
+        "date": "2026-02-24",
+        "value": 1237033.53,
+        "cum_return": 0.237,
+        "drawdown": -0.0384
+      },
+      {
+        "date": "2026-02-25",
+        "value": 1247748.1,
+        "cum_return": 0.2477,
+        "drawdown": -0.03
+      },
+      {
+        "date": "2026-02-26",
+        "value": 1244433.37,
+        "cum_return": 0.2444,
+        "drawdown": -0.0326
+      },
+      {
+        "date": "2026-02-27",
+        "value": 1256739.73,
+        "cum_return": 0.2567,
+        "drawdown": -0.023
+      },
+      {
+        "date": "2026-03-02",
+        "value": 1257633.74,
+        "cum_return": 0.2576,
+        "drawdown": -0.0223
+      },
+      {
+        "date": "2026-03-03",
+        "value": 1243268.55,
+        "cum_return": 0.2433,
+        "drawdown": -0.0335
+      },
+      {
+        "date": "2026-03-04",
+        "value": 1231815.85,
+        "cum_return": 0.2318,
+        "drawdown": -0.0424
+      },
+      {
+        "date": "2026-03-05",
+        "value": 1238097.43,
+        "cum_return": 0.2381,
+        "drawdown": -0.0375
+      },
+      {
+        "date": "2026-03-06",
+        "value": 1237762.45,
+        "cum_return": 0.2378,
+        "drawdown": -0.0378
+      },
+      {
+        "date": "2026-03-09",
+        "value": 1251366.23,
+        "cum_return": 0.2514,
+        "drawdown": -0.0272
+      },
+      {
+        "date": "2026-03-10",
+        "value": 1253823.61,
+        "cum_return": 0.2538,
+        "drawdown": -0.0253
+      },
+      {
+        "date": "2026-03-11",
+        "value": 1273209.68,
+        "cum_return": 0.2732,
+        "drawdown": -0.0102
+      },
+      {
         "date": "2026-03-12",
-        "value": 1353277.49,
-        "cum_return": 0.3533,
-        "drawdown": -0.0061
+        "value": 1289865.47,
+        "cum_return": 0.2899,
+        "drawdown": 0.0
       },
       {
         "date": "2026-03-13",
-        "value": 1339846.58,
-        "cum_return": 0.3398,
-        "drawdown": -0.016
+        "value": 1275895.93,
+        "cum_return": 0.2759,
+        "drawdown": -0.0108
       },
       {
         "date": "2026-03-16",
-        "value": 1322267.84,
-        "cum_return": 0.3223,
-        "drawdown": -0.0289
+        "value": 1256226.21,
+        "cum_return": 0.2562,
+        "drawdown": -0.0261
       },
       {
         "date": "2026-03-17",
-        "value": 1298641.96,
-        "cum_return": 0.2986,
-        "drawdown": -0.0462
+        "value": 1232784.66,
+        "cum_return": 0.2328,
+        "drawdown": -0.0443
       },
       {
         "date": "2026-03-18",
-        "value": 1302174.28,
-        "cum_return": 0.3022,
-        "drawdown": -0.0437
+        "value": 1234838.09,
+        "cum_return": 0.2348,
+        "drawdown": -0.0427
       },
       {
         "date": "2026-03-19",
-        "value": 1284924.26,
-        "cum_return": 0.2849,
-        "drawdown": -0.0563
+        "value": 1225370.26,
+        "cum_return": 0.2254,
+        "drawdown": -0.05
       },
       {
         "date": "2026-03-20",
-        "value": 1301641.13,
-        "cum_return": 0.3016,
-        "drawdown": -0.044
+        "value": 1240247.11,
+        "cum_return": 0.2402,
+        "drawdown": -0.0385
       },
       {
         "date": "2026-03-23",
-        "value": 1281498.11,
-        "cum_return": 0.2815,
-        "drawdown": -0.0588
+        "value": 1225960.16,
+        "cum_return": 0.226,
+        "drawdown": -0.0495
       },
       {
         "date": "2026-03-24",
-        "value": 1291598.75,
-        "cum_return": 0.2916,
-        "drawdown": -0.0514
+        "value": 1232634.11,
+        "cum_return": 0.2326,
+        "drawdown": -0.0444
       },
       {
         "date": "2026-03-25",
-        "value": 1305045.17,
-        "cum_return": 0.305,
-        "drawdown": -0.0415
+        "value": 1240342.78,
+        "cum_return": 0.2403,
+        "drawdown": -0.0384
       },
       {
         "date": "2026-03-26",
-        "value": 1289955.31,
-        "cum_return": 0.29,
-        "drawdown": -0.0526
+        "value": 1229218.13,
+        "cum_return": 0.2292,
+        "drawdown": -0.047
       },
       {
         "date": "2026-03-27",
-        "value": 1297148.61,
-        "cum_return": 0.2971,
-        "drawdown": -0.0473
+        "value": 1233848.64,
+        "cum_return": 0.2338,
+        "drawdown": -0.0434
       },
       {
         "date": "2026-03-30",
-        "value": 1281478.24,
-        "cum_return": 0.2815,
-        "drawdown": -0.0589
+        "value": 1218048.2,
+        "cum_return": 0.218,
+        "drawdown": -0.0557
       },
       {
         "date": "2026-03-31",
-        "value": 1258964.0,
-        "cum_return": 0.259,
-        "drawdown": -0.0754
+        "value": 1191976.33,
+        "cum_return": 0.192,
+        "drawdown": -0.0759
       },
       {
         "date": "2026-04-01",
-        "value": 1266088.54,
-        "cum_return": 0.2661,
-        "drawdown": -0.0702
-      },
-      {
-        "date": "2026-04-02",
-        "value": 1260278.23,
-        "cum_return": 0.2603,
-        "drawdown": -0.0744
-      },
-      {
-        "date": "2026-04-03",
-        "value": 1253129.95,
-        "cum_return": 0.2531,
-        "drawdown": -0.0797
-      },
-      {
-        "date": "2026-04-07",
-        "value": 1252923.24,
-        "cum_return": 0.2529,
-        "drawdown": -0.0798
-      },
-      {
-        "date": "2026-04-08",
-        "value": 1277882.16,
-        "cum_return": 0.2779,
-        "drawdown": -0.0615
-      },
-      {
-        "date": "2026-04-09",
-        "value": 1272673.2,
-        "cum_return": 0.2727,
-        "drawdown": -0.0653
-      },
-      {
-        "date": "2026-04-10",
-        "value": 1284751.07,
-        "cum_return": 0.2848,
-        "drawdown": -0.0564
+        "value": 1198093.36,
+        "cum_return": 0.1981,
+        "drawdown": -0.0711
       }
     ]
   },
@@ -2702,64 +2666,64 @@
   ],
   "ranking": [
     {
-      "code": "000993.CSI",
-      "name": "科技指数",
-      "etf": "515000",
+      "code": "399986.SZ",
+      "name": "银行指数",
+      "etf": "512800",
       "rank": 1,
-      "score": 0.6928,
+      "score": 0.6446,
       "factors": {
-        "momentum": 0.5512,
+        "momentum": 0.501,
         "trend": 1.0,
-        "flow": 0.5612
+        "flow": 0.485
       },
       "attribution": {
-        "momentum_6m_return": 5.12,
-        "momentum_1m_return": 5.03,
-        "volatility_annual": 34.35,
-        "price_vs_ma20": 6.65,
-        "price_vs_ma60": 3.42,
-        "ma20_above_ma60": false,
-        "value_percentile": 51.19,
-        "value_assessment": "合理",
+        "momentum_6m_return": 0.1,
+        "momentum_1m_return": 2.38,
+        "volatility_annual": 25.21,
+        "price_vs_ma20": 1.29,
+        "price_vs_ma60": 1.44,
+        "ma20_above_ma60": true,
+        "value_percentile": 22.62,
+        "value_assessment": "低估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": 6.85,
-        "index_return": 2.31,
-        "benchmark_return": -4.54,
+        "relative_return": 2.14,
+        "index_return": -2.67,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
     {
-      "code": "399006.SZ",
-      "name": "创业板指",
-      "etf": "159915",
+      "code": "399990.SZ",
+      "name": "煤炭指数",
+      "etf": "515220",
       "rank": 2,
-      "score": 0.6521,
+      "score": 0.6252,
       "factors": {
-        "momentum": 0.5877,
-        "trend": 1.0,
-        "flow": 0.4689
+        "momentum": 0.6224,
+        "trend": 0.75,
+        "flow": 0.5522
       },
       "attribution": {
-        "momentum_6m_return": 8.77,
-        "momentum_1m_return": 3.5,
-        "volatility_annual": 33.14,
-        "price_vs_ma20": 5.0,
-        "price_vs_ma60": 4.59,
-        "ma20_above_ma60": false,
-        "value_percentile": 99.6,
+        "momentum_6m_return": 12.24,
+        "momentum_1m_return": -5.11,
+        "volatility_annual": 38.29,
+        "price_vs_ma20": -4.44,
+        "price_vs_ma60": 3.99,
+        "ma20_above_ma60": true,
+        "value_percentile": 86.9,
         "value_assessment": "高估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": 9.11,
-        "index_return": 4.56,
-        "benchmark_return": -4.54,
+        "relative_return": 21.11,
+        "index_return": 16.3,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
@@ -2768,153 +2732,60 @@
       "name": "新能源指数",
       "etf": "516160",
       "rank": 3,
-      "score": 0.6138,
+      "score": 0.6168,
       "factors": {
-        "momentum": 0.645,
+        "momentum": 0.662,
         "trend": 0.5,
-        "flow": 0.6702
+        "flow": 0.67
       },
       "attribution": {
-        "momentum_6m_return": 14.5,
-        "momentum_1m_return": -5.26,
-        "volatility_annual": 104.27,
-        "price_vs_ma20": -0.09,
-        "price_vs_ma60": -0.2,
-        "ma20_above_ma60": false,
-        "value_percentile": 85.71,
+        "momentum_6m_return": 16.2,
+        "momentum_1m_return": -1.2,
+        "volatility_annual": 104.49,
+        "price_vs_ma20": -4.0,
+        "price_vs_ma60": -2.19,
+        "ma20_above_ma60": true,
+        "value_percentile": 76.98,
         "value_assessment": "高估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": 6.86,
-        "index_return": 2.31,
-        "benchmark_return": -4.54,
+        "relative_return": 8.52,
+        "index_return": 3.71,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
     {
-      "code": "399975.SZ",
-      "name": "证券指数",
-      "etf": "512000",
+      "code": "000993.CSI",
+      "name": "科技指数",
+      "etf": "515000",
       "rank": 4,
-      "score": 0.5847,
+      "score": 0.5325,
       "factors": {
-        "momentum": 0.374,
-        "trend": 0.75,
-        "flow": 0.5616
+        "momentum": 0.5377,
+        "trend": 0.5,
+        "flow": 0.55
       },
       "attribution": {
-        "momentum_6m_return": -12.6,
-        "momentum_1m_return": -4.6,
-        "volatility_annual": 32.85,
-        "price_vs_ma20": 0.82,
-        "price_vs_ma60": -6.54,
+        "momentum_6m_return": 3.77,
+        "momentum_1m_return": -1.68,
+        "volatility_annual": 34.28,
+        "price_vs_ma20": -1.06,
+        "price_vs_ma60": -3.98,
         "ma20_above_ma60": false,
-        "value_percentile": 5.16,
+        "value_percentile": 21.83,
         "value_assessment": "低估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": -9.01,
-        "index_return": -13.56,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000688.SH",
-      "name": "科创 50",
-      "etf": "588000",
-      "rank": 5,
-      "score": 0.574,
-      "factors": {
-        "momentum": 0.4493,
-        "trend": 0.75,
-        "flow": 0.5141
-      },
-      "attribution": {
-        "momentum_6m_return": -5.07,
-        "momentum_1m_return": -2.16,
-        "volatility_annual": 29.92,
-        "price_vs_ma20": 3.74,
-        "price_vs_ma60": -3.84,
-        "ma20_above_ma60": false,
-        "value_percentile": 67.86,
-        "value_assessment": "合理",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": -1.6,
-        "index_return": -6.14,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399990.SZ",
-      "name": "煤炭指数",
-      "etf": "515220",
-      "rank": 6,
-      "score": 0.5679,
-      "factors": {
-        "momentum": 0.6196,
-        "trend": 0.75,
-        "flow": 0.4416
-      },
-      "attribution": {
-        "momentum_6m_return": 11.96,
-        "momentum_1m_return": -5.5,
-        "volatility_annual": 38.26,
-        "price_vs_ma20": -4.46,
-        "price_vs_ma60": 1.08,
-        "ma20_above_ma60": true,
-        "value_percentile": 82.54,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": 13.98,
-        "index_return": 9.43,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "990001.SSI",
-      "name": "半导体指数",
-      "etf": "512480",
-      "rank": 7,
-      "score": 0.5616,
-      "factors": {
-        "momentum": 0.5425,
-        "trend": 0.75,
-        "flow": 0.4567
-      },
-      "attribution": {
-        "momentum_6m_return": 4.25,
-        "momentum_1m_return": -0.26,
-        "volatility_annual": 41.45,
-        "price_vs_ma20": 4.89,
-        "price_vs_ma60": -2.0,
-        "ma20_above_ma60": false,
-        "value_percentile": 82.54,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": 1.68,
-        "index_return": -2.86,
-        "benchmark_return": -4.54,
+        "relative_return": 3.61,
+        "index_return": -1.2,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
@@ -2922,216 +2793,61 @@
       "code": "000933.CSI",
       "name": "医药指数",
       "etf": "512010",
-      "rank": 8,
-      "score": 0.5377,
+      "rank": 5,
+      "score": 0.5004,
       "factors": {
-        "momentum": 0.3385,
+        "momentum": 0.3448,
         "trend": 0.75,
-        "flow": 0.4828
+        "flow": 0.4078
       },
       "attribution": {
-        "momentum_6m_return": -16.15,
-        "momentum_1m_return": 0.3,
-        "volatility_annual": 34.75,
-        "price_vs_ma20": 1.84,
-        "price_vs_ma60": -1.33,
+        "momentum_6m_return": -15.52,
+        "momentum_1m_return": 3.29,
+        "volatility_annual": 34.78,
+        "price_vs_ma20": 3.1,
+        "price_vs_ma60": -0.69,
         "ma20_above_ma60": false,
-        "value_percentile": 31.75,
+        "value_percentile": 37.3,
         "value_assessment": "合理",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": -1.97,
-        "index_return": -6.52,
-        "benchmark_return": -4.54,
+        "relative_return": 3.24,
+        "index_return": -1.57,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
     {
-      "code": "000852.SH",
-      "name": "中证 1000",
-      "etf": "512100",
-      "rank": 9,
-      "score": 0.5325,
+      "code": "399006.SZ",
+      "name": "创业板指",
+      "etf": "159915",
+      "rank": 6,
+      "score": 0.4918,
       "factors": {
-        "momentum": 0.5664,
-        "trend": 0.75,
-        "flow": 0.3916
-      },
-      "attribution": {
-        "momentum_6m_return": 6.64,
-        "momentum_1m_return": -3.99,
-        "volatility_annual": 63.29,
-        "price_vs_ma20": 2.37,
-        "price_vs_ma60": -1.61,
-        "ma20_above_ma60": false,
-        "value_percentile": 82.14,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": 3.62,
-        "index_return": -0.93,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000905.SH",
-      "name": "中证 500",
-      "etf": "510500",
-      "rank": 10,
-      "score": 0.5301,
-      "factors": {
-        "momentum": 0.5918,
-        "trend": 0.75,
-        "flow": 0.3779
-      },
-      "attribution": {
-        "momentum_6m_return": 9.18,
-        "momentum_1m_return": -4.83,
-        "volatility_annual": 74.85,
-        "price_vs_ma20": 2.17,
-        "price_vs_ma60": -2.44,
-        "ma20_above_ma60": false,
-        "value_percentile": 82.54,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": 4.68,
-        "index_return": 0.14,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000300.SH",
-      "name": "沪深 300",
-      "etf": "510300",
-      "rank": 11,
-      "score": 0.5268,
-      "factors": {
-        "momentum": 0.4952,
-        "trend": 0.75,
-        "flow": 0.4057
-      },
-      "attribution": {
-        "momentum_6m_return": -0.48,
-        "momentum_1m_return": -1.29,
-        "volatility_annual": 22.27,
-        "price_vs_ma20": 2.03,
-        "price_vs_ma60": -0.62,
-        "ma20_above_ma60": false,
-        "value_percentile": 59.13,
-        "value_assessment": "合理",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": 0.0,
-        "index_return": -4.54,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399986.SZ",
-      "name": "银行指数",
-      "etf": "512800",
-      "rank": 12,
-      "score": 0.5098,
-      "factors": {
-        "momentum": 0.5033,
+        "momentum": 0.5531,
         "trend": 0.5,
-        "flow": 0.518
+        "flow": 0.4652
       },
       "attribution": {
-        "momentum_6m_return": 0.33,
-        "momentum_1m_return": 0.24,
-        "volatility_annual": 25.18,
-        "price_vs_ma20": -0.96,
-        "price_vs_ma60": -0.09,
-        "ma20_above_ma60": true,
-        "value_percentile": 12.7,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": 1.59,
-        "index_return": -2.96,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000992.CSI",
-      "name": "金融指数",
-      "etf": "510230",
-      "rank": 13,
-      "score": 0.5055,
-      "factors": {
-        "momentum": 0.4945,
-        "trend": 0.5,
-        "flow": 0.5126
-      },
-      "attribution": {
-        "momentum_6m_return": -0.55,
-        "momentum_1m_return": -2.0,
-        "volatility_annual": 31.9,
-        "price_vs_ma20": -0.32,
-        "price_vs_ma60": -3.07,
-        "ma20_above_ma60": false,
-        "value_percentile": 7.94,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "northbound_20d_sum": 0.0,
-        "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": -4.45,
-        "index_return": -9.0,
-        "benchmark_return": -4.54,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399967.SZ",
-      "name": "军工指数",
-      "etf": "512660",
-      "rank": 14,
-      "score": 0.505,
-      "factors": {
-        "momentum": 0.6394,
-        "trend": 0.75,
-        "flow": 0.3121
-      },
-      "attribution": {
-        "momentum_6m_return": 13.94,
-        "momentum_1m_return": -10.06,
-        "volatility_annual": 29.46,
-        "price_vs_ma20": 1.13,
-        "price_vs_ma60": -7.34,
+        "momentum_6m_return": 5.31,
+        "momentum_1m_return": 1.14,
+        "volatility_annual": 33.11,
+        "price_vs_ma20": -1.28,
+        "price_vs_ma60": -1.62,
         "ma20_above_ma60": false,
         "value_percentile": 79.37,
         "value_assessment": "高估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0.0,
-        "etf_shares_trend": "赎回",
-        "relative_return": -6.49,
-        "index_return": -11.03,
-        "benchmark_return": -4.54,
+        "etf_shares_20d_change": 0,
+        "etf_shares_trend": "未知",
+        "relative_return": 5.65,
+        "index_return": 0.84,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
@@ -3139,61 +2855,123 @@
       "code": "000922.CSI",
       "name": "红利指数",
       "etf": "510880",
-      "rank": 15,
-      "score": 0.5008,
+      "rank": 7,
+      "score": 0.4905,
       "factors": {
-        "momentum": 0.5444,
+        "momentum": 0.535,
         "trend": 0.75,
-        "flow": 0.3376
+        "flow": 0.3209
       },
       "attribution": {
-        "momentum_6m_return": 4.44,
-        "momentum_1m_return": -2.83,
-        "volatility_annual": 25.77,
-        "price_vs_ma20": -1.51,
-        "price_vs_ma60": 0.05,
+        "momentum_6m_return": 3.5,
+        "momentum_1m_return": -3.71,
+        "volatility_annual": 25.79,
+        "price_vs_ma20": -1.55,
+        "price_vs_ma60": 0.85,
         "ma20_above_ma60": true,
-        "value_percentile": 58.33,
-        "value_assessment": "合理",
+        "value_percentile": 71.03,
+        "value_assessment": "高估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": 4.45,
-        "index_return": -0.09,
-        "benchmark_return": -4.54,
+        "relative_return": 6.57,
+        "index_return": 1.76,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
     {
-      "code": "399965.SZ",
-      "name": "恒生指数",
-      "etf": "159920",
-      "rank": 16,
-      "score": 0.4757,
+      "code": "000688.SH",
+      "name": "科创 50",
+      "etf": "588000",
+      "rank": 8,
+      "score": 0.4722,
       "factors": {
-        "momentum": 0.4449,
-        "trend": 0.75,
-        "flow": 0.3242
+        "momentum": 0.472,
+        "trend": 0.5,
+        "flow": 0.4557
       },
       "attribution": {
-        "momentum_6m_return": -5.51,
-        "momentum_1m_return": 0.02,
-        "volatility_annual": 20.39,
-        "price_vs_ma20": 1.75,
-        "price_vs_ma60": -2.0,
+        "momentum_6m_return": -2.8,
+        "momentum_1m_return": -6.31,
+        "volatility_annual": 29.82,
+        "price_vs_ma20": -3.24,
+        "price_vs_ma60": -8.89,
         "ma20_above_ma60": false,
-        "value_percentile": 40.48,
+        "value_percentile": 49.6,
         "value_assessment": "合理",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": 1.44,
-        "index_return": -3.1,
-        "benchmark_return": -4.54,
+        "relative_return": 1.42,
+        "index_return": -3.39,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "990001.SSI",
+      "name": "半导体指数",
+      "etf": "512480",
+      "rank": 9,
+      "score": 0.4654,
+      "factors": {
+        "momentum": 0.567,
+        "trend": 0.5,
+        "flow": 0.4088
+      },
+      "attribution": {
+        "momentum_6m_return": 6.7,
+        "momentum_1m_return": -6.14,
+        "volatility_annual": 41.42,
+        "price_vs_ma20": -3.86,
+        "price_vs_ma60": -8.68,
+        "ma20_above_ma60": false,
+        "value_percentile": 67.46,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 4.26,
+        "index_return": -0.55,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000992.CSI",
+      "name": "金融指数",
+      "etf": "510230",
+      "rank": 10,
+      "score": 0.4638,
+      "factors": {
+        "momentum": 0.4726,
+        "trend": 0.5,
+        "flow": 0.4393
+      },
+      "attribution": {
+        "momentum_6m_return": -2.74,
+        "momentum_1m_return": -2.0,
+        "volatility_annual": 31.91,
+        "price_vs_ma20": -0.61,
+        "price_vs_ma60": -3.76,
+        "ma20_above_ma60": false,
+        "value_percentile": 8.33,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -3.9,
+        "index_return": -8.71,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
@@ -3201,50 +2979,81 @@
       "code": "000988.CSI",
       "name": "制造指数",
       "etf": "516880",
-      "rank": 17,
-      "score": 0.4507,
+      "rank": 11,
+      "score": 0.4474,
       "factors": {
-        "momentum": 0.6355,
+        "momentum": 0.662,
         "trend": 0.5,
-        "flow": 0.3557
+        "flow": 0.3399
       },
       "attribution": {
-        "momentum_6m_return": 13.55,
-        "momentum_1m_return": -12.36,
-        "volatility_annual": 33.44,
-        "price_vs_ma20": -3.91,
-        "price_vs_ma60": -5.12,
-        "ma20_above_ma60": false,
-        "value_percentile": 76.59,
+        "momentum_6m_return": 16.2,
+        "momentum_1m_return": -5.74,
+        "volatility_annual": 33.38,
+        "price_vs_ma20": -7.02,
+        "price_vs_ma60": -4.35,
+        "ma20_above_ma60": true,
+        "value_percentile": 78.17,
         "value_assessment": "高估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": 6.29,
-        "index_return": 1.75,
-        "benchmark_return": -4.54,
+        "relative_return": 10.84,
+        "index_return": 6.03,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
     {
-      "code": "000932.CSI",
-      "name": "消费指数",
-      "etf": "159928",
-      "rank": 18,
-      "score": 0.4406,
+      "code": "399967.SZ",
+      "name": "军工指数",
+      "etf": "512660",
+      "rank": 12,
+      "score": 0.4439,
       "factors": {
-        "momentum": 0.3843,
+        "momentum": 0.6236,
         "trend": 0.5,
-        "flow": 0.4255
+        "flow": 0.3467
       },
       "attribution": {
-        "momentum_6m_return": -11.57,
-        "momentum_1m_return": -4.17,
-        "volatility_annual": 33.61,
-        "price_vs_ma20": -1.8,
-        "price_vs_ma60": -3.83,
+        "momentum_6m_return": 12.36,
+        "momentum_1m_return": -11.76,
+        "volatility_annual": 29.44,
+        "price_vs_ma20": -5.29,
+        "price_vs_ma60": -9.98,
+        "ma20_above_ma60": false,
+        "value_percentile": 76.98,
+        "value_assessment": "高估",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 1.77,
+        "index_return": -3.04,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399975.SZ",
+      "name": "证券指数",
+      "etf": "512000",
+      "rank": 13,
+      "score": 0.4344,
+      "factors": {
+        "momentum": 0.3157,
+        "trend": 0.5,
+        "flow": 0.4378
+      },
+      "attribution": {
+        "momentum_6m_return": -18.43,
+        "momentum_1m_return": -8.77,
+        "volatility_annual": 32.83,
+        "price_vs_ma20": -3.7,
+        "price_vs_ma60": -10.17,
         "ma20_above_ma60": false,
         "value_percentile": 1.59,
         "value_assessment": "低估",
@@ -3253,9 +3062,164 @@
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": -2.35,
-        "index_return": -6.89,
-        "benchmark_return": -4.54,
+        "relative_return": -9.6,
+        "index_return": -14.41,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399965.SZ",
+      "name": "恒生指数",
+      "etf": "159920",
+      "rank": 14,
+      "score": 0.4168,
+      "factors": {
+        "momentum": 0.4125,
+        "trend": 0.5,
+        "flow": 0.369
+      },
+      "attribution": {
+        "momentum_6m_return": -8.75,
+        "momentum_1m_return": -1.86,
+        "volatility_annual": 20.39,
+        "price_vs_ma20": -0.21,
+        "price_vs_ma60": -4.07,
+        "ma20_above_ma60": false,
+        "value_percentile": 34.92,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0,
+        "etf_shares_trend": "未知",
+        "relative_return": 1.1,
+        "index_return": -3.71,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000852.SH",
+      "name": "中证 1000",
+      "etf": "512100",
+      "rank": 15,
+      "score": 0.4067,
+      "factors": {
+        "momentum": 0.529,
+        "trend": 0.5,
+        "flow": 0.3079
+      },
+      "attribution": {
+        "momentum_6m_return": 2.9,
+        "momentum_1m_return": -4.72,
+        "volatility_annual": 63.35,
+        "price_vs_ma20": -2.51,
+        "price_vs_ma60": -4.55,
+        "ma20_above_ma60": false,
+        "value_percentile": 79.76,
+        "value_assessment": "高估",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 5.78,
+        "index_return": 0.97,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000905.SH",
+      "name": "中证 500",
+      "etf": "510500",
+      "rank": 16,
+      "score": 0.3999,
+      "factors": {
+        "momentum": 0.5734,
+        "trend": 0.5,
+        "flow": 0.2788
+      },
+      "attribution": {
+        "momentum_6m_return": 7.34,
+        "momentum_1m_return": -6.72,
+        "volatility_annual": 74.91,
+        "price_vs_ma20": -2.93,
+        "price_vs_ma60": -5.09,
+        "ma20_above_ma60": false,
+        "value_percentile": 79.76,
+        "value_assessment": "高估",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 8.27,
+        "index_return": 3.46,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000932.CSI",
+      "name": "消费指数",
+      "etf": "159928",
+      "rank": 17,
+      "score": 0.3785,
+      "factors": {
+        "momentum": 0.3575,
+        "trend": 0.5,
+        "flow": 0.314
+      },
+      "attribution": {
+        "momentum_6m_return": -14.25,
+        "momentum_1m_return": -1.68,
+        "volatility_annual": 33.64,
+        "price_vs_ma20": -1.6,
+        "price_vs_ma60": -3.44,
+        "ma20_above_ma60": false,
+        "value_percentile": 1.98,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0,
+        "etf_shares_trend": "未知",
+        "relative_return": -1.08,
+        "index_return": -5.89,
+        "benchmark_return": -4.81,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000300.SH",
+      "name": "沪深 300",
+      "etf": "510300",
+      "rank": 18,
+      "score": 0.373,
+      "factors": {
+        "momentum": 0.4799,
+        "trend": 0.5,
+        "flow": 0.2597
+      },
+      "attribution": {
+        "momentum_6m_return": -2.01,
+        "momentum_1m_return": -2.99,
+        "volatility_annual": 22.26,
+        "price_vs_ma20": -1.25,
+        "price_vs_ma60": -3.54,
+        "ma20_above_ma60": false,
+        "value_percentile": 46.43,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "northbound_20d_sum": 0.0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 0.0,
+        "index_return": -4.81,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     },
@@ -3264,29 +3228,29 @@
       "name": "白酒指数",
       "etf": "512690",
       "rank": 19,
-      "score": 0.4102,
+      "score": 0.3589,
       "factors": {
-        "momentum": 0.3328,
+        "momentum": 0.3038,
         "trend": 0.5,
-        "flow": 0.3844
+        "flow": 0.2949
       },
       "attribution": {
-        "momentum_6m_return": -16.72,
-        "momentum_1m_return": -2.86,
-        "volatility_annual": 37.38,
-        "price_vs_ma20": -1.38,
-        "price_vs_ma60": -5.81,
+        "momentum_6m_return": -19.62,
+        "momentum_1m_return": -3.19,
+        "volatility_annual": 37.43,
+        "price_vs_ma20": -0.72,
+        "price_vs_ma60": -5.38,
         "ma20_above_ma60": false,
-        "value_percentile": 1.59,
+        "value_percentile": 2.78,
         "value_assessment": "低估",
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
         "etf_shares_20d_change": 0.0,
         "etf_shares_trend": "赎回",
-        "relative_return": -5.53,
-        "index_return": -10.07,
-        "benchmark_return": -4.54,
+        "relative_return": -3.48,
+        "index_return": -8.29,
+        "benchmark_return": -4.81,
         "rs_lookback_days": 60
       }
     }
@@ -3296,21 +3260,21 @@
     "buffer_n": 8,
     "rebalance_frequency": "weekly",
     "selected_codes": [
-      "000993.CSI",
-      "399006.SZ",
+      "399986.SZ",
+      "399990.SZ",
       "399808.SZ",
-      "399975.SZ",
-      "000688.SH"
+      "000993.CSI",
+      "000933.CSI"
     ],
     "hold_range_codes": [
-      "000993.CSI",
-      "399006.SZ",
-      "399808.SZ",
-      "399975.SZ",
-      "000688.SH",
+      "399986.SZ",
       "399990.SZ",
-      "990001.SSI",
-      "000933.CSI"
+      "399808.SZ",
+      "000993.CSI",
+      "000933.CSI",
+      "399006.SZ",
+      "000922.CSI",
+      "000688.SH"
     ],
     "signals": [
       {
@@ -3319,47 +3283,32 @@
         "name": "制造指数"
       },
       {
-        "action": "sell",
-        "code": "399986.SZ",
-        "name": "银行指数"
-      },
-      {
         "action": "buy",
-        "code": "399006.SZ",
-        "name": "创业板指"
-      },
-      {
-        "action": "buy",
-        "code": "399975.SZ",
-        "name": "证券指数"
-      },
-      {
-        "action": "buy",
-        "code": "000688.SH",
-        "name": "科创 50"
+        "code": "000933.CSI",
+        "name": "医药指数"
       }
     ],
     "holdings": [
       {
-        "code": "000993.CSI",
+        "code": "399986.SZ",
         "rank": 1,
-        "score": 0.6928,
-        "name": "科技指数",
-        "etf": "515000",
+        "score": 0.6446,
+        "name": "银行指数",
+        "etf": "512800",
         "strongest_factors": [
           "trend",
-          "flow"
+          "momentum"
         ],
         "weakest_factors": [
-          "momentum"
+          "flow"
         ]
       },
       {
-        "code": "399006.SZ",
+        "code": "399990.SZ",
         "rank": 2,
-        "score": 0.6521,
-        "name": "创业板指",
-        "etf": "159915",
+        "score": 0.6252,
+        "name": "煤炭指数",
+        "etf": "515220",
         "strongest_factors": [
           "trend",
           "momentum"
@@ -3371,7 +3320,7 @@
       {
         "code": "399808.SZ",
         "rank": 3,
-        "score": 0.6138,
+        "score": 0.6168,
         "name": "新能源指数",
         "etf": "516160",
         "strongest_factors": [
@@ -3383,25 +3332,25 @@
         ]
       },
       {
-        "code": "399975.SZ",
+        "code": "000993.CSI",
         "rank": 4,
-        "score": 0.5847,
-        "name": "证券指数",
-        "etf": "512000",
+        "score": 0.5325,
+        "name": "科技指数",
+        "etf": "515000",
         "strongest_factors": [
-          "trend",
-          "flow"
+          "flow",
+          "momentum"
         ],
         "weakest_factors": [
-          "momentum"
+          "trend"
         ]
       },
       {
-        "code": "000688.SH",
+        "code": "000933.CSI",
         "rank": 5,
-        "score": 0.574,
-        "name": "科创 50",
-        "etf": "588000",
+        "score": 0.5004,
+        "name": "医药指数",
+        "etf": "512010",
         "strongest_factors": [
           "trend",
           "flow"
@@ -3414,11 +3363,31 @@
   },
   "health": {
     "price_data": {
-      "status": "ok",
+      "status": "degraded",
       "available_count": 19,
       "expected_count": 19,
-      "stale_codes": [],
-      "latest_trade_date": "2026-04-10"
+      "stale_codes": [
+        "000300.SH",
+        "000905.SH",
+        "000852.SH",
+        "399006.SZ",
+        "000688.SH",
+        "000932.CSI",
+        "000933.CSI",
+        "000993.CSI",
+        "000992.CSI",
+        "000988.CSI",
+        "000922.CSI",
+        "399967.SZ",
+        "399808.SZ",
+        "990001.SSI",
+        "399997.SZ",
+        "399986.SZ",
+        "399975.SZ",
+        "399990.SZ",
+        "399965.SZ"
+      ],
+      "latest_trade_date": "2026-04-01"
     },
     "northbound": {
       "status": "degraded",
@@ -3429,11 +3398,15 @@
       "snapshot_date": "2026-04-10"
     },
     "etf_shares": {
-      "status": "snapshot",
+      "status": "degraded",
       "history_count": 0,
-      "snapshot_count": 19,
-      "missing_count": 0,
-      "missing_codes": []
+      "snapshot_count": 16,
+      "missing_count": 3,
+      "missing_codes": [
+        "399006.SZ",
+        "000932.CSI",
+        "399965.SZ"
+      ]
     },
     "universe": {
       "active_count": 19,
@@ -3550,10 +3523,10 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-12 17:10",
+    "updated_at": "2026-04-12 09:27",
     "decision": {
-      "headline": "本周主结论：科技指数、创业板指、新能源指数 为当前优先观察方向。",
-      "execution_message": "当前建议执行 5 个动作，优先关注 科技指数、创业板指、新能源指数。",
+      "headline": "本周主结论：银行指数、煤炭指数、新能源指数 为当前优先观察方向。",
+      "execution_message": "当前建议执行 2 个动作，优先关注 银行指数、煤炭指数、新能源指数。",
       "market_context": "震荡市",
       "action": "继续研究，不建议单独实盘"
     },
@@ -3561,12 +3534,14 @@
       "status": "degraded",
       "label": "部分数据降级，结论需结合人工复核",
       "warnings": [
+        "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
+        "ETF 份额缺失标的：399006.SZ、000932.CSI、399965.SZ",
         "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日"
       ],
       "items": [
         {
           "label": "价格数据",
-          "status": "ok",
+          "status": "degraded",
           "detail": "19/19"
         },
         {
@@ -3576,8 +3551,8 @@
         },
         {
           "label": "ETF 份额",
-          "status": "snapshot",
-          "detail": "历史 0 / 快照 19"
+          "status": "degraded",
+          "detail": "历史 0 / 快照 16"
         }
       ]
     },
@@ -3591,9 +3566,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.2184,
-        "research_max_drawdown": -0.1456,
-        "research_sharpe": 1.0,
+        "research_annual_return": 0.1564,
+        "research_max_drawdown": -0.1354,
+        "research_sharpe": 0.82,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -3615,22 +3590,22 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1284751.07,
-        "total_return": 0.2848,
-        "annual_return": 0.2184,
-        "max_drawdown": -0.1456,
+        "final_value": 1198093.36,
+        "total_return": 0.1981,
+        "annual_return": 0.1564,
+        "max_drawdown": -0.1354,
         "max_drawdown_date": "2025-07-07",
-        "sharpe_ratio": 1.0,
-        "trading_days": 306,
+        "sharpe_ratio": 0.82,
+        "trading_days": 300,
         "period": {
           "start": "2025-01-02",
-          "end": "2026-04-10"
+          "end": "2026-04-01"
         }
       },
       "research": {
-        "research_annual_return": 0.2184,
-        "research_max_drawdown": -0.1456,
-        "research_sharpe": 1.0,
+        "research_annual_return": 0.1564,
+        "research_max_drawdown": -0.1354,
+        "research_sharpe": 0.82,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -3641,12 +3616,14 @@
       }
     },
     "warnings": [
+      "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
+      "ETF 份额缺失标的：399006.SZ、000932.CSI、399965.SZ",
       "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日",
       "OOS 测试窗口过短，当前样本外结论不具统计解释力",
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-04-12 17:10",
+  "update_time": "2026-04-12 09:27",
   "market_regime": "sideways",
   "market_regime_desc": "震荡市"
 }
