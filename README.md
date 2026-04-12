@@ -35,6 +35,7 @@ quant-rotation/
 ├── src/                     # 核心策略代码
 │   └── legacy/              # 历史实现与备用工具
 ├── scripts/                 # 日跑、回测、数据生成入口
+│   └── tools/               # 增量回测、报告服务等辅助脚本
 ├── web/                     # React 看板
 │   ├── src/                 # 前端源码
 │   ├── public/              # 前端静态数据源（由脚本生成）
