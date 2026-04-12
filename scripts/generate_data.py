@@ -379,10 +379,23 @@ def main():
 
     print(f"\n数据已保存：{output_file}")
 
-    # 同时生成独立的 ranking.json 保持向后兼容
+    # 同时生成独立的 ranking.json（包含 health 和 recommendation 供前端使用）
+    ranking_output = {
+        'ranking': ranking['ranking'],
+        'recommendation': recommendation,
+        'health': health,
+        'universe': universe,
+        'factor_weights': {},
+        'factor_model': {'active_factors': CONFIG.get('factor_model', {}).get('active_factors', [])},
+        'dynamic_weights': {},
+        'market_regime': 'sideways',
+        'market_regime_desc': '震荡市',
+        'strategy': CONFIG.get('strategy', {}),
+        'update_time': datetime.now().strftime('%Y-%m-%d %H:%M')
+    }
     ranking_file = OUTPUT_DIR / 'ranking.json'
     with open(ranking_file, 'w', encoding='utf-8') as f:
-        json.dump(ranking, f, indent=2, ensure_ascii=False)
+        json.dump(ranking_output, f, indent=2, ensure_ascii=False)
     print(f"排名已保存：{ranking_file}")
 
     strategy.fetcher.close()

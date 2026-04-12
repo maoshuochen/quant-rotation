@@ -229,5 +229,212 @@
       }
     }
   ],
-  "update_time": "2026-04-12 01:23"
+  "recommendation": {
+    "holdings": [
+      {
+        "code": "000993.CSI",
+        "name": "科技指数",
+        "weight": 0.2,
+        "score": 0.6928
+      },
+      {
+        "code": "399006.SZ",
+        "name": "创业板指",
+        "weight": 0.2,
+        "score": 0.6521
+      },
+      {
+        "code": "399808.SZ",
+        "name": "新能源指数",
+        "weight": 0.2,
+        "score": 0.6138
+      },
+      {
+        "code": "399975.SZ",
+        "name": "证券指数",
+        "weight": 0.2,
+        "score": 0.5847
+      },
+      {
+        "code": "000688.SH",
+        "name": "科创 50",
+        "weight": 0.2,
+        "score": 0.574
+      }
+    ],
+    "signals": [
+      {
+        "action": "sell",
+        "code": "399986.SZ",
+        "name": "银行指数"
+      },
+      {
+        "action": "sell",
+        "code": "000922.CSI",
+        "name": "红利指数"
+      },
+      {
+        "action": "buy",
+        "code": "000993.CSI",
+        "name": "科技指数"
+      },
+      {
+        "action": "buy",
+        "code": "399975.SZ",
+        "name": "证券指数"
+      },
+      {
+        "action": "buy",
+        "code": "000688.SH",
+        "name": "科创 50"
+      }
+    ],
+    "selected_codes": [
+      "000993.CSI",
+      "399006.SZ",
+      "399808.SZ",
+      "399975.SZ",
+      "000688.SH"
+    ],
+    "top_n": 5,
+    "buffer_n": 8,
+    "rebalance_frequency": "weekly"
+  },
+  "health": {
+    "price_data": {
+      "status": "ok",
+      "available_count": 19,
+      "expected_count": 19
+    },
+    "northbound": {
+      "status": "ok",
+      "recent_rows": 20
+    },
+    "etf_shares": {
+      "status": "ok",
+      "snapshot_count": 19
+    },
+    "universe": {
+      "active_count": 19
+    }
+  },
+  "universe": {
+    "active": [
+      {
+        "code": "000300.SH",
+        "name": "沪深 300",
+        "etf": "510300"
+      },
+      {
+        "code": "000905.SH",
+        "name": "中证 500",
+        "etf": "510500"
+      },
+      {
+        "code": "000852.SH",
+        "name": "中证 1000",
+        "etf": "512100"
+      },
+      {
+        "code": "399006.SZ",
+        "name": "创业板指",
+        "etf": "159915"
+      },
+      {
+        "code": "000688.SH",
+        "name": "科创 50",
+        "etf": "588000"
+      },
+      {
+        "code": "000932.CSI",
+        "name": "消费指数",
+        "etf": "159928"
+      },
+      {
+        "code": "000933.CSI",
+        "name": "医药指数",
+        "etf": "512010"
+      },
+      {
+        "code": "000993.CSI",
+        "name": "科技指数",
+        "etf": "515000"
+      },
+      {
+        "code": "000992.CSI",
+        "name": "金融指数",
+        "etf": "510230"
+      },
+      {
+        "code": "000988.CSI",
+        "name": "制造指数",
+        "etf": "516880"
+      },
+      {
+        "code": "000922.CSI",
+        "name": "红利指数",
+        "etf": "510880"
+      },
+      {
+        "code": "399967.SZ",
+        "name": "军工指数",
+        "etf": "512660"
+      },
+      {
+        "code": "399808.SZ",
+        "name": "新能源指数",
+        "etf": "516160"
+      },
+      {
+        "code": "990001.SSI",
+        "name": "半导体指数",
+        "etf": "512480"
+      },
+      {
+        "code": "399997.SZ",
+        "name": "白酒指数",
+        "etf": "512690"
+      },
+      {
+        "code": "399986.SZ",
+        "name": "银行指数",
+        "etf": "512800"
+      },
+      {
+        "code": "399975.SZ",
+        "name": "证券指数",
+        "etf": "512000"
+      },
+      {
+        "code": "399990.SZ",
+        "name": "煤炭指数",
+        "etf": "515220"
+      },
+      {
+        "code": "399965.SZ",
+        "name": "恒生指数",
+        "etf": "159920"
+      }
+    ],
+    "inactive": []
+  },
+  "factor_weights": {},
+  "factor_model": {
+    "active_factors": [
+      "momentum",
+      "trend",
+      "flow"
+    ]
+  },
+  "dynamic_weights": {},
+  "market_regime": "sideways",
+  "market_regime_desc": "震荡市",
+  "strategy": {
+    "top_n": 5,
+    "buffer_n": 8,
+    "rebalance_frequency": "weekly",
+    "lookback_pe": 2520,
+    "momentum_window": 126
+  },
+  "update_time": "2026-04-12 11:24"
 }
