@@ -30,7 +30,7 @@ function App() {
       if (dataResult?.recommendation?.selected_codes?.length) {
         setSelectedCode(dataResult.recommendation.selected_codes[0])
       } else if (dataResult?.ranking?.length) {
-        setSelectedCode(dataResult.ranking[0])
+        setSelectedCode(dataResult.ranking[0].code)
       }
     } catch (err) {
       setLoadError(err.message || '加载失败')

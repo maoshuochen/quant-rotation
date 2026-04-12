@@ -31,28 +31,41 @@ export const statusTone = {
   missing: 'text-red-200 border-red-500/30 bg-red-500/10'
 }
 
+const fetchJson = async (path) => {
+  const res = await fetch(path)
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+  return res.json()
+}
+
+const loadCombinedData = async () => fetchJson('./data.json')
+
 // 加载历史数据
 export const loadHistoryData = async () => {
   try {
-    const res = await fetch('./history.json')
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-    const data = await res.json()
+    const data = await fetchJson('./history.json')
     return {
       history: data.history || [],
       updateTime: data.update_time || ''
     }
   } catch (err) {
-    console.error('加载 history.json 失败:', err.message)
-    return null
+    console.error('加载 history.json 失败，回退到 data.json:', err.message)
+    try {
+      const data = await loadCombinedData()
+      return {
+        history: data.history || [],
+        updateTime: data.update_time || data.updateTime || ''
+      }
+    } catch (fallbackErr) {
+      console.error('加载 data.json 失败:', fallbackErr.message)
+      return null
+    }
   }
 }
 
 // 加载主数据
 export const loadData = async () => {
   try {
-    const res = await fetch('./ranking.json')
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-    const data = await res.json()
+    const data = await fetchJson('./ranking.json')
     return {
       ranking: data.ranking || [],
       factorWeights: data.factor_weights || {},
@@ -67,23 +80,48 @@ export const loadData = async () => {
       universe: data.universe || {}
     }
   } catch (err) {
-    console.error('加载 ranking.json 失败:', err.message)
-    return null
+    console.error('加载 ranking.json 失败，回退到 data.json:', err.message)
+    try {
+      const data = await loadCombinedData()
+      return {
+        ranking: data.ranking || [],
+        factorWeights: data.factor_weights || {},
+        factorModel: data.factor_model || {},
+        dynamicWeights: data.dynamic_weights || {},
+        marketRegime: data.market_regime || 'sideways',
+        marketRegimeDesc: data.market_regime_desc || '',
+        strategy: data.strategy || {},
+        updateTime: data.update_time || data.updateTime || '',
+        recommendation: data.recommendation || {},
+        health: data.health || {},
+        universe: data.universe || {}
+      }
+    } catch (fallbackErr) {
+      console.error('加载 data.json 失败:', fallbackErr.message)
+      return null
+    }
   }
 }
 
 // 加载回测数据
 export const loadBacktestData = async () => {
   try {
-    const res = await fetch('./backtest.json')
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-    const data = await res.json()
+    const data = await fetchJson('./backtest.json')
     return {
       summary: data.summary || {},
       chartData: data.chart_data || []
     }
   } catch (err) {
-    console.error('加载 backtest.json 失败:', err.message)
-    return null
+    console.error('加载 backtest.json 失败，回退到 data.json:', err.message)
+    try {
+      const data = await loadCombinedData()
+      return {
+        summary: data.backtest?.summary || {},
+        chartData: data.backtest?.chart_data || []
+      }
+    } catch (fallbackErr) {
+      console.error('加载 data.json 失败:', fallbackErr.message)
+      return null
+    }
   }
 }

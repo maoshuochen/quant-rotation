@@ -209,7 +209,7 @@ const Dashboard = ({
 
   const overviewHealth = [
     { label: '价格数据', value: health.price_data?.status || 'unknown', detail: `${health.price_data?.available_count || 0}/${health.price_data?.expected_count || 0}` },
-    { label: '北向资金', value: health.northbound?.status || 'unknown', detail: `${health.northbound.recent_rows || 0} 日` },
+    { label: '北向资金', value: health.northbound?.status || 'unknown', detail: `${health.northbound?.recent_rows || 0} 日` },
     { label: 'ETF 份额', value: health.etf_shares?.status || 'unknown', detail: `快照 ${health.etf_shares?.snapshot_count || 0}` }
   ]
 

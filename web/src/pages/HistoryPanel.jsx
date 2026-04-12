@@ -6,7 +6,7 @@ const HistoryPanel = ({ historyData, activeFactors, selectedCode, onSelectCode }
   const [expandedPeriod, setExpandedPeriod] = useState(null)
 
   const history = historyData?.history || []
-  const updateTime = historyData?.update_time || ''
+  const updateTime = historyData?.updateTime || historyData?.update_time || ''
 
   // 按日期倒序排列
   const sortedHistory = useMemo(() => {

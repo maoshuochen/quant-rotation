@@ -1,233 +1,1435 @@
 {
   "ranking": [
     {
-      "code": "000993.CSI",
-      "name": "科技指数",
-      "etf": "515000",
-      "rank": 1,
-      "score": 0.6928,
-      "factors": {
-        "momentum": 0.5512,
-        "trend": 1.0,
-        "flow": 0.5612
-      }
-    },
-    {
-      "code": "399006.SZ",
-      "name": "创业板指",
-      "etf": "159915",
-      "rank": 2,
-      "score": 0.6521,
-      "factors": {
-        "momentum": 0.5877,
-        "trend": 1.0,
-        "flow": 0.4689
-      }
-    },
-    {
       "code": "399808.SZ",
       "name": "新能源指数",
       "etf": "516160",
-      "rank": 3,
-      "score": 0.6138,
+      "score": 0.7162,
       "factors": {
-        "momentum": 0.645,
-        "trend": 0.5,
-        "flow": 0.6702
-      }
-    },
-    {
-      "code": "399975.SZ",
-      "name": "证券指数",
-      "etf": "512000",
-      "rank": 4,
-      "score": 0.5847,
-      "factors": {
-        "momentum": 0.374,
+        "momentum": 0.7169,
+        "volatility": 0.0,
         "trend": 0.75,
-        "flow": 0.5616
-      }
-    },
-    {
-      "code": "000688.SH",
-      "name": "科创 50",
-      "etf": "588000",
-      "rank": 5,
-      "score": 0.574,
-      "factors": {
-        "momentum": 0.4493,
-        "trend": 0.75,
-        "flow": 0.5141
-      }
+        "value": 0.0675,
+        "flow": 0.6959,
+        "relative_strength": 0.6428,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 21.69,
+        "momentum_1m_return": -0.06,
+        "volatility_annual": 104.56,
+        "price_vs_ma20": -0.2,
+        "price_vs_ma60": 1.92,
+        "ma20_above_ma60": true,
+        "value_percentile": 93.25,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 14.28,
+        "index_return": 8.7,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 1
     },
     {
       "code": "399990.SZ",
       "name": "煤炭指数",
       "etf": "515220",
-      "rank": 6,
-      "score": 0.5679,
+      "score": 0.6852,
       "factors": {
-        "momentum": 0.6196,
+        "momentum": 0.691,
+        "volatility": 0.0574,
         "trend": 0.75,
-        "flow": 0.4416
-      }
-    },
-    {
-      "code": "990001.SSI",
-      "name": "半导体指数",
-      "etf": "512480",
-      "rank": 7,
-      "score": 0.5616,
-      "factors": {
-        "momentum": 0.5425,
-        "trend": 0.75,
-        "flow": 0.4567
-      }
-    },
-    {
-      "code": "000933.CSI",
-      "name": "医药指数",
-      "etf": "512010",
-      "rank": 8,
-      "score": 0.5377,
-      "factors": {
-        "momentum": 0.3385,
-        "trend": 0.75,
-        "flow": 0.4828
-      }
-    },
-    {
-      "code": "000852.SH",
-      "name": "中证 1000",
-      "etf": "512100",
-      "rank": 9,
-      "score": 0.5325,
-      "factors": {
-        "momentum": 0.5664,
-        "trend": 0.75,
-        "flow": 0.3916
-      }
-    },
-    {
-      "code": "000905.SH",
-      "name": "中证 500",
-      "etf": "510500",
-      "rank": 10,
-      "score": 0.5301,
-      "factors": {
-        "momentum": 0.5918,
-        "trend": 0.75,
-        "flow": 0.3779
-      }
-    },
-    {
-      "code": "000300.SH",
-      "name": "沪深 300",
-      "etf": "510300",
-      "rank": 11,
-      "score": 0.5268,
-      "factors": {
-        "momentum": 0.4952,
-        "trend": 0.75,
-        "flow": 0.4057
-      }
+        "value": 0.0516,
+        "flow": 0.6447,
+        "relative_strength": 0.7798,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 19.1,
+        "momentum_1m_return": 5.87,
+        "volatility_annual": 38.28,
+        "price_vs_ma20": -0.51,
+        "price_vs_ma60": 9.26,
+        "ma20_above_ma60": true,
+        "value_percentile": 94.84,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 27.98,
+        "index_return": 22.39,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 2
     },
     {
       "code": "399986.SZ",
       "name": "银行指数",
       "etf": "512800",
-      "rank": 12,
-      "score": 0.5098,
+      "score": 0.6754,
       "factors": {
-        "momentum": 0.5033,
-        "trend": 0.5,
-        "flow": 0.518
-      }
+        "momentum": 0.4787,
+        "volatility": 0.4927,
+        "trend": 1.0,
+        "value": 0.8056,
+        "flow": 0.5529,
+        "relative_strength": 0.5265,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -2.13,
+        "momentum_1m_return": 2.92,
+        "volatility_annual": 25.22,
+        "price_vs_ma20": 0.69,
+        "price_vs_ma60": 0.49,
+        "ma20_above_ma60": false,
+        "value_percentile": 19.44,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 2.65,
+        "index_return": -2.93,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 3
     },
     {
-      "code": "000992.CSI",
-      "name": "金融指数",
-      "etf": "510230",
-      "rank": 13,
-      "score": 0.5055,
+      "code": "000993.CSI",
+      "name": "科技指数",
+      "etf": "515000",
+      "score": 0.5581,
       "factors": {
-        "momentum": 0.4945,
+        "momentum": 0.5476,
+        "volatility": 0.191,
         "trend": 0.5,
-        "flow": 0.5126
-      }
-    },
-    {
-      "code": "399967.SZ",
-      "name": "军工指数",
-      "etf": "512660",
-      "rank": 14,
-      "score": 0.505,
-      "factors": {
-        "momentum": 0.6394,
-        "trend": 0.75,
-        "flow": 0.3121
-      }
+        "value": 0.8294,
+        "flow": 0.5963,
+        "relative_strength": 0.5271,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 4.76,
+        "momentum_1m_return": -7.15,
+        "volatility_annual": 34.27,
+        "price_vs_ma20": -2.37,
+        "price_vs_ma60": -5.05,
+        "ma20_above_ma60": false,
+        "value_percentile": 17.06,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 2.71,
+        "index_return": -2.87,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 4
     },
     {
       "code": "000922.CSI",
       "name": "红利指数",
       "etf": "510880",
-      "rank": 15,
-      "score": 0.5008,
+      "score": 0.5256,
       "factors": {
-        "momentum": 0.5444,
+        "momentum": 0.5548,
+        "volatility": 0.4736,
         "trend": 0.75,
-        "flow": 0.3376
-      }
+        "value": 0.0992,
+        "flow": 0.3823,
+        "relative_strength": 0.5952,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 5.48,
+        "momentum_1m_return": 2.19,
+        "volatility_annual": 25.79,
+        "price_vs_ma20": -0.06,
+        "price_vs_ma60": 2.73,
+        "ma20_above_ma60": true,
+        "value_percentile": 90.08,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 9.52,
+        "index_return": 3.94,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 5
+    },
+    {
+      "code": "399006.SZ",
+      "name": "创业板指",
+      "etf": "159915",
+      "score": 0.5205,
+      "factors": {
+        "momentum": 0.5894,
+        "volatility": 0.2298,
+        "trend": 0.5,
+        "value": 0.1746,
+        "flow": 0.5082,
+        "relative_strength": 0.5688,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 8.94,
+        "momentum_1m_return": -0.85,
+        "volatility_annual": 33.11,
+        "price_vs_ma20": -0.22,
+        "price_vs_ma60": -0.67,
+        "ma20_above_ma60": false,
+        "value_percentile": 82.54,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 6.88,
+        "index_return": 1.3,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 6
+    },
+    {
+      "code": "000933.CSI",
+      "name": "医药指数",
+      "etf": "512010",
+      "score": 0.506,
+      "factors": {
+        "momentum": 0.3164,
+        "volatility": 0.1742,
+        "trend": 0.75,
+        "value": 0.8294,
+        "flow": 0.4288,
+        "relative_strength": 0.4965,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -18.36,
+        "momentum_1m_return": -3.46,
+        "volatility_annual": 34.77,
+        "price_vs_ma20": 0.01,
+        "price_vs_ma60": -3.99,
+        "ma20_above_ma60": false,
+        "value_percentile": 17.06,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -0.35,
+        "index_return": -5.93,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 7
+    },
+    {
+      "code": "990001.SSI",
+      "name": "半导体指数",
+      "etf": "512480",
+      "score": 0.5033,
+      "factors": {
+        "momentum": 0.5967,
+        "volatility": 0.0,
+        "trend": 0.5,
+        "value": 0.2976,
+        "flow": 0.4721,
+        "relative_strength": 0.5531,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 9.67,
+        "momentum_1m_return": -13.22,
+        "volatility_annual": 41.4,
+        "price_vs_ma20": -4.04,
+        "price_vs_ma60": -8.18,
+        "ma20_above_ma60": false,
+        "value_percentile": 70.24,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 5.31,
+        "index_return": -0.27,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 8
+    },
+    {
+      "code": "000688.SH",
+      "name": "科创 50",
+      "etf": "588000",
+      "score": 0.4987,
+      "factors": {
+        "momentum": 0.4857,
+        "volatility": 0.3404,
+        "trend": 0.5,
+        "value": 0.5198,
+        "flow": 0.5026,
+        "relative_strength": 0.5115,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -1.43,
+        "momentum_1m_return": -13.72,
+        "volatility_annual": 29.79,
+        "price_vs_ma20": -4.73,
+        "price_vs_ma60": -9.71,
+        "ma20_above_ma60": false,
+        "value_percentile": 48.02,
+        "value_assessment": "合理",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 1.15,
+        "index_return": -4.43,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 9
+    },
+    {
+      "code": "399967.SZ",
+      "name": "军工指数",
+      "etf": "512660",
+      "score": 0.4949,
+      "factors": {
+        "momentum": 0.6236,
+        "volatility": 0.3517,
+        "trend": 0.5,
+        "value": 0.2262,
+        "flow": 0.4461,
+        "relative_strength": 0.5505,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 12.36,
+        "momentum_1m_return": -16.1,
+        "volatility_annual": 29.45,
+        "price_vs_ma20": -6.45,
+        "price_vs_ma60": -9.95,
+        "ma20_above_ma60": false,
+        "value_percentile": 77.38,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 5.05,
+        "index_return": -0.53,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 10
+    },
+    {
+      "code": "000992.CSI",
+      "name": "金融指数",
+      "etf": "510230",
+      "score": 0.4887,
+      "factors": {
+        "momentum": 0.4477,
+        "volatility": 0.2692,
+        "trend": 0.5,
+        "value": 0.9683,
+        "flow": 0.4967,
+        "relative_strength": 0.4588,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -5.23,
+        "momentum_1m_return": -2.94,
+        "volatility_annual": 31.92,
+        "price_vs_ma20": -1.92,
+        "price_vs_ma60": -5.17,
+        "ma20_above_ma60": false,
+        "value_percentile": 3.17,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -4.12,
+        "index_return": -9.7,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 11
     },
     {
       "code": "399965.SZ",
       "name": "恒生指数",
       "etf": "159920",
-      "rank": 16,
-      "score": 0.4757,
+      "score": 0.4725,
       "factors": {
-        "momentum": 0.4449,
-        "trend": 0.75,
-        "flow": 0.3242
-      }
+        "momentum": 0.4126,
+        "volatility": 0.6537,
+        "trend": 0.5,
+        "value": 0.746,
+        "flow": 0.4775,
+        "relative_strength": 0.4948,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -8.74,
+        "momentum_1m_return": -6.42,
+        "volatility_annual": 20.39,
+        "price_vs_ma20": -2.24,
+        "price_vs_ma60": -6.02,
+        "ma20_above_ma60": false,
+        "value_percentile": 25.4,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -0.52,
+        "index_return": -6.1,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 12
     },
     {
       "code": "000988.CSI",
       "name": "制造指数",
       "etf": "516880",
-      "rank": 17,
-      "score": 0.4507,
+      "score": 0.4654,
       "factors": {
-        "momentum": 0.6355,
+        "momentum": 0.7089,
+        "volatility": 0.2208,
         "trend": 0.5,
-        "flow": 0.3557
-      }
+        "value": 0.1746,
+        "flow": 0.3584,
+        "relative_strength": 0.6574,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 20.89,
+        "momentum_1m_return": -5.63,
+        "volatility_annual": 33.38,
+        "price_vs_ma20": -5.39,
+        "price_vs_ma60": -1.89,
+        "ma20_above_ma60": true,
+        "value_percentile": 82.54,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 15.74,
+        "index_return": 10.16,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 13
+    },
+    {
+      "code": "399975.SZ",
+      "name": "证券指数",
+      "etf": "512000",
+      "score": 0.4653,
+      "factors": {
+        "momentum": 0.3146,
+        "volatility": 0.2386,
+        "trend": 0.5,
+        "value": 0.9921,
+        "flow": 0.4984,
+        "relative_strength": 0.4066,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -18.54,
+        "momentum_1m_return": -11.55,
+        "volatility_annual": 32.84,
+        "price_vs_ma20": -5.08,
+        "price_vs_ma60": -11.19,
+        "ma20_above_ma60": false,
+        "value_percentile": 0.79,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -9.34,
+        "index_return": -14.92,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 14
+    },
+    {
+      "code": "000905.SH",
+      "name": "中证 500",
+      "etf": "510500",
+      "score": 0.4281,
+      "factors": {
+        "momentum": 0.5923,
+        "volatility": 0.0,
+        "trend": 0.5,
+        "value": 0.1944,
+        "flow": 0.3272,
+        "relative_strength": 0.5935,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 9.23,
+        "momentum_1m_return": -10.78,
+        "volatility_annual": 74.93,
+        "price_vs_ma20": -3.53,
+        "price_vs_ma60": -4.91,
+        "ma20_above_ma60": false,
+        "value_percentile": 80.56,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 9.35,
+        "index_return": 3.77,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 15
+    },
+    {
+      "code": "000852.SH",
+      "name": "中证 1000",
+      "etf": "512100",
+      "score": 0.426,
+      "factors": {
+        "momentum": 0.5489,
+        "volatility": 0.0,
+        "trend": 0.5,
+        "value": 0.1984,
+        "flow": 0.3385,
+        "relative_strength": 0.5682,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": 4.89,
+        "momentum_1m_return": -9.48,
+        "volatility_annual": 63.37,
+        "price_vs_ma20": -2.97,
+        "price_vs_ma60": -4.49,
+        "ma20_above_ma60": false,
+        "value_percentile": 80.16,
+        "value_assessment": "高估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 6.82,
+        "index_return": 1.24,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 16
     },
     {
       "code": "000932.CSI",
       "name": "消费指数",
       "etf": "159928",
-      "rank": 18,
-      "score": 0.4406,
+      "score": 0.4096,
       "factors": {
-        "momentum": 0.3843,
+        "momentum": 0.3464,
+        "volatility": 0.2118,
         "trend": 0.5,
-        "flow": 0.4255
-      }
+        "value": 0.9802,
+        "flow": 0.3786,
+        "relative_strength": 0.4924,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -15.36,
+        "momentum_1m_return": -2.72,
+        "volatility_annual": 33.65,
+        "price_vs_ma20": -1.54,
+        "price_vs_ma60": -3.41,
+        "ma20_above_ma60": false,
+        "value_percentile": 1.98,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -0.76,
+        "index_return": -6.34,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 17
+    },
+    {
+      "code": "000300.SH",
+      "name": "沪深 300",
+      "etf": "510300",
+      "score": 0.3935,
+      "factors": {
+        "momentum": 0.4775,
+        "volatility": 0.5912,
+        "trend": 0.5,
+        "value": 0.5437,
+        "flow": 0.3005,
+        "relative_strength": 0.5,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -2.25,
+        "momentum_1m_return": -4.75,
+        "volatility_annual": 22.26,
+        "price_vs_ma20": -2.3,
+        "price_vs_ma60": -4.45,
+        "ma20_above_ma60": false,
+        "value_percentile": 45.63,
+        "value_assessment": "合理",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": 0.0,
+        "index_return": -5.58,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 18
     },
     {
       "code": "399997.SZ",
       "name": "白酒指数",
       "etf": "512690",
-      "rank": 19,
-      "score": 0.4102,
+      "score": 0.3807,
       "factors": {
-        "momentum": 0.3328,
+        "momentum": 0.2856,
+        "volatility": 0.0848,
         "trend": 0.5,
-        "flow": 0.3844
-      }
+        "value": 0.9802,
+        "flow": 0.3438,
+        "relative_strength": 0.4457,
+        "active_factors": [
+          "momentum",
+          "trend",
+          "flow"
+        ]
+      },
+      "attribution": {
+        "momentum_6m_return": -21.44,
+        "momentum_1m_return": -6.3,
+        "volatility_annual": 37.45,
+        "price_vs_ma20": -1.97,
+        "price_vs_ma60": -6.66,
+        "ma20_above_ma60": false,
+        "value_percentile": 1.98,
+        "value_assessment": "低估",
+        "northbound_20d_sum": 0,
+        "northbound_trend": "流出",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
+        "relative_return": -5.43,
+        "index_return": -11.01,
+        "benchmark_return": -5.58,
+        "rs_lookback_days": 60
+      },
+      "rank": 19
     }
   ],
-  "update_time": "2026-04-12 01:23"
+  "factor_weights": {
+    "momentum": 0.24,
+    "trend": 0.4,
+    "value": 0.0,
+    "flow": 0.36,
+    "volatility": 0.0,
+    "relative_strength": 0.0
+  },
+  "score_weights": {
+    "momentum": 0.18250950570342206,
+    "trend": 0.30418250950570347,
+    "value": 0.0,
+    "flow": 0.5133079847908746,
+    "volatility": 0.0,
+    "relative_strength": 0.0
+  },
+  "factor_model": {
+    "baseline_name": "core_rotation_v2",
+    "active_factors": [
+      "momentum",
+      "trend",
+      "flow"
+    ],
+    "auxiliary_factors": [
+      "value",
+      "volatility",
+      "relative_strength"
+    ],
+    "experimental_factors": []
+  },
+  "dynamic_weights": {
+    "momentum": 0.18250950570342206,
+    "trend": 0.30418250950570347,
+    "value": 0.0,
+    "flow": 0.5133079847908746,
+    "volatility": 0.0,
+    "relative_strength": 0.0
+  },
+  "market_regime": "sideways",
+  "market_regime_desc": "震荡市 〰️ - 平衡型配置，重视资金流",
+  "strategy": {
+    "top_n": 5,
+    "buffer_n": 8,
+    "rebalance_frequency": "weekly",
+    "lookback_pe": 2520,
+    "momentum_window": 126
+  },
+  "update_time": "2026-03-31 19:05",
+  "flow_details": {
+    "000300.SH": {
+      "volume_trend": 0.2164,
+      "price_volume_corr": 0.2585,
+      "amount_trend": 0.2375,
+      "flow_intensity": 0.2585,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000905.SH": {
+      "volume_trend": 0.2391,
+      "price_volume_corr": 0.2831,
+      "amount_trend": 0.2611,
+      "flow_intensity": 0.2831,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000852.SH": {
+      "volume_trend": 0.249,
+      "price_volume_corr": 0.2937,
+      "amount_trend": 0.2713,
+      "flow_intensity": 0.2937,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399006.SZ": {
+      "volume_trend": 0.4082,
+      "price_volume_corr": 0.4582,
+      "amount_trend": 0.4332,
+      "flow_intensity": 0.4582,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000688.SH": {
+      "volume_trend": 0.4026,
+      "price_volume_corr": 0.4526,
+      "amount_trend": 0.4276,
+      "flow_intensity": 0.4526,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000932.CSI": {
+      "volume_trend": 0.2845,
+      "price_volume_corr": 0.3315,
+      "amount_trend": 0.308,
+      "flow_intensity": 0.3315,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000933.CSI": {
+      "volume_trend": 0.3308,
+      "price_volume_corr": 0.3798,
+      "amount_trend": 0.3553,
+      "flow_intensity": 0.3798,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000993.CSI": {
+      "volume_trend": 0.5,
+      "price_volume_corr": 0.5482,
+      "amount_trend": 0.5241,
+      "flow_intensity": 0.5482,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000992.CSI": {
+      "volume_trend": 0.3967,
+      "price_volume_corr": 0.4467,
+      "amount_trend": 0.4217,
+      "flow_intensity": 0.4467,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000988.CSI": {
+      "volume_trend": 0.2664,
+      "price_volume_corr": 0.3124,
+      "amount_trend": 0.2894,
+      "flow_intensity": 0.3124,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "000922.CSI": {
+      "volume_trend": 0.2878,
+      "price_volume_corr": 0.335,
+      "amount_trend": 0.3114,
+      "flow_intensity": 0.335,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399967.SZ": {
+      "volume_trend": 0.3473,
+      "price_volume_corr": 0.3967,
+      "amount_trend": 0.372,
+      "flow_intensity": 0.3967,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399808.SZ": {
+      "volume_trend": 0.6112,
+      "price_volume_corr": 0.6535,
+      "amount_trend": 0.6324,
+      "flow_intensity": 0.6535,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "990001.SSI": {
+      "volume_trend": 0.3724,
+      "price_volume_corr": 0.4222,
+      "amount_trend": 0.3973,
+      "flow_intensity": 0.4222,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399997.SZ": {
+      "volume_trend": 0.2535,
+      "price_volume_corr": 0.2986,
+      "amount_trend": 0.2761,
+      "flow_intensity": 0.2986,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399986.SZ": {
+      "volume_trend": 0.4541,
+      "price_volume_corr": 0.5035,
+      "amount_trend": 0.4788,
+      "flow_intensity": 0.5035,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399975.SZ": {
+      "volume_trend": 0.3984,
+      "price_volume_corr": 0.4484,
+      "amount_trend": 0.4234,
+      "flow_intensity": 0.4484,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399990.SZ": {
+      "volume_trend": 0.5531,
+      "price_volume_corr": 0.5989,
+      "amount_trend": 0.576,
+      "flow_intensity": 0.5989,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    },
+    "399965.SZ": {
+      "volume_trend": 0.3777,
+      "price_volume_corr": 0.4276,
+      "amount_trend": 0.4027,
+      "flow_intensity": 0.4276,
+      "northbound": 0.5,
+      "northbound_metrics": {
+        "net_flow_20d_sum": 0,
+        "net_flow_5d_avg": 0,
+        "buy_ratio": 0.5,
+        "trend": 0,
+        "available_days": 1
+      },
+      "etf_shares": 0.5,
+      "etf_shares_metrics": {
+        "shares_change_20d": 0.0,
+        "shares_change_5d": 0.0,
+        "inflow_days_ratio": 0.5,
+        "trend": 0.0
+      }
+    }
+  },
+  "health": {
+    "price_data": {
+      "status": "ok",
+      "available_count": 19,
+      "expected_count": 19,
+      "stale_codes": [],
+      "latest_trade_date": "2026-03-30"
+    },
+    "northbound": {
+      "status": "degraded",
+      "rows": 149,
+      "recent_rows": 1,
+      "latest_valid_date": "2026-03-31",
+      "gap_days": 0,
+      "snapshot_date": "2026-03-31"
+    },
+    "etf_shares": {
+      "status": "snapshot",
+      "history_count": 0,
+      "snapshot_count": 19,
+      "missing_count": 0,
+      "missing_codes": []
+    },
+    "universe": {
+      "active_count": 19,
+      "inactive_count": 1,
+      "inactive_codes": [
+        "000921.CSI"
+      ]
+    }
+  },
+  "universe": {
+    "active": [
+      {
+        "code": "000300.SH",
+        "name": "沪深 300",
+        "etf": "510300"
+      },
+      {
+        "code": "000905.SH",
+        "name": "中证 500",
+        "etf": "510500"
+      },
+      {
+        "code": "000852.SH",
+        "name": "中证 1000",
+        "etf": "512100"
+      },
+      {
+        "code": "399006.SZ",
+        "name": "创业板指",
+        "etf": "159915"
+      },
+      {
+        "code": "000688.SH",
+        "name": "科创 50",
+        "etf": "588000"
+      },
+      {
+        "code": "000932.CSI",
+        "name": "消费指数",
+        "etf": "159928"
+      },
+      {
+        "code": "000933.CSI",
+        "name": "医药指数",
+        "etf": "512010"
+      },
+      {
+        "code": "000993.CSI",
+        "name": "科技指数",
+        "etf": "515000"
+      },
+      {
+        "code": "000992.CSI",
+        "name": "金融指数",
+        "etf": "510230"
+      },
+      {
+        "code": "000988.CSI",
+        "name": "制造指数",
+        "etf": "516880"
+      },
+      {
+        "code": "000922.CSI",
+        "name": "红利指数",
+        "etf": "510880"
+      },
+      {
+        "code": "399967.SZ",
+        "name": "军工指数",
+        "etf": "512660"
+      },
+      {
+        "code": "399808.SZ",
+        "name": "新能源指数",
+        "etf": "516160"
+      },
+      {
+        "code": "990001.SSI",
+        "name": "半导体指数",
+        "etf": "512480"
+      },
+      {
+        "code": "399997.SZ",
+        "name": "白酒指数",
+        "etf": "512690"
+      },
+      {
+        "code": "399986.SZ",
+        "name": "银行指数",
+        "etf": "512800"
+      },
+      {
+        "code": "399975.SZ",
+        "name": "证券指数",
+        "etf": "512000"
+      },
+      {
+        "code": "399990.SZ",
+        "name": "煤炭指数",
+        "etf": "515220"
+      },
+      {
+        "code": "399965.SZ",
+        "name": "恒生指数",
+        "etf": "159920"
+      }
+    ],
+    "inactive": [
+      {
+        "code": "000921.CSI",
+        "name": "周期指数",
+        "etf": "512340",
+        "status": "retired_proxy",
+        "note": "原代理 ETF 512340 历史数据停更至 2021-01-11，已从正式池下线。"
+      }
+    ]
+  },
+  "recommendation": {
+    "top_n": 5,
+    "buffer_n": 8,
+    "rebalance_frequency": "weekly",
+    "selected_codes": [
+      "399808.SZ",
+      "399990.SZ",
+      "399986.SZ",
+      "000993.CSI",
+      "000922.CSI"
+    ],
+    "hold_range_codes": [
+      "399808.SZ",
+      "399990.SZ",
+      "399986.SZ",
+      "000993.CSI",
+      "000922.CSI",
+      "399006.SZ",
+      "000933.CSI",
+      "990001.SSI"
+    ],
+    "signals": [
+      {
+        "action": "buy",
+        "code": "399808.SZ",
+        "weight": 0.2
+      },
+      {
+        "action": "buy",
+        "code": "399990.SZ",
+        "weight": 0.2
+      },
+      {
+        "action": "buy",
+        "code": "399986.SZ",
+        "weight": 0.2
+      },
+      {
+        "action": "buy",
+        "code": "000993.CSI",
+        "weight": 0.2
+      },
+      {
+        "action": "buy",
+        "code": "000922.CSI",
+        "weight": 0.2
+      }
+    ],
+    "holdings": [
+      {
+        "code": "399808.SZ",
+        "rank": 1,
+        "score": 0.7162,
+        "name": "新能源指数",
+        "etf": "516160",
+        "strongest_factors": [
+          "trend",
+          "momentum"
+        ],
+        "weakest_factors": [
+          "volatility"
+        ]
+      },
+      {
+        "code": "399990.SZ",
+        "rank": 2,
+        "score": 0.6852,
+        "name": "煤炭指数",
+        "etf": "515220",
+        "strongest_factors": [
+          "relative_strength",
+          "trend"
+        ],
+        "weakest_factors": [
+          "value"
+        ]
+      },
+      {
+        "code": "399986.SZ",
+        "rank": 3,
+        "score": 0.6754,
+        "name": "银行指数",
+        "etf": "512800",
+        "strongest_factors": [
+          "trend",
+          "value"
+        ],
+        "weakest_factors": [
+          "momentum"
+        ]
+      },
+      {
+        "code": "000993.CSI",
+        "rank": 4,
+        "score": 0.5581,
+        "name": "科技指数",
+        "etf": "515000",
+        "strongest_factors": [
+          "value",
+          "flow"
+        ],
+        "weakest_factors": [
+          "volatility"
+        ]
+      },
+      {
+        "code": "000922.CSI",
+        "rank": 5,
+        "score": 0.5256,
+        "name": "红利指数",
+        "etf": "510880",
+        "strongest_factors": [
+          "trend",
+          "relative_strength"
+        ],
+        "weakest_factors": [
+          "value"
+        ]
+      }
+    ]
+  }
 }
