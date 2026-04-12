@@ -1,8 +1,10 @@
 """
 统一配置加载器。
 
-优先读取拆分后的 universe/strategy/runtime 配置；
-若拆分配置不存在，则回退到旧版 config.yaml。
+当前正式配置固定为拆分后的：
+- universe.yaml
+- strategy.yaml
+- runtime.yaml
 """
 from __future__ import annotations
 
@@ -42,17 +44,15 @@ def load_app_config(root_dir: Path | None = None) -> Dict[str, Any]:
         config_dir / "runtime.yaml",
     ]
 
-    if any(path.exists() for path in split_files):
-        config: Dict[str, Any] = {}
-        for path in split_files:
-            config = _deep_merge(config, _read_yaml(path))
+    missing = [path.name for path in split_files if not path.exists()]
+    if missing:
+        missing_list = ", ".join(missing)
+        raise FileNotFoundError(f"Missing required config files: {missing_list}")
 
-        legacy_path = config_dir / "config.yaml"
-        if legacy_path.exists():
-            config = _deep_merge(_read_yaml(legacy_path), config)
-        return _normalize_config(config)
-
-    return _normalize_config(_read_yaml(config_dir / "config.yaml"))
+    config: Dict[str, Any] = {}
+    for path in split_files:
+        config = _deep_merge(config, _read_yaml(path))
+    return _normalize_config(config)
 
 
 def _normalize_config(config: Dict[str, Any]) -> Dict[str, Any]:

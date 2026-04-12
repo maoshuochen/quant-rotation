@@ -33,6 +33,13 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
       - name: Cache Python dependencies
         uses: actions/cache@v4
         with:
@@ -130,11 +137,20 @@ jobs:
           print(f'DATE={pd.to_datetime(latest[\"date\"]).strftime(\"%Y-%m-%d\")}')
           " >> $GITHUB_OUTPUT
 
+      - name: Build frontend site
+        run: |
+          cd web
+          npm ci --prefer-offline --no-audit --no-fund
+          npm run build
+          rm -rf ../site
+          mkdir -p ../site
+          cp -R dist/. ../site/
+
       - name: Commit and push results
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add data/raw/ backtest_results/ web/public/
+          git add data/raw/ backtest_results/ web/public/ site/ index.html
           git diff --staged --quiet || git commit -m "chore: update backtest data $(date -u +%Y-%m-%d)
 
           Metrics:
@@ -185,7 +201,7 @@ jobs:
           url = f'https://api.telegram.org/bot{token}/sendMessage'
           requests.post(url, json={
               'chat_id': chat_id,
-              'text': message.strip()
+            'text': message.strip()
           })
           " 2>/dev/null || echo "Notification failed"
         env:

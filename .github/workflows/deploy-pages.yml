@@ -1,4 +1,4 @@
-name: Deploy Frontend Pages
+name: Sync Frontend Site
 
 on:
   push:
@@ -10,24 +10,22 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: "pages"
+  group: "frontend-site"
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  sync-site:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment:
-      name: github-pages
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -46,13 +44,16 @@ jobs:
           cd web
           npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Sync site artifacts
+        run: |
+          rm -rf site
+          mkdir -p site
+          cp -R web/dist/. site/
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: web/dist
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+      - name: Commit and push site
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add site/ index.html
+          git diff --staged --quiet || git commit -m "chore: sync frontend site"
+          git push origin main

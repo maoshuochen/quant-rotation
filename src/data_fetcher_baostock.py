@@ -738,7 +738,7 @@ class IndexDataFetcher:
         """
         获取指数历史行情
         注意：Baostock 不支持指数数据，这里通过 ETF 数据替代
-        需要在 config.yaml 中配置 ETF 代码
+        需要在拆分配置中为指数配置 ETF 代码
         """
         # Baostock 不支持指数数据，返回空 DataFrame
         # 使用 ETF 数据作为替代

@@ -12,7 +12,7 @@ pip install -r requirements/base.txt
 
 ### 2. 配置参数
 
-编辑 `config/universe.yaml` 和 `config/strategy.yaml` 配置监控指数和策略参数。
+编辑 `config/universe.yaml`、`config/strategy.yaml` 和 `config/runtime.yaml` 配置指数池、策略参数与运行设置。
 
 ### 3. 运行
 
@@ -36,6 +36,7 @@ quant-rotation/
 │   └── legacy/              # 历史实现与备用工具
 ├── scripts/                 # 日跑、回测、数据生成入口
 │   └── tools/               # 增量回测、报告服务等辅助脚本
+├── site/                    # GitHub Pages 站点产物
 ├── web/                     # React 看板
 │   ├── src/                 # 前端源码
 │   ├── public/              # 前端静态数据源（由脚本生成）
@@ -72,7 +73,7 @@ quant-rotation/
 
 ## GitHub Pages
 
-访问 https://maoshuochen.github.io/quant-rotation/ 查看实时看板。GitHub Pages 直接从 `web/dist/` 构建产物部署，不再把前端文件同步到仓库根目录。
+访问 https://maoshuochen.github.io/quant-rotation/ 查看实时看板。仓库根目录的 `index.html` 只负责跳转，实际站点内容发布在 `site/`。
 
 ## GitHub Actions 自动化
 
@@ -81,7 +82,7 @@ quant-rotation/
 2. 运行回测更新
 3. 生成 `web/public/*.json`
 
-前端部署工作流在 `main` 分支的 `web/**` 变更后自动执行，负责构建前端并发布到 GitHub Pages。
+前端同步工作流在 `main` 分支的 `web/**` 变更后自动执行，负责构建前端并更新 `site/`。
 
 ## 回测表现
 

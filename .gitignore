@@ -68,7 +68,6 @@ web/node_modules/
 web/dist/
 web/.env
 assets/
-index.html
 vite.svg
 data.json
 ranking.json

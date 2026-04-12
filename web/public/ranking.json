@@ -849,7 +849,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-12 16:59",
+    "updated_at": "2026-04-12 17:10",
     "decision": {
       "headline": "本周主结论：科技指数、创业板指、新能源指数 为当前优先观察方向。",
       "execution_message": "当前建议执行 5 个动作，优先关注 科技指数、创业板指、新能源指数。",
@@ -967,5 +967,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-12 16:59"
+  "update_time": "2026-04-12 17:10"
 }
