@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import ErrorBoundary from './ErrorBoundary'
 import Dashboard from './pages/Dashboard'
-import HistoryPanel from './pages/HistoryPanel'
 import { loadData, loadBacktestData, loadHistoryData } from './utils'
+
+const THEME_KEY = 'qr-dashboard-theme'
+
+const getInitialTheme = () => {
+  if (typeof window === 'undefined') return 'dark'
+  const saved = window.localStorage.getItem(THEME_KEY)
+  if (saved === 'light' || saved === 'dark') return saved
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+}
 
 function App() {
   const [data, setData] = useState(null)
@@ -10,10 +18,10 @@ function App() {
   const [historyData, setHistoryData] = useState(null)
   const [selectedCode, setSelectedCode] = useState(null)
   const [expandedSection, setExpandedSection] = useState('holdings')
-  const [activeTab, setActiveTab] = useState('current')
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [loadError, setLoadError] = useState(null)
+  const [theme, setTheme] = useState(getInitialTheme)
 
   const refreshData = useCallback(async () => {
     setRefreshing(true)
@@ -42,6 +50,11 @@ function App() {
 
   useEffect(() => { refreshData() }, [refreshData])
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    window.localStorage.setItem(THEME_KEY, theme)
+  }, [theme])
+
   const selected = useMemo(() => {
     if (!data?.ranking?.length) return null
     return data.ranking.find(item => item.code === selectedCode) || data.ranking[0]
@@ -53,6 +66,10 @@ function App() {
   const handleSelectCode = useCallback((code) => {
     setSelectedCode(code)
     setExpandedSection('factors')
+  }, [])
+
+  const toggleTheme = useCallback(() => {
+    setTheme((current) => current === 'dark' ? 'light' : 'dark')
   }, [])
 
   if (loading) {
@@ -90,57 +107,22 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-zinc-950 text-white">
-        {/* Tab Navigation */}
-        <div className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-xl">
-          <div className="mx-auto max-w-7xl px-3 sm:px-4">
-            <div className="flex items-center gap-1 sm:gap-2">
-              <button
-                onClick={() => setActiveTab('current')}
-                className={`px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium transition-all border-b-2 ${
-                  activeTab === 'current'
-                    ? 'border-amber-500 text-amber-500'
-                    : 'border-transparent text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                当前周期
-              </button>
-              <button
-                onClick={() => setActiveTab('history')}
-                className={`px-3 sm:px-4 py-3 text-xs sm:text-sm font-medium transition-all border-b-2 ${
-                  activeTab === 'history'
-                    ? 'border-amber-500 text-amber-500'
-                    : 'border-transparent text-zinc-400 hover:text-zinc-200'
-                }`}
-              >
-                历史周期
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Tab Content */}
-        {activeTab === 'current' ? (
-          <Dashboard
-            data={data}
-            backtestData={backtestData}
-            selected={selected}
-            selectedCode={selectedCode}
-            activeFactors={activeFactors}
-            expandedSection={expandedSection}
-            setExpandedSection={setExpandedSection}
-            onSelectCode={handleSelectCode}
-            refreshing={refreshing}
-            onRefresh={refreshData}
-          />
-        ) : (
-          <HistoryPanel
-            historyData={historyData}
-            activeFactors={activeFactors}
-            selectedCode={selectedCode}
-            onSelectCode={setSelectedCode}
-          />
-        )}
+      <div className={`app-shell min-h-screen ${theme === 'light' ? 'theme-light' : 'theme-dark'} bg-zinc-950 text-white`}>
+        <Dashboard
+          data={data}
+          backtestData={backtestData}
+          historyData={historyData}
+          selected={selected}
+          selectedCode={selectedCode}
+          activeFactors={activeFactors}
+          expandedSection={expandedSection}
+          setExpandedSection={setExpandedSection}
+          onSelectCode={handleSelectCode}
+          refreshing={refreshing}
+          onRefresh={refreshData}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+        />
       </div>
     </ErrorBoundary>
   )

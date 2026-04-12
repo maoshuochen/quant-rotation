@@ -12,41 +12,40 @@ const Card = ({ title, subtitle, children, className = '' }) => (
   </section>
 )
 
-const HighlightStat = ({ label, value, detail, tone }) => (
-  <div className={`rounded-2xl border p-3 sm:p-4 ${
-    tone === 'ok' ? 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10' :
-    tone === 'degraded' ? 'text-amber-200 border-amber-500/30 bg-amber-500/10' :
-    tone === 'snapshot' ? 'text-sky-200 border-sky-500/30 bg-sky-500/10' :
-    tone === 'missing' ? 'text-red-200 border-red-500/30 bg-red-500/10' :
-    'border-zinc-800 bg-zinc-900/60 text-zinc-50'
-  }`}>
+const HighlightStat = ({ label, value, detail }) => (
+  <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-3 sm:p-4 text-zinc-50">
     <div className="text-[10px] sm:text-xs uppercase tracking-wider opacity-80">{label}</div>
     <div className="mt-1.5 sm:mt-2 text-base sm:text-lg font-semibold">{value}</div>
     {detail ? <div className="mt-0.5 sm:mt-1 text-[10px] sm:text-xs opacity-80">{detail}</div> : null}
   </div>
 )
 
-const SectionHeader = ({ title, subtitle, isExpanded, onClick }) => (
+const SectionHeader = ({ title, subtitle, isExpanded, onClick, actions }) => (
   <button
     onClick={onClick}
     className="w-full text-left mb-3 sm:mb-4 group"
     aria-expanded={isExpanded}
   >
     <div className="flex items-center justify-between gap-3">
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="min-w-0 flex items-center gap-2 sm:gap-3">
         <span className={`h-2 w-2 rounded-full transition-colors ${isExpanded ? 'bg-amber-500' : 'bg-zinc-600'}`} />
-        <h2 className="text-base sm:text-xl font-semibold text-zinc-100">{title}</h2>
+        <div className="min-w-0">
+          <h2 className="text-base sm:text-xl font-semibold text-zinc-100">{title}</h2>
+          {subtitle && <p className="mt-1 text-xs sm:text-sm text-zinc-500">{subtitle}</p>}
+        </div>
       </div>
-      <svg
-        className={`h-5 w-5 text-zinc-500 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-      </svg>
+      <div className="flex items-center gap-3">
+        {actions ? <div onClick={(e) => e.stopPropagation()}>{actions}</div> : null}
+        <svg
+          className={`h-5 w-5 text-zinc-500 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
     </div>
-    {subtitle && <p className="mt-1 text-xs sm:text-sm text-zinc-500 pl-5">{subtitle}</p>}
   </button>
 )
 
@@ -163,6 +162,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors }) => {
 const Dashboard = ({
   data,
   backtestData,
+  historyData,
   selected,
   selectedCode,
   activeFactors,
@@ -170,10 +170,13 @@ const Dashboard = ({
   setExpandedSection,
   onSelectCode,
   refreshing,
-  onRefresh
+  onRefresh,
+  theme,
+  onToggleTheme
 }) => {
   const [expandedCode, setExpandedCode] = useState(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [selectedPeriod, setSelectedPeriod] = useState('current')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -194,6 +197,16 @@ const Dashboard = ({
   const backtestSummary = backtestData?.summary || {}
   const inactiveUniverse = universe.inactive || []
   const ranking = data?.ranking || []
+  const history = historyData?.history || []
+  const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const latestHistoryDate = sortedHistory[0]?.date || ''
+  const historicalOptions = latestHistoryDate
+    ? sortedHistory.filter((period) => period.date !== latestHistoryDate)
+    : sortedHistory
+  const selectedHistoryPeriod = selectedPeriod === 'current'
+    ? null
+    : sortedHistory.find((period) => period.date === selectedPeriod) || null
+  const rankingView = selectedHistoryPeriod?.holdings || ranking
 
   const topNames = holdings.slice(0, 3).map(item => item.name).join(', ')
   const executionHeadline = signals.length
@@ -217,11 +230,9 @@ const Dashboard = ({
             <div className="flex items-center gap-2">
               <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Core</span>
               <h1 className="text-sm sm:text-lg font-semibold text-gradient truncate">指数轮动</h1>
-            </div>
-            <div className="hidden sm:flex items-center gap-2 text-xs text-zinc-400 mt-1">
-              <span>{data.updateTime}</span>
-              <span className="text-zinc-700">·</span>
-              <span>{data.marketRegimeDesc || data.marketRegime}</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] sm:text-xs text-zinc-300">
+                {data.marketRegimeDesc || data.marketRegime}
+              </span>
             </div>
           </div>
           <button
@@ -235,61 +246,56 @@ const Dashboard = ({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </button>
-        </div>
-        {/* Mobile sub-header with metadata */}
-        <div className="sm:hidden px-3 pb-2 pt-1 border-t border-zinc-800/50">
-          <div className="flex items-center gap-2 text-[10px] text-zinc-400 overflow-x-auto whitespace-nowrap">
-            <span className="text-zinc-300">{data.updateTime}</span>
-            <span className="text-zinc-700">·</span>
-            <span>{data.marketRegimeDesc || data.marketRegime}</span>
-          </div>
+          <button
+            onClick={onToggleTheme}
+            className="flex-shrink-0 ml-2 p-2 rounded-lg border border-zinc-700 transition-all active:scale-95"
+            title={theme === 'dark' ? '切换到浅色模式' : '切换到暗色模式'}
+            aria-label={theme === 'dark' ? '切换到浅色模式' : '切换到暗色模式'}
+          >
+            {theme === 'dark' ? (
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.114 6.364-1.591-1.591M7.477 7.477 5.886 5.886m12.228 0-1.591 1.591M7.477 16.523l-1.591 1.591M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12.79A9 9 0 1111.21 3c0 .34.02.67.05 1A7 7 0 0020 12c.33.03.66.05 1 .05z" />
+              </svg>
+            )}
+          </button>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="mx-auto max-w-7xl px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6 pb-20">
-        {/* Weekly Brief Hero - Mobile Optimized */}
-        <section className="overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-800 gradient-hero p-4 sm:p-6 backdrop-blur-xl">
-          <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-500">本周结论</div>
-          <h2 className="mt-2 text-base sm:text-2xl font-semibold text-gradient leading-tight">
-            {topNames || '等待新信号'}
-          </h2>
-          <p className="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-            {executionHeadline}
-            <span className="inline-block mx-1 px-1.5 py-0.5 rounded-full border border-white/10 bg-white/5 text-[10px] sm:text-xs">
-              {data.marketRegimeDesc || data.marketRegime}
-            </span>
-          </p>
-          <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
-            {holdings.slice(0, 5).map((item, idx) => (
-              <button
-                key={item.code}
-                onClick={() => {
-                  onSelectCode(item.code)
-                  setExpandedCode(item.code)
-                }}
-                className="flex-shrink-0 rounded-full border border-white/10 bg-white/5 px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-xs text-zinc-100 transition active:scale-95"
-              >
-                {item.name} {safeNum(item.score).toFixed(2)}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Quick Stats - Mobile: 2 columns, Desktop: 3 columns */}
-        <section className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
-          <HighlightStat label="覆盖" value={`${ranking.length} 只`} detail="纳入排名" />
-          <HighlightStat label="持仓" value={`${holdings.length} 只`} detail="当前建议持有" />
-          <HighlightStat label="信号" value={signals.length ? `${signals.length} 个` : '暂无'} detail="本期调仓动作" />
-        </section>
-
         {/* Section 1: Unified Ranking List (merged holdings + signals) */}
         <div>
           <SectionHeader
             title="全部排名"
-            subtitle="调仓规则、当前信号与完整排名"
+            subtitle={selectedHistoryPeriod ? `查看 ${selectedHistoryPeriod.date} 周期持仓快照` : '调仓规则、当前信号与完整排名'}
             isExpanded={expandedSection !== 'ranking' && expandedSection !== null}
             onClick={() => toggleSection('ranking')}
+            actions={
+              <label className="flex items-center gap-2 text-xs text-zinc-400">
+                <span className="hidden sm:inline">周期</span>
+                <select
+                  value={selectedPeriod}
+                  onChange={(e) => {
+                    const nextPeriod = e.target.value
+                    setSelectedPeriod(nextPeriod)
+                    setExpandedCode(null)
+                  }}
+                  className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-200 outline-none focus:border-amber-500"
+                  aria-label="选择周期"
+                >
+                  <option value="current">{latestHistoryDate ? `${latestHistoryDate}（当前）` : '当前周期'}</option>
+                  {historicalOptions.map((period) => (
+                    <option key={period.date} value={period.date}>
+                      {period.date}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            }
           />
           {expandedSection !== 'ranking' && (
             <div>
@@ -302,9 +308,13 @@ const Dashboard = ({
                   </div>
                 </div>
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
-                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">本期信号</div>
+                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">
+                    {selectedHistoryPeriod ? '历史说明' : '本期信号'}
+                  </div>
                   <div className="mt-1 text-xs text-zinc-200">
-                    {signals.length === 0 ? (
+                    {selectedHistoryPeriod ? (
+                      <span>{selectedHistoryPeriod.date} 为历史周期快照，仅展示当期建议持仓，不回放当周交易信号。</span>
+                    ) : signals.length === 0 ? (
                       <span>当前无新增调仓动作，维持现有持仓。</span>
                     ) : (
                       <span>
@@ -317,7 +327,7 @@ const Dashboard = ({
 
               {/* Mobile: Unified Card List */}
               <div className="lg:hidden grid gap-2">
-                {ranking.map(item => (
+                {rankingView.map(item => (
                   <RankingListItem
                     key={item.code}
                     item={item}
@@ -345,8 +355,8 @@ const Dashboard = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {ranking.map(item => {
-                        const isTop5 = item.rank <= 5
+                      {rankingView.map(item => {
+                        const isTop5 = selectedPeriod === 'current' && item.rank <= 5
                         return (
                           <tr
                             key={item.code}
@@ -428,10 +438,10 @@ const Dashboard = ({
                             <stop offset="95%" stopColor="#f87171" stopOpacity={0}/>
                           </linearGradient>
                         </defs>
-                        <CartesianGrid stroke="#27272a" strokeDasharray="3 3" />
-                        <XAxis dataKey="date" tick={{ fill: '#71717a', fontSize: 10 }} minTickGap={32} />
-                        <YAxis tick={{ fill: '#71717a', fontSize: 10 }} />
-                        <Tooltip contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: '8px' }} />
+                        <CartesianGrid stroke={theme === 'dark' ? '#27272a' : '#d6d3d1'} strokeDasharray="3 3" />
+                        <XAxis dataKey="date" tick={{ fill: theme === 'dark' ? '#71717a' : '#6b7280', fontSize: 10 }} minTickGap={32} />
+                        <YAxis tick={{ fill: theme === 'dark' ? '#71717a' : '#6b7280', fontSize: 10 }} />
+                        <Tooltip contentStyle={{ background: theme === 'dark' ? '#18181b' : '#fffaf2', border: `1px solid ${theme === 'dark' ? '#27272a' : '#d6d3d1'}`, borderRadius: '8px', color: theme === 'dark' ? '#f4f4f5' : '#1f2937' }} />
                         <Area type="monotone" dataKey="cum_return" stroke="#f59e0b" fill="url(#colorReturn)" strokeWidth={2} />
                         <Area type="monotone" dataKey="drawdown" stroke="#f87171" fill="url(#colorDrawdown)" />
                       </AreaChart>
