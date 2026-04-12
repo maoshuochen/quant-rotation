@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
-import { safeNum, pct, healthCopy, statusTone, factorNames } from '../utils'
+import { safeNum, pct, factorNames } from '../utils'
 
 const Card = ({ title, subtitle, children, className = '' }) => (
   <section className={`rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5 ${className}`}>
@@ -188,7 +188,6 @@ const Dashboard = ({
   }
 
   const recommendation = data?.recommendation || {}
-  const health = data?.health || {}
   const universe = data?.universe || {}
   const holdings = recommendation.holdings || []
   const signals = recommendation.signals || []
@@ -196,22 +195,10 @@ const Dashboard = ({
   const inactiveUniverse = universe.inactive || []
   const ranking = data?.ranking || []
 
-  const healthStates = [health.price_data?.status, health.northbound?.status, health.etf_shares?.status]
-  const overallHealth =
-    healthStates.includes('missing') ? 'missing' :
-    healthStates.includes('degraded') ? 'degraded' :
-    healthStates.includes('snapshot') ? 'snapshot' : 'ok'
-
   const topNames = holdings.slice(0, 3).map(item => item.name).join(', ')
   const executionHeadline = signals.length
     ? `建议执行 ${signals.length} 个动作，关注 ${topNames || '头部'}。`
     : `无新增动作，跟踪 ${topNames || '头部候选'}。`
-
-  const overviewHealth = [
-    { label: '价格数据', value: health.price_data?.status || 'unknown', detail: `${health.price_data?.available_count || 0}/${health.price_data?.expected_count || 0}` },
-    { label: '北向资金', value: health.northbound?.status || 'unknown', detail: `${health.northbound?.recent_rows || 0} 日` },
-    { label: 'ETF 份额', value: health.etf_shares?.status || 'unknown', detail: `快照 ${health.etf_shares?.snapshot_count || 0}` }
-  ]
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section)
@@ -289,90 +276,45 @@ const Dashboard = ({
           </div>
         </section>
 
-        {/* Quick Stats - Mobile: 2 columns, Desktop: 4 columns */}
+        {/* Quick Stats - Mobile: 2 columns, Desktop: 3 columns */}
         <section className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
-          <HighlightStat label="可信度" value={healthCopy[overallHealth] || '待确认'} tone={overallHealth} />
-          <HighlightStat label="覆盖" value={`${health.universe?.active_count || ranking.length} 只`} detail="" />
-          <HighlightStat label="信号" value={signals.length ? `${signals.length} 个` : '暂无'} detail="" />
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-3">
-            <div className="text-[10px] uppercase tracking-wider text-zinc-500">回测</div>
-            <div className={`mt-1 text-base font-semibold ${safeNum(backtestSummary.total_return, 0) >= 0 ? 'text-emerald-300' : 'text-red-300'}`}>
-              {backtestSummary.total_return !== undefined ? pct(backtestSummary.total_return) : '-'}
-            </div>
-            <div className="mt-0.5 text-[10px] text-zinc-500">回撤 {pct(backtestSummary.max_drawdown || 0)}</div>
-          </div>
+          <HighlightStat label="覆盖" value={`${ranking.length} 只`} detail="纳入排名" />
+          <HighlightStat label="持仓" value={`${holdings.length} 只`} detail="当前建议持有" />
+          <HighlightStat label="信号" value={signals.length ? `${signals.length} 个` : '暂无'} detail="本期调仓动作" />
         </section>
 
-        {/* Section 1: Execution Checklist */}
-        <div>
-          <SectionHeader
-            title="执行清单"
-            subtitle="调仓信号和规则"
-            isExpanded={expandedSection !== 'signals' && expandedSection !== null}
-            onClick={() => toggleSection('signals')}
-          />
-          {expandedSection !== 'signals' && (
-            <div className="space-y-2">
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
-                <div className="text-[10px] uppercase tracking-wider text-zinc-500">规则</div>
-                <div className="mt-1 text-xs text-zinc-200">
-                  前 {recommendation.top_n || 0} 名买入，跌出前 {recommendation.buffer_n || 0} 名卖出，{recommendation.rebalance_frequency === 'weekly' ? '周' : '月'}度调仓。
-                </div>
-              </div>
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-2.5">
-                <div className="text-[10px] uppercase tracking-wider text-zinc-500">信号</div>
-                <div className="mt-1 space-y-1">
-                  {signals.length === 0 ? (
-                    <div className="flex items-center gap-1.5 text-zinc-400 text-xs">
-                      <span>维持现有持仓</span>
-                    </div>
-                  ) : (
-                    signals.map((signal, index) => (
-                      <div key={`${signal.code}-${index}`} className="flex items-center justify-between rounded bg-zinc-950 px-2 py-1">
-                        <span className="font-mono text-xs">{signal.code}</span>
-                        <span className={`text-xs ${signal.action === 'buy' ? 'text-emerald-300' : 'text-red-300'}`}>
-                          {signal.action === 'buy' ? '买入' : '卖出'}
-                        </span>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Section 2: Health & Factors */}
-        <div>
-          <SectionHeader
-            title="数据健康度"
-            subtitle="确认数据可信度"
-            isExpanded={expandedSection !== 'health' && expandedSection !== null}
-            onClick={() => toggleSection('health')}
-          />
-          {expandedSection !== 'health' && (
-            <div className="grid gap-3 sm:gap-4 grid-cols-3">
-              {overviewHealth.map(item => (
-                <div key={item.label} className={`rounded-xl border p-2.5 ${statusTone[item.value] || 'border-zinc-700 bg-zinc-900 text-zinc-200'}`}>
-                  <div className="text-[10px] uppercase tracking-wider opacity-80">{item.label}</div>
-                  <div className="mt-1 text-sm font-medium">{item.value}</div>
-                  <div className="mt-0.5 text-[10px] opacity-80 truncate">{item.detail}</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Section 3: Unified Ranking List (merged holdings + ranking) */}
+        {/* Section 1: Unified Ranking List (merged holdings + signals) */}
         <div>
           <SectionHeader
             title="全部排名"
-            subtitle="点击展开因子详情，前 5 名为推荐持仓"
+            subtitle="调仓规则、当前信号与完整排名"
             isExpanded={expandedSection !== 'ranking' && expandedSection !== null}
             onClick={() => toggleSection('ranking')}
           />
           {expandedSection !== 'ranking' && (
             <div>
+              <div className="mb-3 space-y-2">
+                <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">调仓规则</div>
+                  <div className="mt-1 text-xs text-zinc-200">
+                    前 {recommendation.top_n || 0} 名买入，跌出前 {recommendation.buffer_n || 0} 名卖出，
+                    {recommendation.rebalance_frequency === 'weekly' ? '每周' : '每月'}调仓。
+                  </div>
+                </div>
+                <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">本期信号</div>
+                  <div className="mt-1 text-xs text-zinc-200">
+                    {signals.length === 0 ? (
+                      <span>当前无新增调仓动作，维持现有持仓。</span>
+                    ) : (
+                      <span>
+                        {signals.map(signal => `${signal.action === 'buy' ? '买入' : '卖出'} ${signal.name || signal.code}`).join('；')}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               {/* Mobile: Unified Card List */}
               <div className="lg:hidden grid gap-2">
                 {ranking.map(item => (
@@ -439,11 +381,11 @@ const Dashboard = ({
           )}
         </div>
 
-        {/* Section 4: Backtest */}
+        {/* Section 2: Backtest */}
         <div>
           <SectionHeader
             title="回测分析"
-            subtitle="历史表现参考"
+            subtitle="回测摘要与历史表现"
             isExpanded={expandedSection !== 'backtest' && expandedSection !== null}
             onClick={() => toggleSection('backtest')}
           />
@@ -451,6 +393,28 @@ const Dashboard = ({
             <div>
               {backtestData?.chartData?.length ? (
                 <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
+                  <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <HighlightStat
+                      label="总收益"
+                      value={backtestSummary.total_return !== undefined ? pct(backtestSummary.total_return) : '-'}
+                      detail={backtestSummary.period ? `${backtestSummary.period.start} ~ ${backtestSummary.period.end}` : ''}
+                    />
+                    <HighlightStat
+                      label="最大回撤"
+                      value={backtestSummary.max_drawdown !== undefined ? pct(backtestSummary.max_drawdown) : '-'}
+                      detail={backtestSummary.max_drawdown_date || ''}
+                    />
+                    <HighlightStat
+                      label="夏普"
+                      value={safeNum(backtestSummary.sharpe_ratio, 0).toFixed(2)}
+                      detail={`${safeNum(backtestSummary.trading_days, 0)} 个交易日`}
+                    />
+                    <HighlightStat
+                      label="期末净值"
+                      value={backtestSummary.final_value ? safeNum(backtestSummary.final_value, 0).toLocaleString('zh-CN', { maximumFractionDigits: 0 }) : '-'}
+                      detail="初始资金 1,000,000"
+                    />
+                  </div>
                   <div className="h-[220px] sm:h-[300px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={backtestData.chartData}>
