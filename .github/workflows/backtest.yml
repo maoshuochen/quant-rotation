@@ -79,6 +79,38 @@ jobs:
         run: |
           python scripts/generate_data.py
 
+      - name: Ensure split frontend JSON files exist
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          dist = Path("web/dist")
+          data_path = dist / "data.json"
+          if not data_path.exists():
+              raise SystemExit("web/dist/data.json not found")
+
+          data = json.loads(data_path.read_text(encoding="utf-8"))
+
+          backtest_path = dist / "backtest.json"
+          if not backtest_path.exists():
+              backtest_path.write_text(
+                  json.dumps(data.get("backtest", {}), ensure_ascii=False, indent=2),
+                  encoding="utf-8",
+              )
+
+          history_path = dist / "history.json"
+          if not history_path.exists():
+              history_payload = {
+                  "history": data.get("history", []),
+                  "update_time": data.get("update_time", ""),
+              }
+              history_path.write_text(
+                  json.dumps(history_payload, ensure_ascii=False, indent=2),
+                  encoding="utf-8",
+              )
+          PY
+
       - name: Extract metrics
         id: collect
         run: |
