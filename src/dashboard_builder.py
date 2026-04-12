@@ -115,8 +115,8 @@ class DashboardDataBuilder:
         return payload
 
     def generate_history_data(self, etf_data_dict: Dict[str, pd.DataFrame], weeks: int = 12) -> list[dict]:
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=weeks * 7 + 7)
+        end_date = pd.Timestamp.now().normalize()
+        start_date = end_date - pd.Timedelta(days=weeks * 7 + 7)
         dates = pd.date_range(start_date, end_date, freq="W-MON")
         history = []
 
@@ -125,12 +125,19 @@ class DashboardDataBuilder:
         if not first_code or first_code not in etf_data_dict:
             return history
 
+        trade_index = pd.DatetimeIndex(etf_data_dict[first_code].index).sort_values().normalize().unique()
+        if len(trade_index) == 0:
+            return history
+
         for date in dates:
-            trade_date = date
-            while trade_date not in etf_data_dict[first_code].index:
-                trade_date -= timedelta(days=1)
-                if (date - trade_date).days > 10:
-                    break
+            anchor_date = pd.Timestamp(date).normalize()
+            trade_pos = trade_index.searchsorted(anchor_date, side="right") - 1
+            if trade_pos < 0:
+                continue
+
+            trade_date = trade_index[trade_pos]
+            if (anchor_date - trade_date).days > 10:
+                continue
 
             data_dict = {}
             for code, df in etf_data_dict.items():
@@ -256,8 +263,27 @@ class DashboardDataBuilder:
         output_dir.mkdir(parents=True, exist_ok=True)
         data_path = output_dir / "data.json"
         ranking_path = output_dir / "ranking.json"
+        history_path = output_dir / "history.json"
+        backtest_path = output_dir / "backtest.json"
         data_path.write_text(json.dumps(_json_safe(combined), indent=2, ensure_ascii=False), encoding="utf-8")
         ranking_path.write_text(json.dumps(_json_safe(ranking_output), indent=2, ensure_ascii=False), encoding="utf-8")
+        history_path.write_text(
+            json.dumps(
+                _json_safe(
+                    {
+                        "history": combined.get("history", []),
+                        "update_time": combined.get("update_time", ""),
+                    }
+                ),
+                indent=2,
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        backtest_path.write_text(
+            json.dumps(_json_safe(combined.get("backtest", {})), indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
         return data_path, ranking_path
 
     def close(self) -> None:
