@@ -73,6 +73,15 @@ data.json
 ranking.json
 backtest.json
 history.json
+!site/
+!site/index.html
+!site/assets/
+!site/assets/**
+!site/data.json
+!site/ranking.json
+!site/backtest.json
+!site/history.json
+!site/vite.svg
 
 # Backtest results (optional)
 backtest_results/*.json
