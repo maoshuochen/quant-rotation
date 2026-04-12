@@ -160,11 +160,11 @@
       "name": "创业板指",
       "etf": "159915",
       "rank": 6,
-      "score": 0.4918,
+      "score": 0.492,
       "factors": {
         "momentum": 0.5531,
         "trend": 0.5,
-        "flow": 0.4652
+        "flow": 0.4656
       },
       "attribution": {
         "momentum_6m_return": 5.31,
@@ -178,8 +178,8 @@
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0,
-        "etf_shares_trend": "未知",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
         "relative_return": 5.65,
         "index_return": 0.84,
         "benchmark_return": -4.81,
@@ -408,11 +408,11 @@
       "name": "恒生指数",
       "etf": "159920",
       "rank": 14,
-      "score": 0.4168,
+      "score": 0.4293,
       "factors": {
         "momentum": 0.4125,
         "trend": 0.5,
-        "flow": 0.369
+        "flow": 0.3934
       },
       "attribution": {
         "momentum_6m_return": -8.75,
@@ -426,8 +426,8 @@
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0,
-        "etf_shares_trend": "未知",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
         "relative_return": 1.1,
         "index_return": -3.71,
         "benchmark_return": -4.81,
@@ -501,11 +501,11 @@
       "name": "消费指数",
       "etf": "159928",
       "rank": 17,
-      "score": 0.3785,
+      "score": 0.3981,
       "factors": {
         "momentum": 0.3575,
         "trend": 0.5,
-        "flow": 0.314
+        "flow": 0.3522
       },
       "attribution": {
         "momentum_6m_return": -14.25,
@@ -519,8 +519,8 @@
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0,
-        "etf_shares_trend": "未知",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
         "relative_return": -1.08,
         "index_return": -5.89,
         "benchmark_return": -4.81,
@@ -611,18 +611,7 @@
       "000922.CSI",
       "000688.SH"
     ],
-    "signals": [
-      {
-        "action": "sell",
-        "code": "000988.CSI",
-        "name": "制造指数"
-      },
-      {
-        "action": "buy",
-        "code": "000933.CSI",
-        "name": "医药指数"
-      }
-    ],
+    "signals": [],
     "holdings": [
       {
         "code": "399986.SZ",
@@ -733,15 +722,11 @@
       "snapshot_date": "2026-04-10"
     },
     "etf_shares": {
-      "status": "degraded",
+      "status": "snapshot",
       "history_count": 0,
-      "snapshot_count": 16,
-      "missing_count": 3,
-      "missing_codes": [
-        "399006.SZ",
-        "000932.CSI",
-        "399965.SZ"
-      ]
+      "snapshot_count": 19,
+      "missing_count": 0,
+      "missing_codes": []
     },
     "universe": {
       "active_count": 19,
@@ -858,10 +843,10 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-12 09:27",
+    "updated_at": "2026-04-12 17:38",
     "decision": {
       "headline": "本周主结论：银行指数、煤炭指数、新能源指数 为当前优先观察方向。",
-      "execution_message": "当前建议执行 2 个动作，优先关注 银行指数、煤炭指数、新能源指数。",
+      "execution_message": "当前无新增调仓动作，继续跟踪 银行指数、煤炭指数、新能源指数。",
       "market_context": "震荡市",
       "action": "继续研究，不建议单独实盘"
     },
@@ -870,7 +855,6 @@
       "label": "部分数据降级，结论需结合人工复核",
       "warnings": [
         "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
-        "ETF 份额缺失标的：399006.SZ、000932.CSI、399965.SZ",
         "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日"
       ],
       "items": [
@@ -886,8 +870,8 @@
         },
         {
           "label": "ETF 份额",
-          "status": "degraded",
-          "detail": "历史 0 / 快照 16"
+          "status": "snapshot",
+          "detail": "历史 0 / 快照 19"
         }
       ]
     },
@@ -952,7 +936,6 @@
     },
     "warnings": [
       "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
-      "ETF 份额缺失标的：399006.SZ、000932.CSI、399965.SZ",
       "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日",
       "OOS 测试窗口过短，当前样本外结论不具统计解释力",
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
@@ -980,5 +963,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-12 09:27"
+  "update_time": "2026-04-12 17:38"
 }

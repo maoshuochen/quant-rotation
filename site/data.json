@@ -1819,42 +1819,42 @@
   },
   "history": [
     {
-      "date": "2026-03-26",
+      "date": "2026-04-01",
       "holdings": [
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 1,
+          "score": 0.7006,
+          "factors": {
+            "momentum": 0.501,
+            "trend": 1.0,
+            "flow": 0.5011
+          }
+        },
         {
           "code": "399990.SZ",
           "name": "煤炭指数",
           "etf": "515220",
-          "rank": 1,
-          "score": 0.8802,
+          "rank": 2,
+          "score": 0.6888,
           "factors": {
-            "momentum": 0.7172,
-            "trend": 1.0,
-            "flow": 0.8559
+            "momentum": 0.6224,
+            "trend": 0.75,
+            "flow": 0.665
           }
         },
         {
           "code": "399808.SZ",
           "name": "新能源指数",
           "etf": "516160",
-          "rank": 2,
-          "score": 0.772,
-          "factors": {
-            "momentum": 0.7252,
-            "trend": 0.75,
-            "flow": 0.8277
-          }
-        },
-        {
-          "code": "399986.SZ",
-          "name": "银行指数",
-          "etf": "512800",
           "rank": 3,
-          "score": 0.6994,
+          "score": 0.6656,
           "factors": {
-            "momentum": 0.4547,
-            "trend": 1.0,
-            "flow": 0.5286
+            "momentum": 0.662,
+            "trend": 0.5,
+            "flow": 0.8521
           }
         },
         {
@@ -1862,105 +1862,105 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 4,
-          "score": 0.5732,
+          "score": 0.5563,
           "factors": {
-            "momentum": 0.5423,
+            "momentum": 0.5377,
             "trend": 0.5,
-            "flow": 0.6751
+            "flow": 0.6313
           }
         },
         {
-          "code": "000988.CSI",
-          "name": "制造指数",
-          "etf": "516880",
+          "code": "000933.CSI",
+          "name": "医药指数",
+          "etf": "512010",
           "rank": 5,
-          "score": 0.5631,
+          "score": 0.5314,
           "factors": {
-            "momentum": 0.7327,
+            "momentum": 0.3448,
             "trend": 0.75,
-            "flow": 0.2423
+            "flow": 0.413
           }
         }
       ]
     },
     {
-      "date": "2026-03-19",
+      "date": "2026-03-30",
       "holdings": [
-        {
-          "code": "399990.SZ",
-          "name": "煤炭指数",
-          "etf": "515220",
-          "rank": 1,
-          "score": 0.8632,
-          "factors": {
-            "momentum": 0.728,
-            "trend": 1.0,
-            "flow": 0.8014
-          }
-        },
         {
           "code": "399808.SZ",
           "name": "新能源指数",
           "etf": "516160",
-          "rank": 2,
-          "score": 0.7096,
+          "rank": 1,
+          "score": 0.7743,
           "factors": {
-            "momentum": 0.7899,
+            "momentum": 0.7169,
             "trend": 0.75,
-            "flow": 0.6111
+            "flow": 0.8395
           }
         },
         {
-          "code": "399006.SZ",
-          "name": "创业板指",
-          "etf": "159915",
-          "rank": 3,
-          "score": 0.6821,
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 2,
+          "score": 0.7411,
           "factors": {
-            "momentum": 0.7033,
-            "trend": 1.0,
-            "flow": 0.3148
-          }
-        },
-        {
-          "code": "000922.CSI",
-          "name": "红利指数",
-          "etf": "510880",
-          "rank": 4,
-          "score": 0.6738,
-          "factors": {
-            "momentum": 0.5469,
-            "trend": 1.0,
-            "flow": 0.3961
+            "momentum": 0.691,
+            "trend": 0.75,
+            "flow": 0.7646
           }
         },
         {
           "code": "399986.SZ",
           "name": "银行指数",
           "etf": "512800",
-          "rank": 5,
-          "score": 0.6599,
+          "rank": 3,
+          "score": 0.7162,
           "factors": {
-            "momentum": 0.4565,
+            "momentum": 0.4787,
             "trend": 1.0,
-            "flow": 0.4176
+            "flow": 0.5593
+          }
+        },
+        {
+          "code": "000993.CSI",
+          "name": "科技指数",
+          "etf": "515000",
+          "rank": 4,
+          "score": 0.5665,
+          "factors": {
+            "momentum": 0.5476,
+            "trend": 0.5,
+            "flow": 0.6529
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 5,
+          "score": 0.5368,
+          "factors": {
+            "momentum": 0.5548,
+            "trend": 0.75,
+            "flow": 0.2879
           }
         }
       ]
     },
     {
-      "date": "2026-03-12",
+      "date": "2026-03-23",
       "holdings": [
         {
           "code": "399990.SZ",
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.854,
+          "score": 0.8728,
           "factors": {
-            "momentum": 0.7521,
+            "momentum": 0.7198,
             "trend": 1.0,
-            "flow": 0.7598
+            "flow": 0.8335
           }
         },
         {
@@ -1968,11 +1968,76 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 2,
-          "score": 0.7732,
+          "score": 0.7385,
           "factors": {
-            "momentum": 0.9064,
+            "momentum": 0.7008,
+            "trend": 0.75,
+            "flow": 0.7508
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 3,
+          "score": 0.5779,
+          "factors": {
+            "momentum": 0.5266,
+            "trend": 0.75,
+            "flow": 0.421
+          }
+        },
+        {
+          "code": "000993.CSI",
+          "name": "科技指数",
+          "etf": "515000",
+          "rank": 4,
+          "score": 0.5569,
+          "factors": {
+            "momentum": 0.5907,
+            "trend": 0.5,
+            "flow": 0.5976
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 5,
+          "score": 0.556,
+          "factors": {
+            "momentum": 0.7357,
+            "trend": 0.75,
+            "flow": 0.2206
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-03-16",
+      "holdings": [
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 1,
+          "score": 0.852,
+          "factors": {
+            "momentum": 0.7157,
             "trend": 1.0,
-            "flow": 0.4323
+            "flow": 0.7785
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 2,
+          "score": 0.7734,
+          "factors": {
+            "momentum": 0.8463,
+            "trend": 1.0,
+            "flow": 0.4731
           }
         },
         {
@@ -1980,11 +2045,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 3,
-          "score": 0.7297,
+          "score": 0.6952,
           "factors": {
-            "momentum": 0.8917,
+            "momentum": 0.8383,
             "trend": 1.0,
-            "flow": 0.3213
+            "flow": 0.2611
           }
         },
         {
@@ -1992,11 +2057,11 @@
           "name": "红利指数",
           "etf": "510880",
           "rank": 4,
-          "score": 0.6785,
+          "score": 0.6815,
           "factors": {
-            "momentum": 0.5593,
+            "momentum": 0.5563,
             "trend": 1.0,
-            "flow": 0.4009
+            "flow": 0.4112
           }
         },
         {
@@ -2004,28 +2069,28 @@
           "name": "创业板指",
           "etf": "159915",
           "rank": 5,
-          "score": 0.649,
+          "score": 0.6445,
           "factors": {
-            "momentum": 0.6861,
+            "momentum": 0.6559,
             "trend": 1.0,
-            "flow": 0.2343
+            "flow": 0.242
           }
         }
       ]
     },
     {
-      "date": "2026-03-05",
+      "date": "2026-03-09",
       "holdings": [
         {
           "code": "399990.SZ",
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8798,
+          "score": 0.8579,
           "factors": {
-            "momentum": 0.655,
+            "momentum": 0.6618,
             "trend": 1.0,
-            "flow": 0.896
+            "flow": 0.8309
           }
         },
         {
@@ -2033,11 +2098,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 2,
-          "score": 0.8287,
+          "score": 0.8153,
           "factors": {
-            "momentum": 0.885,
+            "momentum": 0.8583,
             "trend": 1.0,
-            "flow": 0.6007
+            "flow": 0.5815
           }
         },
         {
@@ -2045,11 +2110,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 3,
-          "score": 0.7619,
+          "score": 0.7569,
           "factors": {
-            "momentum": 0.882,
+            "momentum": 0.8481,
             "trend": 1.0,
-            "flow": 0.4173
+            "flow": 0.4259
           }
         },
         {
@@ -2057,11 +2122,11 @@
           "name": "红利指数",
           "etf": "510880",
           "rank": 4,
-          "score": 0.7497,
+          "score": 0.7245,
           "factors": {
-            "momentum": 0.5163,
+            "momentum": 0.5165,
             "trend": 1.0,
-            "flow": 0.6272
+            "flow": 0.5571
           }
         },
         {
@@ -2069,40 +2134,40 @@
           "name": "军工指数",
           "etf": "512660",
           "rank": 5,
-          "score": 0.707,
+          "score": 0.597,
           "factors": {
-            "momentum": 0.7164,
-            "trend": 1.0,
-            "flow": 0.3752
+            "momentum": 0.6631,
+            "trend": 0.75,
+            "flow": 0.383
           }
         }
       ]
     },
     {
-      "date": "2026-02-26",
+      "date": "2026-03-02",
       "holdings": [
-        {
-          "code": "000988.CSI",
-          "name": "制造指数",
-          "etf": "516880",
-          "rank": 1,
-          "score": 0.9047,
-          "factors": {
-            "momentum": 0.9346,
-            "trend": 1.0,
-            "flow": 0.7789
-          }
-        },
         {
           "code": "399990.SZ",
           "name": "煤炭指数",
           "etf": "515220",
-          "rank": 2,
-          "score": 0.8742,
+          "rank": 1,
+          "score": 0.8888,
           "factors": {
-            "momentum": 0.5958,
+            "momentum": 0.6544,
             "trend": 1.0,
-            "flow": 0.92
+            "flow": 0.9216
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 2,
+          "score": 0.8665,
+          "factors": {
+            "momentum": 0.8976,
+            "trend": 1.0,
+            "flow": 0.6973
           }
         },
         {
@@ -2110,41 +2175,41 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 3,
-          "score": 0.8501,
+          "score": 0.8365,
           "factors": {
-            "momentum": 0.7943,
+            "momentum": 0.7707,
             "trend": 1.0,
-            "flow": 0.7208
+            "flow": 0.6988
           }
         },
         {
-          "code": "000852.SH",
-          "name": "中证 1000",
-          "etf": "512100",
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
           "rank": 4,
-          "score": 0.8182,
+          "score": 0.7896,
           "factors": {
-            "momentum": 0.6958,
+            "momentum": 0.5298,
             "trend": 1.0,
-            "flow": 0.6979
+            "flow": 0.7289
           }
         },
         {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
           "rank": 5,
-          "score": 0.8118,
+          "score": 0.7573,
           "factors": {
-            "momentum": 0.9466,
+            "momentum": 0.9016,
             "trend": 1.0,
-            "flow": 0.5128
+            "flow": 0.3914
           }
         }
       ]
     },
     {
-      "date": "2026-02-19",
+      "date": "2026-02-13",
       "holdings": [
         {
           "code": "399990.SZ",
@@ -2209,119 +2274,119 @@
       ]
     },
     {
-      "date": "2026-02-12",
+      "date": "2026-02-13",
       "holdings": [
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 1,
+          "score": 0.8495,
+          "factors": {
+            "momentum": 0.5602,
+            "trend": 1.0,
+            "flow": 0.8752
+          }
+        },
         {
           "code": "000988.CSI",
           "name": "制造指数",
           "etf": "516880",
-          "rank": 1,
-          "score": 0.9222,
+          "rank": 2,
+          "score": 0.8092,
           "factors": {
-            "momentum": 0.962,
-            "trend": 1.0,
-            "flow": 0.8093
+            "momentum": 0.9131,
+            "trend": 0.75,
+            "flow": 0.8059
           }
         },
         {
           "code": "000905.SH",
           "name": "中证 500",
           "etf": "510500",
-          "rank": 2,
-          "score": 0.8986,
+          "rank": 3,
+          "score": 0.787,
           "factors": {
-            "momentum": 0.7988,
-            "trend": 1.0,
-            "flow": 0.8524
+            "momentum": 0.7718,
+            "trend": 0.75,
+            "flow": 0.8383
           }
         },
         {
           "code": "000852.SH",
           "name": "中证 1000",
           "etf": "512100",
-          "rank": 3,
-          "score": 0.8666,
-          "factors": {
-            "momentum": 0.6994,
-            "trend": 1.0,
-            "flow": 0.8299
-          }
-        },
-        {
-          "code": "399990.SZ",
-          "name": "煤炭指数",
-          "etf": "515220",
           "rank": 4,
-          "score": 0.8497,
+          "score": 0.7593,
           "factors": {
-            "momentum": 0.5774,
-            "trend": 1.0,
-            "flow": 0.8641
+            "momentum": 0.6696,
+            "trend": 0.75,
+            "flow": 0.8295
           }
         },
         {
-          "code": "000300.SH",
-          "name": "沪深 300",
-          "etf": "510300",
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
           "rank": 5,
-          "score": 0.8387,
+          "score": 0.7442,
           "factors": {
-            "momentum": 0.6285,
-            "trend": 1.0,
-            "flow": 0.7995
+            "momentum": 0.9631,
+            "trend": 0.75,
+            "flow": 0.5919
           }
         }
       ]
     },
     {
-      "date": "2026-02-05",
+      "date": "2026-02-09",
       "holdings": [
         {
           "code": "000988.CSI",
           "name": "制造指数",
           "etf": "516880",
           "rank": 1,
-          "score": 0.9214,
+          "score": 0.9309,
           "factors": {
-            "momentum": 0.9389,
+            "momentum": 0.9787,
             "trend": 1.0,
-            "flow": 0.8224
+            "flow": 0.8223
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 2,
+          "score": 0.8862,
+          "factors": {
+            "momentum": 0.8822,
+            "trend": 1.0,
+            "flow": 0.7625
           }
         },
         {
           "code": "399990.SZ",
           "name": "煤炭指数",
           "etf": "515220",
-          "rank": 2,
-          "score": 0.8496,
-          "factors": {
-            "momentum": 0.5877,
-            "trend": 1.0,
-            "flow": 0.8572
-          }
-        },
-        {
-          "code": "000932.CSI",
-          "name": "消费指数",
-          "etf": "159928",
           "rank": 3,
-          "score": 0.8372,
+          "score": 0.8454,
           "factors": {
-            "momentum": 0.5091,
+            "momentum": 0.5698,
             "trend": 1.0,
-            "flow": 0.875
+            "flow": 0.8574
           }
         },
         {
-          "code": "399997.SZ",
-          "name": "白酒指数",
-          "etf": "512690",
+          "code": "399965.SZ",
+          "name": "恒生指数",
+          "etf": "159920",
           "rank": 4,
-          "score": 0.8297,
+          "score": 0.8324,
           "factors": {
-            "momentum": 0.5098,
+            "momentum": 0.5651,
             "trend": 1.0,
-            "flow": 0.8539
+            "flow": 0.8244
           }
         },
         {
@@ -2329,28 +2394,28 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 5,
-          "score": 0.8036,
+          "score": 0.8052,
           "factors": {
-            "momentum": 0.7804,
+            "momentum": 0.788,
             "trend": 0.75,
-            "flow": 0.8787
+            "flow": 0.8779
           }
         }
       ]
     },
     {
-      "date": "2026-01-29",
+      "date": "2026-02-02",
       "holdings": [
         {
           "code": "990001.SSI",
           "name": "半导体指数",
           "etf": "512480",
           "rank": 1,
-          "score": 0.9288,
+          "score": 0.8166,
           "factors": {
-            "momentum": 0.986,
-            "trend": 1.0,
-            "flow": 0.8117
+            "momentum": 0.9278,
+            "trend": 0.75,
+            "flow": 0.8164
           }
         },
         {
@@ -2358,11 +2423,11 @@
           "name": "科创 50",
           "etf": "588000",
           "rank": 2,
-          "score": 0.9226,
+          "score": 0.8084,
           "factors": {
-            "momentum": 0.889,
-            "trend": 1.0,
-            "flow": 0.8591
+            "momentum": 0.8362,
+            "trend": 0.75,
+            "flow": 0.8549
           }
         },
         {
@@ -2370,11 +2435,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 3,
-          "score": 0.908,
+          "score": 0.799,
           "factors": {
-            "momentum": 0.916,
-            "trend": 1.0,
-            "flow": 0.8005
+            "momentum": 0.8784,
+            "trend": 0.75,
+            "flow": 0.8006
           }
         },
         {
@@ -2382,117 +2447,117 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 4,
-          "score": 0.9071,
+          "score": 0.7934,
           "factors": {
-            "momentum": 0.8105,
-            "trend": 1.0,
-            "flow": 0.8683
+            "momentum": 0.7363,
+            "trend": 0.75,
+            "flow": 0.8798
           }
         },
         {
-          "code": "000852.SH",
-          "name": "中证 1000",
-          "etf": "512100",
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
           "rank": 5,
-          "score": 0.8723,
+          "score": 0.7924,
           "factors": {
-            "momentum": 0.7189,
-            "trend": 1.0,
-            "flow": 0.8326
+            "momentum": 0.834,
+            "trend": 0.75,
+            "flow": 0.8118
           }
         }
       ]
     },
     {
-      "date": "2026-01-22",
+      "date": "2026-01-26",
       "holdings": [
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 1,
+          "score": 0.9295,
+          "factors": {
+            "momentum": 1.0,
+            "trend": 1.0,
+            "flow": 0.804
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 2,
+          "score": 0.9198,
+          "factors": {
+            "momentum": 0.9417,
+            "trend": 1.0,
+            "flow": 0.8162
+          }
+        },
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
+          "rank": 3,
+          "score": 0.9135,
+          "factors": {
+            "momentum": 0.9477,
+            "trend": 1.0,
+            "flow": 0.7947
+          }
+        },
+        {
+          "code": "000988.CSI",
+          "name": "制造指数",
+          "etf": "516880",
+          "rank": 4,
+          "score": 0.9068,
+          "factors": {
+            "momentum": 0.9289,
+            "trend": 1.0,
+            "flow": 0.7884
+          }
+        },
         {
           "code": "000905.SH",
           "name": "中证 500",
           "etf": "510500",
+          "rank": 5,
+          "score": 0.9048,
+          "factors": {
+            "momentum": 0.8189,
+            "trend": 1.0,
+            "flow": 0.8564
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-01-19",
+      "holdings": [
+        {
+          "code": "399808.SZ",
+          "name": "新能源指数",
+          "etf": "516160",
           "rank": 1,
-          "score": 0.9121,
+          "score": 0.9143,
+          "factors": {
+            "momentum": 0.9757,
+            "trend": 1.0,
+            "flow": 0.7781
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 2,
+          "score": 0.9033,
           "factors": {
             "momentum": 0.8276,
             "trend": 1.0,
-            "flow": 0.8706
-          }
-        },
-        {
-          "code": "000688.SH",
-          "name": "科创 50",
-          "etf": "588000",
-          "rank": 2,
-          "score": 0.9099,
-          "factors": {
-            "momentum": 0.9544,
-            "trend": 1.0,
-            "flow": 0.7802
-          }
-        },
-        {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
-          "rank": 3,
-          "score": 0.9076,
-          "factors": {
-            "momentum": 1.0,
-            "trend": 1.0,
-            "flow": 0.7433
-          }
-        },
-        {
-          "code": "399808.SZ",
-          "name": "新能源指数",
-          "etf": "516160",
-          "rank": 4,
-          "score": 0.9073,
-          "factors": {
-            "momentum": 0.9468,
-            "trend": 1.0,
-            "flow": 0.7778
-          }
-        },
-        {
-          "code": "000988.CSI",
-          "name": "制造指数",
-          "etf": "516880",
-          "rank": 5,
-          "score": 0.9008,
-          "factors": {
-            "momentum": 0.91,
-            "trend": 1.0,
-            "flow": 0.7845
-          }
-        }
-      ]
-    },
-    {
-      "date": "2026-01-15",
-      "holdings": [
-        {
-          "code": "399808.SZ",
-          "name": "新能源指数",
-          "etf": "516160",
-          "rank": 1,
-          "score": 0.9097,
-          "factors": {
-            "momentum": 0.9557,
-            "trend": 1.0,
-            "flow": 0.7786
-          }
-        },
-        {
-          "code": "000905.SH",
-          "name": "中证 500",
-          "etf": "510500",
-          "rank": 2,
-          "score": 0.898,
-          "factors": {
-            "momentum": 0.8244,
-            "trend": 1.0,
-            "flow": 0.8339
+            "flow": 0.8463
           }
         },
         {
@@ -2500,11 +2565,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 3,
-          "score": 0.8811,
+          "score": 0.8973,
           "factors": {
-            "momentum": 0.8844,
+            "momentum": 0.9334,
             "trend": 1.0,
-            "flow": 0.7468
+            "flow": 0.7592
           }
         },
         {
@@ -2512,11 +2577,11 @@
           "name": "半导体指数",
           "etf": "512480",
           "rank": 4,
-          "score": 0.8676,
+          "score": 0.8858,
           "factors": {
             "momentum": 1.0,
             "trend": 1.0,
-            "flow": 0.6321
+            "flow": 0.6829
           }
         },
         {
@@ -2524,141 +2589,76 @@
           "name": "军工指数",
           "etf": "512660",
           "rank": 5,
-          "score": 0.8543,
+          "score": 0.8655,
           "factors": {
-            "momentum": 0.8096,
+            "momentum": 0.833,
             "trend": 1.0,
-            "flow": 0.7222
+            "flow": 0.7377
           }
         }
       ]
     },
     {
-      "date": "2026-01-08",
+      "date": "2026-01-12",
       "holdings": [
         {
           "code": "399808.SZ",
           "name": "新能源指数",
           "etf": "516160",
           "rank": 1,
-          "score": 0.857,
+          "score": 0.9001,
           "factors": {
-            "momentum": 0.9705,
+            "momentum": 0.9552,
             "trend": 1.0,
-            "flow": 0.6224
+            "flow": 0.7523
+          }
+        },
+        {
+          "code": "399967.SZ",
+          "name": "军工指数",
+          "etf": "512660",
+          "rank": 2,
+          "score": 0.8603,
+          "factors": {
+            "momentum": 0.9209,
+            "trend": 1.0,
+            "flow": 0.6647
           }
         },
         {
           "code": "000905.SH",
           "name": "中证 500",
           "etf": "510500",
-          "rank": 2,
-          "score": 0.8283,
+          "rank": 3,
+          "score": 0.8568,
           "factors": {
-            "momentum": 0.8064,
+            "momentum": 0.8432,
             "trend": 1.0,
-            "flow": 0.6522
+            "flow": 0.7067
           }
         },
         {
           "code": "990001.SSI",
           "name": "半导体指数",
           "etf": "512480",
-          "rank": 3,
-          "score": 0.8128,
+          "rank": 4,
+          "score": 0.8344,
           "factors": {
-            "momentum": 0.9872,
+            "momentum": 1.0,
             "trend": 1.0,
-            "flow": 0.4886
+            "flow": 0.54
           }
         },
         {
           "code": "000688.SH",
           "name": "科创 50",
           "etf": "588000",
-          "rank": 4,
-          "score": 0.7994,
-          "factors": {
-            "momentum": 0.9189,
-            "trend": 1.0,
-            "flow": 0.4968
-          }
-        },
-        {
-          "code": "399967.SZ",
-          "name": "军工指数",
-          "etf": "512660",
           "rank": 5,
-          "score": 0.791,
+          "score": 0.828,
           "factors": {
-            "momentum": 0.8144,
+            "momentum": 0.9509,
             "trend": 1.0,
-            "flow": 0.5433
-          }
-        }
-      ]
-    },
-    {
-      "date": "2026-01-01",
-      "holdings": [
-        {
-          "code": "000905.SH",
-          "name": "中证 500",
-          "etf": "510500",
-          "rank": 1,
-          "score": 0.8031,
-          "factors": {
-            "momentum": 0.7499,
-            "trend": 1.0,
-            "flow": 0.6199
-          }
-        },
-        {
-          "code": "399808.SZ",
-          "name": "新能源指数",
-          "etf": "516160",
-          "rank": 2,
-          "score": 0.7793,
-          "factors": {
-            "momentum": 0.9398,
-            "trend": 1.0,
-            "flow": 0.4271
-          }
-        },
-        {
-          "code": "399967.SZ",
-          "name": "军工指数",
-          "etf": "512660",
-          "rank": 3,
-          "score": 0.7625,
-          "factors": {
-            "momentum": 0.6936,
-            "trend": 1.0,
-            "flow": 0.5446
-          }
-        },
-        {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
-          "rank": 4,
-          "score": 0.751,
-          "factors": {
-            "momentum": 0.8666,
-            "trend": 1.0,
-            "flow": 0.3972
-          }
-        },
-        {
-          "code": "000852.SH",
-          "name": "中证 1000",
-          "etf": "512100",
-          "rank": 5,
-          "score": 0.7416,
-          "factors": {
-            "momentum": 0.6915,
-            "trend": 1.0,
-            "flow": 0.4879
+            "flow": 0.555
           }
         }
       ]
@@ -2825,11 +2825,11 @@
       "name": "创业板指",
       "etf": "159915",
       "rank": 6,
-      "score": 0.4918,
+      "score": 0.492,
       "factors": {
         "momentum": 0.5531,
         "trend": 0.5,
-        "flow": 0.4652
+        "flow": 0.4656
       },
       "attribution": {
         "momentum_6m_return": 5.31,
@@ -2843,8 +2843,8 @@
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0,
-        "etf_shares_trend": "未知",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
         "relative_return": 5.65,
         "index_return": 0.84,
         "benchmark_return": -4.81,
@@ -3073,11 +3073,11 @@
       "name": "恒生指数",
       "etf": "159920",
       "rank": 14,
-      "score": 0.4168,
+      "score": 0.4293,
       "factors": {
         "momentum": 0.4125,
         "trend": 0.5,
-        "flow": 0.369
+        "flow": 0.3934
       },
       "attribution": {
         "momentum_6m_return": -8.75,
@@ -3091,8 +3091,8 @@
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0,
-        "etf_shares_trend": "未知",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
         "relative_return": 1.1,
         "index_return": -3.71,
         "benchmark_return": -4.81,
@@ -3166,11 +3166,11 @@
       "name": "消费指数",
       "etf": "159928",
       "rank": 17,
-      "score": 0.3785,
+      "score": 0.3981,
       "factors": {
         "momentum": 0.3575,
         "trend": 0.5,
-        "flow": 0.314
+        "flow": 0.3522
       },
       "attribution": {
         "momentum_6m_return": -14.25,
@@ -3184,8 +3184,8 @@
         "current_pe": null,
         "northbound_20d_sum": 0.0,
         "northbound_trend": "流出",
-        "etf_shares_20d_change": 0,
-        "etf_shares_trend": "未知",
+        "etf_shares_20d_change": 0.0,
+        "etf_shares_trend": "赎回",
         "relative_return": -1.08,
         "index_return": -5.89,
         "benchmark_return": -4.81,
@@ -3276,18 +3276,7 @@
       "000922.CSI",
       "000688.SH"
     ],
-    "signals": [
-      {
-        "action": "sell",
-        "code": "000988.CSI",
-        "name": "制造指数"
-      },
-      {
-        "action": "buy",
-        "code": "000933.CSI",
-        "name": "医药指数"
-      }
-    ],
+    "signals": [],
     "holdings": [
       {
         "code": "399986.SZ",
@@ -3398,15 +3387,11 @@
       "snapshot_date": "2026-04-10"
     },
     "etf_shares": {
-      "status": "degraded",
+      "status": "snapshot",
       "history_count": 0,
-      "snapshot_count": 16,
-      "missing_count": 3,
-      "missing_codes": [
-        "399006.SZ",
-        "000932.CSI",
-        "399965.SZ"
-      ]
+      "snapshot_count": 19,
+      "missing_count": 0,
+      "missing_codes": []
     },
     "universe": {
       "active_count": 19,
@@ -3523,10 +3508,10 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-12 09:27",
+    "updated_at": "2026-04-12 17:38",
     "decision": {
       "headline": "本周主结论：银行指数、煤炭指数、新能源指数 为当前优先观察方向。",
-      "execution_message": "当前建议执行 2 个动作，优先关注 银行指数、煤炭指数、新能源指数。",
+      "execution_message": "当前无新增调仓动作，继续跟踪 银行指数、煤炭指数、新能源指数。",
       "market_context": "震荡市",
       "action": "继续研究，不建议单独实盘"
     },
@@ -3535,7 +3520,6 @@
       "label": "部分数据降级，结论需结合人工复核",
       "warnings": [
         "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
-        "ETF 份额缺失标的：399006.SZ、000932.CSI、399965.SZ",
         "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日"
       ],
       "items": [
@@ -3551,8 +3535,8 @@
         },
         {
           "label": "ETF 份额",
-          "status": "degraded",
-          "detail": "历史 0 / 快照 16"
+          "status": "snapshot",
+          "detail": "历史 0 / 快照 19"
         }
       ]
     },
@@ -3617,13 +3601,12 @@
     },
     "warnings": [
       "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
-      "ETF 份额缺失标的：399006.SZ、000932.CSI、399965.SZ",
       "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日",
       "OOS 测试窗口过短，当前样本外结论不具统计解释力",
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-04-12 09:27",
+  "update_time": "2026-04-12 17:38",
   "market_regime": "sideways",
   "market_regime_desc": "震荡市"
 }
