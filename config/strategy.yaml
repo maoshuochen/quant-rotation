@@ -2,6 +2,7 @@ strategy:
   top_n: 5
   buffer_n: 8
   rebalance_frequency: "weekly"
+  strict_weekly_execution: true
   lookback_pe: 2520
   momentum_window: 126
 

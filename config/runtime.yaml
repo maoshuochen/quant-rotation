@@ -16,3 +16,10 @@ data:
 logging:
   level: "INFO"
   file: "logs/strategy.log"
+
+backtest:
+  start_date: "20240101"
+  warmup_days: 370
+  progress_interval: 100
+  verbose_trades: false
+  score_workers: 4

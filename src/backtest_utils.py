@@ -19,6 +19,18 @@ def load_strategy_config(root_dir: Path) -> dict:
     return load_app_config(root_dir)
 
 
+def resolve_backtest_start_date(config: dict, override_start_date: Optional[str] = None) -> str:
+    if override_start_date:
+        return override_start_date
+    return str(config.get("backtest", {}).get("start_date", "20240101"))
+
+
+def compute_fetch_start_date(start_date: str, warmup_days: int = 370) -> str:
+    start_dt = pd.to_datetime(start_date)
+    fetch_start = start_dt - pd.Timedelta(days=warmup_days)
+    return fetch_start.strftime("%Y%m%d")
+
+
 def create_portfolio(config: dict, initial_capital: Optional[float] = None) -> SimulatedPortfolio:
     portfolio_config = config.get("portfolio", {})
     stop_loss_config = config.get("stop_loss", {})
@@ -47,15 +59,19 @@ def load_etf_history(fetcher, indices: Iterable[dict], start_date: str, force_re
 def select_rebalance_dates(trade_dates: List[pd.Timestamp], rebalance_frequency: str) -> List[pd.Timestamp]:
     rebalance_dates: List[pd.Timestamp] = []
     for date in trade_dates:
-        if rebalance_frequency == "weekly":
-            if date.weekday() == 0:
-                rebalance_dates.append(date)
-        elif rebalance_frequency == "monthly":
-            if date.day <= 5:
-                rebalance_dates.append(date)
-        else:
+        if is_rebalance_day(date, rebalance_frequency):
+            rebalance_dates.append(date)
+        elif rebalance_frequency not in {"weekly", "monthly"}:
             rebalance_dates.append(date)
     return rebalance_dates or trade_dates[:1]
+
+
+def is_rebalance_day(date: pd.Timestamp, rebalance_frequency: str) -> bool:
+    if rebalance_frequency == "weekly":
+        return date.weekday() == 0
+    if rebalance_frequency == "monthly":
+        return date.day <= 5
+    return True
 
 
 def build_rebalance_signals(ranking: pd.DataFrame, current_codes: set[str], top_n: int, buffer_n: int) -> Dict[str, List[str]]:

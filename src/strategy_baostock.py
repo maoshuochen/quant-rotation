@@ -11,6 +11,7 @@ import pandas as pd
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.market_regime import DynamicWeightScoringEngine
 from src.portfolio import SimulatedPortfolio
+from src.backtest_utils import is_rebalance_day
 from src.config_loader import load_app_config
 
 logger = logging.getLogger(__name__)
@@ -37,6 +38,8 @@ class RotationStrategy:
         self.strategy = self.config.get('strategy', {})
         self.top_n = self.strategy.get('top_n', 5)
         self.buffer_n = self.strategy.get('buffer_n', 8)
+        self.rebalance_frequency = self.strategy.get('rebalance_frequency', 'weekly')
+        self.strict_weekly_execution = bool(self.strategy.get('strict_weekly_execution', False))
         
         # 指数列表
         self.indices = self.config.get('indices', [])
@@ -392,7 +395,15 @@ class RotationStrategy:
 
         # 检查止损（在生成新信号之前）
         date_str = date if isinstance(date, str) else date.strftime('%Y-%m-%d')
-        stop_loss_signals = self.portfolio.check_stop_loss(prices, date_str)
+        date_ts = pd.Timestamp(date_str)
+        rebalance_today = is_rebalance_day(date_ts, self.rebalance_frequency)
+        can_trade_today = rebalance_today or not self.strict_weekly_execution
+
+        stop_loss_signals = self.portfolio.check_stop_loss(prices, date_str) if can_trade_today else {
+            'individual': [],
+            'trailing': [],
+            'portfolio': [],
+        }
 
         # 执行止损（优先于正常信号）
         if any(stop_loss_signals.values()):
@@ -401,8 +412,11 @@ class RotationStrategy:
             self.portfolio.execute_stop_loss(stop_loss_signals, prices, names, date_str)
 
         # 执行交易
-        if signals:
+        if can_trade_today and signals:
             self.execute_signals(signals, prices, date)
+        elif signals and not can_trade_today:
+            logger.info("Strict weekly execution enabled; skip trades on non-rebalance day")
+            signals = []
         
         # 组合快照
         snapshot = self.portfolio.get_summary(prices)
@@ -415,6 +429,8 @@ class RotationStrategy:
             'portfolio': snapshot,
             'health': self.data_health,
             'recommendation': self.build_recommendation(ranking, signals),
+            'rebalance_today': rebalance_today,
+            'can_trade_today': can_trade_today,
         }
         
         logger.info(f"Strategy completed. Portfolio value: {snapshot['total_value']:.2f}")

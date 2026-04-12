@@ -843,7 +843,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-12 17:38",
+    "updated_at": "2026-04-12 22:20",
     "decision": {
       "headline": "本周主结论：银行指数、煤炭指数、新能源指数 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 银行指数、煤炭指数、新能源指数。",
@@ -882,12 +882,13 @@
       "action": "继续研究，不建议单独实盘",
       "warnings": [
         "OOS 测试窗口过短，当前样本外结论不具统计解释力",
+        "研究基线最大回撤超过 20%，风险约束仍偏弱",
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.1564,
-        "research_max_drawdown": -0.1354,
-        "research_sharpe": 0.82,
+        "research_annual_return": 0.0777,
+        "research_max_drawdown": -0.2005,
+        "research_sharpe": 0.44,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -909,22 +910,22 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1198093.36,
-        "total_return": 0.1981,
-        "annual_return": 0.1564,
-        "max_drawdown": -0.1354,
-        "max_drawdown_date": "2025-07-07",
-        "sharpe_ratio": 0.82,
-        "trading_days": 300,
+        "final_value": 1183133.19,
+        "total_return": 0.1831,
+        "annual_return": 0.0777,
+        "max_drawdown": -0.2005,
+        "max_drawdown_date": "2024-09-13",
+        "sharpe_ratio": 0.44,
+        "trading_days": 542,
         "period": {
-          "start": "2025-01-02",
+          "start": "2024-01-02",
           "end": "2026-04-01"
         }
       },
       "research": {
-        "research_annual_return": 0.1564,
-        "research_max_drawdown": -0.1354,
-        "research_sharpe": 0.82,
+        "research_annual_return": 0.0777,
+        "research_max_drawdown": -0.2005,
+        "research_sharpe": 0.44,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -938,6 +939,7 @@
       "价格数据存在滞后标的：000300.SH、000905.SH、000852.SH、399006.SZ、000688.SH、000932.CSI、000933.CSI、000993.CSI、000992.CSI、000988.CSI、000922.CSI、399967.SZ、399808.SZ、990001.SSI、399997.SZ、399986.SZ、399975.SZ、399990.SZ、399965.SZ",
       "北向资金历史最近有效日期 2026-04-10，最近连续窗口 6 日",
       "OOS 测试窗口过短，当前样本外结论不具统计解释力",
+      "研究基线最大回撤超过 20%，风险约束仍偏弱",
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
@@ -960,8 +962,9 @@
     "top_n": 5,
     "buffer_n": 8,
     "rebalance_frequency": "weekly",
+    "strict_weekly_execution": true,
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-12 17:38"
+  "update_time": "2026-04-12 22:20"
 }

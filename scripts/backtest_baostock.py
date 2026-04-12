@@ -4,6 +4,7 @@
 """
 import logging
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 
@@ -17,10 +18,12 @@ from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
 from src.backtest_utils import (
     build_rebalance_signals,
+    compute_fetch_start_date,
     compute_backtest_metrics,
     create_portfolio,
     load_etf_history,
     load_strategy_config,
+    resolve_backtest_start_date,
     select_rebalance_dates,
 )
 
@@ -32,6 +35,7 @@ logging.basicConfig(
 # 关闭第三方库的 debug 日志
 logging.getLogger('akshare').setLevel(logging.WARNING)
 logging.getLogger('urllib3').setLevel(logging.WARNING)
+logging.getLogger('src.portfolio').setLevel(logging.ERROR)
 logger = logging.getLogger(__name__)
 
 
@@ -40,7 +44,7 @@ def load_config() -> dict:
     return load_strategy_config(root_dir)
 
 
-def run_backtest(start_date: str = "20250101",
+def run_backtest(start_date: str = None,
                  end_date: str = None,
                  initial_capital: float = 1_000_000):
     """
@@ -52,6 +56,7 @@ def run_backtest(start_date: str = "20250101",
         initial_capital: 初始资金
     """
     config = load_config()
+    start_date = resolve_backtest_start_date(config, start_date)
 
     end_date = end_date or datetime.now().strftime('%Y%m%d')
 
@@ -68,17 +73,24 @@ def run_backtest(start_date: str = "20250101",
 
     # 策略参数
     strategy = config.get('strategy', {})
+    backtest_config = config.get('backtest', {})
     top_n = strategy.get('top_n', 5)
     buffer_n = strategy.get('buffer_n', 8)
     rebalance_freq = strategy.get('rebalance_frequency', 'weekly')
+    strict_weekly_execution = bool(strategy.get('strict_weekly_execution', False))
+    warmup_days = int(backtest_config.get('warmup_days', 370))
+    progress_interval = int(backtest_config.get('progress_interval', 100))
+    verbose_trades = bool(backtest_config.get('verbose_trades', False))
+    score_workers = max(1, int(backtest_config.get('score_workers', 1)))
 
     # 指数列表
     indices = config.get('indices', [])
+    code_to_name = {idx['code']: idx['name'] for idx in indices}
 
-    # 获取所有 ETF 数据（优先使用缓存，仅获取需要的日期范围）
+    # 获取所有 ETF 数据（优先使用缓存，并预留足够 warmup 供因子计算）
     print("获取 ETF 数据（优先缓存）...")
-    start = "20240101" if start_date < "20250101" else start_date
-    etf_data = load_etf_history(fetcher, indices, start, force_refresh=False)
+    fetch_start = compute_fetch_start_date(start_date, warmup_days)
+    etf_data = load_etf_history(fetcher, indices, fetch_start, force_refresh=False)
     for idx in indices:
         code = idx.get("code")
         etf = idx.get("etf")
@@ -109,69 +121,92 @@ def run_backtest(start_date: str = "20250101",
 
     # 确定调仓日期
     rebalance_dates = select_rebalance_dates(trade_dates, rebalance_freq)
+    rebalance_set = set(rebalance_dates)
+    last_rebalance_date = trade_dates[-6] if len(trade_dates) > 5 else trade_dates[-1]
+    history_window = max(252, int(strategy.get('momentum_window', 126)) * 2)
 
     print(f"调仓次数：{len(rebalance_dates)}")
+
+    close_matrix = pd.DataFrame(
+        {code: df["close"].reindex(trade_dates) for code, df in etf_data.items()},
+        index=trade_dates,
+    )
     
     # 回测循环
     daily_values = []
     stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
 
-    # 批量日志输出，减少 IO
-    log_interval = 50  # 每 50 天输出一次进度
+    def score_candidate(item, date, benchmark_slice):
+        code, df = item
+        hist_df = df.loc[:date].tail(history_window)
+        if len(hist_df) < 20:
+            return None
+        return code, scorer.score_index(hist_df, benchmark_slice)
 
-    for idx, date in enumerate(trade_dates):
-        date_str = date.strftime('%Y-%m-%d')
+    executor = ThreadPoolExecutor(max_workers=score_workers) if score_workers > 1 else None
+    try:
+        for idx, date in enumerate(trade_dates):
+            date_str = date.strftime('%Y-%m-%d')
 
-        # 进度日志（降频）
-        if (idx + 1) % log_interval == 0:
-            print(f"进度：{idx + 1}/{len(trade_dates)} 天 ({(idx + 1) / len(trade_dates) * 100:.0f}%)")
+            # 进度日志（降频）
+            if progress_interval > 0 and (idx + 1) % progress_interval == 0:
+                print(f"进度：{idx + 1}/{len(trade_dates)} 天 ({(idx + 1) / len(trade_dates) * 100:.0f}%)")
 
-        # 获取当日价格
-        prices = {}
-        for code, df in etf_data.items():
-            if date in df.index:
-                prices[code] = df.loc[date, 'close']
+            # 获取当日价格
+            price_row = close_matrix.loc[date].dropna()
+            prices = {code: float(price) for code, price in price_row.items()}
 
-        # 检查止损（在每个交易日）
-        if prices and portfolio.positions:
-            stop_loss_signals = portfolio.check_stop_loss(prices, date_str)
-            if any(stop_loss_signals.values()):
-                for signal_type, codes in stop_loss_signals.items():
-                    if codes:
-                        stop_loss_stats[signal_type] += len(codes)
-                names = {idx['code']: idx['name'] for idx in indices}
-                portfolio.execute_stop_loss(stop_loss_signals, prices, names, date_str)
+            # 检查止损（在每个交易日）
+            if prices and portfolio.positions and (not strict_weekly_execution or date in rebalance_set):
+                stop_loss_signals = portfolio.check_stop_loss(prices, date_str)
+                if any(stop_loss_signals.values()):
+                    for signal_type, codes in stop_loss_signals.items():
+                        if codes:
+                            stop_loss_stats[signal_type] += len(codes)
+                    portfolio.execute_stop_loss(stop_loss_signals, prices, code_to_name, date_str)
 
-        # 记录每日净值
-        if prices:
-            portfolio.record_daily_value(date_str, prices)
-            value = portfolio.get_portfolio_value(prices)
-            daily_values.append({'date': date_str, 'value': value})
+            # 记录每日净值
+            if prices:
+                portfolio.record_daily_value(date_str, prices)
+                value = portfolio.get_portfolio_value(prices)
+                daily_values.append({'date': date_str, 'value': value})
 
-        # 调仓日运行策略
-        if date in rebalance_dates and len(trade_dates) - trade_dates.index(date) > 5:
-            # 计算评分（固定权重）
-            scores_dict = {}
-            for code, df in etf_data.items():
-                hist_df = df[df.index <= date]
-                if len(hist_df) >= 20:
-                    scores = scorer.score_index(hist_df, benchmark_data)
-                    scores_dict[code] = scores
+            # 调仓日运行策略
+            if date in rebalance_set and date <= last_rebalance_date:
+                # 计算评分（固定权重）
+                scores_dict = {}
+                benchmark_slice = benchmark_data.loc[:date].tail(history_window) if not benchmark_data.empty else benchmark_data
+                if executor is not None:
+                    for result in executor.map(lambda item: score_candidate(item, date, benchmark_slice), etf_data.items()):
+                        if result is None:
+                            continue
+                        code, scores = result
+                        scores_dict[code] = scores
+                else:
+                    for item in etf_data.items():
+                        result = score_candidate(item, date, benchmark_slice)
+                        if result is None:
+                            continue
+                        code, scores = result
+                        scores_dict[code] = scores
 
-            # 排名
-            ranking = scorer.rank_indices(scores_dict)
+                # 排名
+                ranking = scorer.rank_indices(scores_dict)
 
-            if ranking.empty:
-                continue
+                if ranking.empty:
+                    continue
 
-            signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
+                signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
 
-            # 执行（仅在有信号时输出）
-            if signals['buy'] or signals['sell']:
-                names = {idx['code']: idx['name'] for idx in indices}
-                trades = portfolio.execute_signal(signals, prices, names, date_str)
-                for trade in trades:
-                    print(f"  {trade.type.upper()} {trade.code}: {trade.shares} @ {trade.price:.3f}")
+                # 执行（仅在有信号时输出）
+                if signals['buy'] or signals['sell']:
+                    trades = portfolio.execute_signal(signals, prices, code_to_name, date_str)
+                    if verbose_trades:
+                        for trade in trades:
+                            print(f"  {trade.type.upper()} {trade.code}: {trade.shares} @ {trade.price:.3f}")
+    finally:
+        if executor is not None:
+            executor.shutdown(wait=True)
 
     # 回测结果
     print("\n" + "=" * 60)
@@ -228,7 +263,7 @@ def run_backtest(start_date: str = "20250101",
 if __name__ == "__main__":
     import sys
 
-    start = sys.argv[1] if len(sys.argv) > 1 else "20250101"
+    start = sys.argv[1] if len(sys.argv) > 1 else None
     end = sys.argv[2] if len(sys.argv) > 2 else None
 
     run_backtest(start, end)
