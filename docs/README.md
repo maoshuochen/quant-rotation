@@ -14,6 +14,7 @@
 - 数据入口：`src/data_fetcher_baostock.py`
 - 策略入口：`src/strategy_baostock.py`
 - 回测入口：`scripts/backtest_baostock.py`
-- 前端数据入口：`scripts/generate_web_data.py`
+- 前端数据入口：`scripts/generate_data.py`
 - 前端应用：`web/`
-- 历史实现：`legacy/`
+- 运行产物：`web/public/`、`reports/`、`logs/`
+- 历史实现：`src/legacy/`

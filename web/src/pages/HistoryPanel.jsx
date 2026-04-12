@@ -25,7 +25,7 @@ const HistoryPanel = ({ historyData, activeFactors, selectedCode, onSelectCode }
       <div className="mx-auto max-w-7xl px-3 sm:px-4 py-6">
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 text-center text-zinc-400">
           <p>暂无历史数据</p>
-          <p className="text-xs mt-2 opacity-60">请运行 scripts/generate_history_data.py 生成历史数据</p>
+          <p className="text-xs mt-2 opacity-60">请运行 scripts/generate_data.py 生成前端数据</p>
         </div>
       </div>
     )

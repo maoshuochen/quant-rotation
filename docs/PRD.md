@@ -30,8 +30,8 @@
 
 ### F3: 前端数据生成
 
-- 入口：`scripts/generate_web_data.py`
-- 输出：`web/dist/ranking.json`、`web/dist/backtest.json`
+- 入口：`scripts/generate_data.py`
+- 输出：`web/public/data.json`、`web/public/ranking.json`
 
 ### F4: Web 看板
 
@@ -42,13 +42,12 @@
 
 1. `scripts/daily_run_baostock.py`
 2. `scripts/backtest_baostock.py`
-3. `scripts/generate_web_data.py`
+3. `scripts/generate_data.py`
 4. `web/`
-5. `report_server.py`
+5. `scripts/report_server.py`
 
 ## 四、产品边界
 
-- `legacy/` 目录中的代码不属于正式运行链路
 - 实验性因子、历史实现、旧版回测脚本仅作参考
 - 当前策略表现尚未达到产品化目标，所有结论仅用于研究和学习
 

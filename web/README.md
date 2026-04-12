@@ -33,12 +33,11 @@ npm run preview
 
 ## 数据更新
 
-前端数据以 `dist/ranking.json` 和 `dist/backtest.json` 为主，由正式脚本生成：
+前端数据以 `public/` 下的 JSON 为主，由正式脚本生成，构建时会自动打包进 `dist/`：
 
 ```bash
 # 在项目根目录运行
-cd /root/.openclaw/workspace/quant-rotation
-python3 scripts/generate_web_data.py
+python3 scripts/generate_data.py
 ```
 
 ## 自动化
@@ -49,7 +48,7 @@ python3 scripts/generate_web_data.py
 crontab -e
 
 # 每天 9:00 更新数据
-0 9 * * 1-5 cd /root/.openclaw/workspace/quant-rotation && python3 scripts/generate_web_data.py
+0 9 * * 1-5 cd /path/to/quant-rotation && python3 scripts/generate_data.py
 ```
 
 ## 技术栈
@@ -68,10 +67,10 @@ web/
 │   ├── main.jsx         # 入口文件
 │   └── index.css        # 样式文件
 ├── public/
-│   └── vite.svg         # 图标
+│   ├── vite.svg         # 图标
+│   └── *.json           # 前端静态数据
 ├── dist/
-│   ├── ranking.json     # 正式前端数据
-│   └── backtest.json    # 正式回测数据
+│   └── ...              # 构建输出（无需提交）
 ├── index.html
 ├── package.json
 ├── vite.config.js

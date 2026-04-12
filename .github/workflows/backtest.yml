@@ -1,4 +1,4 @@
-name: Daily Backtest & Data Update
+name: Daily Backtest Data Refresh
 
 on:
   schedule:
@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
   group: "backtest"
@@ -40,7 +39,7 @@ jobs:
           path: |
             ~/.cache/pip
             __pycache__/
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/base.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
@@ -63,7 +62,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements/base.txt
 
       # ==================== 运行全量回测 ====================
       # 简化逻辑：始终运行全量回测，确保数据一致性
@@ -85,21 +84,21 @@ jobs:
           import json
           from pathlib import Path
 
-          dist = Path("web/dist")
-          data_path = dist / "data.json"
+          public = Path("web/public")
+          data_path = public / "data.json"
           if not data_path.exists():
-              raise SystemExit("web/dist/data.json not found")
+              raise SystemExit("web/public/data.json not found")
 
           data = json.loads(data_path.read_text(encoding="utf-8"))
 
-          backtest_path = dist / "backtest.json"
+          backtest_path = public / "backtest.json"
           if not backtest_path.exists():
               backtest_path.write_text(
                   json.dumps(data.get("backtest", {}), ensure_ascii=False, indent=2),
                   encoding="utf-8",
               )
 
-          history_path = dist / "history.json"
+          history_path = public / "history.json"
           if not history_path.exists():
               history_payload = {
                   "history": data.get("history", []),
@@ -131,20 +130,11 @@ jobs:
           print(f'DATE={pd.to_datetime(latest[\"date\"]).strftime(\"%Y-%m-%d\")}')
           " >> $GITHUB_OUTPUT
 
-      - name: Copy web files to root for GitHub Pages
-        run: |
-          cp web/dist/index.html .
-          cp web/dist/data.json .
-          cp web/dist/ranking.json .
-          if [ -f "web/dist/backtest.json" ]; then cp web/dist/backtest.json .; fi
-          if [ -f "web/dist/history.json" ]; then cp web/dist/history.json .; fi
-          cp -r web/dist/assets ./assets
-
       - name: Commit and push results
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add data/raw/ backtest_results/ web/dist/ index.html data.json ranking.json backtest.json history.json assets/
+          git add data/raw/ backtest_results/ web/public/
           git diff --staged --quiet || git commit -m "chore: update backtest data $(date -u +%Y-%m-%d)
 
           Metrics:

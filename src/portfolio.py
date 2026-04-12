@@ -2,6 +2,7 @@
 模拟投资组合（带止损机制）
 """
 from typing import Dict, List, Optional, Tuple
+from dataclasses import asdict
 from dataclasses import dataclass, field
 from datetime import datetime
 import logging
@@ -503,3 +504,12 @@ class SimulatedPortfolio:
                 for pos in self.positions.values()
             ]
         }
+
+    def serialize_positions(self) -> List[dict]:
+        """导出持仓状态，供回测断点续跑复用。"""
+        return [asdict(pos) for pos in self.positions.values()]
+
+    def restore_positions(self, positions_data: List[dict]):
+        """恢复持仓状态。"""
+        for pos_data in positions_data:
+            self.positions[pos_data["code"]] = Position(**pos_data)

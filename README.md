@@ -7,7 +7,7 @@
 ### 1. 安装依赖
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/base.txt
 ```
 
 ### 2. 配置参数
@@ -29,32 +29,28 @@ python scripts/generate_data.py
 
 ## 项目结构
 
-```
+```text
 quant-rotation/
-├── config/                  # 配置文件
-│   ├── universe.yaml        # 监控指数配置
-│   ├── strategy.yaml        # 策略参数
-│   └── runtime.yaml         # 运行时配置
-├── src/                     # 核心代码
-│   ├── data_fetcher_baostock.py  # 数据获取
-│   ├── scoring_baostock.py       # 因子评分
-│   ├── strategy_baostock.py      # 策略逻辑
-│   ├── portfolio.py              # 组合管理
-│   ├── market_regime.py          # 市场状态
-│   └── visualizer.py             # 可视化
-├── scripts/                 # 执行脚本
-│   ├── daily_run_baostock.py     # 每日运行
-│   ├── backtest_baostock.py      # 回测
-│   ├── backtest_incremental.py   # 增量回测
-│   └── generate_data.py          # 生成前端数据
-├── web/                     # 前端看板
-│   ├── src/
-│   ├── dist/               # 构建输出
-│   └── package.json
+├── config/                  # 策略、指数池、运行参数
+├── src/                     # 核心策略代码
+│   └── legacy/              # 历史实现与备用工具
+├── scripts/                 # 日跑、回测、数据生成入口
+├── web/                     # React 看板
+│   ├── src/                 # 前端源码
+│   ├── public/              # 前端静态数据源（由脚本生成）
+│   └── dist/                # 构建输出（无需提交）
+├── data/raw/                # 行情缓存
 ├── backtest_results/        # 回测结果
-├── data/raw/                # 原始数据缓存
-└── requirements.txt         # Python 依赖
+├── reports/                 # 报告产物
+└── logs/                    # 运行日志
 ```
+
+仓库约定：
+
+- `src/`、`scripts/`、`config/`、`web/src/` 是需要重点维护的源码区。
+- `src/legacy/` 仅保留历史实现参考，不属于当前正式运行链路。
+- `web/public/` 是前端消费的数据入口，`scripts/generate_data.py` 会把 JSON 写到这里。
+- `web/dist/`、`logs/`、`reports/agents/`、`outputs/` 都属于生成产物，不再作为主要版本内容维护。
 
 ## 因子体系
 
@@ -75,15 +71,16 @@ quant-rotation/
 
 ## GitHub Pages
 
-访问 https://maoshuochen.github.io/quant-rotation/ 查看实时看板。
+访问 https://maoshuochen.github.io/quant-rotation/ 查看实时看板。GitHub Pages 直接从 `web/dist/` 构建产物部署，不再把前端文件同步到仓库根目录。
 
 ## GitHub Actions 自动化
 
-工作流每天 UTC 19:00（北京时间凌晨 3 点）自动运行：
+数据刷新工作流每天 UTC 19:00（北京时间凌晨 3 点）自动运行：
 1. 获取最新 ETF 数据
 2. 运行回测更新
-3. 生成前端数据
-4. 提交并部署到 GitHub Pages
+3. 生成 `web/public/*.json`
+
+前端部署工作流在 `main` 分支的 `web/**` 变更后自动执行，负责构建前端并发布到 GitHub Pages。
 
 ## 回测表现
 

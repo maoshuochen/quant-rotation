@@ -1,16 +1,12 @@
 """
 策略主逻辑 - 适配 Baostock
 """
-import pandas as pd
-from pathlib import Path
-from datetime import datetime
 import logging
-from typing import Dict, List, Optional
-import yaml
-
-import sys
+from datetime import datetime
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+from typing import Dict, List, Optional
+
+import pandas as pd
 
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.market_regime import DynamicWeightScoringEngine

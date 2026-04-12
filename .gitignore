@@ -40,8 +40,12 @@ data/processed/
 *.h5
 
 # Logs
-logs/
+logs/*
 *.log
+!logs/.gitkeep
+!logs/agents/
+logs/agents/*
+!logs/agents/.gitkeep
 
 # Secrets
 config/secrets.yaml
@@ -61,11 +65,15 @@ Thumbs.db
 
 # Frontend
 web/node_modules/
-web/dist/*
-!web/dist/*.json
-!web/dist/index.html
-!web/dist/assets/
+web/dist/
 web/.env
+assets/
+index.html
+vite.svg
+data.json
+ranking.json
+backtest.json
+history.json
 
 # Backtest results (optional)
 backtest_results/*.json
@@ -73,7 +81,11 @@ backtest_results/backtest_*.csv
 !backtest_results/.gitkeep
 
 # Generated outputs
-outputs/
+outputs/*
+!outputs/.gitkeep
+!outputs/frontend/
+outputs/frontend/*
+!outputs/frontend/.gitkeep
 
 # Temporary files
 *.tmp
@@ -85,10 +97,11 @@ optimization_results/*.yaml
 !optimization_results/.gitkeep
 
 # Reports (auto-generated)
-reports/*.html
-reports/*.json
+reports/*
 !reports/.gitkeep
 !reports/agents/
+reports/agents/*
+!reports/agents/.gitkeep
 
 # Jupyter notebooks
 *.ipynb_checkpoints/

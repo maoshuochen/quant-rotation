@@ -9,28 +9,34 @@
 ### 正式代码
 
 - `src/data_fetcher_baostock.py`
+- `src/dashboard_builder.py`
 - `src/scoring_baostock.py`
 - `src/market_regime.py`
+- `src/strategy_summary.py`
 - `src/strategy_baostock.py`
 - `src/portfolio.py`
+- `src/backtest_utils.py`
 
 ### 正式脚本
 
 - `scripts/daily_run_baostock.py`
 - `scripts/backtest_baostock.py`
-- `scripts/generate_web_data.py`
-- `scripts/generate_backtest_json.py`
-- `scripts/test_*.py`
+- `scripts/generate_data.py`
 
 ### 展示层
 
 - `web/`
-- `report_server.py`
+- `scripts/report_server.py`
+
+### 运行产物
+
+- `web/public/`
+- `reports/`
+- `logs/`
 
 ### 历史实现
 
-- `legacy/src/`
-- `legacy/scripts/`
+- `src/legacy/`
 
 ## 二、架构分层
 
@@ -80,24 +86,24 @@
 - 按统一规则模拟调仓
 - 输出净值、收益、回撤、夏普等结果
 
-### 5. 产物层
+### 5. 数据发布层
 
 文件：
 
-- `scripts/generate_web_data.py`
-- `scripts/generate_backtest_json.py`
+- `scripts/generate_data.py`
+- `web/public/`
 
 职责：
 
 - 生成前端消费的 JSON
-- 衔接回测结果与 Web 看板
+- 将运行产物与 React 看板解耦
 
 ### 6. 展示层
 
 文件：
 
 - `web/`
-- `report_server.py`
+- `scripts/report_server.py`
 
 职责：
 
@@ -110,13 +116,14 @@
 quant-rotation/
 ├── config/
 ├── src/
+│   └── legacy/
 ├── scripts/
 ├── web/
-├── report_server.py
+├── requirements/
 ├── data/
 ├── backtest_results/
 ├── reports/
-└── legacy/
+└── logs/
 ```
 
 ## 四、运行命令
@@ -124,7 +131,7 @@ quant-rotation/
 ```bash
 python scripts/daily_run_baostock.py
 python scripts/backtest_baostock.py
-python scripts/generate_web_data.py
+python scripts/generate_data.py
 
 cd web
 npm run build
@@ -134,6 +141,6 @@ npm run preview
 ## 五、技术口径
 
 - 当前默认环境为 Python 3.9+
-- 默认依赖以 `requirements.txt` 为准
+- 默认依赖以 `requirements/base.txt` 为准
 - 正式活跃池为 19 只指数；`000921.CSI -> 512340` 已标记为失效代理并移出正式池
 - 如遇旧文档与本文件冲突，以本文件为准

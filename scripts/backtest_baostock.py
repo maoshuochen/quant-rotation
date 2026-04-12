@@ -15,8 +15,14 @@ sys.path.insert(0, str(root_dir))
 
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
-from src.portfolio import SimulatedPortfolio
-from src.config_loader import load_app_config
+from src.backtest_utils import (
+    build_rebalance_signals,
+    compute_backtest_metrics,
+    create_portfolio,
+    load_etf_history,
+    load_strategy_config,
+    select_rebalance_dates,
+)
 
 # 优化日志：仅保留 warning 及以上，减少输出噪音
 logging.basicConfig(
@@ -31,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 def load_config() -> dict:
     """加载配置"""
-    return load_app_config(root_dir)
+    return load_strategy_config(root_dir)
 
 
 def run_backtest(start_date: str = "20250101",
@@ -58,16 +64,7 @@ def run_backtest(start_date: str = "20250101",
     fetcher = IndexDataFetcher()
     # 使用固定权重评分引擎（避免未来函数）
     scorer = ScoringEngine(config)
-    stop_loss_config = config.get('stop_loss', {})
-    # 冷却期配置（从 stop_loss 配置中读取，默认 5 天）
-    cooldown_days = stop_loss_config.get('cooldown_days', 5) if stop_loss_config else 5
-    portfolio = SimulatedPortfolio(
-        initial_capital=initial_capital,
-        commission_rate=config.get('portfolio', {}).get('commission', 0.0003),
-        slippage=config.get('portfolio', {}).get('slippage', 0.001),
-        stop_loss_config=stop_loss_config if stop_loss_config else None,
-        cooldown_days=cooldown_days
-    )
+    portfolio = create_portfolio(config, initial_capital=initial_capital)
 
     # 策略参数
     strategy = config.get('strategy', {})
@@ -80,17 +77,13 @@ def run_backtest(start_date: str = "20250101",
 
     # 获取所有 ETF 数据（优先使用缓存，仅获取需要的日期范围）
     print("获取 ETF 数据（优先缓存）...")
-    etf_data = {}
+    start = "20240101" if start_date < "20250101" else start_date
+    etf_data = load_etf_history(fetcher, indices, start, force_refresh=False)
     for idx in indices:
-        etf = idx.get('etf')
-        code = idx.get('code')
-        if etf:
-            # 从回测起始日前推 1 年获取数据（用于计算指标）
-            start = "20240101" if start_date < "20250101" else start_date
-            df = fetcher.fetch_etf_history(etf, start, force_refresh=False)
-            if not df.empty:
-                etf_data[code] = df
-                print(f"  {code} ({etf}): {len(df)} rows")
+        code = idx.get("code")
+        etf = idx.get("etf")
+        if code in etf_data:
+            print(f"  {code} ({etf}): {len(etf_data[code])} rows")
 
     if not etf_data:
         print("没有获取到任何数据!")
@@ -115,23 +108,7 @@ def run_backtest(start_date: str = "20250101",
     print(f"交易日期数：{len(trade_dates)}")
 
     # 确定调仓日期
-    rebalance_dates = []
-    for i, date in enumerate(trade_dates):
-        if rebalance_freq == 'weekly':
-            # 每周一调仓
-            if date.weekday() == 0:  # Monday
-                rebalance_dates.append(date)
-        elif rebalance_freq == 'monthly':
-            # 每月第一个交易日
-            if date.day <= 5:
-                rebalance_dates.append(date)
-        else:
-            # 每天调仓
-            rebalance_dates.append(date)
-
-    # 确保至少有一个调仓日
-    if not rebalance_dates:
-        rebalance_dates = [trade_dates[0]]
+    rebalance_dates = select_rebalance_dates(trade_dates, rebalance_freq)
 
     print(f"调仓次数：{len(rebalance_dates)}")
     
@@ -187,25 +164,7 @@ def run_backtest(start_date: str = "20250101",
             if ranking.empty:
                 continue
 
-            # 选前 top_n
-            selected = ranking.head(top_n)['code'].tolist()
-            hold_range = ranking.head(buffer_n)['code'].tolist()
-
-            # 当前持仓
-            current_codes = set(portfolio.positions.keys())
-
-            # 生成信号
-            signals = {'buy': [], 'sell': []}
-
-            # 卖出
-            for code in current_codes:
-                if code not in hold_range:
-                    signals['sell'].append(code)
-
-            # 买入
-            for code in selected:
-                if code not in current_codes:
-                    signals['buy'].append(code)
+            signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
 
             # 执行（仅在有信号时输出）
             if signals['buy'] or signals['sell']:
@@ -220,39 +179,13 @@ def run_backtest(start_date: str = "20250101",
     print("=" * 60)
     
     # 计算统计
-    values_df = pd.DataFrame(daily_values)
-    values_df['date'] = pd.to_datetime(values_df['date'])
-    values_df['return'] = values_df['value'].pct_change()
-    values_df['cum_return'] = (1 + values_df['return']).cumprod() - 1
-
-    final_value = values_df['value'].iloc[-1]
-    total_return = (final_value - initial_capital) / initial_capital
-
-    # 年化收益
-    days = (values_df['date'].iloc[-1] - values_df['date'].iloc[0]).days
-    years = days / 365
-    if years > 0:
-        annual_return = (1 + total_return) ** (1 / years) - 1
-    else:
-        annual_return = total_return
-
-    # 最大回撤
-    values_df['rolling_max'] = values_df['value'].cummax()
-    values_df['drawdown'] = (values_df['value'] - values_df['rolling_max']) / values_df['rolling_max']
-    max_drawdown = values_df['drawdown'].min()
-
-    # 夏普比率
-    daily_returns = values_df['return'].dropna()
-    if len(daily_returns) > 20:
-        sharpe = daily_returns.mean() / daily_returns.std() * (252 ** 0.5)
-    else:
-        sharpe = 0
-
-    # 保存为 parquet（添加最后一行的汇总统计）
-    # 注意：sharpe 和 max_dd 只需要在最后一行有值即可，用于提取指标
-    # 使用 forward fill 确保整个文件一致性
-    values_df['sharpe'] = sharpe
-    values_df['max_dd'] = max_drawdown
+    values_df = compute_backtest_metrics(pd.DataFrame(daily_values), initial_capital)
+    summary = values_df.attrs["summary"]
+    final_value = summary["final_value"]
+    total_return = summary["total_return"]
+    annual_return = summary["annual_return"]
+    max_drawdown = summary["max_drawdown"]
+    sharpe = summary["sharpe"]
 
     # 输出结果（精简版）
     print(f"\n📊 回测结果")

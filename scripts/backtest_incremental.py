@@ -8,7 +8,7 @@ from pathlib import Path
 import logging
 import pandas as pd
 from datetime import datetime, timedelta
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 import json
 
 root_dir = Path(__file__).parent.parent
@@ -16,14 +16,13 @@ sys.path.insert(0, str(root_dir))
 
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
-from src.portfolio import SimulatedPortfolio
-from src.config_loader import load_app_config
+from src.backtest_utils import build_rebalance_signals, create_portfolio, load_strategy_config, select_rebalance_dates
 
 logging.basicConfig(level=logging.WARNING, format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
 
 RESULTS_FILE = root_dir / 'backtest_results' / 'current.parquet'
-CONFIG = load_app_config(root_dir)
+CONFIG = load_strategy_config(root_dir)
 
 
 def get_last_trading_date() -> tuple:
@@ -112,19 +111,11 @@ def run_incremental_backtest(end_date: str = None):
 
         # 恢复投资组合状态
         last_value = cached_data['value']
-        portfolio = SimulatedPortfolio(
-            initial_capital=CONFIG.get('initial_capital', 1_000_000),
-            commission_rate=CONFIG.get('portfolio', {}).get('commission', 0.0003),
-            slippage=CONFIG.get('portfolio', {}).get('slippage', 0.001),
-            stop_loss_config=CONFIG.get('stop_loss'),
-            cooldown_days=CONFIG.get('stop_loss', {}).get('cooldown_days', 5)
-        )
+        portfolio = create_portfolio(CONFIG)
 
         # 恢复持仓
         if cached_data['positions']:
-            from src.portfolio import Position
-            for pos_data in cached_data['positions']:
-                portfolio.positions[pos_data['code']] = Position(**pos_data)
+            portfolio.restore_positions(cached_data['positions'])
             print(f"恢复持仓：{len(portfolio.positions)} 只股票")
 
         # 历史数据用于计算指标（需要完整历史，不仅仅是不止日期）
@@ -140,13 +131,7 @@ def run_incremental_backtest(end_date: str = None):
         start_dt = pd.to_datetime(start_date)
         print(f"全量回测：{start_date} ~ {end_date}")
 
-        portfolio = SimulatedPortfolio(
-            initial_capital=CONFIG.get('initial_capital', 1_000_000),
-            commission_rate=CONFIG.get('portfolio', {}).get('commission', 0.0003),
-            slippage=CONFIG.get('portfolio', {}).get('slippage', 0.001),
-            stop_loss_config=CONFIG.get('stop_loss'),
-            cooldown_days=CONFIG.get('stop_loss', {}).get('cooldown_days', 5)
-        )
+        portfolio = create_portfolio(CONFIG)
         daily_values = []
         history_df = None
 
@@ -207,10 +192,7 @@ def run_incremental_backtest(end_date: str = None):
         return
 
     # 确定调仓日期
-    rebalance_dates = []
-    for date in trade_dates:
-        if date.weekday() == 0:  # 周一调仓
-            rebalance_dates.append(date)
+    rebalance_dates = select_rebalance_dates(trade_dates, "weekly")
 
     # 初始化评分引擎
     scorer = ScoringEngine(CONFIG)
@@ -255,15 +237,7 @@ def run_incremental_backtest(end_date: str = None):
             if ranking.empty:
                 continue
 
-            selected = ranking.head(top_n)['code'].tolist()
-            hold_range = ranking.head(buffer_n)['code'].tolist()
-
-            current_codes = set(portfolio.positions.keys())
-
-            signals = {
-                'buy': [c for c in selected if c not in current_codes],
-                'sell': [c for c in current_codes if c not in hold_range]
-            }
+            signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
 
             if signals['buy'] or signals['sell']:
                 portfolio.execute_signal(signals, prices, names, date_str)
@@ -291,20 +265,8 @@ def run_incremental_backtest(end_date: str = None):
 
     # 保存持仓状态
     pos_file = RESULTS_FILE.with_suffix('.positions.json')
-    positions_data = []
-    for pos in portfolio.positions.values():
-        positions_data.append({
-            'code': pos.code,
-            'name': pos.name,
-            'shares': pos.shares,
-            'avg_price': pos.avg_price,
-            'entry_date': pos.entry_date,
-            'highest_price': pos.highest_price,
-            'stop_loss_triggered': pos.stop_loss_triggered
-        })
-
     with open(pos_file, 'w') as f:
-        json.dump(positions_data, f, indent=2)
+        json.dump(portfolio.serialize_positions(), f, indent=2)
 
     # 输出摘要
     final_value = all_values['value'].iloc[-1]
