@@ -22,3 +22,7 @@ mkdocs-material>=9.0.0
 # Debugging
 ipython>=8.0.0
 debugpy>=1.6.0
+
+# Local tools
+flask>=3.0.0
+flask-cors>=4.0.0

@@ -12,7 +12,7 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
-REPORTS_DIR = Path(__file__).resolve().parent.parent / 'reports'
+REPORTS_DIR = Path(__file__).resolve().parent.parent.parent / 'reports'
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
 

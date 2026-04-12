@@ -43,5 +43,9 @@ mypy==1.10.0
 # fastapi==0.111.0
 # uvicorn==0.30.1
 
+# 本地工具
+flask==3.0.3
+flask-cors==4.0.1
+
 # 定时任务 (可选)
 # apscheduler==3.10.4
