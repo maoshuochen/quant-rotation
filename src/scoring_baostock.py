@@ -15,6 +15,13 @@ class ScoringEngine:
     def __init__(self, config: dict):
         self.config = config
         self.weights = config.get('factor_weights', {})
+        flow_subfactor_weights = config.get('flow_subfactor_weights', {})
+        self.flow_subfactor_weights = {
+            'volume_trend': float(flow_subfactor_weights.get('volume_trend', 0.25)),
+            'price_volume_corr': float(flow_subfactor_weights.get('price_volume_corr', 0.25)),
+            'amount_trend': float(flow_subfactor_weights.get('amount_trend', 0.25)),
+            'flow_intensity': float(flow_subfactor_weights.get('flow_intensity', 0.25)),
+        }
         factor_model = config.get('factor_model', {})
         # 从配置加载 active_factors，如果未配置则使用默认值
         if 'active_factors' in factor_model:
@@ -175,10 +182,23 @@ class ScoringEngine:
         """
         if len(prices) < 40 or len(volumes) < 40:
             return 0.5
+
+        base_weights = dict(self.flow_subfactor_weights)
+        base_total = sum(max(weight, 0.0) for weight in base_weights.values())
+        if base_total <= 0:
+            base_weights = {
+                'volume_trend': 0.25,
+                'price_volume_corr': 0.25,
+                'amount_trend': 0.25,
+                'flow_intensity': 0.25,
+            }
+            base_total = 1.0
+        base_weights = {key: max(weight, 0.0) / base_total for key, weight in base_weights.items()}
         
         scores = []
         score_values = []
         weights = []
+        base_group_share = 0.60
         
         # ===== 基础资金流指标 (权重 60%) =====
         
@@ -190,7 +210,7 @@ class ScoringEngine:
         vol_score = max(0, min(1, vol_score))
         scores.append(('volume_trend', vol_score))
         score_values.append(vol_score)
-        weights.append(0.15)
+        weights.append(base_group_share * base_weights['volume_trend'])
         
         # 2. 量价配合 - 权重 15%
         price_returns = prices.pct_change().dropna()
@@ -217,7 +237,7 @@ class ScoringEngine:
             corr_score = 0.5
         scores.append(('price_volume_corr', corr_score))
         score_values.append(corr_score)
-        weights.append(0.15)
+        weights.append(base_group_share * base_weights['price_volume_corr'])
         
         # 3. 成交金额趋势 - 权重 15%
         if amounts is not None and len(amounts) >= 40:
@@ -230,7 +250,7 @@ class ScoringEngine:
             amt_score = vol_score
         scores.append(('amount_trend', amt_score))
         score_values.append(amt_score)
-        weights.append(0.15)
+        weights.append(base_group_share * base_weights['amount_trend'])
         
         # 4. 资金流入强度 - 权重 15%
         vol_median = volumes.iloc[-60:].median()
@@ -238,80 +258,11 @@ class ScoringEngine:
         flow_intensity = high_vol_days / 20
         scores.append(('flow_intensity', flow_intensity))
         score_values.append(flow_intensity)
-        weights.append(0.15)
-        
-        # ===== 北向资金指标 (权重 20%) =====
-        if northbound_metrics is not None:
-            # 北向资金评分
-            nb_scores = []
-            
-            # 净买入趋势 (归一化：-50 亿 ~ +50 亿 -> 0~1)
-            net_flow_20d = northbound_metrics.get('net_flow_20d_sum', 0)
-            nb_net_score = 0.5 + net_flow_20d / 100  # 100 亿归一化因子
-            nb_net_score = max(0, min(1, nb_net_score))
-            nb_scores.append(nb_net_score)
-            
-            # 买入天数占比
-            buy_ratio = northbound_metrics.get('buy_ratio', 0.5)
-            nb_scores.append(buy_ratio)
-            
-            # 资金趋势
-            nb_trend = northbound_metrics.get('trend', 0)
-            nb_trend_score = 0.5 + nb_trend
-            nb_trend_score = max(0, min(1, nb_trend_score))
-            nb_scores.append(nb_trend_score)
-            
-            nb_score = sum(nb_scores) / len(nb_scores)
-            scores.append(('northbound', nb_score))
-            score_values.append(nb_score)
-            weights.append(0.20)
-            
-            logger.debug(f"Northbound metrics: {northbound_metrics}, score: {nb_score:.3f}")
-        else:
-            # 无北向数据时，用基础指标平均代替
-            base_avg = sum(score_values[:4]) / 4
-            score_values.append(base_avg)
-            weights.append(0.20)
-            scores.append(('northbound_proxy', base_avg))
-        
-        # ===== ETF 份额指标 (权重 20%) =====
-        if etf_shares_metrics is not None:
-            etf_scores = []
-            
-            # 20 日份额变化 (归一化：-20% ~ +20% -> 0~1)
-            shares_20d = etf_shares_metrics.get('shares_change_20d', 0)
-            etf_20d_score = 0.5 + shares_20d / 0.4
-            etf_20d_score = max(0, min(1, etf_20d_score))
-            etf_scores.append(etf_20d_score)
-            
-            # 5 日份额变化 (短期)
-            shares_5d = etf_shares_metrics.get('shares_change_5d', 0)
-            etf_5d_score = 0.5 + shares_5d / 0.2
-            etf_5d_score = max(0, min(1, etf_5d_score))
-            etf_scores.append(etf_5d_score)
-            
-            # 流入天数占比
-            inflow_ratio = etf_shares_metrics.get('inflow_days_ratio', 0.5)
-            etf_scores.append(inflow_ratio)
-            
-            etf_score = sum(etf_scores) / len(etf_scores)
-            scores.append(('etf_shares', etf_score))
-            score_values.append(etf_score)
-            weights.append(0.20)
-            
-            logger.debug(f"ETF shares metrics: {etf_shares_metrics}, score: {etf_score:.3f}")
-        else:
-            # 无 ETF 份额数据时，用基础指标平均代替
-            base_avg = sum(score_values[:4]) / 4
-            score_values.append(base_avg)
-            weights.append(0.20)
-            scores.append(('etf_shares_proxy', base_avg))
-        
-        # 加权平均
+        weights.append(base_group_share * base_weights['flow_intensity'])
+
+        # 正式基线已移除北向资金与 ETF 份额信号，flow 只由基础量价子项组成。
         flow_score = sum(s * w for s, w in zip(score_values, weights)) / sum(weights)
-        
         logger.debug(f"Flow scores: {scores}, weights: {weights}, final: {flow_score:.3f}")
-        
         return flow_score
     
     def score_index(self,
@@ -425,19 +376,10 @@ class ScoringEngine:
             northbound_metrics, etf_shares_metrics
         )
         # 资金流归因
-        if northbound_metrics:
-            attribution['northbound_20d_sum'] = round(northbound_metrics.get('net_flow_20d_sum', 0), 2)
-            attribution['northbound_trend'] = '流入' if northbound_metrics.get('trend', 0) > 0 else '流出'
-        else:
-            attribution['northbound_20d_sum'] = 0
-            attribution['northbound_trend'] = '未知'
-        
-        if etf_shares_metrics:
-            attribution['etf_shares_20d_change'] = round(etf_shares_metrics.get('shares_change_20d', 0) * 100, 2)
-            attribution['etf_shares_trend'] = '申购' if etf_shares_metrics.get('shares_change_20d', 0) > 0 else '赎回'
-        else:
-            attribution['etf_shares_20d_change'] = 0
-            attribution['etf_shares_trend'] = '未知'
+        attribution['northbound_20d_sum'] = None
+        attribution['northbound_trend'] = '未使用'
+        attribution['etf_shares_20d_change'] = None
+        attribution['etf_shares_trend'] = '未使用'
         
         # ===== 相对强弱 (20%) =====
         if benchmark_data is not None and not benchmark_data.empty:

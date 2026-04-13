@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional, Tuple
 
 import pandas as pd
 
@@ -54,6 +54,48 @@ def load_etf_history(fetcher, indices: Iterable[dict], start_date: str, force_re
         if not df.empty:
             data[code] = df
     return data
+
+
+def load_flow_supporting_data(
+    fetcher,
+    indices: Iterable[dict],
+    start_date: str,
+) -> Tuple[pd.DataFrame, Dict[str, pd.DataFrame]]:
+    northbound_df = fetcher.fetch_northbound_flow(start_date)
+    etf_shares_data: Dict[str, pd.DataFrame] = {}
+    for idx in indices:
+        code = idx.get("code")
+        etf = idx.get("etf")
+        if not code or not etf:
+            continue
+        shares_df = fetcher.fetch_etf_shares(etf, start_date)
+        if not shares_df.empty:
+            etf_shares_data[code] = shares_df
+    return northbound_df, etf_shares_data
+
+
+def slice_flow_metrics(
+    fetcher,
+    code: str,
+    date: pd.Timestamp,
+    northbound_df: Optional[pd.DataFrame],
+    etf_shares_data: Dict[str, pd.DataFrame],
+) -> Tuple[Optional[dict], Optional[dict]]:
+    northbound_metrics = None
+    etf_shares_metrics = None
+
+    if northbound_df is not None and not northbound_df.empty:
+        nb_slice = northbound_df.loc[:date]
+        if not nb_slice.empty:
+            northbound_metrics = fetcher.calc_northbound_metrics(nb_slice)
+
+    shares_df = etf_shares_data.get(code)
+    if shares_df is not None and not shares_df.empty:
+        shares_slice = shares_df.loc[:date]
+        if not shares_slice.empty:
+            etf_shares_metrics = fetcher.calc_etf_shares_metrics(shares_slice)
+
+    return northbound_metrics, etf_shares_metrics
 
 
 def select_rebalance_dates(trade_dates: List[pd.Timestamp], rebalance_frequency: str) -> List[pd.Timestamp]:

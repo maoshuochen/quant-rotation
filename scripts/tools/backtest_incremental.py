@@ -16,7 +16,12 @@ sys.path.insert(0, str(root_dir))
 
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.scoring_baostock import ScoringEngine
-from src.backtest_utils import build_rebalance_signals, create_portfolio, load_strategy_config, select_rebalance_dates
+from src.backtest_utils import (
+    build_rebalance_signals,
+    create_portfolio,
+    load_strategy_config,
+    select_rebalance_dates,
+)
 
 logging.basicConfig(level=logging.WARNING, format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
@@ -92,7 +97,6 @@ def run_incremental_backtest(end_date: str = None):
     """
     end_date = end_date or datetime.now().strftime('%Y%m%d')
     end_dt = pd.to_datetime(end_date)
-
     # 获取最后交易日
     last_date, cached_data = get_last_trading_date()
 
@@ -227,10 +231,11 @@ def run_incremental_backtest(end_date: str = None):
         # 调仓
         if date in rebalance_dates and len(trade_dates) - trade_dates.index(date) > 5:
             scores_dict = {}
+            benchmark_slice = benchmark_data.loc[:date] if not benchmark_data.empty else benchmark_data
             for code, df in etf_data.items():
                 hist_df = df[df.index <= date]
                 if len(hist_df) >= 20:
-                    scores = scorer.score_index(hist_df, benchmark_data)
+                    scores = scorer.score_index(hist_df, benchmark_slice)
                     scores_dict[code] = scores
 
             ranking = scorer.rank_indices(scores_dict)

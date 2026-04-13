@@ -98,50 +98,17 @@ class RotationStrategy:
         return data_dict
     
     def run_scoring(self, data_dict: Dict[str, pd.DataFrame]) -> pd.DataFrame:
-        """运行评分系统 (含扩展资金流因子)"""
+        """运行评分系统（资金流因子仅使用基础量价子项）"""
         scores_dict = {}
         flow_details = {}
-        etf_shares_health = {'ok': [], 'snapshot': [], 'missing': []}
-        
-        # 获取北向资金数据 (一次获取，复用)
-        logger.info("Fetching northbound flow data...")
-        nb_df = self.fetcher.fetch_northbound_flow("20240101")
-        nb_snapshot_df = self.fetcher.fetch_northbound_snapshot()
-        nb_metrics = self.fetcher.calc_northbound_metrics(nb_df) if not nb_df.empty else None
 
         for code, df in data_dict.items():
             logger.info(f"Scoring {code}...")
-            
-            # 获取 ETF 代码
-            etf_code = None
-            for idx in self.indices:
-                if idx.get('code') == code:
-                    etf_code = idx.get('etf', '')
-                    break
-            
-            # 获取 ETF 份额数据
-            etf_metrics = None
-            if etf_code:
-                try:
-                    shares_df = self.fetcher.fetch_etf_shares(etf_code, "20260101")
-                    if not shares_df.empty:
-                        etf_metrics = self.fetcher.calc_etf_shares_metrics(shares_df)
-                        if len(shares_df) >= 5:
-                            etf_shares_health['ok'].append(code)
-                        else:
-                            etf_shares_health['snapshot'].append(code)
-                    else:
-                        etf_shares_health['missing'].append(code)
-                except Exception as e:
-                    logger.warning(f"Failed to fetch ETF shares for {etf_code}: {e}")
-                    etf_shares_health['missing'].append(code)
-            
-            # 计算评分 (含北向资金 + ETF 份额 + 动态权重)
+
+            # 计算评分（仅基础量价 flow + 动态权重）
             scores = self.scorer.score_index(
                 df, 
                 self.benchmark_data,
-                northbound_metrics=nb_metrics,
-                etf_shares_metrics=etf_metrics,
                 dynamic_weights=self.scorer.current_weights
             )
             scores_dict[code] = scores
@@ -155,20 +122,6 @@ class RotationStrategy:
                 flow_detail['price_volume_corr'] = round(flow_score * (0.9 + 0.2 * (flow_score - 0.5)), 4)
                 flow_detail['amount_trend'] = round(flow_score * (0.85 + 0.3 * (flow_score - 0.5)), 4)
                 flow_detail['flow_intensity'] = round(flow_score * (0.9 + 0.2 * (flow_score - 0.5)), 4)
-                
-                if nb_metrics:
-                    flow_detail['northbound'] = round(0.5 + nb_metrics.get('net_flow_20d_sum', 0) / 200, 4)
-                    flow_detail['northbound_metrics'] = nb_metrics
-                else:
-                    flow_detail['northbound'] = 0.5
-                    flow_detail['northbound_metrics'] = {}
-                
-                if etf_metrics:
-                    flow_detail['etf_shares'] = round(0.5 + etf_metrics.get('shares_change_20d', 0) / 0.4, 4)
-                    flow_detail['etf_shares_metrics'] = etf_metrics
-                else:
-                    flow_detail['etf_shares'] = 0.5
-                    flow_detail['etf_shares_metrics'] = {}
             
             flow_details[code] = flow_detail
         
@@ -177,7 +130,7 @@ class RotationStrategy:
         
         # 保存 flow_details 到 scorer 对象 (供外部访问)
         self.flow_details = flow_details
-        self.data_health = self._build_data_health(data_dict, nb_df, nb_snapshot_df, etf_shares_health)
+        self.data_health = self._build_data_health(data_dict, pd.DataFrame(), pd.DataFrame(), {'ok': [], 'snapshot': [], 'missing': []})
         
         return ranking
 

@@ -16,6 +16,12 @@ factor_model:
 
 # 因子权重（基于多目标贝叶斯优化结果）
 factor_weights:
-  momentum: 0.24    # 动量 - 6 月收益率
-  trend: 0.40       # 趋势 - 均线位置
-  flow: 0.36        # 资金流 - 成交量/北向/ETF
+  momentum: 0.15    # 动量 - 6 月收益率
+  trend: 0.20       # 趋势 - 均线位置
+  flow: 0.65        # 资金流 - 成交量/北向/ETF
+
+flow_subfactor_weights:
+  volume_trend: 0.35
+  price_volume_corr: 0.10
+  amount_trend: 0.35
+  flow_intensity: 0.20

@@ -1,8 +1,11 @@
 portfolio:
   initial_capital: 1000000
-  cash_reserve: 0.05
   commission: 0.0003
   slippage: 0.001
+
+stop_loss:
+  trailing: 0.08
+  cooldown_days: 5
 
 telegram:
   enabled: true

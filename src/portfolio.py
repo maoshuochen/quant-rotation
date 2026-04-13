@@ -51,9 +51,8 @@ class SimulatedPortfolio:
 
         # 止损配置
         self.stop_loss_config = stop_loss_config or {
-            'individual': 0.15,    # 个体止损 15%
-            'trailing': 0.08,      # 移动止损 8%
-            'portfolio': 0.20      # 组合止损 20%
+            'trailing': 0.08,
+            'cooldown_days': cooldown_days,
         }
 
         # 冷却期配置（止损后多少天内不买入同一标的）
@@ -129,8 +128,8 @@ class SimulatedPortfolio:
         num_buy = len(to_buy)
 
         if num_buy > 0:
-            # 可用资金 (留 5% 现金)
-            available = self.cash * 0.95
+            # 可用资金：默认满仓建仓，仅受现金余额和手续费约束。
+            available = self.cash
             amount_per_stock = available / num_buy
 
             for code in to_buy:
@@ -275,18 +274,21 @@ class SimulatedPortfolio:
             'trailing': [],    # 移动止损
             'portfolio': []    # 组合止损
         }
+        portfolio_threshold = self.stop_loss_config.get('portfolio')
+        individual_threshold = self.stop_loss_config.get('individual')
+        trailing_threshold = self.stop_loss_config.get('trailing')
 
         # 1. 组合止损检查
         current_value = self.get_portfolio_value(current_prices)
         portfolio_drawdown = (self.peak_value - current_value) / self.peak_value
 
-        if portfolio_drawdown >= self.stop_loss_config['portfolio']:
+        if portfolio_threshold is not None and portfolio_drawdown >= portfolio_threshold:
             # 组合止损触发，清空所有持仓
             for code in list(self.positions.keys()):
                 signals['portfolio'].append(code)
             logger.warning(
                 f"组合止损触发！回撤={portfolio_drawdown:.1%}, "
-                f"阈值={self.stop_loss_config['portfolio']:.1%}"
+                f"阈值={portfolio_threshold:.1%}"
             )
             self.portfolio_stop_loss_triggered = True
 
@@ -301,23 +303,23 @@ class SimulatedPortfolio:
 
             # 个体止损（从成本价计算）
             individual_drawdown = (current_price - pos.avg_price) / pos.avg_price
-            if individual_drawdown <= -self.stop_loss_config['individual']:
+            if individual_threshold is not None and individual_drawdown <= -individual_threshold:
                 if code not in signals['portfolio']:  # 避免重复
                     signals['individual'].append(code)
                 logger.warning(
                     f"个体止损触发：{code}, 回撤={individual_drawdown:.1%}, "
-                    f"阈值={self.stop_loss_config['individual']:.1%}"
+                    f"阈值={individual_threshold:.1%}"
                 )
 
             # 移动止损（从最高价计算）
             if pos.highest_price > 0:
                 trailing_drawdown = (current_price - pos.highest_price) / pos.highest_price
-                if trailing_drawdown <= -self.stop_loss_config['trailing']:
+                if trailing_threshold is not None and trailing_drawdown <= -trailing_threshold:
                     if code not in signals['portfolio'] and code not in signals['individual']:
                         signals['trailing'].append(code)
                     logger.warning(
                         f"移动止损触发：{code}, 从高点回撤={trailing_drawdown:.1%}, "
-                        f"阈值={self.stop_loss_config['trailing']:.1%}"
+                        f"阈值={trailing_threshold:.1%}"
                     )
 
         return signals

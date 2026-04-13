@@ -107,6 +107,7 @@ optimization_results/*.yaml
 # Reports (auto-generated)
 reports/*
 !reports/.gitkeep
+!reports/strategy_experiments.md
 !reports/agents/
 reports/agents/*
 !reports/agents/.gitkeep
