@@ -4960,7 +4960,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-13 15:49",
+    "updated_at": "2026-04-13 20:11",
     "decision": {
       "headline": "本周主结论：新能源指数、煤炭指数、科技指数 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 新能源指数、煤炭指数、科技指数。",
@@ -5056,7 +5056,7 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-04-13 15:49",
+  "update_time": "2026-04-13 20:11",
   "market_regime": "sideways",
   "market_regime_desc": "震荡市"
 }
