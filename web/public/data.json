@@ -4049,71 +4049,6 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-01-12",
-      "holdings": [
-        {
-          "code": "399808.SZ",
-          "name": "新能源指数",
-          "etf": "516160",
-          "rank": 1,
-          "score": 0.8931,
-          "factors": {
-            "momentum": 0.9552,
-            "trend": 1.0,
-            "flow": 0.8459
-          }
-        },
-        {
-          "code": "000905.SH",
-          "name": "中证 500",
-          "etf": "510500",
-          "rank": 2,
-          "score": 0.8129,
-          "factors": {
-            "momentum": 0.8432,
-            "trend": 1.0,
-            "flow": 0.7484
-          }
-        },
-        {
-          "code": "399967.SZ",
-          "name": "军工指数",
-          "etf": "512660",
-          "rank": 3,
-          "score": 0.7757,
-          "factors": {
-            "momentum": 0.9209,
-            "trend": 1.0,
-            "flow": 0.6732
-          }
-        },
-        {
-          "code": "000300.SH",
-          "name": "沪深 300",
-          "etf": "510300",
-          "rank": 4,
-          "score": 0.7202,
-          "factors": {
-            "momentum": 0.6992,
-            "trend": 1.0,
-            "flow": 0.6389
-          }
-        },
-        {
-          "code": "000688.SH",
-          "name": "科创 50",
-          "etf": "588000",
-          "rank": 5,
-          "score": 0.711,
-          "factors": {
-            "momentum": 0.9509,
-            "trend": 1.0,
-            "flow": 0.5668
-          }
-        }
-      ]
     }
   ],
   "ranking": [
@@ -4960,7 +4895,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-13 20:11",
+    "updated_at": "2026-04-14 20:11",
     "decision": {
       "headline": "本周主结论：新能源指数、煤炭指数、科技指数 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 新能源指数、煤炭指数、科技指数。",
@@ -5056,7 +4991,7 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-04-13 20:11",
+  "update_time": "2026-04-14 20:11",
   "market_regime": "sideways",
   "market_regime_desc": "震荡市"
 }
