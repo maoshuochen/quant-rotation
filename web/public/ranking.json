@@ -843,7 +843,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-14 20:11",
+    "updated_at": "2026-04-15 20:07",
     "decision": {
       "headline": "本周主结论：新能源指数、煤炭指数、科技指数 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 新能源指数、煤炭指数、科技指数。",
@@ -962,5 +962,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-14 20:11"
+  "update_time": "2026-04-15 20:07"
 }
