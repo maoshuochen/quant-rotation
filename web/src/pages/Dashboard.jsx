@@ -149,8 +149,8 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors }) => {
             <div className="grid grid-cols-2 gap-x-3 gap-y-1">
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">6 月收益</span><span className="text-zinc-200">{safeNum(attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">北向 20 日</span><span className="text-zinc-200">{safeNum(attribution?.northbound_20d_sum, 0).toFixed(1)}亿</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">ETF 份额</span><span className="text-zinc-200">{safeNum(attribution?.etf_shares_20d_change, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">价格相对 MA20</span><span className="text-zinc-200">{safeNum(attribution?.price_vs_ma20, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">MA20/MA60 结构</span><span className="text-zinc-200">{attribution?.ma20_above_ma60 ? '多头' : '走弱'}</span></div>
             </div>
           </div>
         </div>
@@ -197,6 +197,7 @@ const Dashboard = ({
   const backtestSummary = backtestData?.summary || {}
   const inactiveUniverse = universe.inactive || []
   const ranking = data?.ranking || []
+  const factorWeights = data?.factorWeights || {}
   const history = historyData?.history || []
   const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date))
   const latestHistoryDate = sortedHistory[0]?.date || ''
@@ -305,6 +306,16 @@ const Dashboard = ({
                   <div className="mt-1 text-xs text-zinc-200">
                     前 {recommendation.top_n || 0} 名买入，跌出前 {recommendation.buffer_n || 0} 名卖出，
                     {recommendation.rebalance_frequency === 'weekly' ? '每周' : '每月'}调仓。
+                  </div>
+                </div>
+                <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">当前模型</div>
+                  <div className="mt-1 flex flex-wrap gap-2 text-xs text-zinc-200">
+                    {activeFactors.map((key) => (
+                      <span key={key} className="rounded-full border border-zinc-700 bg-zinc-950 px-2.5 py-1">
+                        {factorNames[key] || key} {(safeNum(factorWeights[key], 0) * 100).toFixed(1)}%
+                      </span>
+                    ))}
                   </div>
                 </div>
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">

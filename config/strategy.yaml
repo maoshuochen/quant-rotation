@@ -1,6 +1,6 @@
 strategy:
   top_n: 5
-  buffer_n: 8
+  buffer_n: 7
   rebalance_frequency: "weekly"
   strict_weekly_execution: true
   lookback_pe: 2520

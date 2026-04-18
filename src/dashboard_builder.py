@@ -24,7 +24,10 @@ class DashboardDataBuilder:
         self.strategy = strategy or RotationStrategy()
         self.config = self.strategy.config
         self.indices = self.config.get("indices", [])
-        self.active_factors = self.config.get("factor_model", {}).get("active_factors", ["momentum", "trend", "flow"])
+        factor_model = self.config.get("factor_model", {})
+        self.active_factors = factor_model.get("active_factors", ["momentum", "trend", "flow"])
+        self.auxiliary_factors = factor_model.get("auxiliary_factors", [])
+        self.factor_weights = self.config.get("factor_weights", {})
 
     def prepare(self) -> tuple[Dict[str, pd.DataFrame], pd.DataFrame]:
         self.strategy.load_benchmark()
@@ -241,6 +244,11 @@ class DashboardDataBuilder:
             "update_time": update_time,
             "market_regime": market_regime,
             "market_regime_desc": market_regime_desc,
+            "factor_weights": self.factor_weights,
+            "factor_model": {
+                "active_factors": self.active_factors,
+                "auxiliary_factors": self.auxiliary_factors,
+            },
         }
         ranking_output = {
             "ranking": ranking,
@@ -248,8 +256,11 @@ class DashboardDataBuilder:
             "health": health,
             "universe": universe,
             "strategy_summary": summary,
-            "factor_weights": {},
-            "factor_model": {"active_factors": self.active_factors},
+            "factor_weights": self.factor_weights,
+            "factor_model": {
+                "active_factors": self.active_factors,
+                "auxiliary_factors": self.auxiliary_factors,
+            },
             "dynamic_weights": getattr(self.strategy.scorer, "current_weights", {}),
             "market_regime": market_regime,
             "market_regime_desc": market_regime_desc,
