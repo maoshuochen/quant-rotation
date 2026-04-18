@@ -1,5 +1,6 @@
 // 因子名称映射
 export const factorNames = {
+  strength: '强度',
   momentum: '动量',
   trend: '趋势',
   flow: '资金流',

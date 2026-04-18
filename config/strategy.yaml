@@ -7,20 +7,22 @@ strategy:
   momentum_window: 126
 
 factor_model:
-  baseline_name: "core_rotation_v2"
-  # 主模型因子 - 当前 4 个有效因子
+  baseline_name: "core_rotation_v3_strength"
+  # 主模型因子 - 当前 3 个有效因子（strength = momentum + relative_strength 组合）
   active_factors:
-    - momentum
+    - strength
     - trend
     - flow
-    - relative_strength
 
-# 因子权重（基于多目标贝叶斯优化结果）
+strength_blend:
+  momentum: 0.50
+  relative_strength: 0.50
+
+# 因子权重（strength / trend / flow 正式基线）
 factor_weights:
-  momentum: 0.135           # 动量 - 6 月收益率
+  strength: 0.235          # 强度 - 动量与相对强弱各占 50%
   trend: 0.18              # 趋势 - 均线位置
   flow: 0.585              # 资金流 - 成交量/量价/金额/活跃度
-  relative_strength: 0.10  # 相对强弱 - 相对沪深300超额收益
 
 flow_subfactor_weights:
   volume_trend: 0.35

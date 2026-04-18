@@ -30,6 +30,17 @@ class ScoringEngine:
             # 默认活跃因子：momentum, trend, flow
             self.active_factors = ['momentum', 'trend', 'flow']
 
+        strength_blend = config.get('strength_blend', {})
+        self.strength_blend = {
+            'momentum': float(strength_blend.get('momentum', 0.5)),
+            'relative_strength': float(strength_blend.get('relative_strength', 0.5)),
+        }
+        blend_total = sum(max(v, 0.0) for v in self.strength_blend.values())
+        if blend_total <= 0:
+            self.strength_blend = {'momentum': 0.5, 'relative_strength': 0.5}
+        else:
+            self.strength_blend = {k: max(v, 0.0) / blend_total for k, v in self.strength_blend.items()}
+
         self.auxiliary_factors = factor_model.get('auxiliary_factors', [])
     
     def calc_momentum_score(self, returns: pd.Series) -> float:
@@ -132,6 +143,15 @@ class ScoringEngine:
         logger.debug(f"RS ({period_label}): idx_return={idx_return*100:.2f}%, bench_return={bench_return*100:.2f}%, excess={excess_return*100:.2f}%, score={score:.3f}")
         
         return score
+
+    def calc_strength_score(self, momentum_score: float, relative_strength_score: float) -> float:
+        """
+        强度因子：合并绝对动量与相对强弱。
+        """
+        return (
+            momentum_score * self.strength_blend['momentum'] +
+            relative_strength_score * self.strength_blend['relative_strength']
+        )
     
     def calc_value_score(self, prices: pd.Series) -> float:
         """
@@ -416,6 +436,12 @@ class ScoringEngine:
             attribution['index_return'] = 0
             attribution['benchmark_return'] = 0
             attribution['rs_lookback_days'] = 0
+
+        # ===== 强度因子（动量 + 相对强弱） =====
+        scores['strength'] = self.calc_strength_score(
+            scores.get('momentum', 0.5),
+            scores.get('relative_strength', 0.5),
+        )
         
         # 确保所有值都是有效的数字（处理 NaN）
         for key in scores:
