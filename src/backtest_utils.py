@@ -56,6 +56,36 @@ def load_etf_history(fetcher, indices: Iterable[dict], start_date: str, force_re
     return data
 
 
+def validate_etf_history_coverage(
+    data: Dict[str, pd.DataFrame],
+    indices: Iterable[dict],
+    start_date: str,
+    min_history_days: int = 120,
+    required_price_mode: Optional[str] = None,
+) -> List[str]:
+    issues: List[str] = []
+    start_ts = pd.to_datetime(start_date)
+    for idx in indices:
+        code = idx.get("code")
+        etf = idx.get("etf")
+        name = idx.get("name", code or "")
+        df = data.get(code or "")
+        if not code or not etf:
+            continue
+        if df is None or df.empty:
+            issues.append(f"{code} {name} ({etf}) 缺少历史行情")
+            continue
+        sliced = df[df.index >= start_ts]
+        if len(sliced) < min_history_days:
+            issues.append(f"{code} {name} ({etf}) 行情天数不足: {len(sliced)}")
+        price_mode_used = str(df.attrs.get("adjust_used", "") or "")
+        if required_price_mode and price_mode_used != required_price_mode:
+            issues.append(
+                f"{code} {name} ({etf}) 数据口径不一致: 需要 {required_price_mode}, 实际 {price_mode_used or 'unknown'}"
+            )
+    return issues
+
+
 def load_flow_supporting_data(
     fetcher,
     indices: Iterable[dict],

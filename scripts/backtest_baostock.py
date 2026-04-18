@@ -25,6 +25,7 @@ from src.backtest_utils import (
     load_strategy_config,
     resolve_backtest_start_date,
     select_rebalance_dates,
+    validate_etf_history_coverage,
 )
 
 # 优化日志：仅保留 warning 及以上，减少输出噪音
@@ -82,6 +83,8 @@ def run_backtest(start_date: str = None,
     progress_interval = int(backtest_config.get('progress_interval', 100))
     verbose_trades = bool(backtest_config.get('verbose_trades', False))
     score_workers = max(1, int(backtest_config.get('score_workers', 1)))
+    required_price_mode = str(config.get("data", {}).get("etf_price_mode", "continuous") or "")
+    require_consistent_adjust = bool(config.get("data", {}).get("require_consistent_adjust", True))
 
     # 指数列表
     indices = config.get('indices', [])
@@ -96,6 +99,19 @@ def run_backtest(start_date: str = None,
         etf = idx.get("etf")
         if code in etf_data:
             print(f"  {code} ({etf}): {len(etf_data[code])} rows")
+
+    coverage_issues = validate_etf_history_coverage(
+        etf_data,
+        indices,
+        start_date,
+        required_price_mode=required_price_mode if require_consistent_adjust and required_price_mode else None,
+    )
+    if coverage_issues:
+        print("ETF 数据覆盖不完整，已终止回测：")
+        for issue in coverage_issues:
+            print(f"  - {issue}")
+        fetcher.close()
+        return
 
     if not etf_data:
         print("没有获取到任何数据!")
@@ -131,10 +147,15 @@ def run_backtest(start_date: str = None,
         {code: df["close"].reindex(trade_dates) for code, df in etf_data.items()},
         index=trade_dates,
     )
+    open_matrix = pd.DataFrame(
+        {code: df["open"].reindex(trade_dates) for code, df in etf_data.items()},
+        index=trade_dates,
+    )
     
     # 回测循环
     daily_values = []
     stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
+    pending_signals = None
 
     def score_candidate(item, date, benchmark_slice):
         code, df = item
@@ -152,7 +173,17 @@ def run_backtest(start_date: str = None,
             if progress_interval > 0 and (idx + 1) % progress_interval == 0:
                 print(f"进度：{idx + 1}/{len(trade_dates)} 天 ({(idx + 1) / len(trade_dates) * 100:.0f}%)")
 
-            # 获取当日价格
+            # 先用前一交易日收盘生成的信号，在今日开盘执行。
+            open_row = open_matrix.loc[date].dropna()
+            open_prices = {code: float(price) for code, price in open_row.items()}
+            if pending_signals and open_prices:
+                trades = portfolio.execute_signal(pending_signals, open_prices, code_to_name, date_str)
+                if verbose_trades:
+                    for trade in trades:
+                        print(f"  {trade.type.upper()} {trade.code}: {trade.shares} @ {trade.price:.3f}")
+                pending_signals = None
+
+            # 获取当日收盘价格
             price_row = close_matrix.loc[date].dropna()
             prices = {code: float(price) for code, price in price_row.items()}
 
@@ -198,12 +229,9 @@ def run_backtest(start_date: str = None,
 
                 signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
 
-                # 执行（仅在有信号时输出）
+                # 调仓信号延迟到下一交易日开盘执行，避免同收盘信号同收盘成交。
                 if signals['buy'] or signals['sell']:
-                    trades = portfolio.execute_signal(signals, prices, code_to_name, date_str)
-                    if verbose_trades:
-                        for trade in trades:
-                            print(f"  {trade.type.upper()} {trade.code}: {trade.shares} @ {trade.price:.3f}")
+                    pending_signals = signals
     finally:
         if executor is not None:
             executor.shutdown(wait=True)

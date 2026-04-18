@@ -42,6 +42,44 @@ def _latest_continuous_block(df: pd.DataFrame, max_gap_days: int = 7) -> pd.Data
     return ordered.iloc[keep_start:]
 
 
+def _build_continuous_price_series(df: pd.DataFrame, jump_threshold: float = 0.25) -> pd.DataFrame:
+    """
+    基于原始 ETF 行情里的折算/拆分跳点，回推连续价格。
+
+    说明：
+    - 主要修复 ETF 份额折算造成的价格断层；
+    - 不试图完整还原现金分红影响，因此对长期股息再投资收益仍可能略保守；
+    - 目标是避免回测被 50% / 80% / 200% 这类机械跳点污染。
+    """
+    if df.empty or "close" not in df.columns:
+        return df
+
+    out = df.copy().sort_index()
+    if "preclose" not in out.columns:
+        out["preclose"] = out["close"].shift(1)
+
+    ratio = (out["close"] / out["preclose"]).replace([pd.NA, float("inf"), -float("inf")], pd.NA)
+    ratio = ratio.where(out["preclose"] > 0)
+    event_ratio = ratio[(ratio.notna()) & ((ratio - 1).abs() > jump_threshold)]
+
+    if event_ratio.empty:
+        out.attrs["adjust_used"] = "continuous"
+        return out
+
+    factor = pd.Series(1.0, index=out.index, dtype=float)
+    for dt, val in event_ratio.items():
+        prior_mask = factor.index < dt
+        factor.loc[prior_mask] = factor.loc[prior_mask] * float(val)
+
+    for col in ["open", "high", "low", "close", "preclose"]:
+        if col in out.columns:
+            out[col] = out[col] * factor
+
+    out.attrs["adjust_used"] = "continuous"
+    out.attrs["synthetic_events"] = [(ts.strftime("%Y-%m-%d"), float(val)) for ts, val in event_ratio.items()]
+    return out
+
+
 def load_config() -> dict:
     """加载统一配置"""
     return load_app_config(Path(__file__).parent.parent)
@@ -746,16 +784,18 @@ class IndexDataFetcher:
         return pd.DataFrame()
     
     def fetch_etf_history(self, etf_code: str, start_date: str = "20180101", force_refresh: bool = False) -> pd.DataFrame:
-        """获取 ETF 历史行情（使用 AKShare Sina 接口）"""
-        cache_file = self._get_cache_file(etf_code, "etf_history")
+        """获取 ETF 历史行情：Sina 原始日线 -> 本地连续价格缓存。"""
+        price_mode = str(self.config.get("data", {}).get("etf_price_mode", "continuous") or "continuous")
+        processed_cache_file = self._get_cache_file(etf_code, f"etf_history_{price_mode}")
+        raw_cache_file = self._get_cache_file(etf_code, "etf_history")
 
         start_ts = pd.to_datetime(start_date, format="%Y%m%d", errors="coerce")
         cache_days = int(self.config.get("data", {}).get("cache_days", 7) or 7)
         cached_df = pd.DataFrame()
 
-        if cache_file.exists():
+        if processed_cache_file.exists():
             try:
-                cached_df = pd.read_parquet(cache_file)
+                cached_df = pd.read_parquet(processed_cache_file)
                 cached_df = _coerce_datetime_index(cached_df)
                 if cached_df.empty:
                     logger.warning(f"ETF cache empty for {etf_code}, will refresh")
@@ -767,6 +807,7 @@ class IndexDataFetcher:
                             f"Loaded cached ETF data for {etf_code}: {len(cached_df)} rows, "
                             f"latest={latest_date.date()}, age={days_old}d"
                         )
+                        cached_df.attrs["adjust_used"] = price_mode
                         if start_ts is not None and not pd.isna(start_ts):
                             return cached_df[cached_df.index >= start_ts]
                         return cached_df
@@ -777,68 +818,72 @@ class IndexDataFetcher:
             except Exception as e:
                 logger.warning(f"Cache read failed, will refresh: {e}")
                 cached_df = pd.DataFrame()
-        
-        # 转换代码格式 (如 510300 -> sh510300)
-        # 51/56 开头是上海，15/16 开头是深圳
-        etf_code_clean = etf_code.replace('.', '')
-        if len(etf_code_clean) == 6 and etf_code_clean.isdigit():
-            if etf_code_clean.startswith(('51', '56', '58')):
-                etf_code_clean = f'sh{etf_code_clean}'
-            elif etf_code_clean.startswith(('15', '16')):
-                etf_code_clean = f'sz{etf_code_clean}'
-        
-        logger.info(f"Fetching ETF from AKShare Sina: {etf_code_clean}")
-        
-        try:
-            import akshare as ak
-            
-            # 使用 Sina 接口获取 ETF 历史数据
-            df = ak.fund_etf_hist_sina(symbol=etf_code_clean)
-            
-            if df.empty:
-                logger.warning(f"AKShare returned empty data for {etf_code_clean}")
-                return pd.DataFrame()
-            
-            # 重命名列以匹配预期格式
-            df = df.rename(columns={
-                'date': 'date',
-                'open': 'open',
-                'high': 'high',
-                'low': 'low',
-                'close': 'close',
-                'volume': 'volume',
-                'amount': 'amount'
-            })
-            
-            # 转换类型
-            for col in ['open', 'high', 'low', 'close', 'volume', 'amount']:
-                if col in df.columns:
-                    df[col] = pd.to_numeric(df[col], errors='coerce')
-            
-            df['date'] = pd.to_datetime(df['date'])
-            df = df.set_index('date').sort_index()
-            
-            # 添加 preclose（用前一天的 close 近似）
-            df['preclose'] = df['close'].shift(1)
-            
-            logger.info(f"ETF data fetched: {len(df)} rows ({df.index.min().date()} ~ {df.index.max().date()})")
 
-            if not df.empty:
-                df.to_parquet(cache_file)
-                logger.info(f"ETF cached: {len(df)} rows")
+        raw_df = pd.DataFrame()
+        if raw_cache_file.exists():
+            try:
+                raw_df = pd.read_parquet(raw_cache_file)
+                raw_df = _coerce_datetime_index(raw_df)
+            except Exception as e:
+                logger.warning(f"Raw ETF cache read failed for {etf_code}: {e}")
+                raw_df = pd.DataFrame()
 
-            if start_ts is not None and not pd.isna(start_ts):
-                return df[df.index >= start_ts]
-            return df
-            
-        except Exception as e:
-            logger.error(f"AKShare ETF fetch failed for {etf_code_clean}: {e}")
-            if not cached_df.empty:
-                logger.warning(f"Falling back to cached ETF data for {etf_code}")
-                if start_ts is not None and not pd.isna(start_ts):
-                    return cached_df[cached_df.index >= start_ts]
-                return cached_df
+        need_refresh = force_refresh or raw_df.empty
+        if not raw_df.empty and not force_refresh:
+            latest_date = raw_df.index.max()
+            days_old = (pd.Timestamp(datetime.now().date()) - latest_date).days
+            need_refresh = days_old > cache_days
+
+        if need_refresh:
+            etf_code_clean = etf_code.replace('.', '')
+            if len(etf_code_clean) == 6 and etf_code_clean.isdigit():
+                if etf_code_clean.startswith(('51', '56', '58')):
+                    etf_code_clean = f'sh{etf_code_clean}'
+                elif etf_code_clean.startswith(('15', '16')):
+                    etf_code_clean = f'sz{etf_code_clean}'
+            logger.info(f"Fetching raw ETF from AKShare Sina: {etf_code_clean}")
+            try:
+                import akshare as ak
+
+                fetched_df = ak.fund_etf_hist_sina(symbol=etf_code_clean)
+                if fetched_df is not None and not fetched_df.empty:
+                    fetched_df = fetched_df.rename(columns={
+                        'date': 'date',
+                        'open': 'open',
+                        'high': 'high',
+                        'low': 'low',
+                        'close': 'close',
+                        'volume': 'volume',
+                        'amount': 'amount'
+                    })
+                    for col in ['open', 'high', 'low', 'close', 'volume', 'amount']:
+                        if col in fetched_df.columns:
+                            fetched_df[col] = pd.to_numeric(fetched_df[col], errors='coerce')
+                    fetched_df['date'] = pd.to_datetime(fetched_df['date'])
+                    fetched_df = fetched_df.set_index('date').sort_index()
+                    fetched_df['preclose'] = fetched_df['close'].shift(1)
+                    raw_df = fetched_df
+                    raw_df.to_parquet(raw_cache_file)
+            except Exception as e:
+                logger.error(f"AKShare Sina ETF fetch failed for {etf_code}: {e}")
+
+        if raw_df.empty:
             return pd.DataFrame()
+
+        if price_mode == "continuous":
+            result_df = _build_continuous_price_series(raw_df)
+        else:
+            result_df = raw_df.copy()
+            result_df.attrs["adjust_used"] = "raw"
+
+        result_df.to_parquet(processed_cache_file)
+        result_df.attrs["adjust_used"] = str(result_df.attrs.get("adjust_used", price_mode) or price_mode)
+
+        if start_ts is not None and not pd.isna(start_ts):
+            sliced = result_df[result_df.index >= start_ts]
+            sliced.attrs["adjust_used"] = result_df.attrs.get("adjust_used", price_mode)
+            return sliced
+        return result_df
     
     def fetch_index_pe_history(self, index_code: str, start_date: str = "20180101") -> pd.DataFrame:
         """

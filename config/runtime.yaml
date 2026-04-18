@@ -13,8 +13,10 @@ telegram:
   chat_id: "343221796"
 
 data:
-  source: "akshare"
+  source: "akshare_sina"
   cache_days: 7
+  etf_price_mode: "continuous"
+  require_consistent_adjust: true
 
 logging:
   level: "INFO"
