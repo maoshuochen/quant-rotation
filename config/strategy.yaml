@@ -8,17 +8,19 @@ strategy:
 
 factor_model:
   baseline_name: "core_rotation_v2"
-  # 主模型因子 - 仅 3 个有效因子
+  # 主模型因子 - 当前 4 个有效因子
   active_factors:
     - momentum
     - trend
     - flow
+    - relative_strength
 
 # 因子权重（基于多目标贝叶斯优化结果）
 factor_weights:
-  momentum: 0.15    # 动量 - 6 月收益率
-  trend: 0.20       # 趋势 - 均线位置
-  flow: 0.65        # 资金流 - 成交量/北向/ETF
+  momentum: 0.135           # 动量 - 6 月收益率
+  trend: 0.18              # 趋势 - 均线位置
+  flow: 0.585              # 资金流 - 成交量/量价/金额/活跃度
+  relative_strength: 0.10  # 相对强弱 - 相对沪深300超额收益
 
 flow_subfactor_weights:
   volume_trend: 0.35
