@@ -50,12 +50,13 @@ const SectionHeader = ({ title, subtitle, isExpanded, onClick, actions }) => (
 )
 
 // 统一的排名列表项组件
-const RankingListItem = ({ item, isExpanded, onToggle, activeFactors }) => {
+const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeights }) => {
   const score = safeNum(item.score).toFixed(3)
   const factors = item.factors || {}
   const attribution = item.attribution || {}
   const isTop3 = item.rank <= 3
   const isTop5 = item.rank <= 5
+  const rsLookback = safeNum(attribution?.rs_lookback_days, 0)
 
   // 排名徽章样式
   const getRankBadge = () => {
@@ -133,7 +134,9 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors }) => {
             <div className="space-y-1.5">
               {activeFactors.map(key => (
                 <div key={key} className="flex items-center gap-2">
-                  <span className="text-[10px] text-zinc-400 w-12 sm:w-16 flex-shrink-0">{factorNames[key]}</span>
+                  <span className="text-[10px] text-zinc-400 w-20 sm:w-24 flex-shrink-0">
+                    {factorNames[key]} {factorWeights?.[key] ? `${(safeNum(factorWeights[key]) * 100).toFixed(1)}%` : ''}
+                  </span>
                   <div className="flex-1 h-1.5 rounded-full bg-zinc-800 min-w-0">
                     <div className="h-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400" style={{ width: `${safeNum(factors[key], 0.5) * 100}%` }} />
                   </div>
@@ -148,7 +151,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors }) => {
             <div className="text-[10px] text-zinc-500 mb-1.5">关键归因</div>
             <div className="grid grid-cols-2 gap-x-3 gap-y-1">
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">6 月收益</span><span className="text-zinc-200">{safeNum(attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300{rsLookback ? `(${rsLookback}日)` : ''}</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">价格相对 MA20</span><span className="text-zinc-200">{safeNum(attribution?.price_vs_ma20, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">MA20/MA60 结构</span><span className="text-zinc-200">{attribution?.ma20_above_ma60 ? '多头' : '走弱'}</span></div>
             </div>
@@ -208,6 +211,7 @@ const Dashboard = ({
     ? null
     : sortedHistory.find((period) => period.date === selectedPeriod) || null
   const rankingView = selectedHistoryPeriod?.holdings || ranking
+  const backtestPeriod = backtestSummary.period || {}
 
   const topNames = holdings.slice(0, 3).map(item => item.name).join(', ')
   const executionHeadline = signals.length
@@ -300,6 +304,24 @@ const Dashboard = ({
           />
           {expandedSection !== 'ranking' && (
             <div>
+              <div className="mb-3 grid gap-2 lg:hidden">
+                <div className="rounded-xl border border-amber-500/20 bg-gradient-to-br from-amber-500/10 to-zinc-900/70 p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-amber-300/80">当前基线</div>
+                  <div className="mt-1 text-sm font-semibold text-zinc-100">4 因子周频轮动</div>
+                  <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-zinc-300">
+                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">持仓前 {recommendation.top_n || 0} 名</div>
+                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">跌出前 {recommendation.buffer_n || 0} 名卖出</div>
+                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">移动止损 8%</div>
+                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">调仓频率 {recommendation.rebalance_frequency === 'weekly' ? '每周' : '每月'}</div>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">回测口径</div>
+                  <div className="mt-1 text-xs text-zinc-200">
+                    当前页面展示的收益、回撤和夏普均来自正式基线回测，区间为 {backtestPeriod.start || '-'} 至 {backtestPeriod.end || '-'}。
+                  </div>
+                </div>
+              </div>
               <div className="mb-3 space-y-2">
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
                   <div className="text-[10px] uppercase tracking-wider text-zinc-500">调仓规则</div>
@@ -345,6 +367,7 @@ const Dashboard = ({
                     isExpanded={expandedCode === item.code}
                     onToggle={() => toggleCodeExpand(item.code)}
                     activeFactors={activeFactors}
+                    factorWeights={factorWeights}
                   />
                 ))}
               </div>
