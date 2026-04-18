@@ -8,12 +8,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 1,
-          "score": 0.8659,
+          "score": 0.8644,
           "factors": {
-            "momentum": 0.6737,
+            "strength": 0.6304,
             "trend": 1.0,
-            "flow": 0.9167,
-            "relative_strength": 0.587
+            "flow": 0.9167
           }
         },
         {
@@ -21,12 +20,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 2,
-          "score": 0.7265,
+          "score": 0.7264,
           "factors": {
-            "momentum": 0.5819,
+            "strength": 0.5787,
             "trend": 1.0,
-            "flow": 0.7016,
-            "relative_strength": 0.5755
+            "flow": 0.7016
           }
         },
         {
@@ -34,12 +32,11 @@
           "name": "证券指数",
           "etf": "512000",
           "rank": 3,
-          "score": 0.6418,
+          "score": 0.6424,
           "factors": {
-            "momentum": 0.3853,
+            "strength": 0.4013,
             "trend": 0.75,
-            "flow": 0.7061,
-            "relative_strength": 0.4174
+            "flow": 0.7061
           }
         },
         {
@@ -47,12 +44,11 @@
           "name": "创业板指",
           "etf": "159915",
           "rank": 4,
-          "score": 0.6273,
+          "score": 0.6268,
           "factors": {
-            "momentum": 0.6223,
+            "strength": 0.6082,
             "trend": 1.0,
-            "flow": 0.5195,
-            "relative_strength": 0.5942
+            "flow": 0.5195
           }
         },
         {
@@ -60,12 +56,11 @@
           "name": "科创 50",
           "etf": "588000",
           "rank": 5,
-          "score": 0.6153,
+          "score": 0.6155,
           "factors": {
-            "momentum": 0.4724,
+            "strength": 0.476,
             "trend": 0.75,
-            "flow": 0.6301,
-            "relative_strength": 0.4795
+            "flow": 0.6301
           }
         }
       ]
@@ -78,12 +73,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 1,
-          "score": 0.7791,
+          "score": 0.7778,
           "factors": {
-            "momentum": 0.6311,
+            "strength": 0.5965,
             "trend": 0.5,
-            "flow": 0.9362,
-            "relative_strength": 0.5619
+            "flow": 0.9362
           }
         },
         {
@@ -91,12 +85,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 2,
-          "score": 0.6403,
+          "score": 0.6424,
           "factors": {
-            "momentum": 0.6047,
+            "strength": 0.6636,
             "trend": 0.75,
-            "flow": 0.6008,
-            "relative_strength": 0.7224
+            "flow": 0.6008
           }
         },
         {
@@ -104,12 +97,11 @@
           "name": "银行指数",
           "etf": "512800",
           "rank": 3,
-          "score": 0.607,
+          "score": 0.6074,
           "factors": {
-            "momentum": 0.5109,
+            "strength": 0.5211,
             "trend": 1.0,
-            "flow": 0.5213,
-            "relative_strength": 0.5313
+            "flow": 0.5213
           }
         },
         {
@@ -117,12 +109,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 4,
-          "score": 0.5905,
+          "score": 0.5909,
           "factors": {
-            "momentum": 0.5124,
+            "strength": 0.5236,
             "trend": 0.5,
-            "flow": 0.6459,
-            "relative_strength": 0.5348
+            "flow": 0.6459
           }
         },
         {
@@ -130,12 +121,11 @@
           "name": "医药指数",
           "etf": "512010",
           "rank": 5,
-          "score": 0.5141,
+          "score": 0.5176,
           "factors": {
-            "momentum": 0.3343,
+            "strength": 0.4354,
             "trend": 0.75,
-            "flow": 0.4792,
-            "relative_strength": 0.5365
+            "flow": 0.4792
           }
         }
       ]
@@ -148,12 +138,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 1,
-          "score": 0.8318,
+          "score": 0.8305,
           "factors": {
-            "momentum": 0.7169,
+            "strength": 0.6799,
             "trend": 0.75,
-            "flow": 0.9158,
-            "relative_strength": 0.6428
+            "flow": 0.9158
           }
         },
         {
@@ -161,12 +150,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 2,
-          "score": 0.7571,
+          "score": 0.7587,
           "factors": {
-            "momentum": 0.691,
+            "strength": 0.7354,
             "trend": 0.75,
-            "flow": 0.7707,
-            "relative_strength": 0.7798
+            "flow": 0.7707
           }
         },
         {
@@ -174,12 +162,11 @@
           "name": "银行指数",
           "etf": "512800",
           "rank": 3,
-          "score": 0.6353,
+          "score": 0.6361,
           "factors": {
-            "momentum": 0.4787,
+            "strength": 0.5026,
             "trend": 1.0,
-            "flow": 0.5778,
-            "relative_strength": 0.5265
+            "flow": 0.5778
           }
         },
         {
@@ -187,12 +174,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 4,
-          "score": 0.6216,
+          "score": 0.6212,
           "factors": {
-            "momentum": 0.5476,
+            "strength": 0.5373,
             "trend": 0.5,
-            "flow": 0.6922,
-            "relative_strength": 0.5271
+            "flow": 0.6922
           }
         },
         {
@@ -200,12 +186,11 @@
           "name": "创业板指",
           "etf": "159915",
           "rank": 5,
-          "score": 0.5201,
+          "score": 0.5197,
           "factors": {
-            "momentum": 0.5894,
+            "strength": 0.5791,
             "trend": 0.5,
-            "flow": 0.502,
-            "relative_strength": 0.5688
+            "flow": 0.502
           }
         }
       ]
@@ -218,12 +203,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8602,
+          "score": 0.8604,
           "factors": {
-            "momentum": 0.7198,
+            "strength": 0.7258,
             "trend": 1.0,
-            "flow": 0.8715,
-            "relative_strength": 0.7318
+            "flow": 0.8715
           }
         },
         {
@@ -231,12 +215,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 2,
-          "score": 0.7772,
+          "score": 0.7768,
           "factors": {
-            "momentum": 0.7008,
+            "strength": 0.6882,
             "trend": 0.75,
-            "flow": 0.8207,
-            "relative_strength": 0.6755
+            "flow": 0.8207
           }
         },
         {
@@ -244,12 +227,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 3,
-          "score": 0.5938,
+          "score": 0.5932,
           "factors": {
-            "momentum": 0.5907,
+            "strength": 0.5734,
             "trend": 0.5,
-            "flow": 0.6298,
-            "relative_strength": 0.5562
+            "flow": 0.6298
           }
         },
         {
@@ -257,12 +239,11 @@
           "name": "军工指数",
           "etf": "512660",
           "rank": 4,
-          "score": 0.5807,
+          "score": 0.5805,
           "factors": {
-            "momentum": 0.582,
+            "strength": 0.5745,
             "trend": 0.5,
-            "flow": 0.6076,
-            "relative_strength": 0.5671
+            "flow": 0.6076
           }
         },
         {
@@ -270,12 +251,11 @@
           "name": "创业板指",
           "etf": "159915",
           "rank": 5,
-          "score": 0.5026,
+          "score": 0.5021,
           "factors": {
-            "momentum": 0.623,
+            "strength": 0.609,
             "trend": 0.5,
-            "flow": 0.4599,
-            "relative_strength": 0.595
+            "flow": 0.4599
           }
         }
       ]
@@ -288,12 +268,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8096,
+          "score": 0.809,
           "factors": {
-            "momentum": 0.7157,
+            "strength": 0.6979,
             "trend": 1.0,
-            "flow": 0.7949,
-            "relative_strength": 0.6802
+            "flow": 0.7949
           }
         },
         {
@@ -301,12 +280,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 2,
-          "score": 0.627,
+          "score": 0.6232,
           "factors": {
-            "momentum": 0.8463,
+            "strength": 0.7395,
             "trend": 1.0,
-            "flow": 0.4606,
-            "relative_strength": 0.6328
+            "flow": 0.4606
           }
         },
         {
@@ -316,10 +294,9 @@
           "rank": 3,
           "score": 0.537,
           "factors": {
-            "momentum": 0.5563,
+            "strength": 0.5554,
             "trend": 1.0,
-            "flow": 0.3872,
-            "relative_strength": 0.5545
+            "flow": 0.3872
           }
         },
         {
@@ -327,12 +304,11 @@
           "name": "恒生指数",
           "etf": "159920",
           "rank": 4,
-          "score": 0.4967,
+          "score": 0.4965,
           "factors": {
-            "momentum": 0.4896,
+            "strength": 0.4862,
             "trend": 0.5,
-            "flow": 0.4996,
-            "relative_strength": 0.4827
+            "flow": 0.4996
           }
         },
         {
@@ -340,12 +316,11 @@
           "name": "军工指数",
           "etf": "512660",
           "rank": 5,
-          "score": 0.4761,
+          "score": 0.477,
           "factors": {
-            "momentum": 0.6075,
+            "strength": 0.6324,
             "trend": 0.5,
-            "flow": 0.4075,
-            "relative_strength": 0.6573
+            "flow": 0.4075
           }
         }
       ]
@@ -358,12 +333,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8409,
+          "score": 0.8404,
           "factors": {
-            "momentum": 0.6618,
+            "strength": 0.646,
             "trend": 1.0,
-            "flow": 0.8693,
-            "relative_strength": 0.6302
+            "flow": 0.8693
           }
         },
         {
@@ -371,12 +345,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 2,
-          "score": 0.7219,
+          "score": 0.7196,
           "factors": {
-            "momentum": 0.8583,
+            "strength": 0.7931,
             "trend": 1.0,
-            "flow": 0.6038,
-            "relative_strength": 0.7278
+            "flow": 0.6038
           }
         },
         {
@@ -384,12 +357,11 @@
           "name": "红利指数",
           "etf": "510880",
           "rank": 3,
-          "score": 0.6463,
+          "score": 0.6465,
           "factors": {
-            "momentum": 0.5165,
+            "strength": 0.5238,
             "trend": 1.0,
-            "flow": 0.5871,
-            "relative_strength": 0.5311
+            "flow": 0.5871
           }
         },
         {
@@ -399,10 +371,9 @@
           "rank": 4,
           "score": 0.5879,
           "factors": {
-            "momentum": 0.4529,
+            "strength": 0.4546,
             "trend": 0.5,
-            "flow": 0.6685,
-            "relative_strength": 0.4563
+            "flow": 0.6685
           }
         },
         {
@@ -410,12 +381,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 5,
-          "score": 0.5781,
+          "score": 0.5741,
           "factors": {
-            "momentum": 0.8481,
+            "strength": 0.7351,
             "trend": 1.0,
-            "flow": 0.3784,
-            "relative_strength": 0.6221
+            "flow": 0.3784
           }
         }
       ]
@@ -428,12 +398,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8926,
+          "score": 0.8912,
           "factors": {
-            "momentum": 0.6544,
+            "strength": 0.6151,
             "trend": 1.0,
-            "flow": 0.9686,
-            "relative_strength": 0.5757
+            "flow": 0.9686
           }
         },
         {
@@ -441,12 +410,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 2,
-          "score": 0.8121,
+          "score": 0.8081,
           "factors": {
-            "momentum": 0.8976,
+            "strength": 0.7838,
             "trend": 1.0,
-            "flow": 0.7588,
-            "relative_strength": 0.6699
+            "flow": 0.7588
           }
         },
         {
@@ -454,12 +422,11 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 3,
-          "score": 0.7797,
+          "score": 0.7787,
           "factors": {
-            "momentum": 0.7707,
+            "strength": 0.742,
             "trend": 1.0,
-            "flow": 0.7254,
-            "relative_strength": 0.7134
+            "flow": 0.7254
           }
         },
         {
@@ -467,12 +434,11 @@
           "name": "红利指数",
           "etf": "510880",
           "rank": 4,
-          "score": 0.7787,
+          "score": 0.7781,
           "factors": {
-            "momentum": 0.5298,
+            "strength": 0.5135,
             "trend": 1.0,
-            "flow": 0.8162,
-            "relative_strength": 0.4973
+            "flow": 0.8162
           }
         },
         {
@@ -480,12 +446,11 @@
           "name": "白酒指数",
           "etf": "512690",
           "rank": 5,
-          "score": 0.7137,
+          "score": 0.7132,
           "factors": {
-            "momentum": 0.3883,
+            "strength": 0.374,
             "trend": 0.5,
-            "flow": 0.9151,
-            "relative_strength": 0.3598
+            "flow": 0.9151
           }
         }
       ]
@@ -498,12 +463,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8467,
+          "score": 0.8454,
           "factors": {
-            "momentum": 0.5602,
+            "strength": 0.5212,
             "trend": 1.0,
-            "flow": 0.928,
-            "relative_strength": 0.4822
+            "flow": 0.928
           }
         },
         {
@@ -511,12 +475,11 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 2,
-          "score": 0.8445,
+          "score": 0.8427,
           "factors": {
-            "momentum": 0.7718,
+            "strength": 0.7203,
             "trend": 0.75,
-            "flow": 0.9203,
-            "relative_strength": 0.6689
+            "flow": 0.9203
           }
         },
         {
@@ -524,12 +487,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 3,
-          "score": 0.8384,
+          "score": 0.8331,
           "factors": {
-            "momentum": 0.9131,
+            "strength": 0.7619,
             "trend": 0.75,
-            "flow": 0.8873,
-            "relative_strength": 0.6107
+            "flow": 0.8873
           }
         },
         {
@@ -537,12 +499,11 @@
           "name": "中证 1000",
           "etf": "512100",
           "rank": 4,
-          "score": 0.8252,
+          "score": 0.8241,
           "factors": {
-            "momentum": 0.6696,
+            "strength": 0.6378,
             "trend": 0.75,
-            "flow": 0.9218,
-            "relative_strength": 0.606
+            "flow": 0.9218
           }
         },
         {
@@ -550,12 +511,11 @@
           "name": "红利指数",
           "etf": "510880",
           "rank": 5,
-          "score": 0.7496,
+          "score": 0.7493,
           "factors": {
-            "momentum": 0.4664,
+            "strength": 0.459,
             "trend": 0.75,
-            "flow": 0.8657,
-            "relative_strength": 0.4517
+            "flow": 0.8657
           }
         }
       ]
@@ -568,12 +528,11 @@
           "name": "煤炭指数",
           "etf": "515220",
           "rank": 1,
-          "score": 0.8467,
+          "score": 0.8454,
           "factors": {
-            "momentum": 0.5602,
+            "strength": 0.5212,
             "trend": 1.0,
-            "flow": 0.928,
-            "relative_strength": 0.4822
+            "flow": 0.928
           }
         },
         {
@@ -581,12 +540,11 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 2,
-          "score": 0.8445,
+          "score": 0.8427,
           "factors": {
-            "momentum": 0.7718,
+            "strength": 0.7203,
             "trend": 0.75,
-            "flow": 0.9203,
-            "relative_strength": 0.6689
+            "flow": 0.9203
           }
         },
         {
@@ -594,12 +552,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 3,
-          "score": 0.8384,
+          "score": 0.8331,
           "factors": {
-            "momentum": 0.9131,
+            "strength": 0.7619,
             "trend": 0.75,
-            "flow": 0.8873,
-            "relative_strength": 0.6107
+            "flow": 0.8873
           }
         },
         {
@@ -607,12 +564,11 @@
           "name": "中证 1000",
           "etf": "512100",
           "rank": 4,
-          "score": 0.8252,
+          "score": 0.8241,
           "factors": {
-            "momentum": 0.6696,
+            "strength": 0.6378,
             "trend": 0.75,
-            "flow": 0.9218,
-            "relative_strength": 0.606
+            "flow": 0.9218
           }
         },
         {
@@ -620,12 +576,11 @@
           "name": "红利指数",
           "etf": "510880",
           "rank": 5,
-          "score": 0.7496,
+          "score": 0.7493,
           "factors": {
-            "momentum": 0.4664,
+            "strength": 0.459,
             "trend": 0.75,
-            "flow": 0.8657,
-            "relative_strength": 0.4517
+            "flow": 0.8657
           }
         }
       ]
@@ -638,38 +593,35 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 1,
-          "score": 0.8972,
+          "score": 0.8905,
           "factors": {
-            "momentum": 0.9787,
+            "strength": 0.7856,
             "trend": 1.0,
-            "flow": 0.8989,
-            "relative_strength": 0.5924
-          }
-        },
-        {
-          "code": "399006.SZ",
-          "name": "创业板指",
-          "etf": "159915",
-          "rank": 2,
-          "score": 0.8628,
-          "factors": {
-            "momentum": 0.8822,
-            "trend": 1.0,
-            "flow": 0.865,
-            "relative_strength": 0.5767
+            "flow": 0.8989
           }
         },
         {
           "code": "000905.SH",
           "name": "中证 500",
           "etf": "510500",
-          "rank": 3,
-          "score": 0.8625,
+          "rank": 2,
+          "score": 0.86,
           "factors": {
-            "momentum": 0.788,
+            "strength": 0.7175,
             "trend": 0.75,
-            "flow": 0.9512,
-            "relative_strength": 0.647
+            "flow": 0.9512
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 3,
+          "score": 0.8574,
+          "factors": {
+            "strength": 0.7294,
+            "trend": 1.0,
+            "flow": 0.865
           }
         },
         {
@@ -677,12 +629,11 @@
           "name": "中证 1000",
           "etf": "512100",
           "rank": 4,
-          "score": 0.8392,
+          "score": 0.8374,
           "factors": {
-            "momentum": 0.6968,
+            "strength": 0.6438,
             "trend": 0.75,
-            "flow": 0.942,
-            "relative_strength": 0.5909
+            "flow": 0.942
           }
         },
         {
@@ -690,12 +641,11 @@
           "name": "恒生指数",
           "etf": "159920",
           "rank": 5,
-          "score": 0.8376,
+          "score": 0.8364,
           "factors": {
-            "momentum": 0.5651,
+            "strength": 0.5282,
             "trend": 1.0,
-            "flow": 0.9098,
-            "relative_strength": 0.4914
+            "flow": 0.9098
           }
         }
       ]
@@ -708,12 +658,11 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 1,
-          "score": 0.8535,
+          "score": 0.8515,
           "factors": {
-            "momentum": 0.7363,
+            "strength": 0.6794,
             "trend": 0.75,
-            "flow": 0.9519,
-            "relative_strength": 0.6225
+            "flow": 0.9519
           }
         },
         {
@@ -721,12 +670,11 @@
           "name": "科创 50",
           "etf": "588000",
           "rank": 2,
-          "score": 0.8379,
+          "score": 0.8332,
           "factors": {
-            "momentum": 0.8362,
+            "strength": 0.7022,
             "trend": 0.75,
-            "flow": 0.9114,
-            "relative_strength": 0.5682
+            "flow": 0.9114
           }
         },
         {
@@ -734,38 +682,35 @@
           "name": "创业板指",
           "etf": "159915",
           "rank": 3,
-          "score": 0.833,
+          "score": 0.8283,
           "factors": {
-            "momentum": 0.834,
+            "strength": 0.6979,
             "trend": 0.75,
-            "flow": 0.9047,
-            "relative_strength": 0.5617
-          }
-        },
-        {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
-          "rank": 4,
-          "score": 0.8297,
-          "factors": {
-            "momentum": 0.9278,
-            "trend": 0.75,
-            "flow": 0.8627,
-            "relative_strength": 0.6481
+            "flow": 0.9047
           }
         },
         {
           "code": "000852.SH",
           "name": "中证 1000",
           "etf": "512100",
-          "rank": 5,
-          "score": 0.8273,
+          "rank": 4,
+          "score": 0.826,
           "factors": {
-            "momentum": 0.6578,
+            "strength": 0.6189,
             "trend": 0.75,
-            "flow": 0.9325,
-            "relative_strength": 0.5799
+            "flow": 0.9325
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 5,
+          "score": 0.8248,
+          "factors": {
+            "strength": 0.788,
+            "trend": 0.75,
+            "flow": 0.8627
           }
         }
       ]
@@ -778,12 +723,11 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 1,
-          "score": 0.9022,
+          "score": 0.8994,
           "factors": {
-            "momentum": 0.8189,
+            "strength": 0.7399,
             "trend": 1.0,
-            "flow": 0.9326,
-            "relative_strength": 0.6609
+            "flow": 0.9326
           }
         },
         {
@@ -791,12 +735,11 @@
           "name": "科创 50",
           "etf": "588000",
           "rank": 2,
-          "score": 0.8852,
+          "score": 0.8791,
           "factors": {
-            "momentum": 0.9417,
+            "strength": 0.7682,
             "trend": 1.0,
-            "flow": 0.8865,
-            "relative_strength": 0.5946
+            "flow": 0.8865
           }
         },
         {
@@ -804,12 +747,11 @@
           "name": "半导体指数",
           "etf": "512480",
           "rank": 3,
-          "score": 0.8826,
+          "score": 0.8768,
           "factors": {
-            "momentum": 1.0,
+            "strength": 0.8341,
             "trend": 1.0,
-            "flow": 0.856,
-            "relative_strength": 0.6683
+            "flow": 0.856
           }
         },
         {
@@ -817,12 +759,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 4,
-          "score": 0.8808,
+          "score": 0.8757,
           "factors": {
-            "momentum": 0.9289,
+            "strength": 0.7812,
             "trend": 1.0,
-            "flow": 0.8754,
-            "relative_strength": 0.6335
+            "flow": 0.8754
           }
         },
         {
@@ -830,12 +771,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 5,
-          "score": 0.8791,
+          "score": 0.8726,
           "factors": {
-            "momentum": 0.9477,
+            "strength": 0.762,
             "trend": 1.0,
-            "flow": 0.8779,
-            "relative_strength": 0.5762
+            "flow": 0.8779
           }
         }
       ]
@@ -848,12 +788,11 @@
           "name": "中证 500",
           "etf": "510500",
           "rank": 1,
-          "score": 0.8959,
+          "score": 0.8926,
           "factors": {
-            "momentum": 0.8276,
+            "strength": 0.7336,
             "trend": 1.0,
-            "flow": 0.9235,
-            "relative_strength": 0.6396
+            "flow": 0.9235
           }
         },
         {
@@ -861,12 +800,11 @@
           "name": "新能源指数",
           "etf": "516160",
           "rank": 2,
-          "score": 0.8799,
+          "score": 0.8736,
           "factors": {
-            "momentum": 0.9757,
+            "strength": 0.7949,
             "trend": 1.0,
-            "flow": 0.8662,
-            "relative_strength": 0.6142
+            "flow": 0.8662
           }
         },
         {
@@ -874,12 +812,11 @@
           "name": "制造指数",
           "etf": "516880",
           "rank": 3,
-          "score": 0.8713,
+          "score": 0.8665,
           "factors": {
-            "momentum": 0.9334,
+            "strength": 0.7962,
             "trend": 1.0,
-            "flow": 0.8537,
-            "relative_strength": 0.659
+            "flow": 0.8537
           }
         },
         {
@@ -887,12 +824,11 @@
           "name": "中证 1000",
           "etf": "512100",
           "rank": 4,
-          "score": 0.8529,
+          "score": 0.8504,
           "factors": {
-            "momentum": 0.7493,
+            "strength": 0.6772,
             "trend": 1.0,
-            "flow": 0.874,
-            "relative_strength": 0.6051
+            "flow": 0.874
           }
         },
         {
@@ -900,16 +836,15 @@
           "name": "军工指数",
           "etf": "512660",
           "rank": 5,
-          "score": 0.827,
+          "score": 0.8259,
           "factors": {
-            "momentum": 0.833,
+            "strength": 0.8015,
             "trend": 1.0,
-            "flow": 0.7822,
-            "relative_strength": 0.77
+            "flow": 0.7822
           }
         }
       ]
     }
   ],
-  "update_time": "2026-04-18 15:00"
+  "update_time": "2026-04-18 22:08"
 }
