@@ -748,14 +748,35 @@ class IndexDataFetcher:
     def fetch_etf_history(self, etf_code: str, start_date: str = "20180101", force_refresh: bool = False) -> pd.DataFrame:
         """获取 ETF 历史行情（使用 AKShare Sina 接口）"""
         cache_file = self._get_cache_file(etf_code, "etf_history")
-        
-        if cache_file.exists() and not force_refresh:
+
+        start_ts = pd.to_datetime(start_date, format="%Y%m%d", errors="coerce")
+        cache_days = int(self.config.get("data", {}).get("cache_days", 7) or 7)
+        cached_df = pd.DataFrame()
+
+        if cache_file.exists():
             try:
-                df = pd.read_parquet(cache_file)
-                logger.info(f"Loaded cached ETF data for {etf_code}: {len(df)} rows")
-                return df
+                cached_df = pd.read_parquet(cache_file)
+                cached_df = _coerce_datetime_index(cached_df)
+                if cached_df.empty:
+                    logger.warning(f"ETF cache empty for {etf_code}, will refresh")
+                elif not force_refresh:
+                    latest_date = cached_df.index.max()
+                    days_old = (pd.Timestamp(datetime.now().date()) - latest_date).days
+                    if days_old <= cache_days:
+                        logger.info(
+                            f"Loaded cached ETF data for {etf_code}: {len(cached_df)} rows, "
+                            f"latest={latest_date.date()}, age={days_old}d"
+                        )
+                        if start_ts is not None and not pd.isna(start_ts):
+                            return cached_df[cached_df.index >= start_ts]
+                        return cached_df
+                    logger.info(
+                        f"ETF cache stale for {etf_code}: latest={latest_date.date()}, "
+                        f"age={days_old}d > {cache_days}d, refreshing"
+                    )
             except Exception as e:
                 logger.warning(f"Cache read failed, will refresh: {e}")
+                cached_df = pd.DataFrame()
         
         # 转换代码格式 (如 510300 -> sh510300)
         # 51/56 开头是上海，15/16 开头是深圳
@@ -801,15 +822,22 @@ class IndexDataFetcher:
             df['preclose'] = df['close'].shift(1)
             
             logger.info(f"ETF data fetched: {len(df)} rows ({df.index.min().date()} ~ {df.index.max().date()})")
-            
+
             if not df.empty:
                 df.to_parquet(cache_file)
                 logger.info(f"ETF cached: {len(df)} rows")
-            
+
+            if start_ts is not None and not pd.isna(start_ts):
+                return df[df.index >= start_ts]
             return df
             
         except Exception as e:
             logger.error(f"AKShare ETF fetch failed for {etf_code_clean}: {e}")
+            if not cached_df.empty:
+                logger.warning(f"Falling back to cached ETF data for {etf_code}")
+                if start_ts is not None and not pd.isna(start_ts):
+                    return cached_df[cached_df.index >= start_ts]
+                return cached_df
             return pd.DataFrame()
     
     def fetch_index_pe_history(self, index_code: str, start_date: str = "20180101") -> pd.DataFrame:

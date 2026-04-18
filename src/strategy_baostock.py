@@ -162,7 +162,15 @@ class RotationStrategy:
         else:
             northbound_status = 'missing'
 
-        if etf_shares_health['missing']:
+        total_shares_sources = (
+            len(etf_shares_health['ok'])
+            + len(etf_shares_health['snapshot'])
+            + len(etf_shares_health['missing'])
+        )
+
+        if total_shares_sources == 0:
+            shares_status = 'missing'
+        elif etf_shares_health['missing']:
             shares_status = 'degraded'
         elif etf_shares_health['snapshot']:
             shares_status = 'snapshot'

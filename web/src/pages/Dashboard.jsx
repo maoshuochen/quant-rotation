@@ -287,7 +287,7 @@ const Dashboard = ({
                   className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-200 outline-none focus:border-amber-500"
                   aria-label="选择周期"
                 >
-                  <option value="current">{latestHistoryDate ? `${latestHistoryDate}（当前）` : '当前周期'}</option>
+                  <option value="current">{latestHistoryDate ? `${latestHistoryDate}（最新周期）` : '最新周期'}</option>
                   {historicalOptions.map((period) => (
                     <option key={period.date} value={period.date}>
                       {period.date}
