@@ -2,16 +2,16 @@
   "backtest": {
     "summary": {
       "initial_capital": 1000000.0,
-      "final_value": 1430367.74,
-      "total_return": 0.4304,
-      "annual_return": 0.1727,
+      "final_value": 1456570.0,
+      "total_return": 0.4566,
+      "annual_return": 0.1784,
       "max_drawdown": -0.1509,
       "max_drawdown_date": "2024-09-13",
-      "sharpe_ratio": 0.88,
-      "trading_days": 542,
+      "sharpe_ratio": 0.91,
+      "trading_days": 553,
       "period": {
         "start": "2024-01-02",
-        "end": "2026-04-01"
+        "end": "2026-04-17"
       }
     },
     "chart_data": [
@@ -3257,15 +3257,81 @@
       },
       {
         "date": "2026-03-31",
-        "value": 1419120.79,
-        "cum_return": 0.4191,
-        "drawdown": -0.0455
+        "value": 1424722.18,
+        "cum_return": 0.4247,
+        "drawdown": -0.0418
       },
       {
         "date": "2026-04-01",
-        "value": 1430367.74,
-        "cum_return": 0.4304,
-        "drawdown": -0.038
+        "value": 1428453.89,
+        "cum_return": 0.4285,
+        "drawdown": -0.0393
+      },
+      {
+        "date": "2026-04-02",
+        "value": 1424083.85,
+        "cum_return": 0.4241,
+        "drawdown": -0.0422
+      },
+      {
+        "date": "2026-04-03",
+        "value": 1410587.65,
+        "cum_return": 0.4106,
+        "drawdown": -0.0513
+      },
+      {
+        "date": "2026-04-07",
+        "value": 1412152.49,
+        "cum_return": 0.4122,
+        "drawdown": -0.0502
+      },
+      {
+        "date": "2026-04-08",
+        "value": 1429777.68,
+        "cum_return": 0.4298,
+        "drawdown": -0.0384
+      },
+      {
+        "date": "2026-04-09",
+        "value": 1423145.43,
+        "cum_return": 0.4231,
+        "drawdown": -0.0428
+      },
+      {
+        "date": "2026-04-10",
+        "value": 1434091.05,
+        "cum_return": 0.4341,
+        "drawdown": -0.0355
+      },
+      {
+        "date": "2026-04-13",
+        "value": 1441966.39,
+        "cum_return": 0.442,
+        "drawdown": -0.0302
+      },
+      {
+        "date": "2026-04-14",
+        "value": 1450216.6,
+        "cum_return": 0.4502,
+        "drawdown": -0.0246
+      },
+      {
+        "date": "2026-04-15",
+        "value": 1449757.08,
+        "cum_return": 0.4498,
+        "drawdown": -0.0249
+      },
+      {
+        "date": "2026-04-16",
+        "value": 1458288.67,
+        "cum_return": 0.4583,
+        "drawdown": -0.0192
+      },
+      {
+        "date": "2026-04-17",
+        "value": 1456570.0,
+        "cum_return": 0.4566,
+        "drawdown": -0.0203
       }
     ]
   },
@@ -4946,7 +5012,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-18 11:34",
+    "updated_at": "2026-04-18 14:31",
     "decision": {
       "headline": "本周主结论：新能源指数、科创 50、科技指数 为当前优先观察方向。",
       "execution_message": "当前建议执行 1 个动作，优先关注 新能源指数、科创 50、科技指数。",
@@ -4985,9 +5051,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.1727,
+        "research_annual_return": 0.1784,
         "research_max_drawdown": -0.1509,
-        "research_sharpe": 0.88,
+        "research_sharpe": 0.91,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -5009,22 +5075,22 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1430367.74,
-        "total_return": 0.4304,
-        "annual_return": 0.1727,
+        "final_value": 1456570.0,
+        "total_return": 0.4566,
+        "annual_return": 0.1784,
         "max_drawdown": -0.1509,
         "max_drawdown_date": "2024-09-13",
-        "sharpe_ratio": 0.88,
-        "trading_days": 542,
+        "sharpe_ratio": 0.91,
+        "trading_days": 553,
         "period": {
           "start": "2024-01-02",
-          "end": "2026-04-01"
+          "end": "2026-04-17"
         }
       },
       "research": {
-        "research_annual_return": 0.1727,
+        "research_annual_return": 0.1784,
         "research_max_drawdown": -0.1509,
-        "research_sharpe": 0.88,
+        "research_sharpe": 0.91,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -5039,7 +5105,7 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-04-18 11:34",
+  "update_time": "2026-04-18 14:31",
   "market_regime": "sideways",
   "market_regime_desc": "震荡市"
 }

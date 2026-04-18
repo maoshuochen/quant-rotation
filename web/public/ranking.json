@@ -829,7 +829,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-18 11:34",
+    "updated_at": "2026-04-18 14:31",
     "decision": {
       "headline": "本周主结论：新能源指数、科创 50、科技指数 为当前优先观察方向。",
       "execution_message": "当前建议执行 1 个动作，优先关注 新能源指数、科创 50、科技指数。",
@@ -868,9 +868,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.1727,
+        "research_annual_return": 0.1784,
         "research_max_drawdown": -0.1509,
-        "research_sharpe": 0.88,
+        "research_sharpe": 0.91,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -892,22 +892,22 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1430367.74,
-        "total_return": 0.4304,
-        "annual_return": 0.1727,
+        "final_value": 1456570.0,
+        "total_return": 0.4566,
+        "annual_return": 0.1784,
         "max_drawdown": -0.1509,
         "max_drawdown_date": "2024-09-13",
-        "sharpe_ratio": 0.88,
-        "trading_days": 542,
+        "sharpe_ratio": 0.91,
+        "trading_days": 553,
         "period": {
           "start": "2024-01-02",
-          "end": "2026-04-01"
+          "end": "2026-04-17"
         }
       },
       "research": {
-        "research_annual_return": 0.1727,
+        "research_annual_return": 0.1784,
         "research_max_drawdown": -0.1509,
-        "research_sharpe": 0.88,
+        "research_sharpe": 0.91,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -945,5 +945,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-18 11:34"
+  "update_time": "2026-04-18 14:31"
 }
