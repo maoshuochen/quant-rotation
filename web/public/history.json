@@ -20,11 +20,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 2,
-          "score": 0.7264,
+          "score": 0.7292,
           "factors": {
             "strength": 0.5787,
             "trend": 1.0,
-            "flow": 0.7016
+            "flow": 0.7064
           }
         },
         {
@@ -32,11 +32,11 @@
           "name": "证券指数",
           "etf": "512000",
           "rank": 3,
-          "score": 0.6424,
+          "score": 0.6476,
           "factors": {
             "strength": 0.4013,
             "trend": 0.75,
-            "flow": 0.7061
+            "flow": 0.715
           }
         },
         {
@@ -97,11 +97,11 @@
           "name": "银行指数",
           "etf": "512800",
           "rank": 3,
-          "score": 0.6074,
+          "score": 0.6062,
           "factors": {
             "strength": 0.5211,
             "trend": 1.0,
-            "flow": 0.5213
+            "flow": 0.5193
           }
         },
         {
@@ -109,11 +109,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 4,
-          "score": 0.5909,
+          "score": 0.5928,
           "factors": {
             "strength": 0.5236,
             "trend": 0.5,
-            "flow": 0.6459
+            "flow": 0.6492
           }
         },
         {
@@ -162,11 +162,11 @@
           "name": "银行指数",
           "etf": "512800",
           "rank": 3,
-          "score": 0.6361,
+          "score": 0.6352,
           "factors": {
             "strength": 0.5026,
             "trend": 1.0,
-            "flow": 0.5778
+            "flow": 0.5762
           }
         },
         {
@@ -174,11 +174,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 4,
-          "score": 0.6212,
+          "score": 0.6229,
           "factors": {
             "strength": 0.5373,
             "trend": 0.5,
-            "flow": 0.6922
+            "flow": 0.6952
           }
         },
         {
@@ -227,11 +227,11 @@
           "name": "科技指数",
           "etf": "515000",
           "rank": 3,
-          "score": 0.5932,
+          "score": 0.5949,
           "factors": {
             "strength": 0.5734,
             "trend": 0.5,
-            "flow": 0.6298
+            "flow": 0.6328
           }
         },
         {
@@ -846,5 +846,5 @@
       ]
     }
   ],
-  "update_time": "2026-04-18 22:08"
+  "update_time": "2026-04-19 21:22"
 }
