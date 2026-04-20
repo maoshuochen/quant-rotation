@@ -1,10 +1,11 @@
 """
-评分系统 - 适配 Baostock (ETF 数据)
+评分系统 - 适配 Baostock (ETF 数据)。
 """
+import logging
+from typing import Dict, Optional
+
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Optional
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -135,9 +136,9 @@ class ScoringEngine:
         bench_return = bench_aligned.iloc[-1] / bench_aligned.iloc[-lookback] - 1
         excess_return = idx_return - bench_return  # 超额收益
         
-        # 归一化：±50% 超额收益对应 0~1 分
-        # 超额 +50% → 1.0 分，超额 0% → 0.5 分，超额 -50% → 0.0 分
-        score = 0.5 + excess_return / 1.0  # 除以 1.0 即 100% 的范围
+        # 归一化：±50% 超额收益对应 0~1 分。
+        # 超额 +50% → 1.0 分，超额 0% → 0.5 分，超额 -50% → 0.0 分。
+        score = 0.5 + excess_return
         score = max(0, min(1, score))
         
         logger.debug(f"RS ({period_label}): idx_return={idx_return*100:.2f}%, bench_return={bench_return*100:.2f}%, excess={excess_return*100:.2f}%, score={score:.3f}")
@@ -174,12 +175,14 @@ class ScoringEngine:
         score = 1.0 - percentile
         return max(0, min(1, score))
     
-    def calc_flow_score(self, 
-                        prices: pd.Series, 
-                        volumes: pd.Series,
-                        amounts: Optional[pd.Series] = None,
-                        northbound_metrics: Optional[Dict[str, float]] = None,
-                        etf_shares_metrics: Optional[Dict[str, float]] = None) -> float:
+    def calc_flow_metrics(
+        self,
+        prices: pd.Series,
+        volumes: pd.Series,
+        amounts: Optional[pd.Series] = None,
+        northbound_metrics: Optional[Dict[str, float]] = None,
+        etf_shares_metrics: Optional[Dict[str, float]] = None,
+    ) -> Dict[str, object]:
         """
         资金流评分 (增强版)
         
@@ -198,10 +201,18 @@ class ScoringEngine:
             etf_shares_metrics: ETF 份额指标 (可选)
             
         Returns:
-            0-1 之间的分数
+            包含最终得分、真实子项得分和子项权重。
         """
         if len(prices) < 40 or len(volumes) < 40:
-            return 0.5
+            neutral_weights = {
+                key: round(float(weight), 4)
+                for key, weight in self.flow_subfactor_weights.items()
+            }
+            return {
+                "score": 0.5,
+                "details": {key: 0.5 for key in neutral_weights},
+                "weights": neutral_weights,
+            }
 
         base_weights = dict(self.flow_subfactor_weights)
         base_total = sum(max(weight, 0.0) for weight in base_weights.values())
@@ -215,9 +226,8 @@ class ScoringEngine:
             base_total = 1.0
         base_weights = {key: max(weight, 0.0) / base_total for key, weight in base_weights.items()}
         
-        scores = []
-        score_values = []
-        weights = []
+        detail_scores: Dict[str, float] = {}
+        detail_weights: Dict[str, float] = {}
         base_group_share = 0.60
         
         # ===== 基础资金流指标 (权重 60%) =====
@@ -228,9 +238,8 @@ class ScoringEngine:
         vol_change = (recent_vol - prev_vol) / prev_vol if prev_vol > 0 else 0
         vol_score = 0.5 + vol_change
         vol_score = max(0, min(1, vol_score))
-        scores.append(('volume_trend', vol_score))
-        score_values.append(vol_score)
-        weights.append(base_group_share * base_weights['volume_trend'])
+        detail_scores['volume_trend'] = round(vol_score, 4)
+        detail_weights['volume_trend'] = round(base_group_share * base_weights['volume_trend'], 4)
         
         # 2. 量价配合 - 权重 15%
         price_returns = prices.pct_change().dropna()
@@ -255,9 +264,8 @@ class ScoringEngine:
             corr_score = max(0, min(1, corr_score))
         else:
             corr_score = 0.5
-        scores.append(('price_volume_corr', corr_score))
-        score_values.append(corr_score)
-        weights.append(base_group_share * base_weights['price_volume_corr'])
+        detail_scores['price_volume_corr'] = round(corr_score, 4)
+        detail_weights['price_volume_corr'] = round(base_group_share * base_weights['price_volume_corr'], 4)
         
         # 3. 成交金额趋势 - 权重 15%
         if amounts is not None and len(amounts) >= 40:
@@ -268,22 +276,52 @@ class ScoringEngine:
             amt_score = max(0, min(1, amt_score))
         else:
             amt_score = vol_score
-        scores.append(('amount_trend', amt_score))
-        score_values.append(amt_score)
-        weights.append(base_group_share * base_weights['amount_trend'])
+        detail_scores['amount_trend'] = round(amt_score, 4)
+        detail_weights['amount_trend'] = round(base_group_share * base_weights['amount_trend'], 4)
         
         # 4. 资金流入强度 - 权重 15%
         vol_median = volumes.iloc[-60:].median()
         high_vol_days = (volumes.iloc[-20:] > vol_median).sum()
         flow_intensity = high_vol_days / 20
-        scores.append(('flow_intensity', flow_intensity))
-        score_values.append(flow_intensity)
-        weights.append(base_group_share * base_weights['flow_intensity'])
+        detail_scores['flow_intensity'] = round(flow_intensity, 4)
+        detail_weights['flow_intensity'] = round(base_group_share * base_weights['flow_intensity'], 4)
 
         # 正式基线已移除北向资金与 ETF 份额信号，flow 只由基础量价子项组成。
-        flow_score = sum(s * w for s, w in zip(score_values, weights)) / sum(weights)
-        logger.debug(f"Flow scores: {scores}, weights: {weights}, final: {flow_score:.3f}")
-        return flow_score
+        weight_total = sum(detail_weights.values())
+        flow_score = (
+            sum(detail_scores[key] * detail_weights[key] for key in detail_scores) / weight_total
+            if weight_total > 0
+            else 0.5
+        )
+        logger.debug(
+            "Flow scores: %s, weights: %s, final: %.3f",
+            detail_scores,
+            detail_weights,
+            flow_score,
+        )
+        return {
+            "score": float(flow_score),
+            "details": detail_scores,
+            "weights": detail_weights,
+        }
+
+    def calc_flow_score(
+        self,
+        prices: pd.Series,
+        volumes: pd.Series,
+        amounts: Optional[pd.Series] = None,
+        northbound_metrics: Optional[Dict[str, float]] = None,
+        etf_shares_metrics: Optional[Dict[str, float]] = None,
+    ) -> float:
+        return float(
+            self.calc_flow_metrics(
+                prices,
+                volumes,
+                amounts=amounts,
+                northbound_metrics=northbound_metrics,
+                etf_shares_metrics=etf_shares_metrics,
+            )["score"]
+        )
     
     def score_index(self,
                     etf_data: pd.DataFrame,
@@ -390,16 +428,21 @@ class ScoringEngine:
             attribution['current_pe'] = None
         
         # ===== 资金流 (15%) =====
-        scores['flow'] = self.calc_flow_score(
-            close, volume, 
+        flow_metrics = self.calc_flow_metrics(
+            close,
+            volume,
             amount if not amount.empty else None,
-            northbound_metrics, etf_shares_metrics
+            northbound_metrics,
+            etf_shares_metrics,
         )
+        scores['flow'] = float(flow_metrics['score'])
         # 资金流归因
         attribution['northbound_20d_sum'] = None
         attribution['northbound_trend'] = '未使用'
         attribution['etf_shares_20d_change'] = None
         attribution['etf_shares_trend'] = '未使用'
+        attribution['flow_breakdown'] = flow_metrics['details']
+        attribution['flow_weights'] = flow_metrics['weights']
         
         # ===== 相对强弱 (20%) =====
         if benchmark_data is not None and not benchmark_data.empty:
@@ -417,8 +460,10 @@ class ScoringEngine:
                 else:
                     lookback = min(10, available_days - 1)
                 
-                idx_return = (close.iloc[-1] / close.iloc[-lookback] - 1) * 100
-                bench_return = (benchmark_data['close'].iloc[-1] / benchmark_data['close'].iloc[-lookback] - 1) * 100
+                aligned_close = close.loc[common_idx]
+                aligned_benchmark = benchmark_data['close'].loc[common_idx]
+                idx_return = (aligned_close.iloc[-1] / aligned_close.iloc[-lookback] - 1) * 100
+                bench_return = (aligned_benchmark.iloc[-1] / aligned_benchmark.iloc[-lookback] - 1) * 100
                 excess_return = idx_return - bench_return
                 
                 attribution['relative_return'] = round(excess_return, 2)  # 超额收益%
@@ -462,6 +507,10 @@ class ScoringEngine:
             total = 0.5
         
         scores['total_score'] = total
+        scores['weights_used'] = {
+            factor: round(float(weights_to_use.get(factor, self.weights.get(factor, 0.0))), 6)
+            for factor in self.active_factors
+        }
         scores['active_factors'] = list(self.active_factors)
         scores['attribution'] = attribution  # 添加归因数据
         

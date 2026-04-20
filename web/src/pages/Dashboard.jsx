@@ -54,6 +54,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
   const score = safeNum(item.score).toFixed(3)
   const factors = item.factors || {}
   const attribution = item.attribution || {}
+  const flowBreakdown = attribution?.flow_breakdown || {}
   const isTop3 = item.rank <= 3
   const isTop5 = item.rank <= 5
   const rsLookback = safeNum(attribution?.rs_lookback_days, 0)
@@ -154,6 +155,16 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300{rsLookback ? `(${rsLookback}日)` : ''}</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">价格相对 MA20</span><span className="text-zinc-200">{safeNum(attribution?.price_vs_ma20, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">MA20/MA60 结构</span><span className="text-zinc-200">{attribution?.ma20_above_ma60 ? '多头' : '走弱'}</span></div>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-zinc-800">
+            <div className="text-[10px] text-zinc-500 mb-1.5">资金流拆解</div>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">放量趋势</span><span className="text-zinc-200">{safeNum(flowBreakdown?.volume_trend, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">量价配合</span><span className="text-zinc-200">{safeNum(flowBreakdown?.price_volume_corr, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">金额扩张</span><span className="text-zinc-200">{safeNum(flowBreakdown?.amount_trend, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">活跃强度</span><span className="text-zinc-200">{safeNum(flowBreakdown?.flow_intensity, 0.5).toFixed(2)}</span></div>
             </div>
           </div>
         </div>

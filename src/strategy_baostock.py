@@ -9,10 +9,10 @@ from typing import Dict, List, Optional
 import pandas as pd
 
 from src.data_fetcher_baostock import IndexDataFetcher
-from src.market_regime import DynamicWeightScoringEngine
 from src.portfolio import SimulatedPortfolio
 from src.backtest_utils import is_rebalance_day
 from src.config_loader import load_app_config
+from src.scoring_factory import create_scoring_engine, resolve_scoring_mode
 
 logger = logging.getLogger(__name__)
 
@@ -31,8 +31,8 @@ class RotationStrategy:
         # 初始化组件
         self.fetcher = IndexDataFetcher()
         
-        # 动态权重评分引擎
-        self.scorer = DynamicWeightScoringEngine(self.config)
+        self.scoring_mode = resolve_scoring_mode(self.config)
+        self.scorer = create_scoring_engine(self.config)
         
         # 策略参数
         self.strategy = self.config.get('strategy', {})
@@ -63,24 +63,56 @@ class RotationStrategy:
         self.benchmark_data = None
         self.factor_model = self.config.get('factor_model', {})
         self.data_health = {}
+        self.history_start_date = str(self.config.get("data", {}).get("history_start_date", "20230101"))
     
     def load_benchmark(self):
         """加载基准数据并更新市场状态"""
         logger.info(f"Loading benchmark: {self.benchmark_code}")
-        self.benchmark_data = self.fetcher.fetch_etf_history(self.benchmark_code, "20230101")
-        
-        # 更新市场状态和动态权重
-        if not self.benchmark_data.empty and 'close' in self.benchmark_data.columns:
-            self.scorer.update_market_regime(self.benchmark_data['close'])
-            logger.info(f"市场状态：{self.scorer.current_regime}")
-            logger.info(f"动态权重：{self.scorer.current_weights}")
+        self.benchmark_data = self.fetcher.fetch_etf_history(self.benchmark_code, self.history_start_date)
+        self._update_regime_state(self.benchmark_data, scorer=self.scorer)
+
+    def _update_regime_state(self, benchmark_data: Optional[pd.DataFrame], scorer=None) -> Optional[Dict[str, float]]:
+        scorer = scorer or self.scorer
+        if (
+            self.scoring_mode != "dynamic"
+            or benchmark_data is None
+            or benchmark_data.empty
+            or "close" not in benchmark_data.columns
+            or not hasattr(scorer, "update_market_regime")
+        ):
+            return None
+
+        scorer.update_market_regime(benchmark_data["close"])
+        logger.info(f"市场状态：{getattr(scorer, 'current_regime', 'unknown')}")
+        logger.info(f"动态权重：{getattr(scorer, 'current_weights', {})}")
+        return getattr(scorer, "current_weights", None)
+
+    def score_universe(
+        self,
+        data_dict: Dict[str, pd.DataFrame],
+        benchmark_data: Optional[pd.DataFrame] = None,
+        scorer=None,
+    ) -> pd.DataFrame:
+        benchmark_ref = benchmark_data if benchmark_data is not None else self.benchmark_data
+        scorer = scorer or self.scorer
+        dynamic_weights = self._update_regime_state(benchmark_ref, scorer=scorer)
+
+        scores_dict = {}
+        for code, df in data_dict.items():
+            logger.info(f"Scoring {code}...")
+            scores_dict[code] = scorer.score_index(
+                df,
+                benchmark_ref,
+                dynamic_weights=dynamic_weights,
+            )
+        return scorer.rank_indices(scores_dict)
     
     def fetch_all_data(self) -> Dict[str, pd.DataFrame]:
         """获取所有 ETF 数据"""
         data_dict = {}
         
         # 获取至少 252 天数据（1 年）用于估值因子计算
-        start_date = "20230101"
+        start_date = self.history_start_date
         
         for idx in self.indices:
             code = idx.get('code', '')
@@ -99,37 +131,7 @@ class RotationStrategy:
     
     def run_scoring(self, data_dict: Dict[str, pd.DataFrame]) -> pd.DataFrame:
         """运行评分系统（资金流因子仅使用基础量价子项）"""
-        scores_dict = {}
-        flow_details = {}
-
-        for code, df in data_dict.items():
-            logger.info(f"Scoring {code}...")
-
-            # 计算评分（仅基础量价 flow + 动态权重）
-            scores = self.scorer.score_index(
-                df, 
-                self.benchmark_data,
-                dynamic_weights=self.scorer.current_weights
-            )
-            scores_dict[code] = scores
-            
-            # 保存资金流详情
-            flow_detail = {}
-            if scores.get('flow') is not None:
-                # 近似子因子得分
-                flow_score = scores.get('flow', 0.5)
-                flow_detail['volume_trend'] = round(flow_score * (0.8 + 0.4 * (flow_score - 0.5)), 4)
-                flow_detail['price_volume_corr'] = round(flow_score * (0.9 + 0.2 * (flow_score - 0.5)), 4)
-                flow_detail['amount_trend'] = round(flow_score * (0.85 + 0.3 * (flow_score - 0.5)), 4)
-                flow_detail['flow_intensity'] = round(flow_score * (0.9 + 0.2 * (flow_score - 0.5)), 4)
-            
-            flow_details[code] = flow_detail
-        
-        # 排名
-        ranking = self.scorer.rank_indices(scores_dict)
-        
-        # 保存 flow_details 到 scorer 对象 (供外部访问)
-        self.flow_details = flow_details
+        ranking = self.score_universe(data_dict)
         self.data_health = self._build_data_health(data_dict, pd.DataFrame(), pd.DataFrame(), {'ok': [], 'snapshot': [], 'missing': []})
         
         return ranking
