@@ -610,13 +610,7 @@
       "399975.SZ",
       "000933.CSI"
     ],
-    "signals": [
-      {
-        "action": "buy",
-        "code": "000992.CSI",
-        "name": "金融指数"
-      }
-    ],
+    "signals": [],
     "holdings": [
       {
         "code": "399808.SZ",
@@ -828,10 +822,10 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-19 21:22",
+    "updated_at": "2026-04-20 20:03",
     "decision": {
       "headline": "本周主结论：新能源指数、科技指数、科创 50 为当前优先观察方向。",
-      "execution_message": "当前建议执行 1 个动作，优先关注 新能源指数、科技指数、科创 50。",
+      "execution_message": "当前无新增调仓动作，继续跟踪 新能源指数、科技指数、科创 50。",
       "market_context": "震荡市",
       "action": "继续研究，不建议单独实盘"
     },
@@ -948,5 +942,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-19 21:22"
+  "update_time": "2026-04-20 20:03"
 }
