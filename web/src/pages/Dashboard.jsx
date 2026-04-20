@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
-import { safeNum, pct, factorNames } from '../utils'
+import { safeNum, pct, factorNames, dedupeHistoryByDate } from '../utils'
 
 const Card = ({ title, subtitle, children, className = '' }) => (
   <section className={`rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5 ${className}`}>
@@ -202,7 +202,9 @@ const Dashboard = ({
   const ranking = data?.ranking || []
   const factorWeights = data?.factorWeights || {}
   const history = historyData?.history || []
-  const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const sortedHistory = useMemo(() => {
+    return dedupeHistoryByDate(history).sort((a, b) => new Date(b.date) - new Date(a.date))
+  }, [history])
   const latestHistoryDate = sortedHistory[0]?.date || ''
   const historicalOptions = latestHistoryDate
     ? sortedHistory.filter((period) => period.date !== latestHistoryDate)

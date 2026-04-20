@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { safeNum, factorNames } from '../utils'
+import { safeNum, factorNames, dedupeHistoryByDate } from '../utils'
 
 const HistoryPanel = ({ historyData, activeFactors, selectedCode, onSelectCode }) => {
   const [selectedPeriod, setSelectedPeriod] = useState(null)
@@ -10,7 +10,7 @@ const HistoryPanel = ({ historyData, activeFactors, selectedCode, onSelectCode }
 
   // 按日期倒序排列
   const sortedHistory = useMemo(() => {
-    return [...history].sort((a, b) => new Date(b.date) - new Date(a.date))
+    return dedupeHistoryByDate(history).sort((a, b) => new Date(b.date) - new Date(a.date))
   }, [history])
 
   // 获取最新周期
@@ -38,7 +38,7 @@ const HistoryPanel = ({ historyData, activeFactors, selectedCode, onSelectCode }
         <div>
           <h1 className="text-lg sm:text-xl font-semibold text-zinc-100">历史周期持仓</h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1">
-            共 {history.length} 个周期 · {history[0]?.date} ~ {history[history.length - 1]?.date}
+            共 {sortedHistory.length} 个周期 · {sortedHistory[0]?.date} ~ {sortedHistory[sortedHistory.length - 1]?.date}
           </p>
         </div>
         {updateTime && (

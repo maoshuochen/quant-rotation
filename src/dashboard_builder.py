@@ -122,6 +122,7 @@ class DashboardDataBuilder:
         start_date = end_date - pd.Timedelta(days=weeks * 7 + 7)
         dates = pd.date_range(start_date, end_date, freq="W-MON")
         history = []
+        seen_dates = set()
 
         active_indices = [idx for idx in self.indices if idx.get("enabled", True)]
         first_code = active_indices[0]["code"] if active_indices else None
@@ -141,6 +142,13 @@ class DashboardDataBuilder:
             trade_date = trade_index[trade_pos]
             if (anchor_date - trade_date).days > 10:
                 continue
+
+            trade_date_str = trade_date.strftime("%Y-%m-%d")
+            # 节假日停市时，连续两个周一可能都会回退到同一个最近交易日。
+            # 这里按最终落地的交易日去重，避免历史周期重复展示。
+            if trade_date_str in seen_dates:
+                continue
+            seen_dates.add(trade_date_str)
 
             data_dict = {}
             for code, df in etf_data_dict.items():
@@ -177,7 +185,7 @@ class DashboardDataBuilder:
                     }
                 )
 
-            history.append({"date": trade_date.strftime("%Y-%m-%d"), "holdings": holdings})
+            history.append({"date": trade_date_str, "holdings": holdings})
 
         history.sort(key=lambda item: item["date"], reverse=True)
         return history
