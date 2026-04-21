@@ -15,7 +15,6 @@ root_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(root_dir))
 
 from src.data_fetcher_baostock import IndexDataFetcher
-from src.scoring_baostock import ScoringEngine
 from src.backtest_utils import (
     build_rebalance_signals,
     compute_fetch_start_date,
@@ -27,6 +26,7 @@ from src.backtest_utils import (
     select_rebalance_dates,
     validate_etf_history_coverage,
 )
+from src.scoring_factory import create_scoring_engine, resolve_scoring_mode
 
 # 优化日志：仅保留 warning 及以上，减少输出噪音
 logging.basicConfig(
@@ -68,8 +68,8 @@ def run_backtest(start_date: str = None,
 
     # 初始化组件
     fetcher = IndexDataFetcher()
-    # 使用固定权重评分引擎（避免未来函数）
-    scorer = ScoringEngine(config)
+    scorer = create_scoring_engine(config)
+    scoring_mode = resolve_scoring_mode(config)
     portfolio = create_portfolio(config, initial_capital=initial_capital)
 
     # 策略参数
@@ -157,12 +157,13 @@ def run_backtest(start_date: str = None,
     stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
     pending_signals = None
 
-    def score_candidate(item, date, benchmark_slice):
+    def score_candidate(item, date, benchmark_slice, dynamic_weights):
         code, df = item
-        hist_df = df.loc[:date].tail(history_window)
+        end_pos = df.index.searchsorted(date, side="right")
+        hist_df = df.iloc[max(0, end_pos - history_window):end_pos]
         if len(hist_df) < 20:
             return None
-        return code, scorer.score_index(hist_df, benchmark_slice)
+        return code, scorer.score_index(hist_df, benchmark_slice, dynamic_weights=dynamic_weights)
 
     executor = ThreadPoolExecutor(max_workers=score_workers) if score_workers > 1 else None
     try:
@@ -206,16 +207,27 @@ def run_backtest(start_date: str = None,
             if date in rebalance_set and date <= last_rebalance_date:
                 # 计算评分（固定权重）
                 scores_dict = {}
-                benchmark_slice = benchmark_data.loc[:date].tail(history_window) if not benchmark_data.empty else benchmark_data
+                benchmark_slice = benchmark_data
+                dynamic_weights = None
+                if not benchmark_data.empty:
+                    bench_end_pos = benchmark_data.index.searchsorted(date, side="right")
+                    benchmark_slice = benchmark_data.iloc[max(0, bench_end_pos - history_window):bench_end_pos]
+                    if (
+                        scoring_mode == "dynamic"
+                        and hasattr(scorer, "update_market_regime")
+                        and not benchmark_slice.empty
+                    ):
+                        scorer.update_market_regime(benchmark_slice["close"])
+                        dynamic_weights = getattr(scorer, "current_weights", None)
                 if executor is not None:
-                    for result in executor.map(lambda item: score_candidate(item, date, benchmark_slice), etf_data.items()):
+                    for result in executor.map(lambda item: score_candidate(item, date, benchmark_slice, dynamic_weights), etf_data.items()):
                         if result is None:
                             continue
                         code, scores = result
                         scores_dict[code] = scores
                 else:
                     for item in etf_data.items():
-                        result = score_candidate(item, date, benchmark_slice)
+                        result = score_candidate(item, date, benchmark_slice, dynamic_weights)
                         if result is None:
                             continue
                         code, scores = result

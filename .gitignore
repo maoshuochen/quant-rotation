@@ -86,6 +86,7 @@ history.json
 # Backtest results (optional)
 backtest_results/*.json
 backtest_results/backtest_*.csv
+backtest_results/current.parquet
 !backtest_results/.gitkeep
 
 # Generated outputs
@@ -94,6 +95,10 @@ outputs/*
 !outputs/frontend/
 outputs/frontend/*
 !outputs/frontend/.gitkeep
+web/public/data.json
+web/public/ranking.json
+web/public/history.json
+web/public/backtest.json
 
 # Temporary files
 *.tmp

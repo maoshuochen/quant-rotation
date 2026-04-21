@@ -15,6 +15,7 @@ telegram:
 data:
   source: "akshare_sina"
   cache_days: 7
+  history_start_date: "20230101"
   etf_price_mode: "continuous"
   require_consistent_adjust: true
 

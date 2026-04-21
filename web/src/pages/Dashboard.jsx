@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
-import { safeNum, pct, factorNames } from '../utils'
+import { safeNum, pct, factorNames, dedupeHistoryByDate } from '../utils'
 
 const Card = ({ title, subtitle, children, className = '' }) => (
   <section className={`rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5 ${className}`}>
@@ -54,6 +54,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
   const score = safeNum(item.score).toFixed(3)
   const factors = item.factors || {}
   const attribution = item.attribution || {}
+  const flowBreakdown = attribution?.flow_breakdown || {}
   const isTop3 = item.rank <= 3
   const isTop5 = item.rank <= 5
   const rsLookback = safeNum(attribution?.rs_lookback_days, 0)
@@ -156,6 +157,16 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
               <div className="flex justify-between text-[10px]"><span className="text-zinc-400">MA20/MA60 结构</span><span className="text-zinc-200">{attribution?.ma20_above_ma60 ? '多头' : '走弱'}</span></div>
             </div>
           </div>
+
+          <div className="pt-2 border-t border-zinc-800">
+            <div className="text-[10px] text-zinc-500 mb-1.5">资金流拆解</div>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">放量趋势</span><span className="text-zinc-200">{safeNum(flowBreakdown?.volume_trend, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">量价配合</span><span className="text-zinc-200">{safeNum(flowBreakdown?.price_volume_corr, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">金额扩张</span><span className="text-zinc-200">{safeNum(flowBreakdown?.amount_trend, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">活跃强度</span><span className="text-zinc-200">{safeNum(flowBreakdown?.flow_intensity, 0.5).toFixed(2)}</span></div>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -202,7 +213,9 @@ const Dashboard = ({
   const ranking = data?.ranking || []
   const factorWeights = data?.factorWeights || {}
   const history = historyData?.history || []
-  const sortedHistory = [...history].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const sortedHistory = useMemo(() => {
+    return dedupeHistoryByDate(history).sort((a, b) => new Date(b.date) - new Date(a.date))
+  }, [history])
   const latestHistoryDate = sortedHistory[0]?.date || ''
   const historicalOptions = latestHistoryDate
     ? sortedHistory.filter((period) => period.date !== latestHistoryDate)

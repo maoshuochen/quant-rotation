@@ -19,6 +19,16 @@ export const safeNum = (value, fallback = 0) => {
 // 百分比格式化
 export const pct = (value, digits = 1) => `${(safeNum(value) * 100).toFixed(digits)}%`
 
+export const dedupeHistoryByDate = (history = []) => {
+  const seen = new Set()
+  return history.filter((period) => {
+    const date = period?.date
+    if (!date || seen.has(date)) return false
+    seen.add(date)
+    return true
+  })
+}
+
 // 健康状态文案
 export const healthCopy = {
   ok: '数据完整，可直接执行',

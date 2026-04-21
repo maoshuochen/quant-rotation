@@ -5,7 +5,7 @@
       "name": "新能源指数",
       "etf": "516160",
       "rank": 1,
-      "score": 0.8112,
+      "score": 0.8187,
       "factors": {
         "strength": 0.6245,
         "trend": 1.0,
@@ -25,6 +25,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.8814,
+          "price_volume_corr": 0.6333,
+          "amount_trend": 0.8556,
+          "flow_intensity": 0.8
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 8.31,
         "index_return": 5.52,
         "benchmark_return": -2.79,
@@ -36,7 +48,7 @@
       "name": "科技指数",
       "etf": "515000",
       "rank": 2,
-      "score": 0.6517,
+      "score": 0.6734,
       "factors": {
         "strength": 0.6101,
         "trend": 1.0,
@@ -56,6 +68,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.6062,
+          "price_volume_corr": 0.61,
+          "amount_trend": 0.6077,
+          "flow_intensity": 0.6
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 8.21,
         "index_return": 5.42,
         "benchmark_return": -2.79,
@@ -67,7 +91,7 @@
       "name": "科创 50",
       "etf": "588000",
       "rank": 3,
-      "score": 0.6411,
+      "score": 0.6607,
       "factors": {
         "strength": 0.4916,
         "trend": 1.0,
@@ -87,6 +111,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.6941,
+          "price_volume_corr": 0.6334,
+          "amount_trend": 0.6194,
+          "flow_intensity": 0.5
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": -1.91,
         "index_return": -4.7,
         "benchmark_return": -2.79,
@@ -98,7 +134,7 @@
       "name": "创业板指",
       "etf": "159915",
       "rank": 4,
-      "score": 0.6148,
+      "score": 0.6411,
       "factors": {
         "strength": 0.6561,
         "trend": 1.0,
@@ -118,6 +154,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.5459,
+          "price_volume_corr": 0.6016,
+          "amount_trend": 0.5689,
+          "flow_intensity": 0.45
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 12.28,
         "index_return": 9.49,
         "benchmark_return": -2.79,
@@ -129,11 +177,11 @@
       "name": "金融指数",
       "etf": "510230",
       "rank": 5,
-      "score": 0.595,
+      "score": 0.6021,
       "factors": {
         "strength": 0.4772,
         "trend": 0.75,
-        "flow": 0.6018
+        "flow": 0.6017
       },
       "attribution": {
         "momentum_6m_return": -0.86,
@@ -149,6 +197,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.6053,
+          "price_volume_corr": 0.5815,
+          "amount_trend": 0.5764,
+          "flow_intensity": 0.65
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": -3.69,
         "index_return": -6.48,
         "benchmark_return": -2.79,
@@ -160,11 +220,11 @@
       "name": "证券指数",
       "etf": "512000",
       "rank": 6,
-      "score": 0.5622,
+      "score": 0.5697,
       "factors": {
         "strength": 0.3782,
         "trend": 0.75,
-        "flow": 0.5818
+        "flow": 0.5817
       },
       "attribution": {
         "momentum_6m_return": -15.62,
@@ -180,39 +240,20 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.6341,
+          "price_volume_corr": 0.6636,
+          "amount_trend": 0.5527,
+          "flow_intensity": 0.5
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": -8.74,
         "index_return": -11.53,
-        "benchmark_return": -2.79,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000933.CSI",
-      "name": "医药指数",
-      "etf": "512010",
-      "rank": 7,
-      "score": 0.5603,
-      "factors": {
-        "strength": 0.3833,
-        "trend": 0.5,
-        "flow": 0.6186
-      },
-      "attribution": {
-        "momentum_6m_return": -16.72,
-        "momentum_1m_return": -0.75,
-        "volatility_annual": 23.63,
-        "price_vs_ma20": -0.38,
-        "price_vs_ma60": -2.51,
-        "ma20_above_ma60": false,
-        "value_percentile": 18.25,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "northbound_20d_sum": null,
-        "northbound_trend": "未使用",
-        "etf_shares_20d_change": null,
-        "etf_shares_trend": "未使用",
-        "relative_return": -6.62,
-        "index_return": -9.41,
         "benchmark_return": -2.79,
         "rs_lookback_days": 60
       }
@@ -221,8 +262,8 @@
       "code": "000905.SH",
       "name": "中证 500",
       "etf": "510500",
-      "rank": 8,
-      "score": 0.5205,
+      "rank": 7,
+      "score": 0.5531,
       "factors": {
         "strength": 0.5681,
         "trend": 1.0,
@@ -242,8 +283,63 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.4847,
+          "price_volume_corr": 0.5219,
+          "amount_trend": 0.4199,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 2.2,
         "index_return": -0.59,
+        "benchmark_return": -2.79,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000933.CSI",
+      "name": "医药指数",
+      "etf": "512010",
+      "rank": 8,
+      "score": 0.5518,
+      "factors": {
+        "strength": 0.3833,
+        "trend": 0.5,
+        "flow": 0.6186
+      },
+      "attribution": {
+        "momentum_6m_return": -16.72,
+        "momentum_1m_return": -0.75,
+        "volatility_annual": 23.63,
+        "price_vs_ma20": -0.38,
+        "price_vs_ma60": -2.51,
+        "ma20_above_ma60": false,
+        "value_percentile": 18.25,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "northbound_20d_sum": null,
+        "northbound_trend": "未使用",
+        "etf_shares_20d_change": null,
+        "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.6763,
+          "price_volume_corr": 0.6185,
+          "amount_trend": 0.6574,
+          "flow_intensity": 0.45
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
+        "relative_return": -6.62,
+        "index_return": -9.41,
         "benchmark_return": -2.79,
         "rs_lookback_days": 60
       }
@@ -253,11 +349,11 @@
       "name": "银行指数",
       "etf": "512800",
       "rank": 9,
-      "score": 0.516,
+      "score": 0.5479,
       "factors": {
         "strength": 0.527,
         "trend": 1.0,
-        "flow": 0.4336
+        "flow": 0.4335
       },
       "attribution": {
         "momentum_6m_return": 2.49,
@@ -273,6 +369,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.4494,
+          "price_volume_corr": 0.5611,
+          "amount_trend": 0.4575,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 2.92,
         "index_return": 0.13,
         "benchmark_return": -2.79,
@@ -284,7 +392,7 @@
       "name": "沪深 300",
       "etf": "510300",
       "rank": 10,
-      "score": 0.5122,
+      "score": 0.544,
       "factors": {
         "strength": 0.5052,
         "trend": 1.0,
@@ -304,6 +412,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.4693,
+          "price_volume_corr": 0.5418,
+          "amount_trend": 0.4448,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 0.0,
         "index_return": -2.79,
         "benchmark_return": -2.79,
@@ -315,7 +435,7 @@
       "name": "半导体指数",
       "etf": "512480",
       "rank": 11,
-      "score": 0.5086,
+      "score": 0.542,
       "factors": {
         "strength": 0.5559,
         "trend": 1.0,
@@ -335,6 +455,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.4573,
+          "price_volume_corr": 0.6469,
+          "amount_trend": 0.4008,
+          "flow_intensity": 0.25
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 1.52,
         "index_return": -1.27,
         "benchmark_return": -2.79,
@@ -346,11 +478,11 @@
       "name": "中证 1000",
       "etf": "512100",
       "rank": 12,
-      "score": 0.4973,
+      "score": 0.5319,
       "factors": {
         "strength": 0.5627,
         "trend": 1.0,
-        "flow": 0.3969
+        "flow": 0.397
       },
       "attribution": {
         "momentum_6m_return": 10.19,
@@ -366,39 +498,20 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.4364,
+          "price_volume_corr": 0.4961,
+          "amount_trend": 0.3846,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 2.34,
         "index_return": -0.45,
-        "benchmark_return": -2.79,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000932.CSI",
-      "name": "消费指数",
-      "etf": "159928",
-      "rank": 13,
-      "score": 0.4417,
-      "factors": {
-        "strength": 0.4215,
-        "trend": 0.5,
-        "flow": 0.4377
-      },
-      "attribution": {
-        "momentum_6m_return": -12.41,
-        "momentum_1m_return": -5.07,
-        "volatility_annual": 21.39,
-        "price_vs_ma20": -0.82,
-        "price_vs_ma60": -3.43,
-        "ma20_above_ma60": false,
-        "value_percentile": 0.79,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "northbound_20d_sum": null,
-        "northbound_trend": "未使用",
-        "etf_shares_20d_change": null,
-        "etf_shares_trend": "未使用",
-        "relative_return": -3.29,
-        "index_return": -6.08,
         "benchmark_return": -2.79,
         "rs_lookback_days": 60
       }
@@ -407,8 +520,8 @@
       "code": "000988.CSI",
       "name": "制造指数",
       "etf": "516880",
-      "rank": 14,
-      "score": 0.4299,
+      "rank": 13,
+      "score": 0.4555,
       "factors": {
         "strength": 0.6095,
         "trend": 0.75,
@@ -428,8 +541,63 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.3166,
+          "price_volume_corr": 0.6192,
+          "amount_trend": 0.2728,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 5.63,
         "index_return": 2.84,
+        "benchmark_return": -2.79,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000932.CSI",
+      "name": "消费指数",
+      "etf": "159928",
+      "rank": 14,
+      "score": 0.445,
+      "factors": {
+        "strength": 0.4215,
+        "trend": 0.5,
+        "flow": 0.4377
+      },
+      "attribution": {
+        "momentum_6m_return": -12.41,
+        "momentum_1m_return": -5.07,
+        "volatility_annual": 21.39,
+        "price_vs_ma20": -0.82,
+        "price_vs_ma60": -3.43,
+        "ma20_above_ma60": false,
+        "value_percentile": 0.79,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "northbound_20d_sum": null,
+        "northbound_trend": "未使用",
+        "etf_shares_20d_change": null,
+        "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.4352,
+          "price_volume_corr": 0.6489,
+          "amount_trend": 0.4013,
+          "flow_intensity": 0.4
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
+        "relative_return": -3.29,
+        "index_return": -6.08,
         "benchmark_return": -2.79,
         "rs_lookback_days": 60
       }
@@ -439,7 +607,7 @@
       "name": "白酒指数",
       "etf": "512690",
       "rank": 15,
-      "score": 0.3754,
+      "score": 0.3836,
       "factors": {
         "strength": 0.3775,
         "trend": 0.5,
@@ -459,39 +627,20 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.3713,
+          "price_volume_corr": 0.6886,
+          "amount_trend": 0.3303,
+          "flow_intensity": 0.2
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": -7.4,
         "index_return": -10.19,
-        "benchmark_return": -2.79,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399990.SZ",
-      "name": "煤炭指数",
-      "etf": "515220",
-      "rank": 16,
-      "score": 0.3338,
-      "factors": {
-        "strength": 0.6044,
-        "trend": 0.5,
-        "flow": 0.2325
-      },
-      "attribution": {
-        "momentum_6m_return": 7.58,
-        "momentum_1m_return": -5.67,
-        "volatility_annual": 25.54,
-        "price_vs_ma20": -4.11,
-        "price_vs_ma60": -1.02,
-        "ma20_above_ma60": true,
-        "value_percentile": 76.19,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "northbound_20d_sum": null,
-        "northbound_trend": "未使用",
-        "etf_shares_20d_change": null,
-        "etf_shares_trend": "未使用",
-        "relative_return": 13.29,
-        "index_return": 10.5,
         "benchmark_return": -2.79,
         "rs_lookback_days": 60
       }
@@ -500,8 +649,8 @@
       "code": "000922.CSI",
       "name": "红利指数",
       "etf": "510880",
-      "rank": 17,
-      "score": 0.3325,
+      "rank": 16,
+      "score": 0.365,
       "factors": {
         "strength": 0.5346,
         "trend": 0.75,
@@ -521,6 +670,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.1592,
+          "price_volume_corr": 0.496,
+          "amount_trend": 0.1523,
+          "flow_intensity": 0.25
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": 3.73,
         "index_return": 0.94,
         "benchmark_return": -2.79,
@@ -531,8 +692,8 @@
       "code": "399967.SZ",
       "name": "军工指数",
       "etf": "512660",
-      "rank": 18,
-      "score": 0.3222,
+      "rank": 17,
+      "score": 0.356,
       "factors": {
         "strength": 0.5482,
         "trend": 0.75,
@@ -552,8 +713,63 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.1466,
+          "price_volume_corr": 0.6408,
+          "amount_trend": 0.0706,
+          "flow_intensity": 0.25
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": -4.99,
         "index_return": -7.78,
+        "benchmark_return": -2.79,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399990.SZ",
+      "name": "煤炭指数",
+      "etf": "515220",
+      "rank": 18,
+      "score": 0.3516,
+      "factors": {
+        "strength": 0.6044,
+        "trend": 0.5,
+        "flow": 0.2325
+      },
+      "attribution": {
+        "momentum_6m_return": 7.58,
+        "momentum_1m_return": -5.67,
+        "volatility_annual": 25.54,
+        "price_vs_ma20": -4.11,
+        "price_vs_ma60": -1.02,
+        "ma20_above_ma60": true,
+        "value_percentile": 76.19,
+        "value_assessment": "高估",
+        "current_pe": null,
+        "northbound_20d_sum": null,
+        "northbound_trend": "未使用",
+        "etf_shares_20d_change": null,
+        "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.145,
+          "price_volume_corr": 0.6445,
+          "amount_trend": 0.1351,
+          "flow_intensity": 0.35
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
+        "relative_return": 13.29,
+        "index_return": 10.5,
         "benchmark_return": -2.79,
         "rs_lookback_days": 60
       }
@@ -563,7 +779,7 @@
       "name": "恒生指数",
       "etf": "159920",
       "rank": 19,
-      "score": 0.3143,
+      "score": 0.3468,
       "factors": {
         "strength": 0.469,
         "trend": 0.75,
@@ -583,6 +799,18 @@
         "northbound_trend": "未使用",
         "etf_shares_20d_change": null,
         "etf_shares_trend": "未使用",
+        "flow_breakdown": {
+          "volume_trend": 0.1605,
+          "price_volume_corr": 0.5432,
+          "amount_trend": 0.1429,
+          "flow_intensity": 0.2
+        },
+        "flow_weights": {
+          "volume_trend": 0.21,
+          "price_volume_corr": 0.06,
+          "amount_trend": 0.21,
+          "flow_intensity": 0.12
+        },
         "relative_return": -2.14,
         "index_return": -4.93,
         "benchmark_return": -2.79,
@@ -608,14 +836,14 @@
       "399006.SZ",
       "000992.CSI",
       "399975.SZ",
-      "000933.CSI"
+      "000905.SH"
     ],
     "signals": [],
     "holdings": [
       {
         "code": "399808.SZ",
         "rank": 1,
-        "score": 0.8112,
+        "score": 0.8187,
         "name": "新能源指数",
         "etf": "516160",
         "strongest_factors": [
@@ -629,7 +857,7 @@
       {
         "code": "000993.CSI",
         "rank": 2,
-        "score": 0.6517,
+        "score": 0.6734,
         "name": "科技指数",
         "etf": "515000",
         "strongest_factors": [
@@ -643,7 +871,7 @@
       {
         "code": "000688.SH",
         "rank": 3,
-        "score": 0.6411,
+        "score": 0.6607,
         "name": "科创 50",
         "etf": "588000",
         "strongest_factors": [
@@ -657,7 +885,7 @@
       {
         "code": "399006.SZ",
         "rank": 4,
-        "score": 0.6148,
+        "score": 0.6411,
         "name": "创业板指",
         "etf": "159915",
         "strongest_factors": [
@@ -671,7 +899,7 @@
       {
         "code": "000992.CSI",
         "rank": 5,
-        "score": 0.595,
+        "score": 0.6021,
         "name": "金融指数",
         "etf": "510230",
         "strongest_factors": [
@@ -822,7 +1050,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-20 20:03",
+    "updated_at": "2026-04-21 23:12",
     "decision": {
       "headline": "本周主结论：新能源指数、科技指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 新能源指数、科技指数、科创 50。",
@@ -926,11 +1154,13 @@
       "trend",
       "flow"
     ],
-    "auxiliary_factors": []
+    "auxiliary_factors": [],
+    "scoring_mode": "dynamic"
   },
   "dynamic_weights": {
-    "trend": 0.14096916299559473,
-    "flow": 0.8590308370044054
+    "strength": 0.19873150105708245,
+    "trend": 0.16913319238900634,
+    "flow": 0.6321353065539113
   },
   "market_regime": "sideways",
   "market_regime_desc": "震荡市",
@@ -942,5 +1172,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-20 20:03"
+  "update_time": "2026-04-21 23:12"
 }

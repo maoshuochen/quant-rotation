@@ -16,6 +16,7 @@ import pandas as pd
 
 from src.strategy_baostock import RotationStrategy
 from src.strategy_summary import build_strategy_summary
+from src.scoring_factory import create_scoring_engine
 
 
 class DashboardDataBuilder:
@@ -28,6 +29,7 @@ class DashboardDataBuilder:
         self.active_factors = factor_model.get("active_factors", ["momentum", "trend", "flow"])
         self.auxiliary_factors = factor_model.get("auxiliary_factors", [])
         self.factor_weights = self.config.get("factor_weights", {})
+        self.scoring_mode = getattr(self.strategy, "scoring_mode", "dynamic")
 
     def prepare(self) -> tuple[Dict[str, pd.DataFrame], pd.DataFrame]:
         self.strategy.load_benchmark()
@@ -122,6 +124,7 @@ class DashboardDataBuilder:
         start_date = end_date - pd.Timedelta(days=weeks * 7 + 7)
         dates = pd.date_range(start_date, end_date, freq="W-MON")
         history = []
+        seen_dates = set()
 
         active_indices = [idx for idx in self.indices if idx.get("enabled", True)]
         first_code = active_indices[0]["code"] if active_indices else None
@@ -131,6 +134,8 @@ class DashboardDataBuilder:
         trade_index = pd.DatetimeIndex(etf_data_dict[first_code].index).sort_values().normalize().unique()
         if len(trade_index) == 0:
             return history
+
+        snapshot_scorer = create_scoring_engine(self.config)
 
         for date in dates:
             anchor_date = pd.Timestamp(date).normalize()
@@ -142,23 +147,32 @@ class DashboardDataBuilder:
             if (anchor_date - trade_date).days > 10:
                 continue
 
+            trade_date_str = trade_date.strftime("%Y-%m-%d")
+            # 节假日停市时，连续两个周一可能都会回退到同一个最近交易日。
+            # 这里按最终落地的交易日去重，避免历史周期重复展示。
+            if trade_date_str in seen_dates:
+                continue
+            seen_dates.add(trade_date_str)
+
             data_dict = {}
             for code, df in etf_data_dict.items():
-                df_cutoff = df[df.index <= trade_date]
+                cutoff_pos = df.index.searchsorted(trade_date, side="right")
+                df_cutoff = df.iloc[max(0, cutoff_pos - 252):cutoff_pos]
                 if len(df_cutoff) >= 60:
-                    data_dict[code] = df_cutoff.tail(252)
+                    data_dict[code] = df_cutoff
             if not data_dict:
                 continue
 
             benchmark_data = None
             if self.strategy.benchmark_data is not None and not self.strategy.benchmark_data.empty:
-                benchmark_data = self.strategy.benchmark_data[self.strategy.benchmark_data.index <= trade_date]
+                bench_cutoff_pos = self.strategy.benchmark_data.index.searchsorted(trade_date, side="right")
+                benchmark_data = self.strategy.benchmark_data.iloc[max(0, bench_cutoff_pos - 252):bench_cutoff_pos]
 
-            scores_dict = {}
-            for code, df in data_dict.items():
-                scores_dict[code] = self.strategy.scorer.score_index(df, benchmark_data)
-
-            ranking_df = self.strategy.scorer.rank_indices(scores_dict)
+            ranking_df = self.strategy.score_universe(
+                data_dict,
+                benchmark_data=benchmark_data,
+                scorer=snapshot_scorer,
+            )
             if ranking_df.empty:
                 continue
 
@@ -177,7 +191,7 @@ class DashboardDataBuilder:
                     }
                 )
 
-            history.append({"date": trade_date.strftime("%Y-%m-%d"), "holdings": holdings})
+            history.append({"date": trade_date_str, "holdings": holdings})
 
         history.sort(key=lambda item: item["date"], reverse=True)
         return history
@@ -248,6 +262,7 @@ class DashboardDataBuilder:
             "factor_model": {
                 "active_factors": self.active_factors,
                 "auxiliary_factors": self.auxiliary_factors,
+                "scoring_mode": self.scoring_mode,
             },
         }
         ranking_output = {
@@ -260,6 +275,7 @@ class DashboardDataBuilder:
             "factor_model": {
                 "active_factors": self.active_factors,
                 "auxiliary_factors": self.auxiliary_factors,
+                "scoring_mode": self.scoring_mode,
             },
             "dynamic_weights": getattr(self.strategy.scorer, "current_weights", {}),
             "market_regime": market_regime,

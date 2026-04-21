@@ -1,10 +1,11 @@
 """
-市场状态判断与因子动态权重
+市场状态判断与因子动态权重。
 """
+import logging
+from typing import Dict
+
 import numpy as np
 import pandas as pd
-from typing import Dict, Tuple, Optional
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -98,35 +99,30 @@ class MarketRegimeDetector:
         返回:
             调整后的权重字典（仅包含活跃因子，已归一化）
         """
-        # 只处理活跃因子 (momentum, trend, flow)
-        active_factors = ['momentum', 'trend', 'flow']
-
-        # 牛市：进攻型，重视动量和趋势
-        # 熊市：防御型，重视资金流
-        # 震荡市：平衡型，重视资金流
-
+        # 兼容当前主模型 strength/trend/flow，也兼容旧配置里的 momentum。
         adjustments = {
-            'bull': {
-                'momentum': 1.5,    # +50%
-                'trend': 1.3,       # +30%
-                'flow': 1.2         # +20%
+            "bull": {
+                "strength": 1.35,
+                "momentum": 1.35,
+                "trend": 1.15,
+                "flow": 0.95,
             },
-            'bear': {
-                'momentum': 0.5,    # -50%
-                'trend': 0.5,       # -50%
-                'flow': 1.3         # +30%
+            "bear": {
+                "strength": 0.75,
+                "momentum": 0.75,
+                "trend": 0.90,
+                "flow": 1.35,
             },
-            'sideways': {
-                'momentum': 0.8,    # -20%
-                'trend': 0.8,       # -20%
-                'flow': 1.5         # +50%
-            }
-        }.get(regime, {'momentum': 1.0, 'trend': 1.0, 'flow': 1.0})
+            "sideways": {
+                "strength": 0.90,
+                "momentum": 0.90,
+                "trend": 1.00,
+                "flow": 1.15,
+            },
+        }.get(regime, {})
 
-        # 只对活跃因子应用调整
         final_weights = {}
-        for factor in active_factors:
-            base_weight = base_weights.get(factor, 0)
+        for factor, base_weight in base_weights.items():
             if base_weight > 0:
                 adjustment = adjustments.get(factor, 1.0)
                 final_weights[factor] = base_weight * adjustment

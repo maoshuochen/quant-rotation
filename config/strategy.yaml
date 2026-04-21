@@ -8,6 +8,7 @@ strategy:
 
 factor_model:
   baseline_name: "core_rotation_v3_strength"
+  scoring_mode: "dynamic"
   # 主模型因子 - 当前 3 个有效因子（strength = momentum + relative_strength 组合）
   active_factors:
     - strength
