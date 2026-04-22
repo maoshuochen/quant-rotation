@@ -1050,7 +1050,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-21 20:09",
+    "updated_at": "2026-04-22 20:11",
     "decision": {
       "headline": "本周主结论：新能源指数、科技指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 新能源指数、科技指数、科创 50。",
@@ -1172,5 +1172,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-21 20:09"
+  "update_time": "2026-04-22 20:11"
 }
