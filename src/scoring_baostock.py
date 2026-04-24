@@ -42,8 +42,37 @@ class ScoringEngine:
         else:
             self.strength_blend = {k: max(v, 0.0) / blend_total for k, v in self.strength_blend.items()}
 
+        trend_subfactor_weights = config.get('trend_subfactor_weights', {})
+        self.trend_subfactor_weights = {
+            'price_vs_ma20': float(trend_subfactor_weights.get('price_vs_ma20', 0.40)),
+            'price_vs_ma60': float(trend_subfactor_weights.get('price_vs_ma60', 0.35)),
+            'ma20_vs_ma60': float(trend_subfactor_weights.get('ma20_vs_ma60', 0.20)),
+            'ma20_slope': float(trend_subfactor_weights.get('ma20_slope', 0.05)),
+        }
+        trend_total = sum(max(v, 0.0) for v in self.trend_subfactor_weights.values())
+        if trend_total <= 0:
+            self.trend_subfactor_weights = {
+                'price_vs_ma20': 0.40,
+                'price_vs_ma60': 0.35,
+                'ma20_vs_ma60': 0.20,
+                'ma20_slope': 0.05,
+            }
+        else:
+            self.trend_subfactor_weights = {
+                k: max(v, 0.0) / trend_total for k, v in self.trend_subfactor_weights.items()
+            }
+
         self.auxiliary_factors = factor_model.get('auxiliary_factors', [])
-    
+
+    @staticmethod
+    def _clip_score(value: float, band: float) -> float:
+        """
+        将 [-band, +band] 线性映射到 [0, 1]，超出后截断。
+        """
+        if band <= 0:
+            return 0.5
+        return float(max(0.0, min(1.0, 0.5 + value / (2 * band))))
+
     def calc_momentum_score(self, returns: pd.Series) -> float:
         """
         动量评分 (6 个月收益率)
@@ -72,25 +101,75 @@ class ScoringEngine:
         score = 1.0 - (volatility - 0.1) / 0.3
         return max(0, min(1, score))
     
-    def calc_trend_score(self, prices: pd.Series) -> float:
+    def calc_trend_score(self, prices: pd.Series) -> Dict[str, object]:
         """
-        趋势评分 (价格在 MA 上方)
+        趋势评分：线性衡量价格、均线结构和均线斜率的上升强度。
         """
         if len(prices) < 60:
-            return 0.5
-        
-        ma20 = prices.rolling(20).mean().iloc[-1]
-        ma60 = prices.rolling(60).mean().iloc[-1]
+            neutral_weights = {
+                key: round(float(weight), 4)
+                for key, weight in self.trend_subfactor_weights.items()
+            }
+            return {
+                "score": 0.5,
+                "details": {key: 0.5 for key in neutral_weights},
+                "weights": neutral_weights,
+                "metrics": {
+                    "price_vs_ma20": 0.0,
+                    "price_vs_ma60": 0.0,
+                    "ma20_vs_ma60": 0.0,
+                    "ma20_slope": 0.0,
+                    "overextension_penalty": 0.0,
+                    "ma20_above_ma60": False,
+                },
+            }
+
+        ma20_series = prices.rolling(20).mean()
+        ma60_series = prices.rolling(60).mean()
+        ma20 = ma20_series.iloc[-1]
+        ma60 = ma60_series.iloc[-1]
         current = prices.iloc[-1]
-        
-        # 价格在 MA20 和 MA60 上方得高分
-        score = 0.5
-        if current > ma20:
-            score += 0.25
-        if current > ma60:
-            score += 0.25
-        
-        return min(1, score)
+
+        price_vs_ma20 = (current - ma20) / ma20 if ma20 else 0.0
+        price_vs_ma60 = (current - ma60) / ma60 if ma60 else 0.0
+        ma20_vs_ma60 = (ma20 - ma60) / ma60 if ma60 else 0.0
+
+        ma20_slope = 0.0
+        if len(prices) >= 70:
+            ma20_prev = ma20_series.iloc[-11]
+            if pd.notna(ma20_prev) and ma20_prev:
+                ma20_slope = (ma20 - ma20_prev) / ma20_prev
+
+        detail_scores = {
+            'price_vs_ma20': round(self._clip_score(price_vs_ma20, 0.08), 4),
+            'price_vs_ma60': round(self._clip_score(price_vs_ma60, 0.12), 4),
+            'ma20_vs_ma60': round(self._clip_score(ma20_vs_ma60, 0.10), 4),
+            'ma20_slope': round(self._clip_score(ma20_slope, 0.05), 4),
+        }
+        detail_weights = {
+            key: round(float(weight), 4)
+            for key, weight in self.trend_subfactor_weights.items()
+        }
+        weight_total = sum(detail_weights.values())
+        score = (
+            sum(detail_scores[key] * detail_weights[key] for key in detail_scores) / weight_total
+            if weight_total > 0
+            else 0.5
+        )
+
+        return {
+            "score": float(score),
+            "details": detail_scores,
+            "weights": detail_weights,
+            "metrics": {
+                "price_vs_ma20": float(price_vs_ma20),
+                "price_vs_ma60": float(price_vs_ma60),
+                "ma20_vs_ma60": float(ma20_vs_ma60),
+                "ma20_slope": float(ma20_slope),
+                "overextension_penalty": 0.0,
+                "ma20_above_ma60": bool(ma20 > ma60),
+            },
+        }
     
     def calc_relative_strength(self, prices: pd.Series, benchmark_prices: pd.Series) -> float:
         """
@@ -380,19 +459,16 @@ class ScoringEngine:
             attribution['volatility_annual'] = 0
 
         # ===== 趋势 (20%) =====
-        if len(close) >= 60:
-            ma20 = close.rolling(20).mean().iloc[-1]
-            ma60 = close.rolling(60).mean().iloc[-1]
-            current = close.iloc[-1]
-            scores['trend'] = self.calc_trend_score(close)
-            attribution['price_vs_ma20'] = round((current - ma20) / ma20 * 100, 2)  # 相对 MA20 位置%
-            attribution['price_vs_ma60'] = round((current - ma60) / ma60 * 100, 2)  # 相对 MA60 位置%
-            attribution['ma20_above_ma60'] = ma20 > ma60  # 金叉状态
-        else:
-            scores['trend'] = 0.5
-            attribution['price_vs_ma20'] = 0
-            attribution['price_vs_ma60'] = 0
-            attribution['ma20_above_ma60'] = False
+        trend_metrics = self.calc_trend_score(close)
+        scores['trend'] = float(trend_metrics['score'])
+        attribution['trend_breakdown'] = trend_metrics['details']
+        attribution['trend_weights'] = trend_metrics['weights']
+        attribution['price_vs_ma20'] = round(trend_metrics['metrics']['price_vs_ma20'] * 100, 2)
+        attribution['price_vs_ma60'] = round(trend_metrics['metrics']['price_vs_ma60'] * 100, 2)
+        attribution['ma20_above_ma60'] = trend_metrics['metrics']['ma20_above_ma60']
+        attribution['ma20_vs_ma60'] = round(trend_metrics['metrics']['ma20_vs_ma60'] * 100, 2)
+        attribution['ma20_slope_10d'] = round(trend_metrics['metrics']['ma20_slope'] * 100, 2)
+        attribution['trend_overextension_penalty'] = round(trend_metrics['metrics']['overextension_penalty'], 4)
 
         # ===== 估值 (使用真实 PE 数据) =====
         value_score = self.calc_value_score(close)

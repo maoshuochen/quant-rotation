@@ -70,6 +70,59 @@ def test_flow_breakdown_is_real_and_matches_total():
     assert math.isclose(scores["flow"], expected, rel_tol=0, abs_tol=1e-6)
 
 
+def test_trend_breakdown_is_continuous_and_matches_total():
+    engine = ScoringEngine(base_config(mode="fixed"))
+    frame = make_price_frame()
+    benchmark = make_price_frame()
+
+    scores = engine.score_index(frame, benchmark)
+    breakdown = scores["attribution"]["trend_breakdown"]
+    weights = scores["attribution"]["trend_weights"]
+
+    expected = sum(breakdown[key] * weights[key] for key in breakdown) / sum(weights.values())
+
+    assert set(breakdown) == {
+        "price_vs_ma20",
+        "price_vs_ma60",
+        "ma20_vs_ma60",
+        "ma20_slope",
+    }
+    assert scores["attribution"]["trend_overextension_penalty"] == 0.0
+    assert math.isclose(scores["trend"], expected, rel_tol=0, abs_tol=1e-6)
+    assert scores["trend"] not in {0.5, 0.75, 1.0}
+
+
+def test_trend_score_improves_when_structure_gets_stronger():
+    engine = ScoringEngine(base_config(mode="fixed"))
+    dates = pd.date_range("2024-01-01", periods=80, freq="B")
+
+    weak_prices = pd.Series(np.linspace(100.0, 99.0, len(dates)), index=dates)
+    strong_prices = pd.Series(np.linspace(100.0, 130.0, len(dates)), index=dates)
+
+    weak_score = engine.calc_trend_score(weak_prices)["score"]
+    strong_score = engine.calc_trend_score(strong_prices)["score"]
+
+    assert strong_score > weak_score
+    assert 0.0 <= weak_score <= 1.0
+    assert 0.0 <= strong_score <= 1.0
+
+
+def test_trend_keeps_overextended_price_action_capped_without_penalty():
+    engine = ScoringEngine(base_config(mode="fixed"))
+    dates = pd.date_range("2024-01-01", periods=80, freq="B")
+
+    healthy_prices = pd.Series(np.linspace(100.0, 118.0, len(dates)), index=dates)
+    overheated_prices = pd.Series(np.linspace(100.0, 118.0, len(dates)), index=dates)
+    overheated_prices.iloc[-1] = overheated_prices.iloc[-2] * 1.12
+
+    healthy = engine.calc_trend_score(healthy_prices)
+    overheated = engine.calc_trend_score(overheated_prices)
+
+    assert overheated["metrics"]["overextension_penalty"] == 0.0
+    assert overheated["details"]["price_vs_ma20"] <= 1.0
+    assert overheated["score"] >= healthy["score"]
+
+
 def test_dynamic_weights_apply_to_strength_factor():
     detector = MarketRegimeDetector()
     dynamic_weights = detector.get_dynamic_weights(
