@@ -67,6 +67,7 @@ def test_flow_breakdown_is_real_and_matches_total():
         "amount_trend",
         "flow_intensity",
     }
+    assert math.isclose(sum(weights.values()), 1.0, rel_tol=0, abs_tol=1e-9)
     assert math.isclose(scores["flow"], expected, rel_tol=0, abs_tol=1e-6)
 
 

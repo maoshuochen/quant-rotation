@@ -85,38 +85,6 @@ jobs:
         run: |
           python scripts/generate_data.py
 
-      - name: Ensure split frontend JSON files exist
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          public = Path("web/public")
-          data_path = public / "data.json"
-          if not data_path.exists():
-              raise SystemExit("web/public/data.json not found")
-
-          data = json.loads(data_path.read_text(encoding="utf-8"))
-
-          backtest_path = public / "backtest.json"
-          if not backtest_path.exists():
-              backtest_path.write_text(
-                  json.dumps(data.get("backtest", {}), ensure_ascii=False, indent=2),
-                  encoding="utf-8",
-              )
-
-          history_path = public / "history.json"
-          if not history_path.exists():
-              history_payload = {
-                  "history": data.get("history", []),
-                  "update_time": data.get("update_time", ""),
-              }
-              history_path.write_text(
-                  json.dumps(history_payload, ensure_ascii=False, indent=2),
-                  encoding="utf-8",
-              )
-          PY
-
       - name: Extract metrics
         id: collect
         run: |
@@ -146,11 +114,20 @@ jobs:
           mkdir -p ../site
           cp -R dist/. ../site/
 
+      - name: Upload generated data artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-market-data
+          path: |
+            data/raw/
+            backtest_results/
+          retention-days: 14
+
       - name: Commit and push results
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add data/raw/ backtest_results/ web/public/ site/ index.html
+          git add web/public/ site/ index.html
           git diff --staged --quiet || git commit -m "chore: update backtest data $(date -u +%Y-%m-%d)
 
           Metrics:

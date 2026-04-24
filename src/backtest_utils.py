@@ -43,14 +43,25 @@ def create_portfolio(config: dict, initial_capital: Optional[float] = None) -> S
     )
 
 
-def load_etf_history(fetcher, indices: Iterable[dict], start_date: str, force_refresh: bool = False) -> Dict[str, pd.DataFrame]:
+def load_etf_history(
+    fetcher,
+    indices: Iterable[dict],
+    start_date: str,
+    force_refresh: bool = False,
+    allow_stale_cache: bool = False,
+) -> Dict[str, pd.DataFrame]:
     data: Dict[str, pd.DataFrame] = {}
     for idx in indices:
         code = idx.get("code")
         etf = idx.get("etf")
         if not code or not etf:
             continue
-        df = fetcher.fetch_etf_history(etf, start_date, force_refresh=force_refresh)
+        df = fetcher.fetch_etf_history(
+            etf,
+            start_date,
+            force_refresh=force_refresh,
+            allow_stale_cache=allow_stale_cache,
+        )
         if not df.empty:
             data[code] = df
     return data
