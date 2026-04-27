@@ -1,16 +1,16 @@
 {
   "summary": {
     "initial_capital": 1000000.0,
-    "final_value": 1501599.06,
-    "total_return": 0.5016,
-    "annual_return": 0.1942,
+    "final_value": 1514776.92,
+    "total_return": 0.5148,
+    "annual_return": 0.1962,
     "max_drawdown": -0.1517,
     "max_drawdown_date": "2025-04-07",
-    "sharpe_ratio": 0.96,
-    "trading_days": 553,
+    "sharpe_ratio": 0.97,
+    "trading_days": 559,
     "period": {
       "start": "2024-01-02",
-      "end": "2026-04-17"
+      "end": "2026-04-27"
     }
   },
   "chart_data": [
@@ -3310,27 +3310,63 @@
     },
     {
       "date": "2026-04-14",
-      "value": 1493848.86,
-      "cum_return": 0.4938,
-      "drawdown": -0.0263
+      "value": 1494783.94,
+      "cum_return": 0.4948,
+      "drawdown": -0.0257
     },
     {
       "date": "2026-04-15",
-      "value": 1489788.81,
-      "cum_return": 0.4898,
-      "drawdown": -0.0289
+      "value": 1489924.67,
+      "cum_return": 0.4899,
+      "drawdown": -0.0288
     },
     {
       "date": "2026-04-16",
-      "value": 1502735.76,
-      "cum_return": 0.5027,
-      "drawdown": -0.0205
+      "value": 1503003.98,
+      "cum_return": 0.503,
+      "drawdown": -0.0203
     },
     {
       "date": "2026-04-17",
-      "value": 1501599.06,
-      "cum_return": 0.5016,
-      "drawdown": -0.0212
+      "value": 1503718.21,
+      "cum_return": 0.5037,
+      "drawdown": -0.0198
+    },
+    {
+      "date": "2026-04-20",
+      "value": 1511814.83,
+      "cum_return": 0.5118,
+      "drawdown": -0.0146
+    },
+    {
+      "date": "2026-04-21",
+      "value": 1514896.13,
+      "cum_return": 0.5149,
+      "drawdown": -0.0125
+    },
+    {
+      "date": "2026-04-22",
+      "value": 1529866.91,
+      "cum_return": 0.5299,
+      "drawdown": -0.0028
+    },
+    {
+      "date": "2026-04-23",
+      "value": 1519031.22,
+      "cum_return": 0.519,
+      "drawdown": -0.0099
+    },
+    {
+      "date": "2026-04-24",
+      "value": 1514174.26,
+      "cum_return": 0.5142,
+      "drawdown": -0.013
+    },
+    {
+      "date": "2026-04-27",
+      "value": 1514776.92,
+      "cum_return": 0.5148,
+      "drawdown": -0.0126
     }
   ]
 }
