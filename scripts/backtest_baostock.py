@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 import sys
+import json
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
@@ -29,7 +30,8 @@ from src.backtest_utils import (
     select_rebalance_dates,
     validate_etf_history_coverage,
 )
-from src.scoring_factory import create_scoring_engine, resolve_scoring_mode
+from src.scoring_factory import create_scoring_engine
+from src.provenance import build_run_metadata
 
 # 优化日志：仅保留 warning 及以上，减少输出噪音
 logging.basicConfig(
@@ -248,7 +250,6 @@ def run_backtest(start_date: str = None,
     # 初始化组件
     fetcher = IndexDataFetcher()
     scorer = create_scoring_engine(config)
-    scoring_mode = resolve_scoring_mode(config)
     portfolio = create_portfolio(config, initial_capital=initial_capital)
 
     # 策略参数
@@ -375,13 +376,13 @@ def run_backtest(start_date: str = None,
     stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
     pending_signals = None
 
-    def score_candidate(item, date, benchmark_slice, dynamic_weights):
+    def score_candidate(item, date, benchmark_slice):
         code, df = item
         end_pos = df.index.searchsorted(date, side="right")
         hist_df = df.iloc[max(0, end_pos - history_window):end_pos]
         if len(hist_df) < 20:
             return None
-        return code, scorer.score_index(hist_df, benchmark_slice, dynamic_weights=dynamic_weights)
+        return code, scorer.score_index(hist_df, benchmark_slice)
 
     executor = ThreadPoolExecutor(max_workers=score_workers) if score_workers > 1 else None
     try:
@@ -426,28 +427,19 @@ def run_backtest(start_date: str = None,
                 # 计算评分（固定权重）
                 scores_dict = {}
                 benchmark_slice = benchmark_data
-                dynamic_weights = None
                 if not benchmark_data.empty:
                     bench_end_pos = benchmark_data.index.searchsorted(date, side="right")
                     benchmark_slice = benchmark_data.iloc[max(0, bench_end_pos - history_window):bench_end_pos]
-                    if (
-                        scoring_mode == "dynamic"
-                        and hasattr(scorer, "update_market_regime")
-                        and not benchmark_slice.empty
-                    ):
-                        scorer.update_market_regime(benchmark_slice["close"])
-                        dynamic_weights = getattr(scorer, "current_weights", None)
                 if use_vectorized_scoring:
-                    weights_to_use = dynamic_weights if dynamic_weights else scorer.weights
                     ranking = _rank_from_score_frames(
                         scorer,
                         score_frames,
                         date,
                         active_factors,
-                        weights_to_use,
+                        scorer.weights,
                     )
                 elif executor is not None:
-                    for result in executor.map(lambda item: score_candidate(item, date, benchmark_slice, dynamic_weights), etf_data.items()):
+                    for result in executor.map(lambda item: score_candidate(item, date, benchmark_slice), etf_data.items()):
                         if result is None:
                             continue
                         code, scores = result
@@ -455,7 +447,7 @@ def run_backtest(start_date: str = None,
                     ranking = scorer.rank_indices(scores_dict)
                 else:
                     for item in etf_data.items():
-                        result = score_candidate(item, date, benchmark_slice, dynamic_weights)
+                        result = score_candidate(item, date, benchmark_slice)
                         if result is None:
                             continue
                         code, scores = result
@@ -521,6 +513,27 @@ def run_backtest(start_date: str = None,
     current_file = results_dir / 'current.parquet'
     values_df.to_parquet(current_file, compression='snappy', index=False)
     logger.warning(f"current.parquet 已更新")
+
+    metadata = build_run_metadata(
+        root_dir=root_dir,
+        config=config,
+        source="scripts/backtest_baostock.py",
+        requested_start=start_date,
+        requested_end=end_date,
+        actual_start=values_df["date"].iloc[0].strftime("%Y-%m-%d"),
+        actual_end=values_df["date"].iloc[-1].strftime("%Y-%m-%d"),
+        trading_days=len(values_df),
+        summary={
+            "final_value": round(float(final_value), 2),
+            "total_return": round(float(total_return), 6),
+            "annual_return": round(float(annual_return), 6),
+            "max_drawdown": round(float(max_drawdown), 6),
+            "sharpe": round(float(sharpe), 6),
+        },
+    )
+    metadata_file = results_dir / "current.meta.json"
+    metadata_file.write_text(json.dumps(metadata, indent=2, ensure_ascii=False), encoding="utf-8")
+    logger.warning("current.meta.json 已更新")
 
     # 清理
     fetcher.close()

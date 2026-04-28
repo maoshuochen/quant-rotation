@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import math
 from copy import deepcopy
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -17,6 +18,7 @@ import pandas as pd
 from src.strategy_baostock import RotationStrategy
 from src.strategy_summary import build_strategy_summary
 from src.scoring_factory import create_scoring_engine
+from src.provenance import build_strategy_signature
 
 
 class DashboardDataBuilder:
@@ -29,7 +31,7 @@ class DashboardDataBuilder:
         self.active_factors = factor_model.get("active_factors", ["momentum", "trend", "flow"])
         self.auxiliary_factors = factor_model.get("auxiliary_factors", [])
         self.factor_weights = self.config.get("factor_weights", {})
-        self.scoring_mode = getattr(self.strategy, "scoring_mode", "dynamic")
+        self.scoring_mode = "fixed"
 
     def prepare(self) -> tuple[Dict[str, pd.DataFrame], pd.DataFrame]:
         self.strategy.load_benchmark()
@@ -41,9 +43,16 @@ class DashboardDataBuilder:
         parquet_file = self.root_dir / "backtest_results" / "current.parquet"
         if not parquet_file.exists():
             return {"summary": {}, "chart_data": []}
+        metadata_file = self.root_dir / "backtest_results" / "current.meta.json"
+        if not metadata_file.exists():
+            raise RuntimeError(
+                "缺少 backtest_results/current.meta.json。请先运行 "
+                "`python3 scripts/backtest_baostock.py 20240102 20260427` 生成可追溯回测结果。"
+            )
 
         df = pd.read_parquet(parquet_file).copy()
         df["date"] = pd.to_datetime(df["date"])
+        metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
 
         if "drawdown" not in df.columns:
             df["rolling_max"] = df["value"].cummax()
@@ -63,6 +72,27 @@ class DashboardDataBuilder:
         max_drawdown_date = df.loc[df["drawdown"].idxmin(), "date"]
         daily_returns = df["return"].dropna()
         sharpe = daily_returns.mean() / daily_returns.std() * (252 ** 0.5) if len(daily_returns) > 20 else 0
+        period = {
+            "start": df["date"].iloc[0].strftime("%Y-%m-%d"),
+            "end": df["date"].iloc[-1].strftime("%Y-%m-%d"),
+        }
+
+        expected_signature = build_strategy_signature(self.config)
+        if metadata.get("strategy_signature") != expected_signature:
+            raise RuntimeError(
+                "回测结果与当前策略配置不一致：backtest_results/current.meta.json 的策略签名已过期。"
+                "请重新运行 `python3 scripts/backtest_baostock.py 20240102 20260427`。"
+            )
+        if metadata.get("scoring_mode") != self.scoring_mode:
+            raise RuntimeError(
+                f"回测 scoring_mode={metadata.get('scoring_mode')}，当前配置为 {self.scoring_mode}。"
+                "请重新运行回测后再生成前端数据。"
+            )
+        if metadata.get("actual_period") != period or int(metadata.get("trading_days", 0)) != len(df):
+            raise RuntimeError("回测 meta 与 current.parquet 的区间或交易日数量不一致。请重新运行回测。")
+        meta_summary = metadata.get("summary", {})
+        if meta_summary and not math.isclose(float(meta_summary.get("total_return", 0)), float(total_return), abs_tol=1e-6):
+            raise RuntimeError("回测 meta 与 current.parquet 的收益率不一致。请重新运行回测。")
 
         chart_data = [
             {
@@ -83,12 +113,10 @@ class DashboardDataBuilder:
                 "max_drawdown_date": max_drawdown_date.strftime("%Y-%m-%d") if pd.notna(max_drawdown_date) else "",
                 "sharpe_ratio": round(sharpe, 2),
                 "trading_days": len(df),
-                "period": {
-                    "start": df["date"].iloc[0].strftime("%Y-%m-%d"),
-                    "end": df["date"].iloc[-1].strftime("%Y-%m-%d"),
-                },
+                "period": period,
             },
             "chart_data": chart_data,
+            "metadata": metadata,
         }
 
     def _index_info(self, code: str) -> dict:
@@ -233,16 +261,12 @@ class DashboardDataBuilder:
         health = current_health
         universe = self.generate_universe()
         update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
-        market_regime = getattr(self.strategy.scorer, "current_regime", "sideways")
-        market_regime_desc = {"bull": "多头市", "bear": "空头市", "sideways": "震荡市"}.get(market_regime, market_regime)
         summary = build_strategy_summary(
             root_dir=self.root_dir,
             indices=self.indices,
             inactive_indices=self.config.get("inactive_indices", []),
             recommendation=recommendation,
             health=health,
-            market_regime=market_regime,
-            market_regime_desc=market_regime_desc,
             update_time=update_time,
             backtest_summary=backtest.get("summary"),
         )
@@ -256,8 +280,11 @@ class DashboardDataBuilder:
             "universe": universe,
             "strategy_summary": summary,
             "update_time": update_time,
-            "market_regime": market_regime,
-            "market_regime_desc": market_regime_desc,
+            "metadata": {
+                "generated_at": update_time,
+                "strategy_signature": build_strategy_signature(self.config),
+                "backtest": backtest.get("metadata", {}),
+            },
             "factor_weights": self.factor_weights,
             "factor_model": {
                 "active_factors": self.active_factors,
@@ -271,15 +298,17 @@ class DashboardDataBuilder:
             "health": health,
             "universe": universe,
             "strategy_summary": summary,
+            "metadata": {
+                "generated_at": update_time,
+                "strategy_signature": build_strategy_signature(self.config),
+                "backtest": backtest.get("metadata", {}),
+            },
             "factor_weights": self.factor_weights,
             "factor_model": {
                 "active_factors": self.active_factors,
                 "auxiliary_factors": self.auxiliary_factors,
                 "scoring_mode": self.scoring_mode,
             },
-            "dynamic_weights": getattr(self.strategy.scorer, "current_weights", {}),
-            "market_regime": market_regime,
-            "market_regime_desc": market_regime_desc,
             "strategy": self.config.get("strategy", {}),
             "update_time": update_time,
         }

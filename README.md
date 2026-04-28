@@ -20,11 +20,18 @@ pip install -r requirements/base.txt
 # 每日评分与调仓信号
 python scripts/daily_run_baostock.py
 
-# 回测
-python scripts/backtest_baostock.py
+# 回测，生成 backtest_results/current.parquet 和 current.meta.json
+python scripts/backtest_baostock.py 20240102 20260427
 
 # 生成前端数据
 python scripts/generate_data.py
+
+# 构建并同步站点产物
+cd web && npm run build && cd ..
+rm -rf site && mkdir -p site && cp -R web/dist/. site/
+
+# 校验后端回测、前端数据和站点产物是否一致
+python scripts/validate_data_consistency.py
 ```
 
 ## 数据口径
@@ -113,7 +120,7 @@ quant-rotation/
 补充说明：
 
 - `动量`、`相对强弱`、`估值`、`波动` 仍会在评分与归因中计算，但当前只有合成后的 `strength` 计入主模型总分。
-- 市场状态切换会影响看板展示和动态解释，但当前基线回测主分仍以上述 3 因子为核心。
+- 正式策略使用固定权重，不再判断或切换市场状态。
 - 当前风控基线只保留 `8%` 移动止损，不再使用固定现金缓冲。
 
 ### 强度因子公式
@@ -235,6 +242,7 @@ RS_score = clip(0.5 + RS_raw, 0, 1)
 1. 获取最新 ETF 数据
 2. 运行回测更新
 3. 生成 `web/public/*.json`
+4. 构建 `site/` 并运行一致性校验
 
 前端同步工作流在 `main` 分支的 `web/**` 变更后自动执行，负责构建前端并更新 `site/`。
 

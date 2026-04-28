@@ -84,9 +84,6 @@ export const loadData = async () => {
       ranking: data.ranking || [],
       factorWeights: data.factor_weights || {},
       factorModel: data.factor_model || {},
-      dynamicWeights: data.dynamic_weights || {},
-      marketRegime: data.market_regime || 'sideways',
-      marketRegimeDesc: data.market_regime_desc || '',
       strategy: data.strategy || {},
       updateTime: data.update_time || '',
       recommendation: data.recommendation || {},
@@ -101,9 +98,6 @@ export const loadData = async () => {
         ranking: data.ranking || [],
         factorWeights: data.factor_weights || {},
         factorModel: data.factor_model || {},
-        dynamicWeights: data.dynamic_weights || {},
-        marketRegime: data.market_regime || 'sideways',
-        marketRegimeDesc: data.market_regime_desc || '',
         strategy: data.strategy || {},
         updateTime: data.update_time || data.updateTime || '',
         recommendation: data.recommendation || {},
@@ -123,7 +117,8 @@ export const loadBacktestData = async () => {
     const data = await fetchJson('./backtest.json')
     return {
       summary: data.summary || {},
-      chartData: data.chart_data || []
+      chartData: data.chart_data || [],
+      metadata: data.metadata || {}
     }
   } catch (err) {
     console.error('加载 backtest.json 失败，回退到 data.json:', err.message)
@@ -131,7 +126,8 @@ export const loadBacktestData = async () => {
       const data = await loadCombinedData()
       return {
         summary: data.backtest?.summary || {},
-        chartData: data.backtest?.chart_data || []
+        chartData: data.backtest?.chart_data || [],
+        metadata: data.backtest?.metadata || {}
       }
     } catch (fallbackErr) {
       console.error('加载 data.json 失败:', fallbackErr.message)

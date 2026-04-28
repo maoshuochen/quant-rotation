@@ -226,8 +226,6 @@ def build_strategy_summary(
     inactive_indices: Iterable[dict],
     recommendation: dict,
     health: dict,
-    market_regime: str,
-    market_regime_desc: str,
     update_time: str,
     backtest_summary: Optional[dict] = None,
 ) -> dict:
@@ -253,7 +251,6 @@ def build_strategy_summary(
         "decision": {
             "headline": f"本周主结论：{top_names or '等待新信号'} 为当前优先观察方向。",
             "execution_message": execution_message,
-            "market_context": market_regime_desc or market_regime,
             "action": validation.get("action", ""),
         },
         "data_health": data_health,

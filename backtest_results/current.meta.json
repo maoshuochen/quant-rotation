@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "source": "scripts/backtest_baostock.py",
+  "generated_at": "2026-04-28 22:49:26",
+  "git": {
+    "commit": "522098c2744649b7d33e52359a94efc2b219d912",
+    "commit_short": "522098c2",
+    "branch": "codex/fix-backtest-stalls",
+    "dirty": true
+  },
+  "strategy_signature": "ff67e748f6f15928f412be1f321ed5f3934bdff5f8c95e86230c54e9717019e9",
+  "strategy_signature_payload": {
+    "data": {
+      "etf_price_mode": "continuous",
+      "history_start_date": "20230101",
+      "require_consistent_adjust": true
+    },
+    "factor_model": {
+      "active_factors": [
+        "strength",
+        "trend",
+        "flow"
+      ],
+      "auxiliary_factors": [],
+      "baseline_name": "core_rotation_v3_strength",
+      "scoring_mode": "fixed"
+    },
+    "factor_weights": {
+      "flow": 0.585,
+      "strength": 0.235,
+      "trend": 0.18
+    },
+    "flow_subfactor_weights": {
+      "amount_trend": 0.35,
+      "flow_intensity": 0.2,
+      "price_volume_corr": 0.1,
+      "volume_trend": 0.35
+    },
+    "portfolio": {
+      "commission": 0.0003,
+      "initial_capital": 1000000,
+      "slippage": 0.001
+    },
+    "stop_loss": {
+      "cooldown_days": 5,
+      "trailing": 0.08
+    },
+    "strategy": {
+      "buffer_n": 7,
+      "momentum_window": 126,
+      "rebalance_frequency": "weekly",
+      "strict_weekly_execution": true,
+      "top_n": 5
+    },
+    "strength_blend": {
+      "momentum": 0.5,
+      "relative_strength": 0.5
+    },
+    "trend_subfactor_weights": {}
+  },
+  "scoring_mode": "fixed",
+  "requested_period": {
+    "start": "20240102",
+    "end": "20260427"
+  },
+  "actual_period": {
+    "start": "2024-01-02",
+    "end": "2026-04-27"
+  },
+  "trading_days": 559,
+  "summary": {
+    "final_value": 1308422.5,
+    "total_return": 0.308422,
+    "annual_return": 0.122975,
+    "max_drawdown": -0.16823,
+    "sharpe": 0.70125
+  }
+}

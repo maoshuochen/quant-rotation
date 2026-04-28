@@ -50,6 +50,10 @@ jobs:
           mkdir -p site
           cp -R web/dist/. site/
 
+      - name: Validate generated data consistency
+        run: |
+          python scripts/validate_data_consistency.py
+
       - name: Commit and push site
         run: |
           git config --local user.name "GitHub Actions"

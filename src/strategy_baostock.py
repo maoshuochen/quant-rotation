@@ -12,7 +12,7 @@ from src.data_fetcher_baostock import IndexDataFetcher
 from src.portfolio import SimulatedPortfolio
 from src.backtest_utils import is_rebalance_day
 from src.config_loader import load_app_config
-from src.scoring_factory import create_scoring_engine, resolve_scoring_mode
+from src.scoring_factory import create_scoring_engine
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class RotationStrategy:
         # 初始化组件
         self.fetcher = IndexDataFetcher()
         
-        self.scoring_mode = resolve_scoring_mode(self.config)
+        self.scoring_mode = "fixed"
         self.scorer = create_scoring_engine(self.config)
         
         # 策略参数
@@ -66,26 +66,9 @@ class RotationStrategy:
         self.history_start_date = str(self.config.get("data", {}).get("history_start_date", "20230101"))
     
     def load_benchmark(self):
-        """加载基准数据并更新市场状态"""
+        """加载基准数据"""
         logger.info(f"Loading benchmark: {self.benchmark_code}")
         self.benchmark_data = self.fetcher.fetch_etf_history(self.benchmark_code, self.history_start_date)
-        self._update_regime_state(self.benchmark_data, scorer=self.scorer)
-
-    def _update_regime_state(self, benchmark_data: Optional[pd.DataFrame], scorer=None) -> Optional[Dict[str, float]]:
-        scorer = scorer or self.scorer
-        if (
-            self.scoring_mode != "dynamic"
-            or benchmark_data is None
-            or benchmark_data.empty
-            or "close" not in benchmark_data.columns
-            or not hasattr(scorer, "update_market_regime")
-        ):
-            return None
-
-        scorer.update_market_regime(benchmark_data["close"])
-        logger.info(f"市场状态：{getattr(scorer, 'current_regime', 'unknown')}")
-        logger.info(f"动态权重：{getattr(scorer, 'current_weights', {})}")
-        return getattr(scorer, "current_weights", None)
 
     def score_universe(
         self,
@@ -95,7 +78,6 @@ class RotationStrategy:
     ) -> pd.DataFrame:
         benchmark_ref = benchmark_data if benchmark_data is not None else self.benchmark_data
         scorer = scorer or self.scorer
-        dynamic_weights = self._update_regime_state(benchmark_ref, scorer=scorer)
 
         scores_dict = {}
         for code, df in data_dict.items():
@@ -103,7 +85,6 @@ class RotationStrategy:
             scores_dict[code] = scorer.score_index(
                 df,
                 benchmark_ref,
-                dynamic_weights=dynamic_weights,
             )
         return scorer.rank_indices(scores_dict)
     

@@ -114,6 +114,10 @@ jobs:
           mkdir -p ../site
           cp -R dist/. ../site/
 
+      - name: Validate generated data consistency
+        run: |
+          python scripts/validate_data_consistency.py
+
       - name: Upload generated data artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -127,7 +131,7 @@ jobs:
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add web/public/ site/ index.html
+          git add backtest_results/current.parquet backtest_results/current.meta.json web/public/ site/ index.html
           git diff --staged --quiet || git commit -m "chore: update backtest data $(date -u +%Y-%m-%d)
 
           Metrics:

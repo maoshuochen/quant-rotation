@@ -31,7 +31,7 @@ const SectionHeader = ({ title, subtitle, isExpanded, onClick, actions }) => (
         <span className={`h-2 w-2 rounded-full transition-colors ${isExpanded ? 'bg-amber-500' : 'bg-zinc-600'}`} />
         <div className="min-w-0">
           <h2 className="text-base sm:text-xl font-semibold text-zinc-100">{title}</h2>
-          {subtitle && <p className="mt-1 text-xs sm:text-sm text-zinc-500">{subtitle}</p>}
+          {subtitle && <p className="mt-1 hidden text-xs text-zinc-500 sm:block sm:text-sm">{subtitle}</p>}
         </div>
       </div>
       <div className="flex items-center gap-3">
@@ -205,11 +205,11 @@ const Dashboard = ({
   }
 
   const recommendation = data?.recommendation || {}
-  const universe = data?.universe || {}
   const holdings = recommendation.holdings || []
   const signals = recommendation.signals || []
   const backtestSummary = backtestData?.summary || {}
-  const inactiveUniverse = universe.inactive || []
+  const backtestMetadata = backtestData?.metadata || {}
+  const backtestGit = backtestMetadata.git || {}
   const ranking = data?.ranking || []
   const factorWeights = data?.factorWeights || {}
   const history = historyData?.history || []
@@ -224,12 +224,6 @@ const Dashboard = ({
     ? null
     : sortedHistory.find((period) => period.date === selectedPeriod) || null
   const rankingView = selectedHistoryPeriod?.holdings || ranking
-  const backtestPeriod = backtestSummary.period || {}
-
-  const topNames = holdings.slice(0, 3).map(item => item.name).join(', ')
-  const executionHeadline = signals.length
-    ? `建议执行 ${signals.length} 个动作，关注 ${topNames || '头部'}。`
-    : `无新增动作，跟踪 ${topNames || '头部候选'}。`
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section)
@@ -248,9 +242,6 @@ const Dashboard = ({
             <div className="flex items-center gap-2">
               <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Core</span>
               <h1 className="text-sm sm:text-lg font-semibold text-gradient truncate">指数轮动</h1>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] sm:text-xs text-zinc-300">
-                {data.marketRegimeDesc || data.marketRegime}
-              </span>
             </div>
           </div>
           <button
@@ -317,25 +308,7 @@ const Dashboard = ({
           />
           {expandedSection !== 'ranking' && (
             <div>
-              <div className="mb-3 grid gap-2 lg:hidden">
-                <div className="rounded-xl border border-amber-500/20 bg-gradient-to-br from-amber-500/10 to-zinc-900/70 p-3">
-                  <div className="text-[10px] uppercase tracking-wider text-amber-300/80">当前基线</div>
-                  <div className="mt-1 text-sm font-semibold text-zinc-100">4 因子周频轮动</div>
-                  <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-zinc-300">
-                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">持仓前 {recommendation.top_n || 0} 名</div>
-                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">跌出前 {recommendation.buffer_n || 0} 名卖出</div>
-                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">移动止损 8%</div>
-                    <div className="rounded-lg bg-zinc-950/60 px-2.5 py-2">调仓频率 {recommendation.rebalance_frequency === 'weekly' ? '每周' : '每月'}</div>
-                  </div>
-                </div>
-                <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
-                  <div className="text-[10px] uppercase tracking-wider text-zinc-500">回测口径</div>
-                  <div className="mt-1 text-xs text-zinc-200">
-                    当前页面展示的收益、回撤和夏普均来自正式基线回测，区间为 {backtestPeriod.start || '-'} 至 {backtestPeriod.end || '-'}。
-                  </div>
-                </div>
-              </div>
-              <div className="mb-3 space-y-2">
+              <div className="mb-3 hidden space-y-2 lg:block">
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
                   <div className="text-[10px] uppercase tracking-wider text-zinc-500">调仓规则</div>
                   <div className="mt-1 text-xs text-zinc-200">
@@ -494,6 +467,12 @@ const Dashboard = ({
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
+                  {backtestMetadata.generated_at ? (
+                    <div className="mt-3 text-[10px] sm:text-xs text-zinc-500">
+                      数据口径：{backtestMetadata.scoring_mode || 'fixed'} · 回测生成 {backtestMetadata.generated_at}
+                      {backtestGit.commit_short ? ` · ${backtestGit.commit_short}${backtestGit.dirty ? ' dirty' : ''}` : ''}
+                    </div>
+                  ) : null}
                 </div>
               ) : (
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-6 text-sm text-zinc-400 text-center">

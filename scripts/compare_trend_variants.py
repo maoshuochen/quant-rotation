@@ -25,9 +25,7 @@ from src.backtest_utils import (
     validate_etf_history_coverage,
 )
 from src.data_fetcher_baostock import IndexDataFetcher
-from src.market_regime import DynamicWeightScoringEngine
 from src.scoring_baostock import ScoringEngine
-from src.scoring_factory import resolve_scoring_mode
 
 BASE_CONFIG = load_strategy_config(ROOT_DIR)
 
@@ -75,10 +73,6 @@ class LegacyTrendScoringEngine(ScoringEngine):
                 "ma20_above_ma60": bool(ma20 > ma60),
             },
         }
-
-
-class LegacyTrendDynamicEngine(DynamicWeightScoringEngine, LegacyTrendScoringEngine):
-    pass
 
 
 class V1LinearScoringEngine(ScoringEngine):
@@ -134,10 +128,6 @@ class V1LinearScoringEngine(ScoringEngine):
         }
 
 
-class V1LinearDynamicEngine(DynamicWeightScoringEngine, V1LinearScoringEngine):
-    pass
-
-
 class RecommendedTrendScoringEngine(ScoringEngine):
     def calc_trend_score(self, prices: pd.Series):
         weights = {"price_vs_ma20": 0.4, "price_vs_ma60": 0.4, "ma20_vs_ma60": 0.2}
@@ -182,10 +172,6 @@ class RecommendedTrendScoringEngine(ScoringEngine):
         }
 
 
-class RecommendedTrendDynamicEngine(DynamicWeightScoringEngine, RecommendedTrendScoringEngine):
-    pass
-
-
 class MinimalTrendScoringEngine(ScoringEngine):
     def calc_trend_score(self, prices: pd.Series):
         weights = {"price_vs_ma60": 0.5, "ma20_vs_ma60": 0.5}
@@ -228,20 +214,14 @@ class MinimalTrendScoringEngine(ScoringEngine):
         }
 
 
-class MinimalTrendDynamicEngine(DynamicWeightScoringEngine, MinimalTrendScoringEngine):
-    pass
-
-
 def make_engine(config: dict, variant: str):
-    mode = resolve_scoring_mode(config)
     mapping = {
-        "legacy": (LegacyTrendDynamicEngine, LegacyTrendScoringEngine),
-        "v1": (V1LinearDynamicEngine, V1LinearScoringEngine),
-        "recommended": (RecommendedTrendDynamicEngine, RecommendedTrendScoringEngine),
-        "minimal": (MinimalTrendDynamicEngine, MinimalTrendScoringEngine),
+        "legacy": LegacyTrendScoringEngine,
+        "v1": V1LinearScoringEngine,
+        "recommended": RecommendedTrendScoringEngine,
+        "minimal": MinimalTrendScoringEngine,
     }
-    dynamic_cls, fixed_cls = mapping[variant]
-    return dynamic_cls(config) if mode == "dynamic" else fixed_cls(config)
+    return mapping[variant](config)
 
 
 @dataclass
@@ -300,13 +280,13 @@ def run_period(start_date: str, end_date: str, variant: str) -> RunResult:
     close_matrix = pd.DataFrame({code: df["close"].reindex(trade_dates) for code, df in etf_data.items()}, index=trade_dates)
     open_matrix = pd.DataFrame({code: df["open"].reindex(trade_dates) for code, df in etf_data.items()}, index=trade_dates)
 
-    def score_candidate(item, date, benchmark_slice, dynamic_weights):
+    def score_candidate(item, date, benchmark_slice):
         code, df = item
         end_pos = df.index.searchsorted(date, side="right")
         hist_df = df.iloc[max(0, end_pos - history_window) : end_pos]
         if len(hist_df) < 20:
             return None
-        return code, scorer.score_index(hist_df, benchmark_slice, dynamic_weights=dynamic_weights)
+        return code, scorer.score_index(hist_df, benchmark_slice)
 
     pending = None
     daily_values = []
@@ -332,17 +312,13 @@ def run_period(start_date: str, end_date: str, variant: str) -> RunResult:
             if date in rebalance_set and date <= last_rebalance:
                 scores_dict = {}
                 benchmark_slice = benchmark
-                dynamic_weights = None
                 if not benchmark.empty:
                     bench_end = benchmark.index.searchsorted(date, side="right")
                     benchmark_slice = benchmark.iloc[max(0, bench_end - history_window) : bench_end]
-                    if resolve_scoring_mode(config) == "dynamic" and hasattr(scorer, "update_market_regime") and not benchmark_slice.empty:
-                        scorer.update_market_regime(benchmark_slice["close"])
-                        dynamic_weights = getattr(scorer, "current_weights", None)
                 iterator = (
-                    executor.map(lambda item: score_candidate(item, date, benchmark_slice, dynamic_weights), etf_data.items())
+                    executor.map(lambda item: score_candidate(item, date, benchmark_slice), etf_data.items())
                     if executor
-                    else map(lambda item: score_candidate(item, date, benchmark_slice, dynamic_weights), etf_data.items())
+                    else map(lambda item: score_candidate(item, date, benchmark_slice), etf_data.items())
                 )
                 for result in iterator:
                     if result is not None:

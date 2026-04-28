@@ -392,7 +392,6 @@ class ScoringEngine:
     def score_index(self,
                     etf_data: pd.DataFrame,
                     benchmark_data: Optional[pd.DataFrame] = None,
-                    dynamic_weights: Optional[Dict[str, float]] = None,
                     pe_data: Optional[pd.DataFrame] = None) -> Dict[str, float]:
         """
         计算综合评分 (增强版)
@@ -400,7 +399,6 @@ class ScoringEngine:
         Args:
             etf_data: ETF 数据 (包含 close, volume, amount)
             benchmark_data: 基准数据 (可选，用于相对强弱)
-            dynamic_weights: 动态权重 (可选，覆盖默认权重)
             pe_data: PE 历史数据 (可选，用于真实估值评分)
 
         Returns:
@@ -417,8 +415,7 @@ class ScoringEngine:
         scores = {}
         attribution = {}  # 归因数据
 
-        # 使用动态权重（如果提供）
-        weights_to_use = dynamic_weights if dynamic_weights else self.weights
+        weights_to_use = self.weights
 
         # ===== 动量 (20%) =====
         if len(returns) >= 126:

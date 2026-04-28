@@ -3,9 +3,8 @@ import math
 import numpy as np
 import pandas as pd
 
-from src.market_regime import MarketRegimeDetector
 from src.scoring_baostock import ScoringEngine
-from src.scoring_factory import create_scoring_engine, resolve_scoring_mode
+from src.scoring_factory import create_scoring_engine
 
 
 def make_price_frame(periods: int = 160) -> pd.DataFrame:
@@ -26,7 +25,7 @@ def make_price_frame(periods: int = 160) -> pd.DataFrame:
     )
 
 
-def base_config(mode: str = "dynamic") -> dict:
+def base_config(mode: str = "fixed") -> dict:
     return {
         "factor_model": {
             "scoring_mode": mode,
@@ -124,30 +123,9 @@ def test_trend_keeps_overextended_price_action_capped_without_penalty():
     assert overheated["score"] >= healthy["score"]
 
 
-def test_dynamic_weights_apply_to_strength_factor():
-    detector = MarketRegimeDetector()
-    dynamic_weights = detector.get_dynamic_weights(
-        "bull",
-        {
-            "strength": 0.235,
-            "trend": 0.18,
-            "flow": 0.585,
-        },
-    )
-
-    assert set(dynamic_weights) == {"strength", "trend", "flow"}
-    assert math.isclose(sum(dynamic_weights.values()), 1.0, rel_tol=0, abs_tol=1e-9)
-    assert dynamic_weights["strength"] > dynamic_weights["trend"] > 0
-
-
-def test_scoring_factory_resolves_fixed_and_dynamic_modes():
-    dynamic_config = base_config(mode="dynamic")
+def test_scoring_factory_always_uses_fixed_engine():
     fixed_config = base_config(mode="fixed")
 
-    dynamic_engine = create_scoring_engine(dynamic_config)
     fixed_engine = create_scoring_engine(fixed_config)
 
-    assert resolve_scoring_mode(dynamic_config) == "dynamic"
-    assert resolve_scoring_mode(fixed_config) == "fixed"
-    assert hasattr(dynamic_engine, "update_market_regime")
-    assert not hasattr(fixed_engine, "update_market_regime")
+    assert isinstance(fixed_engine, ScoringEngine)
