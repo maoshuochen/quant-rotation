@@ -88,28 +88,37 @@ def load_config() -> dict:
 class BaostockFetcher:
     """Baostock 数据获取器"""
     
-    def __init__(self):
+    def __init__(self, auto_login: bool = False):
         self.bs = None
-        self._init_baostock()
+        if auto_login:
+            self._init_baostock()
     
-    def _init_baostock(self):
+    def _init_baostock(self) -> bool:
         """初始化 Baostock"""
+        if self.bs is not None:
+            return True
         try:
             import baostock as bs
             self.bs = bs
             lg = bs.login()
             if lg.error_code == '0':
                 logger.info("Baostock 登录成功")
+                return True
             else:
                 logger.error(f"Baostock 登录失败：{lg.error_msg}")
+                self.bs = None
+                return False
         except ImportError:
             logger.error("Baostock 未安装，运行：pip install baostock")
+            return False
         except Exception as e:
             logger.error(f"Baostock 初始化失败：{e}")
+            self.bs = None
+            return False
     
     def fetch_index_history(self, index_code: str, start_date: str = "20180101") -> pd.DataFrame:
         """获取指数历史行情"""
-        if self.bs is None:
+        if not self._init_baostock():
             return pd.DataFrame()
         
         try:
@@ -170,7 +179,7 @@ class BaostockFetcher:
     
     def fetch_stock_history(self, stock_code: str, start_date: str = "20180101") -> pd.DataFrame:
         """获取股票/ETF 历史行情"""
-        if self.bs is None:
+        if not self._init_baostock():
             return pd.DataFrame()
         
         try:
@@ -665,7 +674,7 @@ class BaostockFetcher:
     
     def fetch_index_basic_info(self, index_code: str) -> dict:
         """获取指数基本信息"""
-        if self.bs is None:
+        if not self._init_baostock():
             return {}
         
         try:
@@ -783,7 +792,13 @@ class IndexDataFetcher:
         logger.warning(f"Baostock 不支持指数数据，请使用 fetch_etf_history: {index_code}")
         return pd.DataFrame()
     
-    def fetch_etf_history(self, etf_code: str, start_date: str = "20180101", force_refresh: bool = False) -> pd.DataFrame:
+    def fetch_etf_history(
+        self,
+        etf_code: str,
+        start_date: str = "20180101",
+        force_refresh: bool = False,
+        allow_stale_cache: bool = False,
+    ) -> pd.DataFrame:
         """获取 ETF 历史行情：Sina 原始日线 -> 本地连续价格缓存。"""
         price_mode = str(self.config.get("data", {}).get("etf_price_mode", "continuous") or "continuous")
         processed_cache_file = self._get_cache_file(etf_code, f"etf_history_{price_mode}")
@@ -802,7 +817,7 @@ class IndexDataFetcher:
                 elif not force_refresh:
                     latest_date = cached_df.index.max()
                     days_old = (pd.Timestamp(datetime.now().date()) - latest_date).days
-                    if days_old <= cache_days:
+                    if allow_stale_cache or days_old <= cache_days:
                         logger.info(
                             f"Loaded cached ETF data for {etf_code}: {len(cached_df)} rows, "
                             f"latest={latest_date.date()}, age={days_old}d"
@@ -832,7 +847,7 @@ class IndexDataFetcher:
         if not raw_df.empty and not force_refresh:
             latest_date = raw_df.index.max()
             days_old = (pd.Timestamp(datetime.now().date()) - latest_date).days
-            need_refresh = days_old > cache_days
+            need_refresh = False if allow_stale_cache else days_old > cache_days
 
         if need_refresh:
             etf_code_clean = etf_code.replace('.', '')

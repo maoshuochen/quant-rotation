@@ -259,25 +259,20 @@ class ScoringEngine:
         prices: pd.Series,
         volumes: pd.Series,
         amounts: Optional[pd.Series] = None,
-        northbound_metrics: Optional[Dict[str, float]] = None,
-        etf_shares_metrics: Optional[Dict[str, float]] = None,
     ) -> Dict[str, object]:
         """
-        资金流评分 (增强版)
+        资金流评分。
         
         核心逻辑：
         1. 成交量趋势：放量上涨 = 资金流入 (高分)
         2. 量价配合：价格上涨 + 成交量放大 = 健康 (高分)
         3. 成交金额趋势：金额增长 = 资金关注度提升
-        4. 北向资金：外资流向 (新增)
-        5. ETF 份额：基金份额变化 (新增)
+        4. 活跃强度：高活跃交易日占比越高，资金关注度越高
         
         Args:
             prices: 价格序列
             volumes: 成交量序列
             amounts: 成交金额序列 (可选)
-            northbound_metrics: 北向资金指标 (可选)
-            etf_shares_metrics: ETF 份额指标 (可选)
             
         Returns:
             包含最终得分、真实子项得分和子项权重。
@@ -307,20 +302,17 @@ class ScoringEngine:
         
         detail_scores: Dict[str, float] = {}
         detail_weights: Dict[str, float] = {}
-        base_group_share = 0.60
         
-        # ===== 基础资金流指标 (权重 60%) =====
-        
-        # 1. 成交量趋势 (20 日 vs 前 20 日) - 权重 15%
+        # 1. 成交量趋势 (20 日 vs 前 20 日)
         recent_vol = volumes.iloc[-20:].mean()
         prev_vol = volumes.iloc[-40:-20].mean()
         vol_change = (recent_vol - prev_vol) / prev_vol if prev_vol > 0 else 0
         vol_score = 0.5 + vol_change
         vol_score = max(0, min(1, vol_score))
         detail_scores['volume_trend'] = round(vol_score, 4)
-        detail_weights['volume_trend'] = round(base_group_share * base_weights['volume_trend'], 4)
+        detail_weights['volume_trend'] = round(base_weights['volume_trend'], 4)
         
-        # 2. 量价配合 - 权重 15%
+        # 2. 量价配合
         price_returns = prices.pct_change().dropna()
         vol_returns = volumes.pct_change().dropna()
         common_idx = price_returns.index.intersection(vol_returns.index)
@@ -344,9 +336,9 @@ class ScoringEngine:
         else:
             corr_score = 0.5
         detail_scores['price_volume_corr'] = round(corr_score, 4)
-        detail_weights['price_volume_corr'] = round(base_group_share * base_weights['price_volume_corr'], 4)
+        detail_weights['price_volume_corr'] = round(base_weights['price_volume_corr'], 4)
         
-        # 3. 成交金额趋势 - 权重 15%
+        # 3. 成交金额趋势
         if amounts is not None and len(amounts) >= 40:
             recent_amt = amounts.iloc[-20:].mean()
             prev_amt = amounts.iloc[-40:-20].mean()
@@ -356,16 +348,15 @@ class ScoringEngine:
         else:
             amt_score = vol_score
         detail_scores['amount_trend'] = round(amt_score, 4)
-        detail_weights['amount_trend'] = round(base_group_share * base_weights['amount_trend'], 4)
+        detail_weights['amount_trend'] = round(base_weights['amount_trend'], 4)
         
-        # 4. 资金流入强度 - 权重 15%
+        # 4. 资金流入强度
         vol_median = volumes.iloc[-60:].median()
         high_vol_days = (volumes.iloc[-20:] > vol_median).sum()
         flow_intensity = high_vol_days / 20
         detail_scores['flow_intensity'] = round(flow_intensity, 4)
-        detail_weights['flow_intensity'] = round(base_group_share * base_weights['flow_intensity'], 4)
+        detail_weights['flow_intensity'] = round(base_weights['flow_intensity'], 4)
 
-        # 正式基线已移除北向资金与 ETF 份额信号，flow 只由基础量价子项组成。
         weight_total = sum(detail_weights.values())
         flow_score = (
             sum(detail_scores[key] * detail_weights[key] for key in detail_scores) / weight_total
@@ -389,24 +380,18 @@ class ScoringEngine:
         prices: pd.Series,
         volumes: pd.Series,
         amounts: Optional[pd.Series] = None,
-        northbound_metrics: Optional[Dict[str, float]] = None,
-        etf_shares_metrics: Optional[Dict[str, float]] = None,
     ) -> float:
         return float(
             self.calc_flow_metrics(
                 prices,
                 volumes,
                 amounts=amounts,
-                northbound_metrics=northbound_metrics,
-                etf_shares_metrics=etf_shares_metrics,
             )["score"]
         )
     
     def score_index(self,
                     etf_data: pd.DataFrame,
                     benchmark_data: Optional[pd.DataFrame] = None,
-                    northbound_metrics: Optional[Dict[str, float]] = None,
-                    etf_shares_metrics: Optional[Dict[str, float]] = None,
                     dynamic_weights: Optional[Dict[str, float]] = None,
                     pe_data: Optional[pd.DataFrame] = None) -> Dict[str, float]:
         """
@@ -415,8 +400,6 @@ class ScoringEngine:
         Args:
             etf_data: ETF 数据 (包含 close, volume, amount)
             benchmark_data: 基准数据 (可选，用于相对强弱)
-            northbound_metrics: 北向资金指标 (可选)
-            etf_shares_metrics: ETF 份额指标 (可选)
             dynamic_weights: 动态权重 (可选，覆盖默认权重)
             pe_data: PE 历史数据 (可选，用于真实估值评分)
 
@@ -508,15 +491,9 @@ class ScoringEngine:
             close,
             volume,
             amount if not amount.empty else None,
-            northbound_metrics,
-            etf_shares_metrics,
         )
         scores['flow'] = float(flow_metrics['score'])
         # 资金流归因
-        attribution['northbound_20d_sum'] = None
-        attribution['northbound_trend'] = '未使用'
-        attribution['etf_shares_20d_change'] = None
-        attribution['etf_shares_trend'] = '未使用'
         attribution['flow_breakdown'] = flow_metrics['details']
         attribution['flow_weights'] = flow_metrics['weights']
         

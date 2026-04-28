@@ -271,7 +271,13 @@ def run_period(start_date: str, end_date: str, variant: str) -> RunResult:
     require_consistent = bool(config.get("data", {}).get("require_consistent_adjust", True))
 
     fetch_start = compute_fetch_start_date(start_date, warmup)
-    etf_data = load_etf_history(fetcher, indices, fetch_start, force_refresh=False)
+    etf_data = load_etf_history(
+        fetcher,
+        indices,
+        fetch_start,
+        force_refresh=False,
+        allow_stale_cache=True,
+    )
     issues = validate_etf_history_coverage(
         etf_data,
         indices,

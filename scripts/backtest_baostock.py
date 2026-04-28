@@ -2,12 +2,15 @@
 """
 回测脚本 - Baostock 版本
 """
+from __future__ import annotations
+
 import logging
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 # 添加项目根目录到路径
@@ -38,6 +41,182 @@ logging.getLogger('akshare').setLevel(logging.WARNING)
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 logging.getLogger('src.portfolio').setLevel(logging.ERROR)
 logger = logging.getLogger(__name__)
+
+
+def _clip01(frame: pd.DataFrame | pd.Series) -> pd.DataFrame | pd.Series:
+    return frame.clip(lower=0.0, upper=1.0)
+
+
+def _score_trend_matrix(close_matrix: pd.DataFrame, trend_weights: dict) -> pd.DataFrame:
+    ma20 = close_matrix.rolling(20).mean()
+    ma60 = close_matrix.rolling(60).mean()
+
+    price_vs_ma20 = (close_matrix - ma20) / ma20
+    price_vs_ma60 = (close_matrix - ma60) / ma60
+    ma20_vs_ma60 = (ma20 - ma60) / ma60
+    ma20_slope = (ma20 - ma20.shift(10)) / ma20.shift(10)
+
+    total = sum(max(float(weight), 0.0) for weight in trend_weights.values())
+    if total <= 0:
+        trend_weights = {
+            'price_vs_ma20': 0.40,
+            'price_vs_ma60': 0.35,
+            'ma20_vs_ma60': 0.20,
+            'ma20_slope': 0.05,
+        }
+        total = 1.0
+    weights = {key: max(float(value), 0.0) / total for key, value in trend_weights.items()}
+
+    components = {
+        'price_vs_ma20': _clip01(0.5 + price_vs_ma20 / (2 * 0.08)),
+        'price_vs_ma60': _clip01(0.5 + price_vs_ma60 / (2 * 0.12)),
+        'ma20_vs_ma60': _clip01(0.5 + ma20_vs_ma60 / (2 * 0.10)),
+        'ma20_slope': _clip01(0.5 + ma20_slope / (2 * 0.05)),
+    }
+    trend = sum(components[key] * weights[key] for key in weights)
+    return trend.where(close_matrix.notna()).fillna(0.5)
+
+
+def _score_flow_matrix(
+    close_matrix: pd.DataFrame,
+    volume_matrix: pd.DataFrame,
+    amount_matrix: pd.DataFrame,
+    flow_weights: dict,
+    history_window: int,
+) -> pd.DataFrame:
+    total = sum(max(float(weight), 0.0) for weight in flow_weights.values())
+    if total <= 0:
+        flow_weights = {
+            'volume_trend': 0.25,
+            'price_volume_corr': 0.25,
+            'amount_trend': 0.25,
+            'flow_intensity': 0.25,
+        }
+        total = 1.0
+    weights = {key: max(float(value), 0.0) / total for key, value in flow_weights.items()}
+
+    recent_vol = volume_matrix.rolling(20).mean()
+    prev_vol = volume_matrix.shift(20).rolling(20).mean()
+    vol_score = _clip01(0.5 + (recent_vol - prev_vol) / prev_vol)
+
+    return_window = max(history_window - 1, 20)
+    price_returns = close_matrix.pct_change()
+    vol_returns = volume_matrix.pct_change()
+    corr = price_returns.rolling(return_window, min_periods=20).corr(vol_returns)
+    corr_score = _clip01(0.5 + corr.fillna(0) * 0.5)
+
+    recent_amt = amount_matrix.rolling(20).mean()
+    prev_amt = amount_matrix.shift(20).rolling(20).mean()
+    amt_score = _clip01(0.5 + (recent_amt - prev_amt) / prev_amt)
+    amt_score = amt_score.where(amount_matrix.notna(), vol_score)
+
+    vol_median = volume_matrix.rolling(60).median()
+    intensity = (volume_matrix > vol_median).rolling(20).sum() / 20
+
+    flow = (
+        vol_score * weights['volume_trend']
+        + corr_score * weights['price_volume_corr']
+        + amt_score * weights['amount_trend']
+        + intensity * weights['flow_intensity']
+    )
+    return flow.where(close_matrix.notna()).fillna(0.5)
+
+
+def _score_relative_strength_matrix(
+    close_matrix: pd.DataFrame,
+    benchmark_close: pd.Series,
+) -> pd.DataFrame:
+    benchmark = benchmark_close.reindex(close_matrix.index)
+    score = pd.DataFrame(0.5, index=close_matrix.index, columns=close_matrix.columns)
+
+    for lookback in (10, 20, 60):
+        index_return = close_matrix / close_matrix.shift(lookback) - 1
+        benchmark_return = benchmark / benchmark.shift(lookback) - 1
+        lookback_score = _clip01(0.5 + index_return.sub(benchmark_return, axis=0))
+        score = score.where(lookback_score.isna(), lookback_score)
+
+    return score.where(close_matrix.notna()).fillna(0.5)
+
+
+def _build_vectorized_score_frames(
+    config: dict,
+    close_matrix: pd.DataFrame,
+    volume_matrix: pd.DataFrame,
+    amount_matrix: pd.DataFrame,
+    benchmark_data: pd.DataFrame,
+    history_window: int,
+) -> dict[str, pd.DataFrame]:
+    returns = close_matrix.pct_change()
+    momentum = _clip01(0.5 + returns.rolling(126, min_periods=126).sum()).fillna(0.5)
+    trend = _score_trend_matrix(close_matrix, config.get('trend_subfactor_weights', {}))
+    flow = _score_flow_matrix(
+        close_matrix,
+        volume_matrix,
+        amount_matrix,
+        config.get('flow_subfactor_weights', {}),
+        history_window,
+    )
+
+    if benchmark_data.empty or 'close' not in benchmark_data.columns:
+        relative_strength = pd.DataFrame(
+            0.5,
+            index=close_matrix.index,
+            columns=close_matrix.columns,
+        )
+    else:
+        relative_strength = _score_relative_strength_matrix(close_matrix, benchmark_data['close'])
+
+    blend = config.get('strength_blend', {})
+    momentum_weight = max(float(blend.get('momentum', 0.5)), 0.0)
+    rs_weight = max(float(blend.get('relative_strength', 0.5)), 0.0)
+    blend_total = momentum_weight + rs_weight
+    if blend_total <= 0:
+        momentum_weight = rs_weight = 0.5
+        blend_total = 1.0
+    strength = (momentum * momentum_weight + relative_strength * rs_weight) / blend_total
+
+    volatility = _clip01(
+        1.0
+        - (returns.rolling(max(history_window - 1, 20), min_periods=20).std() * np.sqrt(252) - 0.1)
+        / 0.3
+    ).fillna(0.5)
+
+    return {
+        'momentum': momentum,
+        'relative_strength': relative_strength,
+        'strength': strength,
+        'trend': trend,
+        'flow': flow,
+        'volatility': volatility,
+    }
+
+
+def _rank_from_score_frames(
+    scorer,
+    score_frames: dict[str, pd.DataFrame],
+    date: pd.Timestamp,
+    active_factors: list[str],
+    weights: dict,
+) -> pd.DataFrame:
+    scores_dict = {}
+    weight_sum = sum(float(weights.get(factor, 0.0)) for factor in active_factors)
+    if weight_sum <= 0:
+        weight_sum = 1.0
+
+    for code in score_frames['strength'].columns:
+        scores = {}
+        total = 0.0
+        for factor in active_factors:
+            frame = score_frames.get(factor)
+            value = 0.5 if frame is None else frame.at[date, code]
+            if pd.isna(value):
+                value = 0.5
+            scores[factor] = float(value)
+            total += scores[factor] * float(weights.get(factor, 0.0))
+        scores['total_score'] = total / weight_sum
+        scores_dict[code] = scores
+
+    return scorer.rank_indices(scores_dict)
 
 
 def load_config() -> dict:
@@ -79,6 +258,9 @@ def run_backtest(start_date: str = None,
     buffer_n = strategy.get('buffer_n', 8)
     rebalance_freq = strategy.get('rebalance_frequency', 'weekly')
     strict_weekly_execution = bool(strategy.get('strict_weekly_execution', False))
+    active_factors = list(
+        config.get('factor_model', {}).get('active_factors', ['strength', 'trend', 'flow'])
+    )
     warmup_days = int(backtest_config.get('warmup_days', 370))
     progress_interval = int(backtest_config.get('progress_interval', 100))
     verbose_trades = bool(backtest_config.get('verbose_trades', False))
@@ -93,7 +275,13 @@ def run_backtest(start_date: str = None,
     # 获取所有 ETF 数据（优先使用缓存，并预留足够 warmup 供因子计算）
     print("获取 ETF 数据（优先缓存）...")
     fetch_start = compute_fetch_start_date(start_date, warmup_days)
-    etf_data = load_etf_history(fetcher, indices, fetch_start, force_refresh=False)
+    etf_data = load_etf_history(
+        fetcher,
+        indices,
+        fetch_start,
+        force_refresh=False,
+        allow_stale_cache=True,
+    )
     for idx in indices:
         code = idx.get("code")
         etf = idx.get("etf")
@@ -151,6 +339,36 @@ def run_backtest(start_date: str = None,
         {code: df["open"].reindex(trade_dates) for code, df in etf_data.items()},
         index=trade_dates,
     )
+    volume_matrix = pd.DataFrame(
+        {code: df["volume"].reindex(trade_dates) for code, df in etf_data.items()},
+        index=trade_dates,
+    )
+    amount_matrix = pd.DataFrame(
+        {code: df["amount"].reindex(trade_dates) for code, df in etf_data.items()},
+        index=trade_dates,
+    )
+    supported_vector_factors = {
+        'momentum',
+        'relative_strength',
+        'strength',
+        'trend',
+        'flow',
+        'volatility',
+    }
+    use_vectorized_scoring = set(active_factors).issubset(supported_vector_factors)
+    score_frames = {}
+    if use_vectorized_scoring:
+        print("预计算调仓评分因子...")
+        score_frames = _build_vectorized_score_frames(
+            config,
+            close_matrix,
+            volume_matrix,
+            amount_matrix,
+            benchmark_data,
+            history_window,
+        )
+    else:
+        print(f"检测到非矩阵化因子 {active_factors}，回退逐标的评分。")
     
     # 回测循环
     daily_values = []
@@ -219,12 +437,22 @@ def run_backtest(start_date: str = None,
                     ):
                         scorer.update_market_regime(benchmark_slice["close"])
                         dynamic_weights = getattr(scorer, "current_weights", None)
-                if executor is not None:
+                if use_vectorized_scoring:
+                    weights_to_use = dynamic_weights if dynamic_weights else scorer.weights
+                    ranking = _rank_from_score_frames(
+                        scorer,
+                        score_frames,
+                        date,
+                        active_factors,
+                        weights_to_use,
+                    )
+                elif executor is not None:
                     for result in executor.map(lambda item: score_candidate(item, date, benchmark_slice, dynamic_weights), etf_data.items()):
                         if result is None:
                             continue
                         code, scores = result
                         scores_dict[code] = scores
+                    ranking = scorer.rank_indices(scores_dict)
                 else:
                     for item in etf_data.items():
                         result = score_candidate(item, date, benchmark_slice, dynamic_weights)
@@ -232,9 +460,7 @@ def run_backtest(start_date: str = None,
                             continue
                         code, scores = result
                         scores_dict[code] = scores
-
-                # 排名
-                ranking = scorer.rank_indices(scores_dict)
+                    ranking = scorer.rank_indices(scores_dict)
 
                 if ranking.empty:
                     continue
