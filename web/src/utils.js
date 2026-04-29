@@ -6,6 +6,9 @@ export const factorNames = {
   trend: '趋势',
   flow: '资金流',
   relative_strength: '相对强弱',
+  amount_trend: '金额扩张',
+  flow_intensity: '活跃强度',
+  overheat_penalty: '过热扣分',
   volatility: '低波动',
   value: '估值'
 }

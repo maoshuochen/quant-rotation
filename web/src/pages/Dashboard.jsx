@@ -63,6 +63,10 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
   const isTop3 = item.rank <= 3
   const isTop5 = item.rank <= 5
   const rsLookback = safeNum(attribution?.rs_lookback_days, 0)
+  const activeFactorScores = activeFactors
+    .map((key) => [key, safeNum(factors[key], 0.5)])
+    .filter(([key]) => key in factors)
+    .sort(([, a], [, b]) => b - a)
 
   // 排名徽章样式
   const getRankBadge = () => {
@@ -114,8 +118,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
             {/* 强项因子 */}
             <div className="text-[10px] sm:text-xs text-zinc-500 mt-0.5 truncate">
               {(() => {
-                const sortedFactors = Object.entries(factors)
-                  .sort(([,a], [,b]) => b - a)
+                const sortedFactors = activeFactorScores
                   .slice(0, 2)
                   .map(([key]) => factorNames[key] || key)
                 return `强项：${sortedFactors.join('、') || '-'}`
@@ -156,20 +159,18 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
           <div className="pt-2 border-t border-zinc-800">
             <div className="text-[10px] text-zinc-500 mb-1.5">关键归因</div>
             <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">6 月收益</span><span className="text-zinc-200">{safeNum(attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">相对沪深 300{rsLookback ? `(${rsLookback}日)` : ''}</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">价格相对 MA20</span><span className="text-zinc-200">{safeNum(attribution?.price_vs_ma20, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">MA20/MA60 结构</span><span className="text-zinc-200">{attribution?.ma20_above_ma60 ? '多头' : '走弱'}</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">6 月动量</span><span className="text-zinc-200">{safeNum(attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">相对全池{rsLookback ? `(${rsLookback}日)` : ''}</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">MA20 偏离</span><span className="text-zinc-200">{safeNum(attribution?.price_vs_ma20, 0).toFixed(1)}%</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">过热扣分</span><span className="text-zinc-200">{safeNum(attribution?.overheat_penalty, 0).toFixed(2)}</span></div>
             </div>
           </div>
 
           <div className="pt-2 border-t border-zinc-800">
             <div className="text-[10px] text-zinc-500 mb-1.5">资金流拆解</div>
             <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">放量趋势</span><span className="text-zinc-200">{safeNum(flowBreakdown?.volume_trend, 0.5).toFixed(2)}</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">量价配合</span><span className="text-zinc-200">{safeNum(flowBreakdown?.price_volume_corr, 0.5).toFixed(2)}</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">金额扩张</span><span className="text-zinc-200">{safeNum(flowBreakdown?.amount_trend, 0.5).toFixed(2)}</span></div>
-              <div className="flex justify-between text-[10px]"><span className="text-zinc-400">活跃强度</span><span className="text-zinc-200">{safeNum(flowBreakdown?.flow_intensity, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">金额扩张 70%</span><span className="text-zinc-200">{safeNum(flowBreakdown?.amount_trend, 0.5).toFixed(2)}</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">活跃强度 30%</span><span className="text-zinc-200">{safeNum(flowBreakdown?.flow_intensity, 0.5).toFixed(2)}</span></div>
             </div>
           </div>
         </div>
@@ -339,6 +340,10 @@ const Dashboard = ({
                         {factorNames[key] || key} {(safeNum(factorWeights[key], 0) * 100).toFixed(1)}%
                       </span>
                     ))}
+                  </div>
+                  <div className="mt-2 space-y-1 text-[11px] leading-relaxed text-zinc-500">
+                    <p>价格强度：动量、相对全池强弱、趋势结构，含过热扣分。</p>
+                    <p>资金流：金额扩张 70% + 活跃强度 30%，弱趋势自动降权。</p>
                   </div>
                 </div>
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
