@@ -7,22 +7,25 @@ strategy:
   momentum_window: 126
 
 factor_model:
-  baseline_name: "core_rotation_v3_strength"
+  baseline_name: "core_rotation_v4_price_strength"
   scoring_mode: "fixed"
-  # 主模型因子 - 当前 3 个有效因子（strength = momentum + relative_strength 组合）
+  # 主模型因子 - 简化为价格强度 + 资金流
   active_factors:
-    - strength
-    - trend
+    - price_strength
     - flow
 
 strength_blend:
   momentum: 0.50
   relative_strength: 0.50
 
-# 因子权重（strength / trend / flow 正式基线）
+# 价格强度内部仍保留原 strength / trend 信息，但对外合并为一个主因子。
+price_strength_blend:
+  strength: 0.235
+  trend: 0.18
+
+# 因子权重（price_strength / flow 正式基线）
 factor_weights:
-  strength: 0.235          # 强度 - 动量与相对强弱各占 50%
-  trend: 0.18              # 趋势 - 均线位置
+  price_strength: 0.415    # 价格强度 - strength + trend 合并
   flow: 0.585              # 资金流 - 成交量/量价/金额/活跃度
 
 flow_subfactor_weights:

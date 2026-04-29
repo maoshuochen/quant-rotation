@@ -10,8 +10,7 @@
           "rank": 1,
           "score": 0.6124,
           "factors": {
-            "strength": 0.6433,
-            "trend": 0.8318,
+            "price_strength": 0.7251,
             "flow": 0.5325
           }
         },
@@ -22,8 +21,7 @@
           "rank": 2,
           "score": 0.5888,
           "factors": {
-            "strength": 0.6092,
-            "trend": 0.923,
+            "price_strength": 0.7453,
             "flow": 0.4778
           }
         },
@@ -34,8 +32,7 @@
           "rank": 3,
           "score": 0.5728,
           "factors": {
-            "strength": 0.5113,
-            "trend": 0.8056,
+            "price_strength": 0.6389,
             "flow": 0.5259
           }
         },
@@ -46,8 +43,7 @@
           "rank": 4,
           "score": 0.553,
           "factors": {
-            "strength": 0.5569,
-            "trend": 0.8617,
+            "price_strength": 0.6891,
             "flow": 0.4564
           }
         },
@@ -58,8 +54,7 @@
           "rank": 5,
           "score": 0.546,
           "factors": {
-            "strength": 0.5565,
-            "trend": 0.6128,
+            "price_strength": 0.5809,
             "flow": 0.5212
           }
         }
@@ -75,8 +70,7 @@
           "rank": 1,
           "score": 0.6831,
           "factors": {
-            "strength": 0.6175,
-            "trend": 0.6649,
+            "price_strength": 0.638,
             "flow": 0.7151
           }
         },
@@ -87,8 +81,7 @@
           "rank": 2,
           "score": 0.6087,
           "factors": {
-            "strength": 0.5775,
-            "trend": 0.8537,
+            "price_strength": 0.6973,
             "flow": 0.5458
           }
         },
@@ -99,8 +92,7 @@
           "rank": 3,
           "score": 0.6011,
           "factors": {
-            "strength": 0.645,
-            "trend": 0.8843,
+            "price_strength": 0.7488,
             "flow": 0.4964
           }
         },
@@ -111,8 +103,7 @@
           "rank": 4,
           "score": 0.5664,
           "factors": {
-            "strength": 0.474,
-            "trend": 0.6843,
+            "price_strength": 0.5652,
             "flow": 0.5672
           }
         },
@@ -123,8 +114,7 @@
           "rank": 5,
           "score": 0.5404,
           "factors": {
-            "strength": 0.4847,
-            "trend": 0.4816,
+            "price_strength": 0.4833,
             "flow": 0.5809
           }
         }
@@ -140,8 +130,7 @@
           "rank": 1,
           "score": 0.726,
           "factors": {
-            "strength": 0.6304,
-            "trend": 0.5695,
+            "price_strength": 0.604,
             "flow": 0.8125
           }
         },
@@ -152,8 +141,7 @@
           "rank": 2,
           "score": 0.645,
           "factors": {
-            "strength": 0.5787,
-            "trend": 0.6998,
+            "price_strength": 0.6312,
             "flow": 0.6548
           }
         },
@@ -164,8 +152,7 @@
           "rank": 3,
           "score": 0.5737,
           "factors": {
-            "strength": 0.6082,
-            "trend": 0.7204,
+            "price_strength": 0.6569,
             "flow": 0.5146
           }
         },
@@ -176,8 +163,7 @@
           "rank": 4,
           "score": 0.548,
           "factors": {
-            "strength": 0.4013,
-            "trend": 0.3712,
+            "price_strength": 0.3883,
             "flow": 0.6612
           }
         },
@@ -188,8 +174,7 @@
           "rank": 5,
           "score": 0.5478,
           "factors": {
-            "strength": 0.476,
-            "trend": 0.4797,
+            "price_strength": 0.4776,
             "flow": 0.5976
           }
         }
@@ -205,8 +190,7 @@
           "rank": 1,
           "score": 0.5617,
           "factors": {
-            "strength": 0.6636,
-            "trend": 0.4666,
+            "price_strength": 0.5781,
             "flow": 0.55
           }
         },
@@ -217,8 +201,7 @@
           "rank": 2,
           "score": 0.5223,
           "factors": {
-            "strength": 0.5211,
-            "trend": 0.5339,
+            "price_strength": 0.5266,
             "flow": 0.5193
           }
         },
@@ -229,8 +212,7 @@
           "rank": 3,
           "score": 0.5018,
           "factors": {
-            "strength": 0.5965,
-            "trend": 0.2218,
+            "price_strength": 0.434,
             "flow": 0.55
           }
         },
@@ -241,8 +223,7 @@
           "rank": 4,
           "score": 0.4981,
           "factors": {
-            "strength": 0.5236,
-            "trend": 0.2959,
+            "price_strength": 0.4248,
             "flow": 0.55
           }
         },
@@ -253,8 +234,7 @@
           "rank": 5,
           "score": 0.4772,
           "factors": {
-            "strength": 0.5459,
-            "trend": 0.3329,
+            "price_strength": 0.4535,
             "flow": 0.494
           }
         }
@@ -270,8 +250,7 @@
           "rank": 1,
           "score": 0.628,
           "factors": {
-            "strength": 0.7354,
-            "trend": 0.7415,
+            "price_strength": 0.738,
             "flow": 0.55
           }
         },
@@ -282,8 +261,7 @@
           "rank": 2,
           "score": 0.5797,
           "factors": {
-            "strength": 0.6799,
-            "trend": 0.5457,
+            "price_strength": 0.6217,
             "flow": 0.55
           }
         },
@@ -294,8 +272,7 @@
           "rank": 3,
           "score": 0.5387,
           "factors": {
-            "strength": 0.5026,
-            "trend": 0.5261,
+            "price_strength": 0.5128,
             "flow": 0.5572
           }
         },
@@ -306,8 +283,7 @@
           "rank": 4,
           "score": 0.5159,
           "factors": {
-            "strength": 0.5791,
-            "trend": 0.4788,
+            "price_strength": 0.5356,
             "flow": 0.5019
           }
         },
@@ -318,8 +294,7 @@
           "rank": 5,
           "score": 0.5069,
           "factors": {
-            "strength": 0.5373,
-            "trend": 0.3269,
+            "price_strength": 0.4461,
             "flow": 0.55
           }
         }
@@ -335,8 +310,7 @@
           "rank": 1,
           "score": 0.8376,
           "factors": {
-            "strength": 0.7258,
-            "trend": 0.8735,
+            "price_strength": 0.7899,
             "flow": 0.8715
           }
         },
@@ -347,8 +321,7 @@
           "rank": 2,
           "score": 0.5762,
           "factors": {
-            "strength": 0.6882,
-            "trend": 0.5153,
+            "price_strength": 0.6132,
             "flow": 0.55
           }
         },
@@ -359,8 +332,7 @@
           "rank": 3,
           "score": 0.5057,
           "factors": {
-            "strength": 0.5734,
-            "trend": 0.2734,
+            "price_strength": 0.4433,
             "flow": 0.55
           }
         },
@@ -371,8 +343,7 @@
           "rank": 4,
           "score": 0.4917,
           "factors": {
-            "strength": 0.609,
-            "trend": 0.4417,
+            "price_strength": 0.5364,
             "flow": 0.4599
           }
         },
@@ -383,8 +354,7 @@
           "rank": 5,
           "score": 0.4786,
           "factors": {
-            "strength": 0.5745,
-            "trend": 0.1214,
+            "price_strength": 0.378,
             "flow": 0.55
           }
         }
@@ -400,8 +370,7 @@
           "rank": 1,
           "score": 0.7906,
           "factors": {
-            "strength": 0.6836,
-            "trend": 0.9165,
+            "price_strength": 0.7846,
             "flow": 0.7949
           }
         },
@@ -412,8 +381,7 @@
           "rank": 2,
           "score": 0.5696,
           "factors": {
-            "strength": 0.7395,
-            "trend": 0.7022,
+            "price_strength": 0.7233,
             "flow": 0.4606
           }
         },
@@ -424,8 +392,7 @@
           "rank": 3,
           "score": 0.4795,
           "factors": {
-            "strength": 0.4862,
-            "trend": 0.4052,
+            "price_strength": 0.4511,
             "flow": 0.4996
           }
         },
@@ -436,8 +403,7 @@
           "rank": 4,
           "score": 0.4763,
           "factors": {
-            "strength": 0.5554,
-            "trend": 0.663,
+            "price_strength": 0.6021,
             "flow": 0.3872
           }
         },
@@ -448,8 +414,7 @@
           "rank": 5,
           "score": 0.4552,
           "factors": {
-            "strength": 0.6324,
-            "trend": 0.3792,
+            "price_strength": 0.5226,
             "flow": 0.4075
           }
         }
@@ -465,8 +430,7 @@
           "rank": 1,
           "score": 0.8235,
           "factors": {
-            "strength": 0.606,
-            "trend": 0.9584,
+            "price_strength": 0.7589,
             "flow": 0.8693
           }
         },
@@ -477,8 +441,7 @@
           "rank": 2,
           "score": 0.6796,
           "factors": {
-            "strength": 0.7931,
-            "trend": 0.778,
+            "price_strength": 0.7865,
             "flow": 0.6038
           }
         },
@@ -489,8 +452,7 @@
           "rank": 3,
           "score": 0.5858,
           "factors": {
-            "strength": 0.5238,
-            "trend": 0.6624,
+            "price_strength": 0.5839,
             "flow": 0.5871
           }
         },
@@ -501,8 +463,7 @@
           "rank": 4,
           "score": 0.5056,
           "factors": {
-            "strength": 0.7351,
-            "trend": 0.6192,
+            "price_strength": 0.6848,
             "flow": 0.3784
           }
         },
@@ -513,8 +474,7 @@
           "rank": 5,
           "score": 0.483,
           "factors": {
-            "strength": 0.4546,
-            "trend": 0.3026,
+            "price_strength": 0.3887,
             "flow": 0.55
           }
         }
@@ -530,8 +490,7 @@
           "rank": 1,
           "score": 0.8761,
           "factors": {
-            "strength": 0.6035,
-            "trend": 0.9315,
+            "price_strength": 0.7458,
             "flow": 0.9686
           }
         },
@@ -542,8 +501,7 @@
           "rank": 2,
           "score": 0.7701,
           "factors": {
-            "strength": 0.7838,
-            "trend": 0.7892,
+            "price_strength": 0.7861,
             "flow": 0.7588
           }
         },
@@ -554,8 +512,7 @@
           "rank": 3,
           "score": 0.7423,
           "factors": {
-            "strength": 0.742,
-            "trend": 0.7974,
+            "price_strength": 0.766,
             "flow": 0.7254
           }
         },
@@ -566,8 +523,7 @@
           "rank": 4,
           "score": 0.6732,
           "factors": {
-            "strength": 0.5135,
-            "trend": 0.674,
+            "price_strength": 0.5831,
             "flow": 0.7371
           }
         },
@@ -578,8 +534,7 @@
           "rank": 5,
           "score": 0.5622,
           "factors": {
-            "strength": 0.778,
-            "trend": 0.6416,
+            "price_strength": 0.7189,
             "flow": 0.4511
           }
         }
@@ -595,8 +550,7 @@
           "rank": 1,
           "score": 0.7836,
           "factors": {
-            "strength": 0.5212,
-            "trend": 0.657,
+            "price_strength": 0.5801,
             "flow": 0.928
           }
         },
@@ -607,8 +561,7 @@
           "rank": 2,
           "score": 0.6451,
           "factors": {
-            "strength": 0.459,
-            "trend": 0.4681,
+            "price_strength": 0.463,
             "flow": 0.7743
           }
         },
@@ -619,8 +572,7 @@
           "rank": 3,
           "score": 0.6403,
           "factors": {
-            "strength": 0.8322,
-            "trend": 0.6835,
+            "price_strength": 0.7677,
             "flow": 0.55
           }
         },
@@ -631,8 +583,7 @@
           "rank": 4,
           "score": 0.6269,
           "factors": {
-            "strength": 0.7619,
-            "trend": 0.7008,
+            "price_strength": 0.7354,
             "flow": 0.55
           }
         },
@@ -643,8 +594,7 @@
           "rank": 5,
           "score": 0.613,
           "factors": {
-            "strength": 0.7203,
-            "trend": 0.6778,
+            "price_strength": 0.7019,
             "flow": 0.55
           }
         }
@@ -660,8 +610,7 @@
           "rank": 1,
           "score": 0.8726,
           "factors": {
-            "strength": 0.7828,
-            "trend": 0.9043,
+            "price_strength": 0.8355,
             "flow": 0.8989
           }
         },
@@ -672,8 +621,7 @@
           "rank": 2,
           "score": 0.7872,
           "factors": {
-            "strength": 0.7294,
-            "trend": 0.6099,
+            "price_strength": 0.6776,
             "flow": 0.865
           }
         },
@@ -684,8 +632,7 @@
           "rank": 3,
           "score": 0.7548,
           "factors": {
-            "strength": 0.5282,
-            "trend": 0.5467,
+            "price_strength": 0.5362,
             "flow": 0.9098
           }
         },
@@ -696,8 +643,7 @@
           "rank": 4,
           "score": 0.7086,
           "factors": {
-            "strength": 0.503,
-            "trend": 0.6362,
+            "price_strength": 0.5608,
             "flow": 0.8135
           }
         },
@@ -708,8 +654,7 @@
           "rank": 5,
           "score": 0.6769,
           "factors": {
-            "strength": 0.4537,
-            "trend": 0.5278,
+            "price_strength": 0.4858,
             "flow": 0.8124
           }
         }
@@ -725,8 +670,7 @@
           "rank": 1,
           "score": 0.6631,
           "factors": {
-            "strength": 0.4771,
-            "trend": 0.4759,
+            "price_strength": 0.4765,
             "flow": 0.7954
           }
         },
@@ -737,8 +681,7 @@
           "rank": 2,
           "score": 0.6252,
           "factors": {
-            "strength": 0.788,
-            "trend": 0.6572,
+            "price_strength": 0.7312,
             "flow": 0.55
           }
         },
@@ -749,8 +692,7 @@
           "rank": 3,
           "score": 0.605,
           "factors": {
-            "strength": 0.6991,
-            "trend": 0.661,
+            "price_strength": 0.6826,
             "flow": 0.55
           }
         },
@@ -761,8 +703,7 @@
           "rank": 4,
           "score": 0.5941,
           "factors": {
-            "strength": 0.7092,
-            "trend": 0.587,
+            "price_strength": 0.6562,
             "flow": 0.55
           }
         },
@@ -773,13 +714,12 @@
           "rank": 5,
           "score": 0.5932,
           "factors": {
-            "strength": 0.715,
-            "trend": 0.5744,
+            "price_strength": 0.654,
             "flow": 0.55
           }
         }
       ]
     }
   ],
-  "update_time": "2026-04-29 21:32"
+  "update_time": "2026-04-29 21:53"
 }

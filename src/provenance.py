@@ -74,6 +74,7 @@ def strategy_signature_payload(config: dict) -> dict:
             },
             "factor_weights": config.get("factor_weights", {}),
             "strength_blend": config.get("strength_blend", {}),
+            "price_strength_blend": config.get("price_strength_blend", {}),
             "trend_subfactor_weights": config.get("trend_subfactor_weights", {}),
             "flow_subfactor_weights": config.get("flow_subfactor_weights", {}),
             "alpha_optimization": config.get("alpha_optimization", {}),

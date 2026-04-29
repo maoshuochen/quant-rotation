@@ -567,6 +567,21 @@ class ScoringEngine:
             attribution['overheat_penalty'] = round(penalty, 4)
         else:
             attribution['overheat_penalty'] = 0.0
+
+        price_strength_blend = self.config.get('price_strength_blend', {})
+        strength_weight = max(float(price_strength_blend.get('strength', 0.235)), 0.0)
+        trend_weight = max(float(price_strength_blend.get('trend', 0.18)), 0.0)
+        price_weight_total = strength_weight + trend_weight
+        if price_weight_total > 0:
+            scores['price_strength'] = (
+                scores.get('strength', 0.5) * strength_weight
+                + scores.get('trend', 0.5) * trend_weight
+            ) / price_weight_total
+        else:
+            scores['price_strength'] = (
+                scores.get('strength', 0.5)
+                + scores.get('trend', 0.5)
+            ) / 2
         
         # 确保所有值都是有效的数字（处理 NaN）
         for key in scores:

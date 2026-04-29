@@ -1,5 +1,6 @@
 // 因子名称映射
 export const factorNames = {
+  price_strength: '价格强度',
   strength: '强度',
   momentum: '动量',
   trend: '趋势',

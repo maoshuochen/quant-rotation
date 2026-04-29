@@ -221,6 +221,17 @@ def _build_vectorized_score_frames(
     overheat_penalty = _overheat_penalty_matrix(close_matrix, config)
     momentum = (momentum - overheat_penalty).clip(lower=0.0, upper=1.0)
     strength = (strength - overheat_penalty).clip(lower=0.0, upper=1.0)
+    price_strength_blend = config.get('price_strength_blend', {})
+    strength_model_weight = max(float(price_strength_blend.get('strength', 0.235)), 0.0)
+    trend_model_weight = max(float(price_strength_blend.get('trend', 0.18)), 0.0)
+    price_weight_total = strength_model_weight + trend_model_weight
+    if price_weight_total <= 0:
+        price_strength = (strength + trend) / 2
+    else:
+        price_strength = (
+            strength * strength_model_weight
+            + trend * trend_model_weight
+        ) / price_weight_total
 
     volatility = _clip01(
         1.0
@@ -232,6 +243,7 @@ def _build_vectorized_score_frames(
         'momentum': momentum,
         'relative_strength': relative_strength,
         'strength': strength,
+        'price_strength': price_strength,
         'trend': trend,
         'flow': flow,
         'volatility': volatility,
@@ -441,6 +453,7 @@ def run_backtest(start_date: str = None,
         'momentum',
         'relative_strength',
         'strength',
+        'price_strength',
         'trend',
         'flow',
         'volatility',

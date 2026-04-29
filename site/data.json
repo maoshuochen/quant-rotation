@@ -6759,14 +6759,14 @@
     "metadata": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-04-29 21:32:24",
+      "generated_at": "2026-04-29 21:53:45",
       "git": {
-        "commit": "5fe155a7308a61940afabf39cb79a42fa1d748da",
-        "commit_short": "5fe155a7",
+        "commit": "3aa7fedf8fb84e6bb662fae02d30bc7ab00ac9eb",
+        "commit_short": "3aa7fedf",
         "branch": "codex/fix-backtest-stalls",
         "dirty": true
       },
-      "strategy_signature": "e36e1929b40c60a3be6c0f84b96d07f0bcd38482a4eea89903c9d5bed3eb1e7e",
+      "strategy_signature": "69eb15ef19e535289218cb40b10c874e8d93dc7886857bdd1b53889eff359afd",
       "strategy_signature_payload": {
         "alpha_optimization": {
           "conditional_flow": {
@@ -6803,18 +6803,16 @@
         },
         "factor_model": {
           "active_factors": [
-            "strength",
-            "trend",
+            "price_strength",
             "flow"
           ],
           "auxiliary_factors": [],
-          "baseline_name": "core_rotation_v3_strength",
+          "baseline_name": "core_rotation_v4_price_strength",
           "scoring_mode": "fixed"
         },
         "factor_weights": {
           "flow": 0.585,
-          "strength": 0.235,
-          "trend": 0.18
+          "price_strength": 0.415
         },
         "flow_subfactor_weights": {
           "amount_trend": 0.35,
@@ -6826,6 +6824,10 @@
           "commission": 0.0003,
           "initial_capital": 1000000,
           "slippage": 0.001
+        },
+        "price_strength_blend": {
+          "strength": 0.235,
+          "trend": 0.18
         },
         "stop_loss": {
           "cooldown_days": 5,
@@ -6874,8 +6876,7 @@
           "rank": 1,
           "score": 0.6124,
           "factors": {
-            "strength": 0.6433,
-            "trend": 0.8318,
+            "price_strength": 0.7251,
             "flow": 0.5325
           }
         },
@@ -6886,8 +6887,7 @@
           "rank": 2,
           "score": 0.5888,
           "factors": {
-            "strength": 0.6092,
-            "trend": 0.923,
+            "price_strength": 0.7453,
             "flow": 0.4778
           }
         },
@@ -6898,8 +6898,7 @@
           "rank": 3,
           "score": 0.5728,
           "factors": {
-            "strength": 0.5113,
-            "trend": 0.8056,
+            "price_strength": 0.6389,
             "flow": 0.5259
           }
         },
@@ -6910,8 +6909,7 @@
           "rank": 4,
           "score": 0.553,
           "factors": {
-            "strength": 0.5569,
-            "trend": 0.8617,
+            "price_strength": 0.6891,
             "flow": 0.4564
           }
         },
@@ -6922,8 +6920,7 @@
           "rank": 5,
           "score": 0.546,
           "factors": {
-            "strength": 0.5565,
-            "trend": 0.6128,
+            "price_strength": 0.5809,
             "flow": 0.5212
           }
         }
@@ -6939,8 +6936,7 @@
           "rank": 1,
           "score": 0.6831,
           "factors": {
-            "strength": 0.6175,
-            "trend": 0.6649,
+            "price_strength": 0.638,
             "flow": 0.7151
           }
         },
@@ -6951,8 +6947,7 @@
           "rank": 2,
           "score": 0.6087,
           "factors": {
-            "strength": 0.5775,
-            "trend": 0.8537,
+            "price_strength": 0.6973,
             "flow": 0.5458
           }
         },
@@ -6963,8 +6958,7 @@
           "rank": 3,
           "score": 0.6011,
           "factors": {
-            "strength": 0.645,
-            "trend": 0.8843,
+            "price_strength": 0.7488,
             "flow": 0.4964
           }
         },
@@ -6975,8 +6969,7 @@
           "rank": 4,
           "score": 0.5664,
           "factors": {
-            "strength": 0.474,
-            "trend": 0.6843,
+            "price_strength": 0.5652,
             "flow": 0.5672
           }
         },
@@ -6987,8 +6980,7 @@
           "rank": 5,
           "score": 0.5404,
           "factors": {
-            "strength": 0.4847,
-            "trend": 0.4816,
+            "price_strength": 0.4833,
             "flow": 0.5809
           }
         }
@@ -7004,8 +6996,7 @@
           "rank": 1,
           "score": 0.726,
           "factors": {
-            "strength": 0.6304,
-            "trend": 0.5695,
+            "price_strength": 0.604,
             "flow": 0.8125
           }
         },
@@ -7016,8 +7007,7 @@
           "rank": 2,
           "score": 0.645,
           "factors": {
-            "strength": 0.5787,
-            "trend": 0.6998,
+            "price_strength": 0.6312,
             "flow": 0.6548
           }
         },
@@ -7028,8 +7018,7 @@
           "rank": 3,
           "score": 0.5737,
           "factors": {
-            "strength": 0.6082,
-            "trend": 0.7204,
+            "price_strength": 0.6569,
             "flow": 0.5146
           }
         },
@@ -7040,8 +7029,7 @@
           "rank": 4,
           "score": 0.548,
           "factors": {
-            "strength": 0.4013,
-            "trend": 0.3712,
+            "price_strength": 0.3883,
             "flow": 0.6612
           }
         },
@@ -7052,8 +7040,7 @@
           "rank": 5,
           "score": 0.5478,
           "factors": {
-            "strength": 0.476,
-            "trend": 0.4797,
+            "price_strength": 0.4776,
             "flow": 0.5976
           }
         }
@@ -7069,8 +7056,7 @@
           "rank": 1,
           "score": 0.5617,
           "factors": {
-            "strength": 0.6636,
-            "trend": 0.4666,
+            "price_strength": 0.5781,
             "flow": 0.55
           }
         },
@@ -7081,8 +7067,7 @@
           "rank": 2,
           "score": 0.5223,
           "factors": {
-            "strength": 0.5211,
-            "trend": 0.5339,
+            "price_strength": 0.5266,
             "flow": 0.5193
           }
         },
@@ -7093,8 +7078,7 @@
           "rank": 3,
           "score": 0.5018,
           "factors": {
-            "strength": 0.5965,
-            "trend": 0.2218,
+            "price_strength": 0.434,
             "flow": 0.55
           }
         },
@@ -7105,8 +7089,7 @@
           "rank": 4,
           "score": 0.4981,
           "factors": {
-            "strength": 0.5236,
-            "trend": 0.2959,
+            "price_strength": 0.4248,
             "flow": 0.55
           }
         },
@@ -7117,8 +7100,7 @@
           "rank": 5,
           "score": 0.4772,
           "factors": {
-            "strength": 0.5459,
-            "trend": 0.3329,
+            "price_strength": 0.4535,
             "flow": 0.494
           }
         }
@@ -7134,8 +7116,7 @@
           "rank": 1,
           "score": 0.628,
           "factors": {
-            "strength": 0.7354,
-            "trend": 0.7415,
+            "price_strength": 0.738,
             "flow": 0.55
           }
         },
@@ -7146,8 +7127,7 @@
           "rank": 2,
           "score": 0.5797,
           "factors": {
-            "strength": 0.6799,
-            "trend": 0.5457,
+            "price_strength": 0.6217,
             "flow": 0.55
           }
         },
@@ -7158,8 +7138,7 @@
           "rank": 3,
           "score": 0.5387,
           "factors": {
-            "strength": 0.5026,
-            "trend": 0.5261,
+            "price_strength": 0.5128,
             "flow": 0.5572
           }
         },
@@ -7170,8 +7149,7 @@
           "rank": 4,
           "score": 0.5159,
           "factors": {
-            "strength": 0.5791,
-            "trend": 0.4788,
+            "price_strength": 0.5356,
             "flow": 0.5019
           }
         },
@@ -7182,8 +7160,7 @@
           "rank": 5,
           "score": 0.5069,
           "factors": {
-            "strength": 0.5373,
-            "trend": 0.3269,
+            "price_strength": 0.4461,
             "flow": 0.55
           }
         }
@@ -7199,8 +7176,7 @@
           "rank": 1,
           "score": 0.8376,
           "factors": {
-            "strength": 0.7258,
-            "trend": 0.8735,
+            "price_strength": 0.7899,
             "flow": 0.8715
           }
         },
@@ -7211,8 +7187,7 @@
           "rank": 2,
           "score": 0.5762,
           "factors": {
-            "strength": 0.6882,
-            "trend": 0.5153,
+            "price_strength": 0.6132,
             "flow": 0.55
           }
         },
@@ -7223,8 +7198,7 @@
           "rank": 3,
           "score": 0.5057,
           "factors": {
-            "strength": 0.5734,
-            "trend": 0.2734,
+            "price_strength": 0.4433,
             "flow": 0.55
           }
         },
@@ -7235,8 +7209,7 @@
           "rank": 4,
           "score": 0.4917,
           "factors": {
-            "strength": 0.609,
-            "trend": 0.4417,
+            "price_strength": 0.5364,
             "flow": 0.4599
           }
         },
@@ -7247,8 +7220,7 @@
           "rank": 5,
           "score": 0.4786,
           "factors": {
-            "strength": 0.5745,
-            "trend": 0.1214,
+            "price_strength": 0.378,
             "flow": 0.55
           }
         }
@@ -7264,8 +7236,7 @@
           "rank": 1,
           "score": 0.7906,
           "factors": {
-            "strength": 0.6836,
-            "trend": 0.9165,
+            "price_strength": 0.7846,
             "flow": 0.7949
           }
         },
@@ -7276,8 +7247,7 @@
           "rank": 2,
           "score": 0.5696,
           "factors": {
-            "strength": 0.7395,
-            "trend": 0.7022,
+            "price_strength": 0.7233,
             "flow": 0.4606
           }
         },
@@ -7288,8 +7258,7 @@
           "rank": 3,
           "score": 0.4795,
           "factors": {
-            "strength": 0.4862,
-            "trend": 0.4052,
+            "price_strength": 0.4511,
             "flow": 0.4996
           }
         },
@@ -7300,8 +7269,7 @@
           "rank": 4,
           "score": 0.4763,
           "factors": {
-            "strength": 0.5554,
-            "trend": 0.663,
+            "price_strength": 0.6021,
             "flow": 0.3872
           }
         },
@@ -7312,8 +7280,7 @@
           "rank": 5,
           "score": 0.4552,
           "factors": {
-            "strength": 0.6324,
-            "trend": 0.3792,
+            "price_strength": 0.5226,
             "flow": 0.4075
           }
         }
@@ -7329,8 +7296,7 @@
           "rank": 1,
           "score": 0.8235,
           "factors": {
-            "strength": 0.606,
-            "trend": 0.9584,
+            "price_strength": 0.7589,
             "flow": 0.8693
           }
         },
@@ -7341,8 +7307,7 @@
           "rank": 2,
           "score": 0.6796,
           "factors": {
-            "strength": 0.7931,
-            "trend": 0.778,
+            "price_strength": 0.7865,
             "flow": 0.6038
           }
         },
@@ -7353,8 +7318,7 @@
           "rank": 3,
           "score": 0.5858,
           "factors": {
-            "strength": 0.5238,
-            "trend": 0.6624,
+            "price_strength": 0.5839,
             "flow": 0.5871
           }
         },
@@ -7365,8 +7329,7 @@
           "rank": 4,
           "score": 0.5056,
           "factors": {
-            "strength": 0.7351,
-            "trend": 0.6192,
+            "price_strength": 0.6848,
             "flow": 0.3784
           }
         },
@@ -7377,8 +7340,7 @@
           "rank": 5,
           "score": 0.483,
           "factors": {
-            "strength": 0.4546,
-            "trend": 0.3026,
+            "price_strength": 0.3887,
             "flow": 0.55
           }
         }
@@ -7394,8 +7356,7 @@
           "rank": 1,
           "score": 0.8761,
           "factors": {
-            "strength": 0.6035,
-            "trend": 0.9315,
+            "price_strength": 0.7458,
             "flow": 0.9686
           }
         },
@@ -7406,8 +7367,7 @@
           "rank": 2,
           "score": 0.7701,
           "factors": {
-            "strength": 0.7838,
-            "trend": 0.7892,
+            "price_strength": 0.7861,
             "flow": 0.7588
           }
         },
@@ -7418,8 +7378,7 @@
           "rank": 3,
           "score": 0.7423,
           "factors": {
-            "strength": 0.742,
-            "trend": 0.7974,
+            "price_strength": 0.766,
             "flow": 0.7254
           }
         },
@@ -7430,8 +7389,7 @@
           "rank": 4,
           "score": 0.6732,
           "factors": {
-            "strength": 0.5135,
-            "trend": 0.674,
+            "price_strength": 0.5831,
             "flow": 0.7371
           }
         },
@@ -7442,8 +7400,7 @@
           "rank": 5,
           "score": 0.5622,
           "factors": {
-            "strength": 0.778,
-            "trend": 0.6416,
+            "price_strength": 0.7189,
             "flow": 0.4511
           }
         }
@@ -7459,8 +7416,7 @@
           "rank": 1,
           "score": 0.7836,
           "factors": {
-            "strength": 0.5212,
-            "trend": 0.657,
+            "price_strength": 0.5801,
             "flow": 0.928
           }
         },
@@ -7471,8 +7427,7 @@
           "rank": 2,
           "score": 0.6451,
           "factors": {
-            "strength": 0.459,
-            "trend": 0.4681,
+            "price_strength": 0.463,
             "flow": 0.7743
           }
         },
@@ -7483,8 +7438,7 @@
           "rank": 3,
           "score": 0.6403,
           "factors": {
-            "strength": 0.8322,
-            "trend": 0.6835,
+            "price_strength": 0.7677,
             "flow": 0.55
           }
         },
@@ -7495,8 +7449,7 @@
           "rank": 4,
           "score": 0.6269,
           "factors": {
-            "strength": 0.7619,
-            "trend": 0.7008,
+            "price_strength": 0.7354,
             "flow": 0.55
           }
         },
@@ -7507,8 +7460,7 @@
           "rank": 5,
           "score": 0.613,
           "factors": {
-            "strength": 0.7203,
-            "trend": 0.6778,
+            "price_strength": 0.7019,
             "flow": 0.55
           }
         }
@@ -7524,8 +7476,7 @@
           "rank": 1,
           "score": 0.8726,
           "factors": {
-            "strength": 0.7828,
-            "trend": 0.9043,
+            "price_strength": 0.8355,
             "flow": 0.8989
           }
         },
@@ -7536,8 +7487,7 @@
           "rank": 2,
           "score": 0.7872,
           "factors": {
-            "strength": 0.7294,
-            "trend": 0.6099,
+            "price_strength": 0.6776,
             "flow": 0.865
           }
         },
@@ -7548,8 +7498,7 @@
           "rank": 3,
           "score": 0.7548,
           "factors": {
-            "strength": 0.5282,
-            "trend": 0.5467,
+            "price_strength": 0.5362,
             "flow": 0.9098
           }
         },
@@ -7560,8 +7509,7 @@
           "rank": 4,
           "score": 0.7086,
           "factors": {
-            "strength": 0.503,
-            "trend": 0.6362,
+            "price_strength": 0.5608,
             "flow": 0.8135
           }
         },
@@ -7572,8 +7520,7 @@
           "rank": 5,
           "score": 0.6769,
           "factors": {
-            "strength": 0.4537,
-            "trend": 0.5278,
+            "price_strength": 0.4858,
             "flow": 0.8124
           }
         }
@@ -7589,8 +7536,7 @@
           "rank": 1,
           "score": 0.6631,
           "factors": {
-            "strength": 0.4771,
-            "trend": 0.4759,
+            "price_strength": 0.4765,
             "flow": 0.7954
           }
         },
@@ -7601,8 +7547,7 @@
           "rank": 2,
           "score": 0.6252,
           "factors": {
-            "strength": 0.788,
-            "trend": 0.6572,
+            "price_strength": 0.7312,
             "flow": 0.55
           }
         },
@@ -7613,8 +7558,7 @@
           "rank": 3,
           "score": 0.605,
           "factors": {
-            "strength": 0.6991,
-            "trend": 0.661,
+            "price_strength": 0.6826,
             "flow": 0.55
           }
         },
@@ -7625,8 +7569,7 @@
           "rank": 4,
           "score": 0.5941,
           "factors": {
-            "strength": 0.7092,
-            "trend": 0.587,
+            "price_strength": 0.6562,
             "flow": 0.55
           }
         },
@@ -7637,8 +7580,7 @@
           "rank": 5,
           "score": 0.5932,
           "factors": {
-            "strength": 0.715,
-            "trend": 0.5744,
+            "price_strength": 0.654,
             "flow": 0.55
           }
         }
@@ -7653,8 +7595,7 @@
       "rank": 1,
       "score": 0.6099,
       "factors": {
-        "strength": 0.6232,
-        "trend": 0.7629,
+        "price_strength": 0.6838,
         "flow": 0.5576
       },
       "attribution": {
@@ -7708,8 +7649,7 @@
       "rank": 2,
       "score": 0.5911,
       "factors": {
-        "strength": 0.5908,
-        "trend": 0.8881,
+        "price_strength": 0.7198,
         "flow": 0.4999
       },
       "attribution": {
@@ -7763,8 +7703,7 @@
       "rank": 3,
       "score": 0.5707,
       "factors": {
-        "strength": 0.4934,
-        "trend": 0.7863,
+        "price_strength": 0.6204,
         "flow": 0.5354
       },
       "attribution": {
@@ -7818,8 +7757,7 @@
       "rank": 4,
       "score": 0.5671,
       "factors": {
-        "strength": 0.5687,
-        "trend": 0.8519,
+        "price_strength": 0.6915,
         "flow": 0.4788
       },
       "attribution": {
@@ -7873,8 +7811,7 @@
       "rank": 5,
       "score": 0.5579,
       "factors": {
-        "strength": 0.5552,
-        "trend": 0.5661,
+        "price_strength": 0.5599,
         "flow": 0.5565
       },
       "attribution": {
@@ -7928,8 +7865,7 @@
       "rank": 6,
       "score": 0.5369,
       "factors": {
-        "strength": 0.5533,
-        "trend": 0.5837,
+        "price_strength": 0.5665,
         "flow": 0.5158
       },
       "attribution": {
@@ -7983,8 +7919,7 @@
       "rank": 7,
       "score": 0.524,
       "factors": {
-        "strength": 0.5166,
-        "trend": 0.6059,
+        "price_strength": 0.5553,
         "flow": 0.5017
       },
       "attribution": {
@@ -8038,8 +7973,7 @@
       "rank": 8,
       "score": 0.5134,
       "factors": {
-        "strength": 0.4619,
-        "trend": 0.4668,
+        "price_strength": 0.464,
         "flow": 0.5484
       },
       "attribution": {
@@ -8093,8 +8027,7 @@
       "rank": 9,
       "score": 0.4691,
       "factors": {
-        "strength": 0.4271,
-        "trend": 0.512,
+        "price_strength": 0.4639,
         "flow": 0.4727
       },
       "attribution": {
@@ -8148,8 +8081,7 @@
       "rank": 10,
       "score": 0.4488,
       "factors": {
-        "strength": 0.5984,
-        "trend": 0.6092,
+        "price_strength": 0.6031,
         "flow": 0.3393
       },
       "attribution": {
@@ -8203,8 +8135,7 @@
       "rank": 11,
       "score": 0.4374,
       "factors": {
-        "strength": 0.3733,
-        "trend": 0.432,
+        "price_strength": 0.3988,
         "flow": 0.4649
       },
       "attribution": {
@@ -8258,8 +8189,7 @@
       "rank": 12,
       "score": 0.4228,
       "factors": {
-        "strength": 0.5512,
-        "trend": 0.6046,
+        "price_strength": 0.5744,
         "flow": 0.3152
       },
       "attribution": {
@@ -8313,8 +8243,7 @@
       "rank": 13,
       "score": 0.4128,
       "factors": {
-        "strength": 0.5403,
-        "trend": 0.4528,
+        "price_strength": 0.5024,
         "flow": 0.3493
       },
       "attribution": {
@@ -8368,8 +8297,7 @@
       "rank": 14,
       "score": 0.3879,
       "factors": {
-        "strength": 0.3648,
-        "trend": 0.3314,
+        "price_strength": 0.3503,
         "flow": 0.4146
       },
       "attribution": {
@@ -8423,8 +8351,7 @@
       "rank": 15,
       "score": 0.3822,
       "factors": {
-        "strength": 0.4112,
-        "trend": 0.3678,
+        "price_strength": 0.3924,
         "flow": 0.375
       },
       "attribution": {
@@ -8478,8 +8405,7 @@
       "rank": 16,
       "score": 0.3752,
       "factors": {
-        "strength": 0.5125,
-        "trend": 0.5546,
+        "price_strength": 0.5307,
         "flow": 0.2648
       },
       "attribution": {
@@ -8533,8 +8459,7 @@
       "rank": 17,
       "score": 0.3741,
       "factors": {
-        "strength": 0.6408,
-        "trend": 0.772,
+        "price_strength": 0.6977,
         "flow": 0.1446
       },
       "attribution": {
@@ -8588,8 +8513,7 @@
       "rank": 18,
       "score": 0.3369,
       "factors": {
-        "strength": 0.5395,
-        "trend": 0.3537,
+        "price_strength": 0.4589,
         "flow": 0.2503
       },
       "attribution": {
@@ -8643,8 +8567,7 @@
       "rank": 19,
       "score": 0.2304,
       "factors": {
-        "strength": 0.4438,
-        "trend": 0.4432,
+        "price_strength": 0.4436,
         "flow": 0.0792
       },
       "attribution": {
@@ -8721,8 +8644,8 @@
         "name": "创业板指",
         "etf": "159915",
         "strongest_factors": [
-          "trend",
-          "strength"
+          "price_strength",
+          "flow"
         ],
         "weakest_factors": [
           "flow"
@@ -8735,8 +8658,8 @@
         "name": "科技指数",
         "etf": "515000",
         "strongest_factors": [
-          "trend",
-          "strength"
+          "price_strength",
+          "flow"
         ],
         "weakest_factors": [
           "flow"
@@ -8749,11 +8672,11 @@
         "name": "科创 50",
         "etf": "588000",
         "strongest_factors": [
-          "trend",
+          "price_strength",
           "flow"
         ],
         "weakest_factors": [
-          "strength"
+          "flow"
         ]
       },
       {
@@ -8763,8 +8686,8 @@
         "name": "半导体指数",
         "etf": "512480",
         "strongest_factors": [
-          "trend",
-          "strength"
+          "price_strength",
+          "flow"
         ],
         "weakest_factors": [
           "flow"
@@ -8777,11 +8700,11 @@
         "name": "中证 500",
         "etf": "510500",
         "strongest_factors": [
-          "trend",
+          "price_strength",
           "flow"
         ],
         "weakest_factors": [
-          "strength"
+          "flow"
         ]
       }
     ]
@@ -8924,7 +8847,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-29 21:32",
+    "updated_at": "2026-04-29 21:53",
     "decision": {
       "headline": "本周主结论：创业板指、科技指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 创业板指、科技指数、科创 50。",
@@ -9016,21 +8939,21 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-04-29 21:32",
+  "update_time": "2026-04-29 21:53",
   "metadata": {
-    "generated_at": "2026-04-29 21:32",
-    "strategy_signature": "e36e1929b40c60a3be6c0f84b96d07f0bcd38482a4eea89903c9d5bed3eb1e7e",
+    "generated_at": "2026-04-29 21:53",
+    "strategy_signature": "69eb15ef19e535289218cb40b10c874e8d93dc7886857bdd1b53889eff359afd",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-04-29 21:32:24",
+      "generated_at": "2026-04-29 21:53:45",
       "git": {
-        "commit": "5fe155a7308a61940afabf39cb79a42fa1d748da",
-        "commit_short": "5fe155a7",
+        "commit": "3aa7fedf8fb84e6bb662fae02d30bc7ab00ac9eb",
+        "commit_short": "3aa7fedf",
         "branch": "codex/fix-backtest-stalls",
         "dirty": true
       },
-      "strategy_signature": "e36e1929b40c60a3be6c0f84b96d07f0bcd38482a4eea89903c9d5bed3eb1e7e",
+      "strategy_signature": "69eb15ef19e535289218cb40b10c874e8d93dc7886857bdd1b53889eff359afd",
       "strategy_signature_payload": {
         "alpha_optimization": {
           "conditional_flow": {
@@ -9067,18 +8990,16 @@
         },
         "factor_model": {
           "active_factors": [
-            "strength",
-            "trend",
+            "price_strength",
             "flow"
           ],
           "auxiliary_factors": [],
-          "baseline_name": "core_rotation_v3_strength",
+          "baseline_name": "core_rotation_v4_price_strength",
           "scoring_mode": "fixed"
         },
         "factor_weights": {
           "flow": 0.585,
-          "strength": 0.235,
-          "trend": 0.18
+          "price_strength": 0.415
         },
         "flow_subfactor_weights": {
           "amount_trend": 0.35,
@@ -9090,6 +9011,10 @@
           "commission": 0.0003,
           "initial_capital": 1000000,
           "slippage": 0.001
+        },
+        "price_strength_blend": {
+          "strength": 0.235,
+          "trend": 0.18
         },
         "stop_loss": {
           "cooldown_days": 5,
@@ -9128,14 +9053,12 @@
     }
   },
   "factor_weights": {
-    "strength": 0.235,
-    "trend": 0.18,
+    "price_strength": 0.415,
     "flow": 0.585
   },
   "factor_model": {
     "active_factors": [
-      "strength",
-      "trend",
+      "price_strength",
       "flow"
     ],
     "auxiliary_factors": [],

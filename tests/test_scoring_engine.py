@@ -129,3 +129,18 @@ def test_scoring_factory_always_uses_fixed_engine():
     fixed_engine = create_scoring_engine(fixed_config)
 
     assert isinstance(fixed_engine, ScoringEngine)
+
+
+def test_price_strength_matches_weighted_strength_and_trend():
+    config = base_config(mode="fixed")
+    config["factor_model"]["active_factors"] = ["price_strength", "flow"]
+    config["factor_weights"] = {"price_strength": 0.415, "flow": 0.585}
+    config["price_strength_blend"] = {"strength": 0.235, "trend": 0.18}
+    engine = ScoringEngine(config)
+    frame = make_price_frame()
+    benchmark = make_price_frame()
+
+    scores = engine.score_index(frame, benchmark)
+    expected = (scores["strength"] * 0.235 + scores["trend"] * 0.18) / (0.235 + 0.18)
+
+    assert math.isclose(scores["price_strength"], expected, rel_tol=0, abs_tol=1e-6)

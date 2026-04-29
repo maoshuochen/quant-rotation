@@ -7,8 +7,7 @@
       "rank": 1,
       "score": 0.6099,
       "factors": {
-        "strength": 0.6232,
-        "trend": 0.7629,
+        "price_strength": 0.6838,
         "flow": 0.5576
       },
       "attribution": {
@@ -62,8 +61,7 @@
       "rank": 2,
       "score": 0.5911,
       "factors": {
-        "strength": 0.5908,
-        "trend": 0.8881,
+        "price_strength": 0.7198,
         "flow": 0.4999
       },
       "attribution": {
@@ -117,8 +115,7 @@
       "rank": 3,
       "score": 0.5707,
       "factors": {
-        "strength": 0.4934,
-        "trend": 0.7863,
+        "price_strength": 0.6204,
         "flow": 0.5354
       },
       "attribution": {
@@ -172,8 +169,7 @@
       "rank": 4,
       "score": 0.5671,
       "factors": {
-        "strength": 0.5687,
-        "trend": 0.8519,
+        "price_strength": 0.6915,
         "flow": 0.4788
       },
       "attribution": {
@@ -227,8 +223,7 @@
       "rank": 5,
       "score": 0.5579,
       "factors": {
-        "strength": 0.5552,
-        "trend": 0.5661,
+        "price_strength": 0.5599,
         "flow": 0.5565
       },
       "attribution": {
@@ -282,8 +277,7 @@
       "rank": 6,
       "score": 0.5369,
       "factors": {
-        "strength": 0.5533,
-        "trend": 0.5837,
+        "price_strength": 0.5665,
         "flow": 0.5158
       },
       "attribution": {
@@ -337,8 +331,7 @@
       "rank": 7,
       "score": 0.524,
       "factors": {
-        "strength": 0.5166,
-        "trend": 0.6059,
+        "price_strength": 0.5553,
         "flow": 0.5017
       },
       "attribution": {
@@ -392,8 +385,7 @@
       "rank": 8,
       "score": 0.5134,
       "factors": {
-        "strength": 0.4619,
-        "trend": 0.4668,
+        "price_strength": 0.464,
         "flow": 0.5484
       },
       "attribution": {
@@ -447,8 +439,7 @@
       "rank": 9,
       "score": 0.4691,
       "factors": {
-        "strength": 0.4271,
-        "trend": 0.512,
+        "price_strength": 0.4639,
         "flow": 0.4727
       },
       "attribution": {
@@ -502,8 +493,7 @@
       "rank": 10,
       "score": 0.4488,
       "factors": {
-        "strength": 0.5984,
-        "trend": 0.6092,
+        "price_strength": 0.6031,
         "flow": 0.3393
       },
       "attribution": {
@@ -557,8 +547,7 @@
       "rank": 11,
       "score": 0.4374,
       "factors": {
-        "strength": 0.3733,
-        "trend": 0.432,
+        "price_strength": 0.3988,
         "flow": 0.4649
       },
       "attribution": {
@@ -612,8 +601,7 @@
       "rank": 12,
       "score": 0.4228,
       "factors": {
-        "strength": 0.5512,
-        "trend": 0.6046,
+        "price_strength": 0.5744,
         "flow": 0.3152
       },
       "attribution": {
@@ -667,8 +655,7 @@
       "rank": 13,
       "score": 0.4128,
       "factors": {
-        "strength": 0.5403,
-        "trend": 0.4528,
+        "price_strength": 0.5024,
         "flow": 0.3493
       },
       "attribution": {
@@ -722,8 +709,7 @@
       "rank": 14,
       "score": 0.3879,
       "factors": {
-        "strength": 0.3648,
-        "trend": 0.3314,
+        "price_strength": 0.3503,
         "flow": 0.4146
       },
       "attribution": {
@@ -777,8 +763,7 @@
       "rank": 15,
       "score": 0.3822,
       "factors": {
-        "strength": 0.4112,
-        "trend": 0.3678,
+        "price_strength": 0.3924,
         "flow": 0.375
       },
       "attribution": {
@@ -832,8 +817,7 @@
       "rank": 16,
       "score": 0.3752,
       "factors": {
-        "strength": 0.5125,
-        "trend": 0.5546,
+        "price_strength": 0.5307,
         "flow": 0.2648
       },
       "attribution": {
@@ -887,8 +871,7 @@
       "rank": 17,
       "score": 0.3741,
       "factors": {
-        "strength": 0.6408,
-        "trend": 0.772,
+        "price_strength": 0.6977,
         "flow": 0.1446
       },
       "attribution": {
@@ -942,8 +925,7 @@
       "rank": 18,
       "score": 0.3369,
       "factors": {
-        "strength": 0.5395,
-        "trend": 0.3537,
+        "price_strength": 0.4589,
         "flow": 0.2503
       },
       "attribution": {
@@ -997,8 +979,7 @@
       "rank": 19,
       "score": 0.2304,
       "factors": {
-        "strength": 0.4438,
-        "trend": 0.4432,
+        "price_strength": 0.4436,
         "flow": 0.0792
       },
       "attribution": {
@@ -1075,8 +1056,8 @@
         "name": "创业板指",
         "etf": "159915",
         "strongest_factors": [
-          "trend",
-          "strength"
+          "price_strength",
+          "flow"
         ],
         "weakest_factors": [
           "flow"
@@ -1089,8 +1070,8 @@
         "name": "科技指数",
         "etf": "515000",
         "strongest_factors": [
-          "trend",
-          "strength"
+          "price_strength",
+          "flow"
         ],
         "weakest_factors": [
           "flow"
@@ -1103,11 +1084,11 @@
         "name": "科创 50",
         "etf": "588000",
         "strongest_factors": [
-          "trend",
+          "price_strength",
           "flow"
         ],
         "weakest_factors": [
-          "strength"
+          "flow"
         ]
       },
       {
@@ -1117,8 +1098,8 @@
         "name": "半导体指数",
         "etf": "512480",
         "strongest_factors": [
-          "trend",
-          "strength"
+          "price_strength",
+          "flow"
         ],
         "weakest_factors": [
           "flow"
@@ -1131,11 +1112,11 @@
         "name": "中证 500",
         "etf": "510500",
         "strongest_factors": [
-          "trend",
+          "price_strength",
           "flow"
         ],
         "weakest_factors": [
-          "strength"
+          "flow"
         ]
       }
     ]
@@ -1278,7 +1259,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-29 21:32",
+    "updated_at": "2026-04-29 21:53",
     "decision": {
       "headline": "本周主结论：创业板指、科技指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 创业板指、科技指数、科创 50。",
@@ -1371,19 +1352,19 @@
     ]
   },
   "metadata": {
-    "generated_at": "2026-04-29 21:32",
-    "strategy_signature": "e36e1929b40c60a3be6c0f84b96d07f0bcd38482a4eea89903c9d5bed3eb1e7e",
+    "generated_at": "2026-04-29 21:53",
+    "strategy_signature": "69eb15ef19e535289218cb40b10c874e8d93dc7886857bdd1b53889eff359afd",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-04-29 21:32:24",
+      "generated_at": "2026-04-29 21:53:45",
       "git": {
-        "commit": "5fe155a7308a61940afabf39cb79a42fa1d748da",
-        "commit_short": "5fe155a7",
+        "commit": "3aa7fedf8fb84e6bb662fae02d30bc7ab00ac9eb",
+        "commit_short": "3aa7fedf",
         "branch": "codex/fix-backtest-stalls",
         "dirty": true
       },
-      "strategy_signature": "e36e1929b40c60a3be6c0f84b96d07f0bcd38482a4eea89903c9d5bed3eb1e7e",
+      "strategy_signature": "69eb15ef19e535289218cb40b10c874e8d93dc7886857bdd1b53889eff359afd",
       "strategy_signature_payload": {
         "alpha_optimization": {
           "conditional_flow": {
@@ -1420,18 +1401,16 @@
         },
         "factor_model": {
           "active_factors": [
-            "strength",
-            "trend",
+            "price_strength",
             "flow"
           ],
           "auxiliary_factors": [],
-          "baseline_name": "core_rotation_v3_strength",
+          "baseline_name": "core_rotation_v4_price_strength",
           "scoring_mode": "fixed"
         },
         "factor_weights": {
           "flow": 0.585,
-          "strength": 0.235,
-          "trend": 0.18
+          "price_strength": 0.415
         },
         "flow_subfactor_weights": {
           "amount_trend": 0.35,
@@ -1443,6 +1422,10 @@
           "commission": 0.0003,
           "initial_capital": 1000000,
           "slippage": 0.001
+        },
+        "price_strength_blend": {
+          "strength": 0.235,
+          "trend": 0.18
         },
         "stop_loss": {
           "cooldown_days": 5,
@@ -1481,14 +1464,12 @@
     }
   },
   "factor_weights": {
-    "strength": 0.235,
-    "trend": 0.18,
+    "price_strength": 0.415,
     "flow": 0.585
   },
   "factor_model": {
     "active_factors": [
-      "strength",
-      "trend",
+      "price_strength",
       "flow"
     ],
     "auxiliary_factors": [],
@@ -1502,5 +1483,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-29 21:32"
+  "update_time": "2026-04-29 21:53"
 }
