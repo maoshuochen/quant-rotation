@@ -1259,7 +1259,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-29 22:09",
+    "updated_at": "2026-04-29 20:16",
     "decision": {
       "headline": "本周主结论：创业板指、科技指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 创业板指、科技指数、科创 50。",
@@ -1297,9 +1297,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.2122,
-        "research_max_drawdown": -0.1583,
-        "research_sharpe": 1.01,
+        "research_annual_return": 0.1946,
+        "research_max_drawdown": -0.1684,
+        "research_sharpe": 0.94,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -1321,12 +1321,12 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1562927.02,
-        "total_return": 0.5629,
-        "annual_return": 0.2122,
-        "max_drawdown": -0.1583,
+        "final_value": 1510756.63,
+        "total_return": 0.5108,
+        "annual_return": 0.1946,
+        "max_drawdown": -0.1684,
         "max_drawdown_date": "2024-09-18",
-        "sharpe_ratio": 1.01,
+        "sharpe_ratio": 0.94,
         "trading_days": 560,
         "period": {
           "start": "2024-01-02",
@@ -1334,9 +1334,9 @@
         }
       },
       "research": {
-        "research_annual_return": 0.2122,
-        "research_max_drawdown": -0.1583,
-        "research_sharpe": 1.01,
+        "research_annual_return": 0.1946,
+        "research_max_drawdown": -0.1684,
+        "research_sharpe": 0.94,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -1352,16 +1352,16 @@
     ]
   },
   "metadata": {
-    "generated_at": "2026-04-29 22:09",
+    "generated_at": "2026-04-29 20:16",
     "strategy_signature": "6031af7e0c7fcb36200bd63fae3b0ce813c16ef31ecaefa45397a567cb8ce603",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-04-29 22:09:32",
+      "generated_at": "2026-04-29 20:16:20",
       "git": {
-        "commit": "0d662af359d78cf6663f4f361f738d941d5fbae9",
-        "commit_short": "0d662af3",
-        "branch": "codex/fix-backtest-stalls",
+        "commit": "6bee3ea33311f24d1045b61ac9d3db6742f2f994",
+        "commit_short": "6bee3ea3",
+        "branch": "main",
         "dirty": true
       },
       "strategy_signature": "6031af7e0c7fcb36200bd63fae3b0ce813c16ef31ecaefa45397a567cb8ce603",
@@ -1447,8 +1447,8 @@
       },
       "scoring_mode": "fixed",
       "requested_period": {
-        "start": "20240102",
-        "end": "20260428"
+        "start": "20240101",
+        "end": "20260429"
       },
       "actual_period": {
         "start": "2024-01-02",
@@ -1456,11 +1456,11 @@
       },
       "trading_days": 560,
       "summary": {
-        "final_value": 1562927.02,
-        "total_return": 0.562927,
-        "annual_return": 0.212201,
-        "max_drawdown": -0.158291,
-        "sharpe": 1.011256
+        "final_value": 1510756.63,
+        "total_return": 0.510757,
+        "annual_return": 0.194595,
+        "max_drawdown": -0.168358,
+        "sharpe": 0.937727
       }
     }
   },
@@ -1484,5 +1484,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-29 22:09"
+  "update_time": "2026-04-29 20:16"
 }
