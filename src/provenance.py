@@ -76,6 +76,7 @@ def strategy_signature_payload(config: dict) -> dict:
             "strength_blend": config.get("strength_blend", {}),
             "trend_subfactor_weights": config.get("trend_subfactor_weights", {}),
             "flow_subfactor_weights": config.get("flow_subfactor_weights", {}),
+            "alpha_optimization": config.get("alpha_optimization", {}),
             "portfolio": {
                 "initial_capital": portfolio.get("initial_capital"),
                 "commission": portfolio.get("commission"),

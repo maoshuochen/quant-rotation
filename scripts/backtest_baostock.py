@@ -21,6 +21,7 @@ sys.path.insert(0, str(root_dir))
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.backtest_utils import (
     build_rebalance_signals,
+    build_target_weights,
     build_rebalance_targets,
     compute_fetch_start_date,
     compute_backtest_metrics,
@@ -80,12 +81,35 @@ def _score_trend_matrix(close_matrix: pd.DataFrame, trend_weights: dict) -> pd.D
     return trend.where(close_matrix.notna()).fillna(0.5)
 
 
+def _overheat_penalty_matrix(close_matrix: pd.DataFrame, config: dict) -> pd.DataFrame:
+    penalty_config = config.get("alpha_optimization", {}).get("overheat_penalty", {})
+    if not penalty_config.get("enabled", False):
+        return pd.DataFrame(0.0, index=close_matrix.index, columns=close_matrix.columns)
+
+    ma20 = close_matrix.rolling(20).mean()
+    ma60 = close_matrix.rolling(60).mean()
+    price_vs_ma20 = (close_matrix - ma20) / ma20
+    price_vs_ma60 = (close_matrix - ma60) / ma60
+    recent_return = close_matrix / close_matrix.shift(20) - 1
+
+    ma20_threshold = float(penalty_config.get("ma20_threshold", 0.10))
+    ma60_threshold = float(penalty_config.get("ma60_threshold", 0.18))
+    strength = float(penalty_config.get("penalty_strength", 0.20))
+
+    ma20_hot = ((price_vs_ma20 - ma20_threshold) / max(ma20_threshold, 1e-6)).clip(lower=0, upper=1)
+    ma60_hot = ((price_vs_ma60 - ma60_threshold) / max(ma60_threshold, 1e-6)).clip(lower=0, upper=1)
+    short_hot = ((recent_return - ma20_threshold) / max(ma20_threshold, 1e-6)).clip(lower=0, upper=1)
+    penalty = (ma20_hot * 0.4 + ma60_hot * 0.4 + short_hot * 0.2) * strength
+    return penalty.where(close_matrix.notna()).fillna(0.0)
+
+
 def _score_flow_matrix(
     close_matrix: pd.DataFrame,
     volume_matrix: pd.DataFrame,
     amount_matrix: pd.DataFrame,
     flow_weights: dict,
     history_window: int,
+    config: dict | None = None,
 ) -> pd.DataFrame:
     total = sum(max(float(weight), 0.0) for weight in flow_weights.values())
     if total <= 0:
@@ -122,6 +146,18 @@ def _score_flow_matrix(
         + amt_score * weights['amount_trend']
         + intensity * weights['flow_intensity']
     )
+    conditional_config = (config or {}).get("alpha_optimization", {}).get("conditional_flow", {})
+    if conditional_config.get("enabled", False):
+        ma20 = close_matrix.rolling(20).mean()
+        ma60 = close_matrix.rolling(60).mean()
+        uptrend = (close_matrix > ma20) & (ma20 > ma60)
+        weak_trend = (close_matrix > ma20) & ~uptrend
+        downtrend_cap = float(conditional_config.get("downtrend_cap", 0.50))
+        weak_multiplier = float(conditional_config.get("weak_trend_multiplier", 0.50))
+        neutral = pd.DataFrame(0.5, index=flow.index, columns=flow.columns)
+        weak_flow = neutral + (flow - neutral) * weak_multiplier
+        down_flow = flow.clip(upper=downtrend_cap)
+        flow = flow.where(uptrend, weak_flow.where(weak_trend, down_flow))
     return flow.where(close_matrix.notna()).fillna(0.5)
 
 
@@ -158,9 +194,14 @@ def _build_vectorized_score_frames(
         amount_matrix,
         config.get('flow_subfactor_weights', {}),
         history_window,
+        config,
     )
 
-    if benchmark_data.empty or 'close' not in benchmark_data.columns:
+    rs_benchmark = config.get("alpha_optimization", {}).get("relative_strength_benchmark", "hs300")
+    if rs_benchmark == "equal_weight_all":
+        benchmark_close = (1 + close_matrix.ffill().pct_change().fillna(0).mean(axis=1)).cumprod()
+        relative_strength = _score_relative_strength_matrix(close_matrix, benchmark_close)
+    elif benchmark_data.empty or 'close' not in benchmark_data.columns:
         relative_strength = pd.DataFrame(
             0.5,
             index=close_matrix.index,
@@ -177,6 +218,9 @@ def _build_vectorized_score_frames(
         momentum_weight = rs_weight = 0.5
         blend_total = 1.0
     strength = (momentum * momentum_weight + relative_strength * rs_weight) / blend_total
+    overheat_penalty = _overheat_penalty_matrix(close_matrix, config)
+    momentum = (momentum - overheat_penalty).clip(lower=0.0, upper=1.0)
+    strength = (strength - overheat_penalty).clip(lower=0.0, upper=1.0)
 
     volatility = _clip01(
         1.0
@@ -271,7 +315,9 @@ def load_config() -> dict:
 
 def run_backtest(start_date: str = None,
                  end_date: str = None,
-                 initial_capital: float = 1_000_000):
+                 initial_capital: float = 1_000_000,
+                 config_override: dict | None = None,
+                 write_outputs: bool = True):
     """
     运行回测
 
@@ -280,7 +326,7 @@ def run_backtest(start_date: str = None,
         end_date: 结束日期
         initial_capital: 初始资金
     """
-    config = load_config()
+    config = config_override or load_config()
     start_date = resolve_backtest_start_date(config, start_date)
 
     end_date = end_date or datetime.now().strftime('%Y%m%d')
@@ -447,7 +493,11 @@ def run_backtest(start_date: str = None,
                         print(f"  STOP {trade.code}: {trade.shares} @ {trade.price:.3f}")
                 pending_stop_loss_signals = None
             if pending_signals and open_prices:
-                trades = portfolio.execute_rebalance(pending_signals["target"], open_prices, code_to_name, date_str)
+                target_weights = pending_signals.get("target_weights")
+                if target_weights:
+                    trades = portfolio.execute_rebalance_weights(target_weights, open_prices, code_to_name, date_str)
+                else:
+                    trades = portfolio.execute_rebalance(pending_signals["target"], open_prices, code_to_name, date_str)
                 if verbose_trades:
                     for trade in trades:
                         print(f"  {trade.type.upper()} {trade.code}: {trade.shares} @ {trade.price:.3f}")
@@ -513,6 +563,11 @@ def run_backtest(start_date: str = None,
                 # 调仓信号延迟到下一交易日开盘执行，避免同收盘信号同收盘成交。
                 if target_codes:
                     signals["target"] = target_codes
+                    signals["target_weights"] = build_target_weights(
+                        ranking,
+                        target_codes,
+                        config.get("alpha_optimization", {}).get("target_weighting", {}),
+                    )
                     pending_signals = signals
     finally:
         if executor is not None:
@@ -525,6 +580,7 @@ def run_backtest(start_date: str = None,
     
     # 计算统计
     values_df = compute_backtest_metrics(pd.DataFrame(daily_values), initial_capital)
+    values_df.attrs["close_matrix"] = close_matrix
     benchmark_chart_data, benchmark_summary = _compute_benchmark_curves(close_matrix, initial_capital, values_df)
     values_df.attrs["benchmark_chart_data"] = benchmark_chart_data
     values_df.attrs["benchmark_summary"] = benchmark_summary
@@ -555,6 +611,10 @@ def run_backtest(start_date: str = None,
         print(f"  组合止损：{stop_loss_stats['portfolio']} 次")
         print(f"  总计：{total_stop_loss} 次")
 
+    if not write_outputs:
+        fetcher.close()
+        return values_df
+
     # 保存结果
     results_dir = root_dir / 'backtest_results'
     results_dir.mkdir(exist_ok=True)
@@ -566,7 +626,9 @@ def run_backtest(start_date: str = None,
 
     # 更新 current.parquet（供增量回测和前端使用）
     current_file = results_dir / 'current.parquet'
-    values_df.to_parquet(current_file, compression='snappy', index=False)
+    values_to_save = values_df.copy()
+    values_to_save.attrs = {}
+    values_to_save.to_parquet(current_file, compression='snappy', index=False)
     logger.warning(f"current.parquet 已更新")
 
     metadata = build_run_metadata(
@@ -606,6 +668,7 @@ def run_backtest(start_date: str = None,
 
     # 清理
     fetcher.close()
+    return values_df
 
 
 if __name__ == "__main__":

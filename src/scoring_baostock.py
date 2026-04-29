@@ -63,6 +63,7 @@ class ScoringEngine:
             }
 
         self.auxiliary_factors = factor_model.get('auxiliary_factors', [])
+        self.alpha_optimization = config.get('alpha_optimization', {})
 
     @staticmethod
     def _clip_score(value: float, band: float) -> float:
@@ -363,6 +364,18 @@ class ScoringEngine:
             if weight_total > 0
             else 0.5
         )
+        conditional_config = self.alpha_optimization.get('conditional_flow', {})
+        if conditional_config.get('enabled', False) and len(prices) >= 60:
+            ma20 = prices.rolling(20).mean().iloc[-1]
+            ma60 = prices.rolling(60).mean().iloc[-1]
+            current = prices.iloc[-1]
+            if current > ma20 and ma20 > ma60:
+                pass
+            elif current > ma20:
+                multiplier = float(conditional_config.get('weak_trend_multiplier', 0.50))
+                flow_score = 0.5 + (flow_score - 0.5) * multiplier
+            else:
+                flow_score = min(flow_score, float(conditional_config.get('downtrend_cap', 0.50)))
         logger.debug(
             "Flow scores: %s, weights: %s, final: %.3f",
             detail_scores,
@@ -537,6 +550,23 @@ class ScoringEngine:
             scores.get('momentum', 0.5),
             scores.get('relative_strength', 0.5),
         )
+        penalty_config = self.alpha_optimization.get('overheat_penalty', {})
+        if penalty_config.get('enabled', False):
+            price_vs_ma20 = trend_metrics['metrics']['price_vs_ma20']
+            price_vs_ma60 = trend_metrics['metrics']['price_vs_ma60']
+            recent_return = close.iloc[-1] / close.iloc[-20] - 1 if len(close) >= 20 else 0.0
+            ma20_threshold = float(penalty_config.get('ma20_threshold', 0.10))
+            ma60_threshold = float(penalty_config.get('ma60_threshold', 0.18))
+            strength = float(penalty_config.get('penalty_strength', 0.20))
+            ma20_hot = max(0.0, min(1.0, (price_vs_ma20 - ma20_threshold) / max(ma20_threshold, 1e-6)))
+            ma60_hot = max(0.0, min(1.0, (price_vs_ma60 - ma60_threshold) / max(ma60_threshold, 1e-6)))
+            short_hot = max(0.0, min(1.0, (recent_return - ma20_threshold) / max(ma20_threshold, 1e-6)))
+            penalty = (ma20_hot * 0.4 + ma60_hot * 0.4 + short_hot * 0.2) * strength
+            scores['momentum'] = max(0.0, min(1.0, scores['momentum'] - penalty))
+            scores['strength'] = max(0.0, min(1.0, scores['strength'] - penalty))
+            attribution['overheat_penalty'] = round(penalty, 4)
+        else:
+            attribution['overheat_penalty'] = 0.0
         
         # 确保所有值都是有效的数字（处理 NaN）
         for key in scores:

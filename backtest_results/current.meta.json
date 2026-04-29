@@ -1,15 +1,34 @@
 {
   "schema_version": 1,
   "source": "scripts/backtest_baostock.py",
-  "generated_at": "2026-04-29 21:19:47",
+  "generated_at": "2026-04-29 21:32:24",
   "git": {
-    "commit": "92525aadcd805abd34310f3f17a66f3d98587978",
-    "commit_short": "92525aad",
-    "branch": "",
+    "commit": "5fe155a7308a61940afabf39cb79a42fa1d748da",
+    "commit_short": "5fe155a7",
+    "branch": "codex/fix-backtest-stalls",
     "dirty": true
   },
-  "strategy_signature": "6c7cf9faa0cd5f0d4ae502257160cf72a380716c01e92a2870cc25f8c42da529",
+  "strategy_signature": "e36e1929b40c60a3be6c0f84b96d07f0bcd38482a4eea89903c9d5bed3eb1e7e",
   "strategy_signature_payload": {
+    "alpha_optimization": {
+      "conditional_flow": {
+        "downtrend_cap": 0.55,
+        "enabled": true,
+        "weak_trend_multiplier": 0.75
+      },
+      "overheat_penalty": {
+        "enabled": true,
+        "ma20_threshold": 0.1,
+        "ma60_threshold": 0.18,
+        "penalty_strength": 0.2
+      },
+      "relative_strength_benchmark": "equal_weight_all",
+      "target_weighting": {
+        "max_weight": 0.28,
+        "min_weight": 0.1,
+        "mode": "equal"
+      }
+    },
     "data": {
       "etf_price_mode": "continuous",
       "history_start_date": "20230101",
@@ -78,10 +97,10 @@
   },
   "trading_days": 560,
   "summary": {
-    "final_value": 1452907.28,
-    "total_return": 0.452907,
-    "annual_return": 0.174664,
-    "max_drawdown": -0.182415,
-    "sharpe": 0.8302
+    "final_value": 1516526.36,
+    "total_return": 0.516526,
+    "annual_return": 0.196559,
+    "max_drawdown": -0.159432,
+    "sharpe": 0.944901
   }
 }

@@ -30,3 +30,19 @@ flow_subfactor_weights:
   price_volume_corr: 0.10
   amount_trend: 0.35
   flow_intensity: 0.20
+
+alpha_optimization:
+  relative_strength_benchmark: "equal_weight_all"
+  overheat_penalty:
+    enabled: true
+    ma20_threshold: 0.10
+    ma60_threshold: 0.18
+    penalty_strength: 0.20
+  conditional_flow:
+    enabled: true
+    downtrend_cap: 0.55
+    weak_trend_multiplier: 0.75
+  target_weighting:
+    mode: "equal"
+    max_weight: 0.28
+    min_weight: 0.10

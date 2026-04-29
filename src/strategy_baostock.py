@@ -112,7 +112,13 @@ class RotationStrategy:
     
     def run_scoring(self, data_dict: Dict[str, pd.DataFrame]) -> pd.DataFrame:
         """运行评分系统（资金流因子仅使用基础量价子项）"""
-        ranking = self.score_universe(data_dict)
+        benchmark_data = self.benchmark_data
+        if self.config.get("alpha_optimization", {}).get("relative_strength_benchmark") == "equal_weight_all":
+            close_matrix = pd.DataFrame({code: df["close"] for code, df in data_dict.items()}).sort_index().ffill()
+            if not close_matrix.empty:
+                equal_nav = (1 + close_matrix.pct_change().fillna(0).mean(axis=1)).cumprod()
+                benchmark_data = pd.DataFrame({"close": equal_nav}, index=equal_nav.index)
+        ranking = self.score_universe(data_dict, benchmark_data=benchmark_data)
         self.data_health = self._build_data_health(data_dict, pd.DataFrame(), pd.DataFrame(), {'ok': [], 'snapshot': [], 'missing': []})
         
         return ranking

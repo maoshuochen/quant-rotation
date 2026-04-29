@@ -181,6 +181,50 @@ def build_rebalance_targets(ranking: pd.DataFrame, current_codes: set[str], top_
     return target_codes
 
 
+def build_target_weights(
+    ranking: pd.DataFrame,
+    target_codes: List[str],
+    weighting_config: Optional[dict] = None,
+) -> Dict[str, float]:
+    """根据目标持仓生成目标权重。默认等权，可选择按分数差异倾斜。"""
+    if not target_codes:
+        return {}
+    weighting_config = weighting_config or {}
+    mode = weighting_config.get("mode", "equal")
+    if mode != "score_confidence" or ranking.empty:
+        equal = 1.0 / len(target_codes)
+        return {code: equal for code in target_codes}
+
+    score_map = ranking.set_index("code")["total_score"].to_dict()
+    raw = {code: max(float(score_map.get(code, 0.5)) - 0.5, 0.0) for code in target_codes}
+    raw_total = sum(raw.values())
+    if raw_total <= 0:
+        equal = 1.0 / len(target_codes)
+        return {code: equal for code in target_codes}
+
+    score_weights = {code: value / raw_total for code, value in raw.items()}
+    equal_weight = 1.0 / len(target_codes)
+    scores = [float(score_map.get(code, 0.5)) for code in target_codes]
+    confidence = max(scores) - min(scores) if scores else 0.0
+    full_confidence_spread = max(float(weighting_config.get("full_confidence_spread", 0.08)), 1e-6)
+    tilt = max(0.0, min(1.0, confidence / full_confidence_spread))
+
+    max_weight = float(weighting_config.get("max_weight", 1.0))
+    min_weight = float(weighting_config.get("min_weight", 0.0))
+    blended = {
+        code: equal_weight * (1 - tilt) + score_weights[code] * tilt
+        for code in target_codes
+    }
+    clipped = {
+        code: max(min_weight, min(max_weight, weight))
+        for code, weight in blended.items()
+    }
+    total = sum(clipped.values())
+    if total <= 0:
+        return {code: equal_weight for code in target_codes}
+    return {code: weight / total for code, weight in clipped.items()}
+
+
 def compute_backtest_metrics(values_df: pd.DataFrame, initial_capital: float) -> pd.DataFrame:
     metrics_df = values_df.copy()
     metrics_df["date"] = pd.to_datetime(metrics_df["date"])

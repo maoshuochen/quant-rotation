@@ -200,7 +200,35 @@ class SimulatedPortfolio:
         min_trade_value: float = 1000.0,
     ) -> List[Trade]:
         """按目标持仓集合做等权再平衡。"""
+        if not target_codes:
+            return self.execute_rebalance_weights(
+                {},
+                prices,
+                names,
+                date,
+                min_trade_value=min_trade_value,
+            )
+        equal_weight = 1.0 / len(target_codes)
+        target_weights = {code: equal_weight for code in target_codes}
+        return self.execute_rebalance_weights(
+            target_weights,
+            prices,
+            names,
+            date,
+            min_trade_value=min_trade_value,
+        )
+
+    def execute_rebalance_weights(
+        self,
+        target_weights: Dict[str, float],
+        prices: Dict[str, float],
+        names: Dict[str, str],
+        date: str,
+        min_trade_value: float = 1000.0,
+    ) -> List[Trade]:
+        """按目标权重做再平衡。权重之和小于 1 时，剩余部分保留现金。"""
         executed_trades: List[Trade] = []
+        target_codes = list(target_weights.keys())
         eligible_targets = [
             code
             for code in target_codes
@@ -211,7 +239,13 @@ class SimulatedPortfolio:
             return executed_trades
 
         total_value = self.get_portfolio_value(prices)
-        target_value = total_value / len(eligible_targets) if eligible_targets else 0.0
+        positive_weights = {
+            code: max(float(target_weights.get(code, 0.0)), 0.0)
+            for code in eligible_targets
+        }
+        weight_total = sum(positive_weights.values())
+        if weight_total > 1.0:
+            positive_weights = {code: weight / weight_total for code, weight in positive_weights.items()}
         target_set = set(eligible_targets)
 
         def sell_shares(code: str, shares: int) -> None:
@@ -306,6 +340,7 @@ class SimulatedPortfolio:
             if code not in target_set:
                 sell_shares(code, pos.shares)
                 continue
+            target_value = total_value * positive_weights.get(code, 0.0)
             excess_value = current_value - target_value
             if excess_value > min_trade_value:
                 sell_shares(code, int(excess_value / (price * (1 - self.slippage))))
@@ -315,6 +350,7 @@ class SimulatedPortfolio:
             current_value = 0.0
             if code in self.positions:
                 current_value = self.positions[code].shares * prices.get(code, self.positions[code].avg_price)
+            target_value = total_value * positive_weights.get(code, 0.0)
             shortage = target_value - current_value
             if shortage > min_trade_value:
                 buy_value(code, shortage)
