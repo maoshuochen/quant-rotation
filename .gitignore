@@ -89,6 +89,7 @@ backtest_results/backtest_*.csv
 backtest_results/current.parquet
 !backtest_results/.gitkeep
 !backtest_results/current.meta.json
+!backtest_results/current.benchmarks.json
 
 # Generated outputs
 outputs/*

@@ -118,6 +118,7 @@ export const loadBacktestData = async () => {
     return {
       summary: data.summary || {},
       chartData: data.chart_data || [],
+      benchmarks: data.benchmarks || {},
       metadata: data.metadata || {}
     }
   } catch (err) {
@@ -127,6 +128,7 @@ export const loadBacktestData = async () => {
       return {
         summary: data.backtest?.summary || {},
         chartData: data.backtest?.chart_data || [],
+        benchmarks: data.backtest?.benchmarks || {},
         metadata: data.backtest?.metadata || {}
       }
     } catch (fallbackErr) {

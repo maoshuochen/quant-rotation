@@ -14,6 +14,7 @@ from typing import Any
 
 
 PROVENANCE_SCHEMA_VERSION = 1
+BACKTEST_EXECUTION_MODEL_VERSION = 2
 
 
 def _run_git(root_dir: Path, args: list[str]) -> str:
@@ -81,6 +82,12 @@ def strategy_signature_payload(config: dict) -> dict:
                 "slippage": portfolio.get("slippage"),
             },
             "stop_loss": stop_loss,
+            "execution": {
+                "model_version": BACKTEST_EXECUTION_MODEL_VERSION,
+                "rebalance": "next_open_equal_weight_with_buffer_targets",
+                "stop_loss": "close_signal_next_open_execution",
+                "benchmarks": ["hs300", "equal_weight_all"],
+            },
             "data": {
                 "etf_price_mode": data.get("etf_price_mode"),
                 "require_consistent_adjust": data.get("require_consistent_adjust"),

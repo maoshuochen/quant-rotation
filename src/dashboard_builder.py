@@ -53,6 +53,10 @@ class DashboardDataBuilder:
         df = pd.read_parquet(parquet_file).copy()
         df["date"] = pd.to_datetime(df["date"])
         metadata = json.loads(metadata_file.read_text(encoding="utf-8"))
+        benchmark_file = self.root_dir / "backtest_results" / "current.benchmarks.json"
+        benchmarks = {"chart_data": [], "summary": {}}
+        if benchmark_file.exists():
+            benchmarks = json.loads(benchmark_file.read_text(encoding="utf-8"))
 
         if "drawdown" not in df.columns:
             df["rolling_max"] = df["value"].cummax()
@@ -116,6 +120,7 @@ class DashboardDataBuilder:
                 "period": period,
             },
             "chart_data": chart_data,
+            "benchmarks": benchmarks,
             "metadata": metadata,
         }
 

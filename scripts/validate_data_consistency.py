@@ -60,6 +60,7 @@ def main() -> None:
 
     current_path = ROOT_DIR / "backtest_results" / "current.parquet"
     metadata_path = ROOT_DIR / "backtest_results" / "current.meta.json"
+    benchmark_path = ROOT_DIR / "backtest_results" / "current.benchmarks.json"
     if not current_path.exists():
         raise RuntimeError("缺少 backtest_results/current.parquet")
 
@@ -73,6 +74,7 @@ def main() -> None:
     }
 
     metadata = _read_json(metadata_path)
+    benchmarks = _read_json(benchmark_path)
     if metadata.get("strategy_signature") != expected_signature:
         raise RuntimeError("current.meta.json 与当前策略配置不一致")
 
@@ -92,6 +94,11 @@ def main() -> None:
         ROOT_DIR / "site" / "data.json",
     ]:
         _validate_payload(path, expected_summary, metadata)
+        payload = _read_json(path)
+        backtest = payload.get("backtest", payload)
+        payload_benchmarks = backtest.get("benchmarks", {})
+        if payload_benchmarks.get("summary") != benchmarks.get("summary"):
+            raise RuntimeError(f"{path} benchmark summary 不一致")
 
     print("数据一致性校验通过")
     print(

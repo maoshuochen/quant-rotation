@@ -190,6 +190,136 @@ class SimulatedPortfolio:
                 logger.info(f"Bought {shares} shares of {code} @ {exec_price:.2f}")
 
         return executed_trades
+
+    def execute_rebalance(
+        self,
+        target_codes: List[str],
+        prices: Dict[str, float],
+        names: Dict[str, str],
+        date: str,
+        min_trade_value: float = 1000.0,
+    ) -> List[Trade]:
+        """按目标持仓集合做等权再平衡。"""
+        executed_trades: List[Trade] = []
+        eligible_targets = [
+            code
+            for code in target_codes
+            if code in self.positions or not self.is_in_cooldown(code, date)
+        ]
+        eligible_targets = [code for code in eligible_targets if code in prices]
+        if not eligible_targets and not self.positions:
+            return executed_trades
+
+        total_value = self.get_portfolio_value(prices)
+        target_value = total_value / len(eligible_targets) if eligible_targets else 0.0
+        target_set = set(eligible_targets)
+
+        def sell_shares(code: str, shares: int) -> None:
+            if shares <= 0 or code not in self.positions:
+                return
+            pos = self.positions[code]
+            shares_to_sell = min(shares, pos.shares)
+            price = prices.get(code, pos.avg_price)
+            exec_price = price * (1 - self.slippage)
+            amount = shares_to_sell * exec_price
+            if amount < min_trade_value and shares_to_sell < pos.shares:
+                return
+            commission = amount * self.commission_rate
+            self.cash += amount - commission
+            trade = Trade(
+                date=date,
+                type='sell',
+                code=code,
+                name=pos.name,
+                shares=shares_to_sell,
+                price=exec_price,
+                amount=amount,
+                commission=commission,
+            )
+            executed_trades.append(trade)
+            self.trades.append(trade)
+            remaining = pos.shares - shares_to_sell
+            if remaining <= 0:
+                del self.positions[code]
+            else:
+                pos.shares = remaining
+                self.positions[code] = pos
+
+        def buy_value(code: str, desired_value: float) -> None:
+            if desired_value < min_trade_value:
+                return
+            price = prices.get(code)
+            if price is None:
+                return
+            exec_price = price * (1 + self.slippage)
+            shares = int(desired_value / (exec_price * (1 + self.commission_rate)))
+            if shares <= 0:
+                return
+            amount = shares * exec_price
+            commission = amount * self.commission_rate
+            total_cost = amount + commission
+            if total_cost > self.cash:
+                shares = int(self.cash / (exec_price * (1 + self.commission_rate)))
+                if shares <= 0:
+                    return
+                amount = shares * exec_price
+                commission = amount * self.commission_rate
+                total_cost = amount + commission
+            if amount < min_trade_value:
+                return
+            self.cash -= total_cost
+            if code in self.positions:
+                pos = self.positions[code]
+                old_amount = pos.shares * pos.avg_price
+                new_shares = pos.shares + shares
+                pos.avg_price = (old_amount + amount) / new_shares
+                pos.shares = new_shares
+                pos.highest_price = max(pos.highest_price, price)
+                self.positions[code] = pos
+            else:
+                self.positions[code] = Position(
+                    code=code,
+                    name=names.get(code, code),
+                    shares=shares,
+                    avg_price=exec_price,
+                    entry_date=date,
+                    highest_price=price,
+                )
+            trade = Trade(
+                date=date,
+                type='buy',
+                code=code,
+                name=names.get(code, code),
+                shares=shares,
+                price=exec_price,
+                amount=amount,
+                commission=commission,
+            )
+            executed_trades.append(trade)
+            self.trades.append(trade)
+
+        # 先卖出非目标和超配部分，释放现金。
+        for code in list(self.positions.keys()):
+            pos = self.positions[code]
+            price = prices.get(code, pos.avg_price)
+            current_value = pos.shares * price
+            if code not in target_set:
+                sell_shares(code, pos.shares)
+                continue
+            excess_value = current_value - target_value
+            if excess_value > min_trade_value:
+                sell_shares(code, int(excess_value / (price * (1 - self.slippage))))
+
+        # 再买入低配或新增目标。
+        for code in eligible_targets:
+            current_value = 0.0
+            if code in self.positions:
+                current_value = self.positions[code].shares * prices.get(code, self.positions[code].avg_price)
+            shortage = target_value - current_value
+            if shortage > min_trade_value:
+                buy_value(code, shortage)
+
+        return executed_trades
     
     def get_portfolio_value(self, current_prices: Dict[str, float]) -> float:
         """计算当前总资产"""

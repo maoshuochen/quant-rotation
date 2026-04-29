@@ -1,19 +1,28 @@
 {
   "schema_version": 1,
   "source": "scripts/backtest_baostock.py",
-  "generated_at": "2026-04-28 20:23:45",
+  "generated_at": "2026-04-29 21:19:47",
   "git": {
-    "commit": "7c4f05fee2b228a8479f2bbb85efbf9863aae673",
-    "commit_short": "7c4f05fe",
-    "branch": "main",
+    "commit": "92525aadcd805abd34310f3f17a66f3d98587978",
+    "commit_short": "92525aad",
+    "branch": "",
     "dirty": true
   },
-  "strategy_signature": "ff67e748f6f15928f412be1f321ed5f3934bdff5f8c95e86230c54e9717019e9",
+  "strategy_signature": "6c7cf9faa0cd5f0d4ae502257160cf72a380716c01e92a2870cc25f8c42da529",
   "strategy_signature_payload": {
     "data": {
       "etf_price_mode": "continuous",
       "history_start_date": "20230101",
       "require_consistent_adjust": true
+    },
+    "execution": {
+      "benchmarks": [
+        "hs300",
+        "equal_weight_all"
+      ],
+      "model_version": 2,
+      "rebalance": "next_open_equal_weight_with_buffer_targets",
+      "stop_loss": "close_signal_next_open_execution"
     },
     "factor_model": {
       "active_factors": [
@@ -60,19 +69,19 @@
   },
   "scoring_mode": "fixed",
   "requested_period": {
-    "start": "20240101",
+    "start": "20240102",
     "end": "20260428"
   },
   "actual_period": {
     "start": "2024-01-02",
-    "end": "2026-04-17"
+    "end": "2026-04-28"
   },
-  "trading_days": 553,
+  "trading_days": 560,
   "summary": {
-    "final_value": 1264210.46,
-    "total_return": 0.26421,
-    "annual_return": 0.107783,
-    "max_drawdown": -0.184915,
-    "sharpe": 0.626405
+    "final_value": 1452907.28,
+    "total_return": 0.452907,
+    "annual_return": 0.174664,
+    "max_drawdown": -0.182415,
+    "sharpe": 0.8302
   }
 }

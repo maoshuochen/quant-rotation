@@ -21,6 +21,7 @@ sys.path.insert(0, str(root_dir))
 from src.data_fetcher_baostock import IndexDataFetcher
 from src.backtest_utils import (
     build_rebalance_signals,
+    build_rebalance_targets,
     compute_fetch_start_date,
     compute_backtest_metrics,
     create_portfolio,
@@ -221,6 +222,48 @@ def _rank_from_score_frames(
     return scorer.rank_indices(scores_dict)
 
 
+def _compute_benchmark_curves(
+    close_matrix: pd.DataFrame,
+    initial_capital: float,
+    strategy_values: pd.DataFrame,
+) -> tuple[list[dict], dict]:
+    benchmark = close_matrix.copy().ffill()
+    dates = pd.to_datetime(strategy_values["date"])
+    benchmark = benchmark.reindex(dates).dropna(axis=1, how="any")
+    benchmarks: dict[str, pd.Series] = {}
+    if not benchmark.empty:
+        returns = benchmark.pct_change().fillna(0)
+        benchmarks["equal_weight_all"] = (1 + returns.mean(axis=1)).cumprod() * initial_capital
+    if "000300.SH" in benchmark:
+        benchmarks["hs300"] = benchmark["000300.SH"] / benchmark["000300.SH"].iloc[0] * initial_capital
+
+    chart_data = []
+    strategy_series = pd.Series(strategy_values["value"].values, index=dates)
+    for date in dates:
+        item = {
+            "date": date.strftime("%Y-%m-%d"),
+            "strategy": round(float(strategy_series.loc[date] / initial_capital - 1), 4),
+        }
+        for key, series in benchmarks.items():
+            item[key] = round(float(series.loc[date] / initial_capital - 1), 4)
+        chart_data.append(item)
+
+    summary = {}
+    for key, series in benchmarks.items():
+        metrics = compute_backtest_metrics(
+            pd.DataFrame({"date": series.index, "value": series.values}),
+            initial_capital,
+        ).attrs["summary"]
+        summary[key] = {
+            "final_value": round(float(metrics["final_value"]), 2),
+            "total_return": round(float(metrics["total_return"]), 4),
+            "annual_return": round(float(metrics["annual_return"]), 4),
+            "max_drawdown": round(float(metrics["max_drawdown"]), 4),
+            "sharpe_ratio": round(float(metrics["sharpe"]), 2),
+        }
+    return chart_data, summary
+
+
 def load_config() -> dict:
     """加载配置"""
     return load_strategy_config(root_dir)
@@ -375,6 +418,7 @@ def run_backtest(start_date: str = None,
     daily_values = []
     stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
     pending_signals = None
+    pending_stop_loss_signals = None
 
     def score_candidate(item, date, benchmark_slice):
         code, df = item
@@ -396,8 +440,14 @@ def run_backtest(start_date: str = None,
             # 先用前一交易日收盘生成的信号，在今日开盘执行。
             open_row = open_matrix.loc[date].dropna()
             open_prices = {code: float(price) for code, price in open_row.items()}
+            if pending_stop_loss_signals and open_prices:
+                trades = portfolio.execute_stop_loss(pending_stop_loss_signals, open_prices, code_to_name, date_str)
+                if verbose_trades:
+                    for trade in trades:
+                        print(f"  STOP {trade.code}: {trade.shares} @ {trade.price:.3f}")
+                pending_stop_loss_signals = None
             if pending_signals and open_prices:
-                trades = portfolio.execute_signal(pending_signals, open_prices, code_to_name, date_str)
+                trades = portfolio.execute_rebalance(pending_signals["target"], open_prices, code_to_name, date_str)
                 if verbose_trades:
                     for trade in trades:
                         print(f"  {trade.type.upper()} {trade.code}: {trade.shares} @ {trade.price:.3f}")
@@ -414,7 +464,7 @@ def run_backtest(start_date: str = None,
                     for signal_type, codes in stop_loss_signals.items():
                         if codes:
                             stop_loss_stats[signal_type] += len(codes)
-                    portfolio.execute_stop_loss(stop_loss_signals, prices, code_to_name, date_str)
+                    pending_stop_loss_signals = stop_loss_signals
 
             # 记录每日净值
             if prices:
@@ -458,9 +508,11 @@ def run_backtest(start_date: str = None,
                     continue
 
                 signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
+                target_codes = build_rebalance_targets(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
 
                 # 调仓信号延迟到下一交易日开盘执行，避免同收盘信号同收盘成交。
-                if signals['buy'] or signals['sell']:
+                if target_codes:
+                    signals["target"] = target_codes
                     pending_signals = signals
     finally:
         if executor is not None:
@@ -473,6 +525,9 @@ def run_backtest(start_date: str = None,
     
     # 计算统计
     values_df = compute_backtest_metrics(pd.DataFrame(daily_values), initial_capital)
+    benchmark_chart_data, benchmark_summary = _compute_benchmark_curves(close_matrix, initial_capital, values_df)
+    values_df.attrs["benchmark_chart_data"] = benchmark_chart_data
+    values_df.attrs["benchmark_summary"] = benchmark_summary
     summary = values_df.attrs["summary"]
     final_value = summary["final_value"]
     total_return = summary["total_return"]
@@ -534,6 +589,20 @@ def run_backtest(start_date: str = None,
     metadata_file = results_dir / "current.meta.json"
     metadata_file.write_text(json.dumps(metadata, indent=2, ensure_ascii=False), encoding="utf-8")
     logger.warning("current.meta.json 已更新")
+
+    benchmark_file = results_dir / "current.benchmarks.json"
+    benchmark_file.write_text(
+        json.dumps(
+            {
+                "chart_data": benchmark_chart_data,
+                "summary": benchmark_summary,
+            },
+            indent=2,
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    logger.warning("current.benchmarks.json 已更新")
 
     # 清理
     fetcher.close()

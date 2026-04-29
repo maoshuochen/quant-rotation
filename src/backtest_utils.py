@@ -168,6 +168,19 @@ def build_rebalance_signals(ranking: pd.DataFrame, current_codes: set[str], top_
     }
 
 
+def build_rebalance_targets(ranking: pd.DataFrame, current_codes: set[str], top_n: int, buffer_n: int) -> List[str]:
+    """目标持仓集合：新买前 top_n，已有持仓在 buffer_n 内则继续持有。"""
+    if ranking.empty:
+        return []
+    selected = ranking.head(top_n)["code"].tolist()
+    hold_range = set(ranking.head(buffer_n)["code"].tolist())
+    target_codes = list(selected)
+    for code in ranking["code"].tolist():
+        if code in current_codes and code in hold_range and code not in target_codes:
+            target_codes.append(code)
+    return target_codes
+
+
 def compute_backtest_metrics(values_df: pd.DataFrame, initial_capital: float) -> pd.DataFrame:
     metrics_df = values_df.copy()
     metrics_df["date"] = pd.to_datetime(metrics_df["date"])

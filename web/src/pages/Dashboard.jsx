@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
+import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, Line } from 'recharts'
 import { safeNum, pct, factorNames, dedupeHistoryByDate } from '../utils'
 
 const Card = ({ title, subtitle, children, className = '' }) => (
@@ -19,6 +19,11 @@ const HighlightStat = ({ label, value, detail }) => (
     {detail ? <div className="mt-0.5 sm:mt-1 text-[10px] sm:text-xs opacity-80">{detail}</div> : null}
   </div>
 )
+
+const benchmarkLabels = {
+  hs300: '沪深 300',
+  equal_weight_all: '全池等权'
+}
 
 const SectionHeader = ({ title, subtitle, isExpanded, onClick, actions }) => (
   <button
@@ -210,6 +215,16 @@ const Dashboard = ({
   const backtestSummary = backtestData?.summary || {}
   const backtestMetadata = backtestData?.metadata || {}
   const backtestGit = backtestMetadata.git || {}
+  const benchmarkSummary = backtestData?.benchmarks?.summary || {}
+  const benchmarkChart = backtestData?.benchmarks?.chart_data || []
+  const mergedChartData = useMemo(() => {
+    if (!backtestData?.chartData?.length) return []
+    const benchmarkByDate = new Map(benchmarkChart.map((item) => [item.date, item]))
+    return backtestData.chartData.map((item) => ({
+      ...item,
+      ...(benchmarkByDate.get(item.date) || {})
+    }))
+  }, [backtestData?.chartData, benchmarkChart])
   const ranking = data?.ranking || []
   const factorWeights = data?.factorWeights || {}
   const history = historyData?.history || []
@@ -447,7 +462,7 @@ const Dashboard = ({
                   </div>
                   <div className="h-[220px] sm:h-[300px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={backtestData.chartData}>
+                      <AreaChart data={mergedChartData}>
                         <defs>
                           <linearGradient id="colorReturn" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
@@ -464,9 +479,25 @@ const Dashboard = ({
                         <Tooltip contentStyle={{ background: theme === 'dark' ? '#18181b' : '#fffaf2', border: `1px solid ${theme === 'dark' ? '#27272a' : '#d6d3d1'}`, borderRadius: '8px', color: theme === 'dark' ? '#f4f4f5' : '#1f2937' }} />
                         <Area type="monotone" dataKey="cum_return" stroke="#f59e0b" fill="url(#colorReturn)" strokeWidth={2} />
                         <Area type="monotone" dataKey="drawdown" stroke="#f87171" fill="url(#colorDrawdown)" />
+                        <Line type="monotone" dataKey="hs300" stroke="#60a5fa" strokeWidth={1.5} dot={false} />
+                        <Line type="monotone" dataKey="equal_weight_all" stroke="#34d399" strokeWidth={1.5} dot={false} />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
+                  {Object.keys(benchmarkSummary).length ? (
+                    <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                      <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 px-3 py-2">
+                        <div className="text-[10px] text-zinc-500">策略</div>
+                        <div className="mt-1 text-sm font-semibold text-amber-300">{pct(backtestSummary.total_return)}</div>
+                      </div>
+                      {Object.entries(benchmarkSummary).map(([key, item]) => (
+                        <div key={key} className="rounded-xl border border-zinc-800 bg-zinc-950/40 px-3 py-2">
+                          <div className="text-[10px] text-zinc-500">{benchmarkLabels[key] || key}</div>
+                          <div className="mt-1 text-sm font-semibold text-zinc-100">{pct(item.total_return)}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                   {backtestMetadata.generated_at ? (
                     <div className="mt-3 text-[10px] sm:text-xs text-zinc-500">
                       数据口径：{backtestMetadata.scoring_mode || 'fixed'} · 回测生成 {backtestMetadata.generated_at}
