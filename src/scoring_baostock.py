@@ -64,6 +64,29 @@ class ScoringEngine:
 
         self.auxiliary_factors = factor_model.get('auxiliary_factors', [])
         self.alpha_optimization = config.get('alpha_optimization', {})
+        self.price_strength_model = config.get('price_strength_model', {})
+        self.flow_model = config.get('flow_model', {})
+
+    def _price_strength_component_weights(self) -> Dict[str, float]:
+        configured = self.price_strength_model.get('components')
+        if configured:
+            weights = {
+                'momentum': max(float(configured.get('momentum', 0.0)), 0.0),
+                'relative_strength': max(float(configured.get('relative_strength', 0.0)), 0.0),
+                'trend': max(float(configured.get('trend', 0.0)), 0.0),
+            }
+        else:
+            strength_weight = max(float(self.config.get('price_strength_blend', {}).get('strength', 0.235)), 0.0)
+            trend_weight = max(float(self.config.get('price_strength_blend', {}).get('trend', 0.18)), 0.0)
+            weights = {
+                'momentum': strength_weight * self.strength_blend['momentum'],
+                'relative_strength': strength_weight * self.strength_blend['relative_strength'],
+                'trend': trend_weight,
+            }
+        total = sum(weights.values())
+        if total <= 0:
+            return {'momentum': 1 / 3, 'relative_strength': 1 / 3, 'trend': 1 / 3}
+        return {key: value / total for key, value in weights.items()}
 
     @staticmethod
     def _clip_score(value: float, band: float) -> float:
@@ -364,7 +387,10 @@ class ScoringEngine:
             if weight_total > 0
             else 0.5
         )
-        conditional_config = self.alpha_optimization.get('conditional_flow', {})
+        conditional_config = (
+            self.flow_model.get('trend_filter')
+            or self.alpha_optimization.get('conditional_flow', {})
+        )
         if conditional_config.get('enabled', False) and len(prices) >= 60:
             ma20 = prices.rolling(20).mean().iloc[-1]
             ma60 = prices.rolling(60).mean().iloc[-1]
@@ -545,12 +571,11 @@ class ScoringEngine:
             attribution['benchmark_return'] = 0
             attribution['rs_lookback_days'] = 0
 
-        # ===== 强度因子（动量 + 相对强弱） =====
-        scores['strength'] = self.calc_strength_score(
-            scores.get('momentum', 0.5),
-            scores.get('relative_strength', 0.5),
+        penalty_config = (
+            self.price_strength_model.get('overheat')
+            or self.alpha_optimization.get('overheat_penalty', {})
         )
-        penalty_config = self.alpha_optimization.get('overheat_penalty', {})
+        raw_momentum_score = scores.get('momentum', 0.5)
         if penalty_config.get('enabled', False):
             price_vs_ma20 = trend_metrics['metrics']['price_vs_ma20']
             price_vs_ma60 = trend_metrics['metrics']['price_vs_ma60']
@@ -563,25 +588,28 @@ class ScoringEngine:
             short_hot = max(0.0, min(1.0, (recent_return - ma20_threshold) / max(ma20_threshold, 1e-6)))
             penalty = (ma20_hot * 0.4 + ma60_hot * 0.4 + short_hot * 0.2) * strength
             scores['momentum'] = max(0.0, min(1.0, scores['momentum'] - penalty))
-            scores['strength'] = max(0.0, min(1.0, scores['strength'] - penalty))
             attribution['overheat_penalty'] = round(penalty, 4)
         else:
+            penalty = 0.0
             attribution['overheat_penalty'] = 0.0
 
-        price_strength_blend = self.config.get('price_strength_blend', {})
-        strength_weight = max(float(price_strength_blend.get('strength', 0.235)), 0.0)
-        trend_weight = max(float(price_strength_blend.get('trend', 0.18)), 0.0)
-        price_weight_total = strength_weight + trend_weight
-        if price_weight_total > 0:
-            scores['price_strength'] = (
-                scores.get('strength', 0.5) * strength_weight
-                + scores.get('trend', 0.5) * trend_weight
-            ) / price_weight_total
+        component_weights = self._price_strength_component_weights()
+        strength_weight_total = component_weights['momentum'] + component_weights['relative_strength']
+        if strength_weight_total > 0:
+            scores['strength'] = (
+                raw_momentum_score * component_weights['momentum']
+                + scores.get('relative_strength', 0.5) * component_weights['relative_strength']
+            ) / strength_weight_total
+            scores['strength'] = max(0.0, min(1.0, scores['strength'] - penalty))
         else:
-            scores['price_strength'] = (
-                scores.get('strength', 0.5)
-                + scores.get('trend', 0.5)
-            ) / 2
+            scores['strength'] = self.calc_strength_score(
+                scores.get('momentum', 0.5),
+                scores.get('relative_strength', 0.5),
+            )
+        scores['price_strength'] = (
+            scores.get('strength', 0.5) * strength_weight_total
+            + scores.get('trend', 0.5) * component_weights['trend']
+        )
         
         # 确保所有值都是有效的数字（处理 NaN）
         for key in scores:

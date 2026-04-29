@@ -51,6 +51,60 @@ def _clip01(frame: pd.DataFrame | pd.Series) -> pd.DataFrame | pd.Series:
     return frame.clip(lower=0.0, upper=1.0)
 
 
+def _relative_strength_benchmark(config: dict) -> str:
+    return str(
+        config.get("price_strength_model", {}).get(
+            "relative_strength_benchmark",
+            config.get("alpha_optimization", {}).get("relative_strength_benchmark", "hs300"),
+        )
+    )
+
+
+def _overheat_config(config: dict) -> dict:
+    return (
+        config.get("price_strength_model", {}).get("overheat")
+        or config.get("alpha_optimization", {}).get("overheat_penalty", {})
+    )
+
+
+def _flow_trend_filter_config(config: dict | None) -> dict:
+    config = config or {}
+    return (
+        config.get("flow_model", {}).get("trend_filter")
+        or config.get("alpha_optimization", {}).get("conditional_flow", {})
+    )
+
+
+def _price_strength_component_weights(config: dict) -> dict:
+    configured = config.get("price_strength_model", {}).get("components")
+    if configured:
+        weights = {
+            "momentum": max(float(configured.get("momentum", 0.0)), 0.0),
+            "relative_strength": max(float(configured.get("relative_strength", 0.0)), 0.0),
+            "trend": max(float(configured.get("trend", 0.0)), 0.0),
+        }
+    else:
+        strength_blend = config.get('strength_blend', {})
+        momentum_weight = max(float(strength_blend.get('momentum', 0.5)), 0.0)
+        rs_weight = max(float(strength_blend.get('relative_strength', 0.5)), 0.0)
+        blend_total = momentum_weight + rs_weight
+        if blend_total <= 0:
+            momentum_weight = rs_weight = 0.5
+            blend_total = 1.0
+        price_strength_blend = config.get('price_strength_blend', {})
+        strength_weight = max(float(price_strength_blend.get('strength', 0.235)), 0.0)
+        trend_weight = max(float(price_strength_blend.get('trend', 0.18)), 0.0)
+        weights = {
+            "momentum": strength_weight * momentum_weight / blend_total,
+            "relative_strength": strength_weight * rs_weight / blend_total,
+            "trend": trend_weight,
+        }
+    total = sum(weights.values())
+    if total <= 0:
+        return {"momentum": 1 / 3, "relative_strength": 1 / 3, "trend": 1 / 3}
+    return {key: value / total for key, value in weights.items()}
+
+
 def _score_trend_matrix(close_matrix: pd.DataFrame, trend_weights: dict) -> pd.DataFrame:
     ma20 = close_matrix.rolling(20).mean()
     ma60 = close_matrix.rolling(60).mean()
@@ -82,7 +136,7 @@ def _score_trend_matrix(close_matrix: pd.DataFrame, trend_weights: dict) -> pd.D
 
 
 def _overheat_penalty_matrix(close_matrix: pd.DataFrame, config: dict) -> pd.DataFrame:
-    penalty_config = config.get("alpha_optimization", {}).get("overheat_penalty", {})
+    penalty_config = _overheat_config(config)
     if not penalty_config.get("enabled", False):
         return pd.DataFrame(0.0, index=close_matrix.index, columns=close_matrix.columns)
 
@@ -146,7 +200,7 @@ def _score_flow_matrix(
         + amt_score * weights['amount_trend']
         + intensity * weights['flow_intensity']
     )
-    conditional_config = (config or {}).get("alpha_optimization", {}).get("conditional_flow", {})
+    conditional_config = _flow_trend_filter_config(config)
     if conditional_config.get("enabled", False):
         ma20 = close_matrix.rolling(20).mean()
         ma60 = close_matrix.rolling(60).mean()
@@ -197,7 +251,7 @@ def _build_vectorized_score_frames(
         config,
     )
 
-    rs_benchmark = config.get("alpha_optimization", {}).get("relative_strength_benchmark", "hs300")
+    rs_benchmark = _relative_strength_benchmark(config)
     if rs_benchmark == "equal_weight_all":
         benchmark_close = (1 + close_matrix.ffill().pct_change().fillna(0).mean(axis=1)).cumprod()
         relative_strength = _score_relative_strength_matrix(close_matrix, benchmark_close)
@@ -210,28 +264,22 @@ def _build_vectorized_score_frames(
     else:
         relative_strength = _score_relative_strength_matrix(close_matrix, benchmark_data['close'])
 
-    blend = config.get('strength_blend', {})
-    momentum_weight = max(float(blend.get('momentum', 0.5)), 0.0)
-    rs_weight = max(float(blend.get('relative_strength', 0.5)), 0.0)
-    blend_total = momentum_weight + rs_weight
-    if blend_total <= 0:
-        momentum_weight = rs_weight = 0.5
-        blend_total = 1.0
-    strength = (momentum * momentum_weight + relative_strength * rs_weight) / blend_total
     overheat_penalty = _overheat_penalty_matrix(close_matrix, config)
-    momentum = (momentum - overheat_penalty).clip(lower=0.0, upper=1.0)
-    strength = (strength - overheat_penalty).clip(lower=0.0, upper=1.0)
-    price_strength_blend = config.get('price_strength_blend', {})
-    strength_model_weight = max(float(price_strength_blend.get('strength', 0.235)), 0.0)
-    trend_model_weight = max(float(price_strength_blend.get('trend', 0.18)), 0.0)
-    price_weight_total = strength_model_weight + trend_model_weight
-    if price_weight_total <= 0:
-        price_strength = (strength + trend) / 2
+    component_weights = _price_strength_component_weights(config)
+    strength_weight_total = component_weights["momentum"] + component_weights["relative_strength"]
+    if strength_weight_total > 0:
+        strength = (
+            momentum * component_weights["momentum"]
+            + relative_strength * component_weights["relative_strength"]
+        ) / strength_weight_total
+        strength = (strength - overheat_penalty).clip(lower=0.0, upper=1.0)
     else:
-        price_strength = (
-            strength * strength_model_weight
-            + trend * trend_model_weight
-        ) / price_weight_total
+        strength = (momentum + relative_strength) / 2
+    momentum = (momentum - overheat_penalty).clip(lower=0.0, upper=1.0)
+    price_strength = (
+        strength * strength_weight_total
+        + trend * component_weights["trend"]
+    )
 
     volatility = _clip01(
         1.0

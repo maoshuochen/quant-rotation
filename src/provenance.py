@@ -73,10 +73,10 @@ def strategy_signature_payload(config: dict) -> dict:
                 "auxiliary_factors": factor_model.get("auxiliary_factors", []),
             },
             "factor_weights": config.get("factor_weights", {}),
-            "strength_blend": config.get("strength_blend", {}),
-            "price_strength_blend": config.get("price_strength_blend", {}),
+            "price_strength_model": config.get("price_strength_model", {}),
             "trend_subfactor_weights": config.get("trend_subfactor_weights", {}),
             "flow_subfactor_weights": config.get("flow_subfactor_weights", {}),
+            "flow_model": config.get("flow_model", {}),
             "alpha_optimization": config.get("alpha_optimization", {}),
             "portfolio": {
                 "initial_capital": portfolio.get("initial_capital"),

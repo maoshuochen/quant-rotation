@@ -14,14 +14,17 @@ factor_model:
     - price_strength
     - flow
 
-strength_blend:
-  momentum: 0.50
-  relative_strength: 0.50
-
-# 价格强度内部仍保留原 strength / trend 信息，但对外合并为一个主因子。
-price_strength_blend:
-  strength: 0.235
-  trend: 0.18
+price_strength_model:
+  relative_strength_benchmark: "equal_weight_all"
+  components:
+    momentum: 0.1175
+    relative_strength: 0.1175
+    trend: 0.18
+  overheat:
+    enabled: true
+    ma20_threshold: 0.10
+    ma60_threshold: 0.18
+    penalty_strength: 0.20
 
 # 因子权重（price_strength / flow 正式基线）
 factor_weights:
@@ -29,22 +32,18 @@ factor_weights:
   flow: 0.585              # 资金流 - 成交量/量价/金额/活跃度
 
 flow_subfactor_weights:
-  volume_trend: 0.35
-  price_volume_corr: 0.10
-  amount_trend: 0.35
-  flow_intensity: 0.20
+  volume_trend: 0.00
+  price_volume_corr: 0.00
+  amount_trend: 0.70
+  flow_intensity: 0.30
 
-alpha_optimization:
-  relative_strength_benchmark: "equal_weight_all"
-  overheat_penalty:
-    enabled: true
-    ma20_threshold: 0.10
-    ma60_threshold: 0.18
-    penalty_strength: 0.20
-  conditional_flow:
+flow_model:
+  trend_filter:
     enabled: true
     downtrend_cap: 0.55
     weak_trend_multiplier: 0.75
+
+alpha_optimization:
   target_weighting:
     mode: "equal"
     max_weight: 0.28
