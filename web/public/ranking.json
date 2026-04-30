@@ -1164,7 +1164,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-04-30 23:07",
+    "updated_at": "2026-04-30 20:14",
     "decision": {
       "headline": "本周主结论：创业板指、科技指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 创业板指、科技指数、科创 50。",
@@ -1202,9 +1202,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.2112,
-        "research_max_drawdown": -0.1583,
-        "research_sharpe": 1.0,
+        "research_annual_return": 0.1936,
+        "research_max_drawdown": -0.1684,
+        "research_sharpe": 0.93,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -1226,12 +1226,12 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1559892.4,
-        "total_return": 0.5599,
-        "annual_return": 0.2112,
-        "max_drawdown": -0.1583,
+        "final_value": 1507825.19,
+        "total_return": 0.5078,
+        "annual_return": 0.1936,
+        "max_drawdown": -0.1684,
         "max_drawdown_date": "2024-09-18",
-        "sharpe_ratio": 1.0,
+        "sharpe_ratio": 0.93,
         "trading_days": 560,
         "period": {
           "start": "2024-01-02",
@@ -1239,9 +1239,9 @@
         }
       },
       "research": {
-        "research_annual_return": 0.2112,
-        "research_max_drawdown": -0.1583,
-        "research_sharpe": 1.0,
+        "research_annual_return": 0.1936,
+        "research_max_drawdown": -0.1684,
+        "research_sharpe": 0.93,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -1257,16 +1257,16 @@
     ]
   },
   "metadata": {
-    "generated_at": "2026-04-30 23:07",
+    "generated_at": "2026-04-30 20:14",
     "strategy_signature": "10bd7fbcdc934d1f6dd3f4c3d2abde4a2d2b20f2a20402c8485677f57af4cac9",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-04-30 23:07:25",
+      "generated_at": "2026-04-30 20:14:27",
       "git": {
-        "commit": "118d34703737bcafa94bc62f86a8fd847cf6de04",
-        "commit_short": "118d3470",
-        "branch": "",
+        "commit": "d0a1d24d6362e6829a96872bd2069c1afd1f2c7b",
+        "commit_short": "d0a1d24d",
+        "branch": "main",
         "dirty": true
       },
       "strategy_signature": "10bd7fbcdc934d1f6dd3f4c3d2abde4a2d2b20f2a20402c8485677f57af4cac9",
@@ -1346,11 +1346,11 @@
       },
       "trading_days": 560,
       "summary": {
-        "final_value": 1559892.4,
-        "total_return": 0.559892,
-        "annual_return": 0.211186,
-        "max_drawdown": -0.158291,
-        "sharpe": 1.002193
+        "final_value": 1507825.19,
+        "total_return": 0.507825,
+        "annual_return": 0.193596,
+        "max_drawdown": -0.168358,
+        "sharpe": 0.929247
       }
     }
   },
@@ -1374,5 +1374,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-04-30 23:07"
+  "update_time": "2026-04-30 20:14"
 }
