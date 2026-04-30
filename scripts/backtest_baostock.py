@@ -55,24 +55,14 @@ def _relative_strength_benchmark(config: dict) -> str:
     return str(
         config.get("price_strength_model", {}).get(
             "relative_strength_benchmark",
-            config.get("alpha_optimization", {}).get("relative_strength_benchmark", "hs300"),
+            "hs300",
         )
-    )
-
-
-def _overheat_config(config: dict) -> dict:
-    return (
-        config.get("price_strength_model", {}).get("overheat")
-        or config.get("alpha_optimization", {}).get("overheat_penalty", {})
     )
 
 
 def _flow_trend_filter_config(config: dict | None) -> dict:
     config = config or {}
-    return (
-        config.get("flow_model", {}).get("trend_filter")
-        or config.get("alpha_optimization", {}).get("conditional_flow", {})
-    )
+    return config.get("flow_model", {}).get("trend_filter") or {}
 
 
 def _price_strength_component_weights(config: dict) -> dict:
@@ -135,28 +125,6 @@ def _score_trend_matrix(close_matrix: pd.DataFrame, trend_weights: dict) -> pd.D
     return trend.where(close_matrix.notna()).fillna(0.5)
 
 
-def _overheat_penalty_matrix(close_matrix: pd.DataFrame, config: dict) -> pd.DataFrame:
-    penalty_config = _overheat_config(config)
-    if not penalty_config.get("enabled", False):
-        return pd.DataFrame(0.0, index=close_matrix.index, columns=close_matrix.columns)
-
-    ma20 = close_matrix.rolling(20).mean()
-    ma60 = close_matrix.rolling(60).mean()
-    price_vs_ma20 = (close_matrix - ma20) / ma20
-    price_vs_ma60 = (close_matrix - ma60) / ma60
-    recent_return = close_matrix / close_matrix.shift(20) - 1
-
-    ma20_threshold = float(penalty_config.get("ma20_threshold", 0.10))
-    ma60_threshold = float(penalty_config.get("ma60_threshold", 0.18))
-    strength = float(penalty_config.get("penalty_strength", 0.20))
-
-    ma20_hot = ((price_vs_ma20 - ma20_threshold) / max(ma20_threshold, 1e-6)).clip(lower=0, upper=1)
-    ma60_hot = ((price_vs_ma60 - ma60_threshold) / max(ma60_threshold, 1e-6)).clip(lower=0, upper=1)
-    short_hot = ((recent_return - ma20_threshold) / max(ma20_threshold, 1e-6)).clip(lower=0, upper=1)
-    penalty = (ma20_hot * 0.4 + ma60_hot * 0.4 + short_hot * 0.2) * strength
-    return penalty.where(close_matrix.notna()).fillna(0.0)
-
-
 def _score_flow_matrix(
     close_matrix: pd.DataFrame,
     volume_matrix: pd.DataFrame,
@@ -167,38 +135,24 @@ def _score_flow_matrix(
 ) -> pd.DataFrame:
     total = sum(max(float(weight), 0.0) for weight in flow_weights.values())
     if total <= 0:
-        flow_weights = {
-            'volume_trend': 0.25,
-            'price_volume_corr': 0.25,
-            'amount_trend': 0.25,
-            'flow_intensity': 0.25,
-        }
+        flow_weights = {'amount_trend': 0.70, 'flow_intensity': 0.30}
         total = 1.0
     weights = {key: max(float(value), 0.0) / total for key, value in flow_weights.items()}
-
-    recent_vol = volume_matrix.rolling(20).mean()
-    prev_vol = volume_matrix.shift(20).rolling(20).mean()
-    vol_score = _clip01(0.5 + (recent_vol - prev_vol) / prev_vol)
-
-    return_window = max(history_window - 1, 20)
-    price_returns = close_matrix.pct_change()
-    vol_returns = volume_matrix.pct_change()
-    corr = price_returns.rolling(return_window, min_periods=20).corr(vol_returns)
-    corr_score = _clip01(0.5 + corr.fillna(0) * 0.5)
 
     recent_amt = amount_matrix.rolling(20).mean()
     prev_amt = amount_matrix.shift(20).rolling(20).mean()
     amt_score = _clip01(0.5 + (recent_amt - prev_amt) / prev_amt)
+    recent_vol = volume_matrix.rolling(20).mean()
+    prev_vol = volume_matrix.shift(20).rolling(20).mean()
+    vol_score = _clip01(0.5 + (recent_vol - prev_vol) / prev_vol)
     amt_score = amt_score.where(amount_matrix.notna(), vol_score)
 
     vol_median = volume_matrix.rolling(60).median()
     intensity = (volume_matrix > vol_median).rolling(20).sum() / 20
 
     flow = (
-        vol_score * weights['volume_trend']
-        + corr_score * weights['price_volume_corr']
-        + amt_score * weights['amount_trend']
-        + intensity * weights['flow_intensity']
+        amt_score * weights.get('amount_trend', 0.0)
+        + intensity * weights.get('flow_intensity', 0.0)
     )
     conditional_config = _flow_trend_filter_config(config)
     if conditional_config.get("enabled", False):
@@ -264,7 +218,6 @@ def _build_vectorized_score_frames(
     else:
         relative_strength = _score_relative_strength_matrix(close_matrix, benchmark_data['close'])
 
-    overheat_penalty = _overheat_penalty_matrix(close_matrix, config)
     component_weights = _price_strength_component_weights(config)
     strength_weight_total = component_weights["momentum"] + component_weights["relative_strength"]
     if strength_weight_total > 0:
@@ -272,10 +225,8 @@ def _build_vectorized_score_frames(
             momentum * component_weights["momentum"]
             + relative_strength * component_weights["relative_strength"]
         ) / strength_weight_total
-        strength = (strength - overheat_penalty).clip(lower=0.0, upper=1.0)
     else:
         strength = (momentum + relative_strength) / 2
-    momentum = (momentum - overheat_penalty).clip(lower=0.0, upper=1.0)
     price_strength = (
         strength * strength_weight_total
         + trend * component_weights["trend"]
@@ -624,11 +575,7 @@ def run_backtest(start_date: str = None,
                 # 调仓信号延迟到下一交易日开盘执行，避免同收盘信号同收盘成交。
                 if target_codes:
                     signals["target"] = target_codes
-                    signals["target_weights"] = build_target_weights(
-                        ranking,
-                        target_codes,
-                        config.get("alpha_optimization", {}).get("target_weighting", {}),
-                    )
+                    signals["target_weights"] = build_target_weights(target_codes)
                     pending_signals = signals
     finally:
         if executor is not None:

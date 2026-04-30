@@ -162,7 +162,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
               <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">6 月动量</span><span className="text-zinc-200">{safeNum(attribution?.momentum_6m_return, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">相对全池{rsLookback ? `(${rsLookback}日)` : ''}</span><span className="text-zinc-200">{safeNum(attribution?.relative_return, 0).toFixed(1)}%</span></div>
               <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">MA20 偏离</span><span className="text-zinc-200">{safeNum(attribution?.price_vs_ma20, 0).toFixed(1)}%</span></div>
-              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">过热扣分</span><span className="text-zinc-200">{safeNum(attribution?.overheat_penalty, 0).toFixed(2)}</span></div>
+              <div className="flex justify-between gap-2 text-[10px]"><span className="text-zinc-400">MA20/MA60</span><span className="text-zinc-200">{attribution?.ma20_above_ma60 ? '多头' : '走弱'}</span></div>
             </div>
           </div>
 
@@ -342,7 +342,7 @@ const Dashboard = ({
                     ))}
                   </div>
                   <div className="mt-2 space-y-1 text-[11px] leading-relaxed text-zinc-500">
-                    <p>价格强度：动量、相对全池强弱、趋势结构，含过热扣分。</p>
+                    <p>价格强度：动量、相对全池强弱、趋势结构。</p>
                     <p>资金流：金额扩张 70% + 活跃强度 30%，弱趋势自动降权。</p>
                   </div>
                 </div>

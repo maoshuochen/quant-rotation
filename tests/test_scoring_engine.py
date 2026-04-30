@@ -37,10 +37,8 @@ def base_config(mode: str = "fixed") -> dict:
             "flow": 0.585,
         },
         "flow_subfactor_weights": {
-            "volume_trend": 0.35,
-            "price_volume_corr": 0.10,
-            "amount_trend": 0.35,
-            "flow_intensity": 0.20,
+            "amount_trend": 0.70,
+            "flow_intensity": 0.30,
         },
         "strength_blend": {
             "momentum": 0.5,
@@ -60,12 +58,7 @@ def test_flow_breakdown_is_real_and_matches_total():
 
     expected = sum(breakdown[key] * weights[key] for key in breakdown) / sum(weights.values())
 
-    assert set(breakdown) == {
-        "volume_trend",
-        "price_volume_corr",
-        "amount_trend",
-        "flow_intensity",
-    }
+    assert set(breakdown) == {"amount_trend", "flow_intensity"}
     assert math.isclose(sum(weights.values()), 1.0, rel_tol=0, abs_tol=1e-9)
     assert math.isclose(scores["flow"], expected, rel_tol=0, abs_tol=1e-6)
 
@@ -137,7 +130,6 @@ def test_price_strength_matches_weighted_strength_and_trend():
     config["factor_weights"] = {"price_strength": 0.415, "flow": 0.585}
     config["price_strength_model"] = {
         "components": {"momentum": 0.1175, "relative_strength": 0.1175, "trend": 0.18},
-        "overheat": {"enabled": False},
     }
     engine = ScoringEngine(config)
     frame = make_price_frame()

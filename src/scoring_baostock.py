@@ -18,10 +18,8 @@ class ScoringEngine:
         self.weights = config.get('factor_weights', {})
         flow_subfactor_weights = config.get('flow_subfactor_weights', {})
         self.flow_subfactor_weights = {
-            'volume_trend': float(flow_subfactor_weights.get('volume_trend', 0.25)),
-            'price_volume_corr': float(flow_subfactor_weights.get('price_volume_corr', 0.25)),
-            'amount_trend': float(flow_subfactor_weights.get('amount_trend', 0.25)),
-            'flow_intensity': float(flow_subfactor_weights.get('flow_intensity', 0.25)),
+            'amount_trend': float(flow_subfactor_weights.get('amount_trend', 0.70)),
+            'flow_intensity': float(flow_subfactor_weights.get('flow_intensity', 0.30)),
         }
         factor_model = config.get('factor_model', {})
         # 从配置加载 active_factors，如果未配置则使用默认值
@@ -63,7 +61,6 @@ class ScoringEngine:
             }
 
         self.auxiliary_factors = factor_model.get('auxiliary_factors', [])
-        self.alpha_optimization = config.get('alpha_optimization', {})
         self.price_strength_model = config.get('price_strength_model', {})
         self.flow_model = config.get('flow_model', {})
 
@@ -288,10 +285,8 @@ class ScoringEngine:
         资金流评分。
         
         核心逻辑：
-        1. 成交量趋势：放量上涨 = 资金流入 (高分)
-        2. 量价配合：价格上涨 + 成交量放大 = 健康 (高分)
-        3. 成交金额趋势：金额增长 = 资金关注度提升
-        4. 活跃强度：高活跃交易日占比越高，资金关注度越高
+        1. 成交金额趋势：金额增长 = 资金关注度提升
+        2. 活跃强度：高活跃交易日占比越高，资金关注度越高
         
         Args:
             prices: 价格序列
@@ -315,54 +310,13 @@ class ScoringEngine:
         base_weights = dict(self.flow_subfactor_weights)
         base_total = sum(max(weight, 0.0) for weight in base_weights.values())
         if base_total <= 0:
-            base_weights = {
-                'volume_trend': 0.25,
-                'price_volume_corr': 0.25,
-                'amount_trend': 0.25,
-                'flow_intensity': 0.25,
-            }
+            base_weights = {'amount_trend': 0.70, 'flow_intensity': 0.30}
             base_total = 1.0
         base_weights = {key: max(weight, 0.0) / base_total for key, weight in base_weights.items()}
         
         detail_scores: Dict[str, float] = {}
         detail_weights: Dict[str, float] = {}
         
-        # 1. 成交量趋势 (20 日 vs 前 20 日)
-        recent_vol = volumes.iloc[-20:].mean()
-        prev_vol = volumes.iloc[-40:-20].mean()
-        vol_change = (recent_vol - prev_vol) / prev_vol if prev_vol > 0 else 0
-        vol_score = 0.5 + vol_change
-        vol_score = max(0, min(1, vol_score))
-        detail_scores['volume_trend'] = round(vol_score, 4)
-        detail_weights['volume_trend'] = round(base_weights['volume_trend'], 4)
-        
-        # 2. 量价配合
-        price_returns = prices.pct_change().dropna()
-        vol_returns = volumes.pct_change().dropna()
-        common_idx = price_returns.index.intersection(vol_returns.index)
-        if len(common_idx) >= 20:
-            price_slice = price_returns.loc[common_idx].replace([np.inf, -np.inf], np.nan).dropna()
-            vol_slice = vol_returns.loc[common_idx].replace([np.inf, -np.inf], np.nan).dropna()
-            common_valid_idx = price_slice.index.intersection(vol_slice.index)
-
-            if len(common_valid_idx) >= 20:
-                price_valid = price_slice.loc[common_valid_idx]
-                vol_valid = vol_slice.loc[common_valid_idx]
-                if price_valid.std() > 1e-12 and vol_valid.std() > 1e-12:
-                    corr = price_valid.corr(vol_valid)
-                else:
-                    corr = 0
-            else:
-                corr = 0
-
-            corr_score = 0.5 + corr * 0.5
-            corr_score = max(0, min(1, corr_score))
-        else:
-            corr_score = 0.5
-        detail_scores['price_volume_corr'] = round(corr_score, 4)
-        detail_weights['price_volume_corr'] = round(base_weights['price_volume_corr'], 4)
-        
-        # 3. 成交金额趋势
         if amounts is not None and len(amounts) >= 40:
             recent_amt = amounts.iloc[-20:].mean()
             prev_amt = amounts.iloc[-40:-20].mean()
@@ -370,11 +324,15 @@ class ScoringEngine:
             amt_score = 0.5 + amt_change
             amt_score = max(0, min(1, amt_score))
         else:
+            recent_vol = volumes.iloc[-20:].mean()
+            prev_vol = volumes.iloc[-40:-20].mean()
+            vol_change = (recent_vol - prev_vol) / prev_vol if prev_vol > 0 else 0
+            vol_score = 0.5 + vol_change
+            vol_score = max(0, min(1, vol_score))
             amt_score = vol_score
         detail_scores['amount_trend'] = round(amt_score, 4)
         detail_weights['amount_trend'] = round(base_weights['amount_trend'], 4)
         
-        # 4. 资金流入强度
         vol_median = volumes.iloc[-60:].median()
         high_vol_days = (volumes.iloc[-20:] > vol_median).sum()
         flow_intensity = high_vol_days / 20
@@ -387,10 +345,7 @@ class ScoringEngine:
             if weight_total > 0
             else 0.5
         )
-        conditional_config = (
-            self.flow_model.get('trend_filter')
-            or self.alpha_optimization.get('conditional_flow', {})
-        )
+        conditional_config = self.flow_model.get('trend_filter') or {}
         if conditional_config.get('enabled', False) and len(prices) >= 60:
             ma20 = prices.rolling(20).mean().iloc[-1]
             ma60 = prices.rolling(60).mean().iloc[-1]
@@ -571,27 +526,7 @@ class ScoringEngine:
             attribution['benchmark_return'] = 0
             attribution['rs_lookback_days'] = 0
 
-        penalty_config = (
-            self.price_strength_model.get('overheat')
-            or self.alpha_optimization.get('overheat_penalty', {})
-        )
         raw_momentum_score = scores.get('momentum', 0.5)
-        if penalty_config.get('enabled', False):
-            price_vs_ma20 = trend_metrics['metrics']['price_vs_ma20']
-            price_vs_ma60 = trend_metrics['metrics']['price_vs_ma60']
-            recent_return = close.iloc[-1] / close.iloc[-20] - 1 if len(close) >= 20 else 0.0
-            ma20_threshold = float(penalty_config.get('ma20_threshold', 0.10))
-            ma60_threshold = float(penalty_config.get('ma60_threshold', 0.18))
-            strength = float(penalty_config.get('penalty_strength', 0.20))
-            ma20_hot = max(0.0, min(1.0, (price_vs_ma20 - ma20_threshold) / max(ma20_threshold, 1e-6)))
-            ma60_hot = max(0.0, min(1.0, (price_vs_ma60 - ma60_threshold) / max(ma60_threshold, 1e-6)))
-            short_hot = max(0.0, min(1.0, (recent_return - ma20_threshold) / max(ma20_threshold, 1e-6)))
-            penalty = (ma20_hot * 0.4 + ma60_hot * 0.4 + short_hot * 0.2) * strength
-            scores['momentum'] = max(0.0, min(1.0, scores['momentum'] - penalty))
-            attribution['overheat_penalty'] = round(penalty, 4)
-        else:
-            penalty = 0.0
-            attribution['overheat_penalty'] = 0.0
 
         component_weights = self._price_strength_component_weights()
         strength_weight_total = component_weights['momentum'] + component_weights['relative_strength']
@@ -600,7 +535,6 @@ class ScoringEngine:
                 raw_momentum_score * component_weights['momentum']
                 + scores.get('relative_strength', 0.5) * component_weights['relative_strength']
             ) / strength_weight_total
-            scores['strength'] = max(0.0, min(1.0, scores['strength'] - penalty))
         else:
             scores['strength'] = self.calc_strength_score(
                 scores.get('momentum', 0.5),

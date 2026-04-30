@@ -113,10 +113,7 @@ class RotationStrategy:
     def run_scoring(self, data_dict: Dict[str, pd.DataFrame]) -> pd.DataFrame:
         """运行评分系统（资金流因子仅使用基础量价子项）"""
         benchmark_data = self.benchmark_data
-        rs_benchmark = self.config.get("price_strength_model", {}).get(
-            "relative_strength_benchmark",
-            self.config.get("alpha_optimization", {}).get("relative_strength_benchmark"),
-        )
+        rs_benchmark = self.config.get("price_strength_model", {}).get("relative_strength_benchmark")
         if rs_benchmark == "equal_weight_all":
             close_matrix = pd.DataFrame({code: df["close"] for code, df in data_dict.items()}).sort_index().ffill()
             if not close_matrix.empty:

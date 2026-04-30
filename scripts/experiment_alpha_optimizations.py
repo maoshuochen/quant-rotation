@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-逐项回测超额收益优化实验。
+逐项回测超额收益与复杂度实验。
 """
 from __future__ import annotations
 
@@ -91,31 +91,21 @@ def main() -> None:
     variants = [
         ("baseline", []),
         (
-            "01_rs_equal_weight_all",
-            [(("alpha_optimization", "relative_strength_benchmark"), "equal_weight_all")],
+            "01_no_flow_trend_filter",
+            [(("flow_model", "trend_filter", "enabled"), False)],
         ),
         (
-            "02_rs_equal_plus_overheat",
+            "02_flow_amount_only",
             [
-                (("alpha_optimization", "relative_strength_benchmark"), "equal_weight_all"),
-                (("alpha_optimization", "overheat_penalty", "enabled"), True),
+                (("flow_subfactor_weights", "amount_trend"), 1.0),
+                (("flow_subfactor_weights", "flow_intensity"), 0.0),
             ],
         ),
         (
-            "03_plus_conditional_flow",
+            "03_flow_intensity_only",
             [
-                (("alpha_optimization", "relative_strength_benchmark"), "equal_weight_all"),
-                (("alpha_optimization", "overheat_penalty", "enabled"), True),
-                (("alpha_optimization", "conditional_flow", "enabled"), True),
-            ],
-        ),
-        (
-            "04_plus_score_confidence_weighting",
-            [
-                (("alpha_optimization", "relative_strength_benchmark"), "equal_weight_all"),
-                (("alpha_optimization", "overheat_penalty", "enabled"), True),
-                (("alpha_optimization", "conditional_flow", "enabled"), True),
-                (("alpha_optimization", "target_weighting", "mode"), "score_confidence"),
+                (("flow_subfactor_weights", "amount_trend"), 0.0),
+                (("flow_subfactor_weights", "flow_intensity"), 1.0),
             ],
         ),
     ]
@@ -126,10 +116,10 @@ def main() -> None:
         ["information_ratio", "excess_equal", "relative_max_drawdown"],
         ascending=[False, False, False],
     )
-    output = ROOT_DIR / "reports" / "alpha_optimization_results.csv"
+    output = ROOT_DIR / "reports" / "simplification_results.csv"
     result.to_csv(output, index=False)
 
-    print("\n\n=== Alpha optimization summary ===")
+    print("\n\n=== Alpha / simplification summary ===")
     display_cols = [
         "name",
         "total_return",
