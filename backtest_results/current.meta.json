@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "source": "scripts/backtest_baostock.py",
-  "generated_at": "2026-05-01 13:05:59",
+  "generated_at": "2026-05-01 20:09:41",
   "git": {
-    "commit": "084a4bcf2557cb5474c14fec6fc912be28183ea9",
-    "commit_short": "084a4bcf",
-    "branch": "codex/fix-backtest-stalls",
+    "commit": "93f938f8180d4226349d660013aeaefa46481586",
+    "commit_short": "93f938f8",
+    "branch": "main",
     "dirty": true
   },
   "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
@@ -86,10 +86,10 @@
   },
   "trading_days": 562,
   "summary": {
-    "final_value": 1600448.09,
-    "total_return": 0.600448,
-    "annual_return": 0.224072,
-    "max_drawdown": -0.158291,
-    "sharpe": 1.050649
+    "final_value": 1547027.01,
+    "total_return": 0.547027,
+    "annual_return": 0.206337,
+    "max_drawdown": -0.168358,
+    "sharpe": 0.977572
   }
 }
