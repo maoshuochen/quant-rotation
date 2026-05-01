@@ -80,6 +80,7 @@ jobs:
           python scripts/backtest_baostock.py
         env:
           PYTHONUNBUFFERED: 1
+          FORCE_REFRESH_DATA: "1"
 
       - name: Generate frontend data
         run: |

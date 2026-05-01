@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 import sys
 import json
+import os
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
@@ -45,6 +46,10 @@ logging.getLogger('akshare').setLevel(logging.WARNING)
 logging.getLogger('urllib3').setLevel(logging.WARNING)
 logging.getLogger('src.portfolio').setLevel(logging.ERROR)
 logger = logging.getLogger(__name__)
+
+
+def _env_flag(name: str) -> bool:
+    return str(os.environ.get(name, "")).strip().lower() in {"1", "true", "yes", "on"}
 
 
 def _clip01(frame: pd.DataFrame | pd.Series) -> pd.DataFrame | pd.Series:
@@ -368,6 +373,8 @@ def run_backtest(start_date: str = None,
     score_workers = max(1, int(backtest_config.get('score_workers', 1)))
     required_price_mode = str(config.get("data", {}).get("etf_price_mode", "continuous") or "")
     require_consistent_adjust = bool(config.get("data", {}).get("require_consistent_adjust", True))
+    force_refresh_data = bool(config.get("data", {}).get("force_refresh", False)) or _env_flag("FORCE_REFRESH_DATA")
+    allow_stale_cache = bool(config.get("data", {}).get("allow_stale_cache", False))
 
     # 指数列表
     indices = config.get('indices', [])
@@ -380,8 +387,8 @@ def run_backtest(start_date: str = None,
         fetcher,
         indices,
         fetch_start,
-        force_refresh=False,
-        allow_stale_cache=True,
+        force_refresh=force_refresh_data,
+        allow_stale_cache=allow_stale_cache,
     )
     for idx in indices:
         code = idx.get("code")

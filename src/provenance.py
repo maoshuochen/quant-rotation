@@ -93,6 +93,7 @@ def strategy_signature_payload(config: dict) -> dict:
                 "etf_price_mode": data.get("etf_price_mode"),
                 "require_consistent_adjust": data.get("require_consistent_adjust"),
                 "history_start_date": data.get("history_start_date"),
+                "allow_stale_cache": data.get("allow_stale_cache"),
             },
         }
     )

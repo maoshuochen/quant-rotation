@@ -18,6 +18,7 @@ data:
   history_start_date: "20230101"
   etf_price_mode: "continuous"
   require_consistent_adjust: true
+  allow_stale_cache: false
 
 logging:
   level: "INFO"

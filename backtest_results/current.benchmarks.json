@@ -3359,22 +3359,34 @@
       "strategy": 0.5599,
       "equal_weight_all": 0.4099,
       "hs300": 0.3814
+    },
+    {
+      "date": "2026-04-29",
+      "strategy": 0.5832,
+      "equal_weight_all": 0.4256,
+      "hs300": 0.3962
+    },
+    {
+      "date": "2026-04-30",
+      "strategy": 0.6004,
+      "equal_weight_all": 0.433,
+      "hs300": 0.397
     }
   ],
   "summary": {
     "equal_weight_all": {
-      "final_value": 1409853.59,
-      "total_return": 0.4099,
-      "annual_return": 0.1595,
+      "final_value": 1432976.57,
+      "total_return": 0.433,
+      "annual_return": 0.1673,
       "max_drawdown": -0.1544,
-      "sharpe_ratio": 0.84
+      "sharpe_ratio": 0.87
     },
     "hs300": {
-      "final_value": 1381407.47,
-      "total_return": 0.3814,
-      "annual_return": 0.1494,
+      "final_value": 1397046.05,
+      "total_return": 0.397,
+      "annual_return": 0.1546,
       "max_drawdown": -0.1625,
-      "sharpe_ratio": 0.87
+      "sharpe_ratio": 0.89
     }
   }
 }
