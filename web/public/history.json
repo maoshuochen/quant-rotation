@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-04-30",
+      "holdings": [
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 1,
+          "score": 0.6829,
+          "factors": {
+            "price_strength": 0.5999,
+            "flow": 0.7418
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 2,
+          "score": 0.6487,
+          "factors": {
+            "price_strength": 0.7093,
+            "flow": 0.6058
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 3,
+          "score": 0.6399,
+          "factors": {
+            "price_strength": 0.7304,
+            "flow": 0.5757
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 4,
+          "score": 0.6356,
+          "factors": {
+            "price_strength": 0.5907,
+            "flow": 0.6675
+          }
+        },
+        {
+          "code": "000300.SH",
+          "name": "沪深 300",
+          "etf": "510300",
+          "rank": 5,
+          "score": 0.6347,
+          "factors": {
+            "price_strength": 0.5697,
+            "flow": 0.6808
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-04-27",
       "holdings": [
         {
@@ -721,5 +781,5 @@
       ]
     }
   ],
-  "update_time": "2026-05-01 20:09"
+  "update_time": "2026-05-04 20:22"
 }

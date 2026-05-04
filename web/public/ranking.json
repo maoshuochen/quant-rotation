@@ -952,18 +952,7 @@
       "990001.SSI",
       "000993.CSI"
     ],
-    "signals": [
-      {
-        "action": "buy",
-        "code": "000852.SH",
-        "name": "中证 1000"
-      },
-      {
-        "action": "buy",
-        "code": "000300.SH",
-        "name": "沪深 300"
-      }
-    ],
+    "signals": [],
     "holdings": [
       {
         "code": "000852.SH",
@@ -1175,10 +1164,10 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-05-01 20:09",
+    "updated_at": "2026-05-04 20:22",
     "decision": {
       "headline": "本周主结论：中证 1000、科创 50、创业板指 为当前优先观察方向。",
-      "execution_message": "当前建议执行 2 个动作，优先关注 中证 1000、科创 50、创业板指。",
+      "execution_message": "当前无新增调仓动作，继续跟踪 中证 1000、科创 50、创业板指。",
       "action": "继续研究，不建议单独实盘"
     },
     "data_health": {
@@ -1268,15 +1257,15 @@
     ]
   },
   "metadata": {
-    "generated_at": "2026-05-01 20:09",
+    "generated_at": "2026-05-04 20:22",
     "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-05-01 20:09:41",
+      "generated_at": "2026-05-04 20:22:52",
       "git": {
-        "commit": "93f938f8180d4226349d660013aeaefa46481586",
-        "commit_short": "93f938f8",
+        "commit": "cf81be35463dfa8267d3edb54f9b2c2c9d3207bf",
+        "commit_short": "cf81be35",
         "branch": "main",
         "dirty": true
       },
@@ -1350,7 +1339,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260501"
+        "end": "20260504"
       },
       "actual_period": {
         "start": "2024-01-02",
@@ -1386,5 +1375,5 @@
     "lookback_pe": 2520,
     "momentum_window": 126
   },
-  "update_time": "2026-05-01 20:09"
+  "update_time": "2026-05-04 20:22"
 }
