@@ -719,67 +719,7 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-02-02",
-      "holdings": [
-        {
-          "code": "399997.SZ",
-          "name": "白酒指数",
-          "etf": "512690",
-          "rank": 1,
-          "score": 0.6546,
-          "factors": {
-            "price_strength": 0.4765,
-            "flow": 0.7809
-          }
-        },
-        {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
-          "rank": 2,
-          "score": 0.6252,
-          "factors": {
-            "price_strength": 0.7312,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000988.CSI",
-          "name": "制造指数",
-          "etf": "516880",
-          "rank": 3,
-          "score": 0.605,
-          "factors": {
-            "price_strength": 0.6826,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "399967.SZ",
-          "name": "军工指数",
-          "etf": "512660",
-          "rank": 4,
-          "score": 0.5941,
-          "factors": {
-            "price_strength": 0.6562,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000993.CSI",
-          "name": "科技指数",
-          "etf": "515000",
-          "rank": 5,
-          "score": 0.5932,
-          "factors": {
-            "price_strength": 0.654,
-            "flow": 0.55
-          }
-        }
-      ]
     }
   ],
-  "update_time": "2026-05-04 20:22"
+  "update_time": "2026-05-05 20:13"
 }

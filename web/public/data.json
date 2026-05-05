@@ -6783,10 +6783,10 @@
     "metadata": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-05-04 20:22:52",
+      "generated_at": "2026-05-05 20:13:15",
       "git": {
-        "commit": "cf81be35463dfa8267d3edb54f9b2c2c9d3207bf",
-        "commit_short": "cf81be35",
+        "commit": "b7019be7dc016c7a14eeeccf4cfbba82e0e0a5fa",
+        "commit_short": "b7019be7",
         "branch": "main",
         "dirty": true
       },
@@ -6860,7 +6860,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260504"
+        "end": "20260505"
       },
       "actual_period": {
         "start": "2024-01-02",
@@ -7593,66 +7593,6 @@
           "factors": {
             "price_strength": 0.4602,
             "flow": 0.8412
-          }
-        }
-      ]
-    },
-    {
-      "date": "2026-02-02",
-      "holdings": [
-        {
-          "code": "399997.SZ",
-          "name": "白酒指数",
-          "etf": "512690",
-          "rank": 1,
-          "score": 0.6546,
-          "factors": {
-            "price_strength": 0.4765,
-            "flow": 0.7809
-          }
-        },
-        {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
-          "rank": 2,
-          "score": 0.6252,
-          "factors": {
-            "price_strength": 0.7312,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000988.CSI",
-          "name": "制造指数",
-          "etf": "516880",
-          "rank": 3,
-          "score": 0.605,
-          "factors": {
-            "price_strength": 0.6826,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "399967.SZ",
-          "name": "军工指数",
-          "etf": "512660",
-          "rank": 4,
-          "score": 0.5941,
-          "factors": {
-            "price_strength": 0.6562,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000993.CSI",
-          "name": "科技指数",
-          "etf": "515000",
-          "rank": 5,
-          "score": 0.5932,
-          "factors": {
-            "price_strength": 0.654,
-            "flow": 0.55
           }
         }
       ]
@@ -8823,7 +8763,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-05-04 20:22",
+    "updated_at": "2026-05-05 20:13",
     "decision": {
       "headline": "本周主结论：中证 1000、科创 50、创业板指 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 中证 1000、科创 50、创业板指。",
@@ -8915,17 +8855,17 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-05-04 20:22",
+  "update_time": "2026-05-05 20:13",
   "metadata": {
-    "generated_at": "2026-05-04 20:22",
+    "generated_at": "2026-05-05 20:13",
     "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-05-04 20:22:52",
+      "generated_at": "2026-05-05 20:13:15",
       "git": {
-        "commit": "cf81be35463dfa8267d3edb54f9b2c2c9d3207bf",
-        "commit_short": "cf81be35",
+        "commit": "b7019be7dc016c7a14eeeccf4cfbba82e0e0a5fa",
+        "commit_short": "b7019be7",
         "branch": "main",
         "dirty": true
       },
@@ -8999,7 +8939,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260504"
+        "end": "20260505"
       },
       "actual_period": {
         "start": "2024-01-02",
