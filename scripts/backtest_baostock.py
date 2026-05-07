@@ -156,6 +156,7 @@ def run_backtest(start_date: str = None,
     daily_values = []
     stop_loss_stats = {'individual': 0, 'trailing': 0, 'portfolio': 0}
     pending_signals = None
+    pending_stop_loss_signals = None
 
     def score_candidate(item, date, benchmark_slice, dynamic_weights):
         code, df = item
@@ -177,6 +178,13 @@ def run_backtest(start_date: str = None,
             # 先用前一交易日收盘生成的信号，在今日开盘执行。
             open_row = open_matrix.loc[date].dropna()
             open_prices = {code: float(price) for code, price in open_row.items()}
+            if pending_stop_loss_signals and open_prices:
+                trades = portfolio.execute_stop_loss(pending_stop_loss_signals, open_prices, code_to_name, date_str)
+                if verbose_trades:
+                    for trade in trades:
+                        print(f"  STOP {trade.code}: {trade.shares} @ {trade.price:.3f}")
+                pending_stop_loss_signals = None
+
             if pending_signals and open_prices:
                 trades = portfolio.execute_signal(pending_signals, open_prices, code_to_name, date_str)
                 if verbose_trades:
@@ -195,7 +203,9 @@ def run_backtest(start_date: str = None,
                     for signal_type, codes in stop_loss_signals.items():
                         if codes:
                             stop_loss_stats[signal_type] += len(codes)
-                    portfolio.execute_stop_loss(stop_loss_signals, prices, code_to_name, date_str)
+                    # 当日收盘价只用于触发止损，实际卖出延迟到下一交易日开盘执行，
+                    # 避免同收盘信号同收盘成交。
+                    pending_stop_loss_signals = stop_loss_signals
 
             # 记录每日净值
             if prices:

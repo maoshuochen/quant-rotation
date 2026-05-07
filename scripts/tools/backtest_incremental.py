@@ -197,6 +197,17 @@ def run_incremental_backtest(end_date: str = None):
 
     # 确定调仓日期
     rebalance_dates = select_rebalance_dates(trade_dates, "weekly")
+    rebalance_set = set(rebalance_dates)
+    last_rebalance_date = trade_dates[-6] if len(trade_dates) > 5 else trade_dates[-1]
+
+    close_matrix = pd.DataFrame(
+        {code: df["close"].reindex(trade_dates) for code, df in etf_data.items()},
+        index=trade_dates,
+    )
+    open_matrix = pd.DataFrame(
+        {code: df["open"].reindex(trade_dates) for code, df in etf_data.items()},
+        index=trade_dates,
+    )
 
     # 初始化评分引擎
     scorer = ScoringEngine(CONFIG)
@@ -208,20 +219,32 @@ def run_incremental_backtest(end_date: str = None):
     print(f"交易日数：{len(trade_dates)}, 调仓次数：{len(rebalance_dates)}")
 
     # 回测循环
+    pending_signals = None
+    pending_stop_loss_signals = None
     for idx, date in enumerate(trade_dates):
         date_str = date.strftime('%Y-%m-%d')
 
-        # 获取价格
-        prices = {code: df.loc[date, 'close'] for code, df in etf_data.items() if date in df.index}
+        # 先执行上一交易日收盘后生成的信号，按今日开盘价成交。
+        open_prices = {code: float(price) for code, price in open_matrix.loc[date].dropna().items()}
+        if pending_stop_loss_signals and open_prices:
+            portfolio.execute_stop_loss(pending_stop_loss_signals, open_prices, names, date_str)
+            pending_stop_loss_signals = None
+
+        if pending_signals and open_prices:
+            portfolio.execute_signal(pending_signals, open_prices, names, date_str)
+            pending_signals = None
+
+        # 获取当日收盘价格
+        prices = {code: float(price) for code, price in close_matrix.loc[date].dropna().items()}
 
         if not prices:
             continue
 
-        # 检查止损
+        # 检查止损：收盘价只触发信号，实际卖出延迟到下一交易日开盘。
         if portfolio.positions:
             stop_loss_signals = portfolio.check_stop_loss(prices, date_str)
             if any(stop_loss_signals.values()):
-                portfolio.execute_stop_loss(stop_loss_signals, prices, names, date_str)
+                pending_stop_loss_signals = stop_loss_signals
 
         # 记录净值
         portfolio.record_daily_value(date_str, prices)
@@ -229,7 +252,7 @@ def run_incremental_backtest(end_date: str = None):
         daily_values.append({'date': date_str, 'value': value})
 
         # 调仓
-        if date in rebalance_dates and len(trade_dates) - trade_dates.index(date) > 5:
+        if date in rebalance_set and date <= last_rebalance_date:
             scores_dict = {}
             benchmark_slice = benchmark_data.loc[:date] if not benchmark_data.empty else benchmark_data
             for code, df in etf_data.items():
@@ -245,7 +268,7 @@ def run_incremental_backtest(end_date: str = None):
             signals = build_rebalance_signals(ranking, set(portfolio.positions.keys()), top_n, buffer_n)
 
             if signals['buy'] or signals['sell']:
-                portfolio.execute_signal(signals, prices, names, date_str)
+                pending_signals = signals
 
         # 进度日志
         if (idx + 1) % 50 == 0:

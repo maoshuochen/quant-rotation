@@ -303,12 +303,17 @@ def run_period(start_date: str, end_date: str, variant: str) -> RunResult:
         return code, scorer.score_index(hist_df, benchmark_slice, dynamic_weights=dynamic_weights)
 
     pending = None
+    pending_stop_loss = None
     daily_values = []
     executor = ThreadPoolExecutor(max_workers=workers) if workers > 1 else None
     try:
         for date in trade_dates:
             ds = date.strftime("%Y-%m-%d")
             open_prices = {code: float(price) for code, price in open_matrix.loc[date].dropna().items()}
+            if pending_stop_loss and open_prices:
+                portfolio.execute_stop_loss(pending_stop_loss, open_prices, code_to_name, ds)
+                pending_stop_loss = None
+
             if pending and open_prices:
                 portfolio.execute_signal(pending, open_prices, code_to_name, ds)
                 pending = None
@@ -317,7 +322,7 @@ def run_period(start_date: str, end_date: str, variant: str) -> RunResult:
             if prices and portfolio.positions and (not strict_weekly or date in rebalance_set):
                 stop_loss_signals = portfolio.check_stop_loss(prices, ds)
                 if any(stop_loss_signals.values()):
-                    portfolio.execute_stop_loss(stop_loss_signals, prices, code_to_name, ds)
+                    pending_stop_loss = stop_loss_signals
 
             if prices:
                 portfolio.record_daily_value(ds, prices)

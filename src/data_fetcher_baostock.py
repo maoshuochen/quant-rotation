@@ -90,26 +90,31 @@ class BaostockFetcher:
     
     def __init__(self):
         self.bs = None
-        self._init_baostock()
+        self._logged_in = False
     
-    def _init_baostock(self):
-        """初始化 Baostock"""
+    def _ensure_baostock(self) -> bool:
+        """按需初始化 Baostock，避免只读缓存场景被网络登录阻塞。"""
+        if self._logged_in and self.bs is not None:
+            return True
         try:
             import baostock as bs
             self.bs = bs
             lg = bs.login()
             if lg.error_code == '0':
                 logger.info("Baostock 登录成功")
-            else:
-                logger.error(f"Baostock 登录失败：{lg.error_msg}")
+                self._logged_in = True
+                return True
+            logger.error(f"Baostock 登录失败：{lg.error_msg}")
         except ImportError:
             logger.error("Baostock 未安装，运行：pip install baostock")
         except Exception as e:
             logger.error(f"Baostock 初始化失败：{e}")
+        self._logged_in = False
+        return False
     
     def fetch_index_history(self, index_code: str, start_date: str = "20180101") -> pd.DataFrame:
         """获取指数历史行情"""
-        if self.bs is None:
+        if not self._ensure_baostock():
             return pd.DataFrame()
         
         try:
@@ -170,7 +175,7 @@ class BaostockFetcher:
     
     def fetch_stock_history(self, stock_code: str, start_date: str = "20180101") -> pd.DataFrame:
         """获取股票/ETF 历史行情"""
-        if self.bs is None:
+        if not self._ensure_baostock():
             return pd.DataFrame()
         
         try:
@@ -665,7 +670,7 @@ class BaostockFetcher:
     
     def fetch_index_basic_info(self, index_code: str) -> dict:
         """获取指数基本信息"""
-        if self.bs is None:
+        if not self._ensure_baostock():
             return {}
         
         try:
@@ -681,8 +686,9 @@ class BaostockFetcher:
     
     def logout(self):
         """登出 Baostock"""
-        if self.bs:
+        if self._logged_in and self.bs:
             self.bs.logout()
+        self._logged_in = False
 
 
 class IndexDataFetcher:
