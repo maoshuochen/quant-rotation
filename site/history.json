@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-05-11",
+      "holdings": [
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 1,
+          "score": 0.801,
+          "factors": {
+            "price_strength": 0.6896,
+            "flow": 0.88
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 2,
+          "score": 0.7941,
+          "factors": {
+            "price_strength": 0.6975,
+            "flow": 0.8626
+          }
+        },
+        {
+          "code": "000300.SH",
+          "name": "沪深 300",
+          "etf": "510300",
+          "rank": 3,
+          "score": 0.7755,
+          "factors": {
+            "price_strength": 0.607,
+            "flow": 0.895
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 4,
+          "score": 0.7359,
+          "factors": {
+            "price_strength": 0.7975,
+            "flow": 0.6922
+          }
+        },
+        {
+          "code": "990001.SSI",
+          "name": "半导体指数",
+          "etf": "512480",
+          "rank": 5,
+          "score": 0.7334,
+          "factors": {
+            "price_strength": 0.831,
+            "flow": 0.6642
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-04-30",
       "holdings": [
         {
@@ -721,5 +781,5 @@
       ]
     }
   ],
-  "update_time": "2026-05-08 20:11"
+  "update_time": "2026-05-11 20:50"
 }
