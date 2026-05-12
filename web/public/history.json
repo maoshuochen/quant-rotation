@@ -719,67 +719,7 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-02-09",
-      "holdings": [
-        {
-          "code": "000988.CSI",
-          "name": "制造指数",
-          "etf": "516880",
-          "rank": 1,
-          "score": 0.8797,
-          "factors": {
-            "price_strength": 0.8371,
-            "flow": 0.91
-          }
-        },
-        {
-          "code": "399006.SZ",
-          "name": "创业板指",
-          "etf": "159915",
-          "rank": 2,
-          "score": 0.796,
-          "factors": {
-            "price_strength": 0.6776,
-            "flow": 0.88
-          }
-        },
-        {
-          "code": "399965.SZ",
-          "name": "恒生指数",
-          "etf": "159920",
-          "rank": 3,
-          "score": 0.7724,
-          "factors": {
-            "price_strength": 0.5362,
-            "flow": 0.94
-          }
-        },
-        {
-          "code": "399990.SZ",
-          "name": "煤炭指数",
-          "etf": "515220",
-          "rank": 4,
-          "score": 0.7117,
-          "factors": {
-            "price_strength": 0.5608,
-            "flow": 0.8187
-          }
-        },
-        {
-          "code": "000922.CSI",
-          "name": "红利指数",
-          "etf": "510880",
-          "rank": 5,
-          "score": 0.6831,
-          "factors": {
-            "price_strength": 0.4602,
-            "flow": 0.8412
-          }
-        }
-      ]
     }
   ],
-  "update_time": "2026-05-11 20:50"
+  "update_time": "2026-05-12 20:44"
 }
