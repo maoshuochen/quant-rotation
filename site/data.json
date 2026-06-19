@@ -7167,10 +7167,10 @@
     "metadata": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-06-18 21:25:31",
+      "generated_at": "2026-06-19 20:40:53",
       "git": {
-        "commit": "0a4ab57aa6a6ac38dc4b85bb1bef43e35512e2dd",
-        "commit_short": "0a4ab57a",
+        "commit": "d2e646024bdf38ffb137d6040052676ad0471e0b",
+        "commit_short": "d2e64602",
         "branch": "main",
         "dirty": true
       },
@@ -7244,7 +7244,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260618"
+        "end": "20260619"
       },
       "actual_period": {
         "start": "2024-01-02",
@@ -9218,7 +9218,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-06-18 21:25",
+    "updated_at": "2026-06-19 20:40",
     "decision": {
       "headline": "本周主结论：科技指数、科创 50、半导体指数 为当前优先观察方向。",
       "execution_message": "当前建议执行 2 个动作，优先关注 科技指数、科创 50、半导体指数。",
@@ -9310,17 +9310,17 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-06-18 21:25",
+  "update_time": "2026-06-19 20:40",
   "metadata": {
-    "generated_at": "2026-06-18 21:25",
+    "generated_at": "2026-06-19 20:40",
     "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-06-18 21:25:31",
+      "generated_at": "2026-06-19 20:40:53",
       "git": {
-        "commit": "0a4ab57aa6a6ac38dc4b85bb1bef43e35512e2dd",
-        "commit_short": "0a4ab57a",
+        "commit": "d2e646024bdf38ffb137d6040052676ad0471e0b",
+        "commit_short": "d2e64602",
         "branch": "main",
         "dirty": true
       },
@@ -9394,7 +9394,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260618"
+        "end": "20260619"
       },
       "actual_period": {
         "start": "2024-01-02",
