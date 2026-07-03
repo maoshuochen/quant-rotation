@@ -2,16 +2,16 @@
   "backtest": {
     "summary": {
       "initial_capital": 1000000.0,
-      "final_value": 1746880.86,
-      "total_return": 0.7469,
-      "annual_return": 0.2501,
+      "final_value": 1746463.11,
+      "total_return": 0.7465,
+      "annual_return": 0.2497,
       "max_drawdown": -0.1684,
       "max_drawdown_date": "2024-09-18",
-      "sharpe_ratio": 1.11,
-      "trading_days": 603,
+      "sharpe_ratio": 1.1,
+      "trading_days": 604,
       "period": {
         "start": "2024-01-02",
-        "end": "2026-07-02"
+        "end": "2026-07-03"
       }
     },
     "chart_data": [
@@ -299,7 +299,7 @@
       },
       {
         "date": "2024-03-15",
-        "value": 955368.08,
+        "value": 955368.09,
         "cum_return": -0.0446,
         "drawdown": -0.0524
       },
@@ -383,7 +383,7 @@
       },
       {
         "date": "2024-04-08",
-        "value": 944106.65,
+        "value": 944106.66,
         "cum_return": -0.0559,
         "drawdown": -0.0635
       },
@@ -533,13 +533,13 @@
       },
       {
         "date": "2024-05-16",
-        "value": 980714.99,
+        "value": 980715.0,
         "cum_return": -0.0193,
         "drawdown": -0.0272
       },
       {
         "date": "2024-05-17",
-        "value": 990777.83,
+        "value": 990777.84,
         "cum_return": -0.0092,
         "drawdown": -0.0172
       },
@@ -617,7 +617,7 @@
       },
       {
         "date": "2024-06-05",
-        "value": 960929.92,
+        "value": 960929.93,
         "cum_return": -0.0391,
         "drawdown": -0.0468
       },
@@ -635,481 +635,481 @@
       },
       {
         "date": "2024-06-11",
-        "value": 961833.88,
+        "value": 961833.9,
         "cum_return": -0.0382,
         "drawdown": -0.0459
       },
       {
         "date": "2024-06-12",
-        "value": 956819.83,
+        "value": 956819.85,
         "cum_return": -0.0432,
         "drawdown": -0.0509
       },
       {
         "date": "2024-06-13",
-        "value": 958704.25,
+        "value": 958704.28,
         "cum_return": -0.0413,
         "drawdown": -0.049
       },
       {
         "date": "2024-06-14",
-        "value": 960162.0,
+        "value": 960162.02,
         "cum_return": -0.0398,
         "drawdown": -0.0476
       },
       {
         "date": "2024-06-17",
-        "value": 960818.9,
+        "value": 960818.93,
         "cum_return": -0.0392,
         "drawdown": -0.0469
       },
       {
         "date": "2024-06-18",
-        "value": 961797.76,
+        "value": 961797.79,
         "cum_return": -0.0382,
         "drawdown": -0.046
       },
       {
         "date": "2024-06-19",
-        "value": 965139.18,
+        "value": 965139.22,
         "cum_return": -0.0349,
         "drawdown": -0.0427
       },
       {
         "date": "2024-06-20",
-        "value": 960208.48,
+        "value": 960208.51,
         "cum_return": -0.0398,
         "drawdown": -0.0476
       },
       {
         "date": "2024-06-21",
-        "value": 959474.76,
+        "value": 959474.79,
         "cum_return": -0.0405,
         "drawdown": -0.0483
       },
       {
         "date": "2024-06-24",
-        "value": 942292.77,
+        "value": 942292.81,
         "cum_return": -0.0577,
         "drawdown": -0.0653
       },
       {
         "date": "2024-06-25",
-        "value": 930958.83,
+        "value": 930958.87,
         "cum_return": -0.069,
         "drawdown": -0.0766
       },
       {
         "date": "2024-06-26",
-        "value": 942617.21,
+        "value": 942617.25,
         "cum_return": -0.0574,
         "drawdown": -0.065
       },
       {
         "date": "2024-06-27",
-        "value": 931141.01,
+        "value": 931141.06,
         "cum_return": -0.0689,
         "drawdown": -0.0764
       },
       {
         "date": "2024-06-28",
-        "value": 934053.29,
+        "value": 934053.35,
         "cum_return": -0.0659,
         "drawdown": -0.0735
       },
       {
         "date": "2024-07-01",
-        "value": 934241.18,
+        "value": 934241.24,
         "cum_return": -0.0658,
         "drawdown": -0.0733
       },
       {
         "date": "2024-07-02",
-        "value": 927133.45,
+        "value": 927133.51,
         "cum_return": -0.0729,
         "drawdown": -0.0804
       },
       {
         "date": "2024-07-03",
-        "value": 930140.8,
+        "value": 930140.87,
         "cum_return": -0.0699,
         "drawdown": -0.0774
       },
       {
         "date": "2024-07-04",
-        "value": 924071.74,
+        "value": 924071.8,
         "cum_return": -0.0759,
         "drawdown": -0.0834
       },
       {
         "date": "2024-07-05",
-        "value": 921090.92,
+        "value": 921090.98,
         "cum_return": -0.0789,
         "drawdown": -0.0864
       },
       {
         "date": "2024-07-08",
-        "value": 914862.35,
+        "value": 914862.41,
         "cum_return": -0.0851,
         "drawdown": -0.0925
       },
       {
         "date": "2024-07-09",
-        "value": 930119.81,
+        "value": 930119.89,
         "cum_return": -0.0699,
         "drawdown": -0.0774
       },
       {
         "date": "2024-07-10",
-        "value": 930751.23,
+        "value": 930751.3,
         "cum_return": -0.0692,
         "drawdown": -0.0768
       },
       {
         "date": "2024-07-11",
-        "value": 939240.34,
+        "value": 939240.42,
         "cum_return": -0.0608,
         "drawdown": -0.0684
       },
       {
         "date": "2024-07-12",
-        "value": 943849.34,
+        "value": 943849.42,
         "cum_return": -0.0562,
         "drawdown": -0.0638
       },
       {
         "date": "2024-07-15",
-        "value": 943921.7,
+        "value": 943921.78,
         "cum_return": -0.0561,
         "drawdown": -0.0637
       },
       {
         "date": "2024-07-16",
-        "value": 952972.53,
+        "value": 952972.6,
         "cum_return": -0.047,
         "drawdown": -0.0547
       },
       {
         "date": "2024-07-17",
-        "value": 950722.64,
+        "value": 950722.72,
         "cum_return": -0.0493,
         "drawdown": -0.057
       },
       {
         "date": "2024-07-18",
-        "value": 954837.48,
+        "value": 954837.55,
         "cum_return": -0.0452,
         "drawdown": -0.0529
       },
       {
         "date": "2024-07-19",
-        "value": 958397.5,
+        "value": 958397.56,
         "cum_return": -0.0416,
         "drawdown": -0.0494
       },
       {
         "date": "2024-07-22",
-        "value": 956684.01,
+        "value": 956684.07,
         "cum_return": -0.0433,
         "drawdown": -0.0511
       },
       {
         "date": "2024-07-23",
-        "value": 939736.2,
+        "value": 939736.26,
         "cum_return": -0.0603,
         "drawdown": -0.0679
       },
       {
         "date": "2024-07-24",
-        "value": 932417.69,
+        "value": 932417.75,
         "cum_return": -0.0676,
         "drawdown": -0.0751
       },
       {
         "date": "2024-07-25",
-        "value": 924736.7,
+        "value": 924736.76,
         "cum_return": -0.0753,
         "drawdown": -0.0827
       },
       {
         "date": "2024-07-26",
-        "value": 924470.67,
+        "value": 924470.74,
         "cum_return": -0.0755,
         "drawdown": -0.083
       },
       {
         "date": "2024-07-29",
-        "value": 925171.52,
+        "value": 925171.58,
         "cum_return": -0.0748,
         "drawdown": -0.0823
       },
       {
         "date": "2024-07-30",
-        "value": 922475.6,
+        "value": 922475.67,
         "cum_return": -0.0775,
         "drawdown": -0.085
       },
       {
         "date": "2024-07-31",
-        "value": 941863.91,
+        "value": 941864.0,
         "cum_return": -0.0581,
         "drawdown": -0.0658
       },
       {
         "date": "2024-08-01",
-        "value": 939459.36,
+        "value": 939459.45,
         "cum_return": -0.0605,
         "drawdown": -0.0681
       },
       {
         "date": "2024-08-02",
-        "value": 923801.4,
+        "value": 923801.47,
         "cum_return": -0.0762,
         "drawdown": -0.0837
       },
       {
         "date": "2024-08-05",
-        "value": 906162.51,
+        "value": 906162.57,
         "cum_return": -0.0938,
         "drawdown": -0.1012
       },
       {
         "date": "2024-08-06",
-        "value": 914292.36,
+        "value": 914292.42,
         "cum_return": -0.0857,
         "drawdown": -0.0931
       },
       {
         "date": "2024-08-07",
-        "value": 913809.59,
+        "value": 913809.66,
         "cum_return": -0.0862,
         "drawdown": -0.0936
       },
       {
         "date": "2024-08-08",
-        "value": 910369.49,
+        "value": 910369.55,
         "cum_return": -0.0896,
         "drawdown": -0.097
       },
       {
         "date": "2024-08-09",
-        "value": 905087.32,
+        "value": 905087.38,
         "cum_return": -0.0949,
         "drawdown": -0.1022
       },
       {
         "date": "2024-08-12",
-        "value": 905811.83,
+        "value": 905811.9,
         "cum_return": -0.0942,
         "drawdown": -0.1015
       },
       {
         "date": "2024-08-13",
-        "value": 905103.85,
+        "value": 905103.91,
         "cum_return": -0.0949,
         "drawdown": -0.1022
       },
       {
         "date": "2024-08-14",
-        "value": 894812.99,
+        "value": 894813.05,
         "cum_return": -0.1052,
         "drawdown": -0.1124
       },
       {
         "date": "2024-08-15",
-        "value": 899429.94,
+        "value": 899430.0,
         "cum_return": -0.1006,
         "drawdown": -0.1078
       },
       {
         "date": "2024-08-16",
-        "value": 899712.2,
+        "value": 899712.26,
         "cum_return": -0.1003,
         "drawdown": -0.1076
       },
       {
         "date": "2024-08-19",
-        "value": 898108.21,
+        "value": 898108.27,
         "cum_return": -0.1019,
         "drawdown": -0.1092
       },
       {
         "date": "2024-08-20",
-        "value": 887979.78,
+        "value": 887979.84,
         "cum_return": -0.112,
         "drawdown": -0.1192
       },
       {
         "date": "2024-08-21",
-        "value": 881868.08,
+        "value": 881868.14,
         "cum_return": -0.1181,
         "drawdown": -0.1253
       },
       {
         "date": "2024-08-22",
-        "value": 879619.06,
+        "value": 879619.12,
         "cum_return": -0.1204,
         "drawdown": -0.1275
       },
       {
         "date": "2024-08-23",
-        "value": 879461.25,
+        "value": 879461.31,
         "cum_return": -0.1205,
         "drawdown": -0.1276
       },
       {
         "date": "2024-08-26",
-        "value": 877978.67,
+        "value": 877978.73,
         "cum_return": -0.122,
         "drawdown": -0.1291
       },
       {
         "date": "2024-08-27",
-        "value": 872898.69,
+        "value": 872898.75,
         "cum_return": -0.1271,
         "drawdown": -0.1342
       },
       {
         "date": "2024-08-28",
-        "value": 870566.17,
+        "value": 870566.23,
         "cum_return": -0.1294,
         "drawdown": -0.1365
       },
       {
         "date": "2024-08-29",
-        "value": 872581.04,
+        "value": 872581.1,
         "cum_return": -0.1274,
         "drawdown": -0.1345
       },
       {
         "date": "2024-08-30",
-        "value": 883853.47,
+        "value": 883853.53,
         "cum_return": -0.1161,
         "drawdown": -0.1233
       },
       {
         "date": "2024-09-02",
-        "value": 863475.33,
+        "value": 863475.39,
         "cum_return": -0.1365,
         "drawdown": -0.1435
       },
       {
         "date": "2024-09-03",
-        "value": 866570.25,
+        "value": 866570.31,
         "cum_return": -0.1334,
         "drawdown": -0.1404
       },
       {
         "date": "2024-09-04",
-        "value": 861825.85,
+        "value": 861825.91,
         "cum_return": -0.1382,
         "drawdown": -0.1451
       },
       {
         "date": "2024-09-05",
-        "value": 864506.94,
+        "value": 864507.0,
         "cum_return": -0.1355,
         "drawdown": -0.1425
       },
       {
         "date": "2024-09-06",
-        "value": 856263.08,
+        "value": 856263.14,
         "cum_return": -0.1437,
         "drawdown": -0.1507
       },
       {
         "date": "2024-09-09",
-        "value": 849332.22,
+        "value": 849332.28,
         "cum_return": -0.1507,
         "drawdown": -0.1575
       },
       {
         "date": "2024-09-10",
-        "value": 850018.95,
+        "value": 850019.01,
         "cum_return": -0.15,
         "drawdown": -0.1569
       },
       {
         "date": "2024-09-11",
-        "value": 849834.98,
+        "value": 849835.04,
         "cum_return": -0.1502,
         "drawdown": -0.157
       },
       {
         "date": "2024-09-12",
-        "value": 846273.96,
+        "value": 846274.02,
         "cum_return": -0.1537,
         "drawdown": -0.1606
       },
       {
         "date": "2024-09-13",
-        "value": 839668.13,
+        "value": 839668.19,
         "cum_return": -0.1603,
         "drawdown": -0.1671
       },
       {
         "date": "2024-09-18",
-        "value": 838420.69,
+        "value": 838420.75,
         "cum_return": -0.1616,
         "drawdown": -0.1684
       },
       {
         "date": "2024-09-19",
-        "value": 848113.18,
+        "value": 848113.24,
         "cum_return": -0.1519,
         "drawdown": -0.1587
       },
       {
         "date": "2024-09-20",
-        "value": 845654.91,
+        "value": 845654.97,
         "cum_return": -0.1543,
         "drawdown": -0.1612
       },
       {
         "date": "2024-09-23",
-        "value": 846008.16,
+        "value": 846008.22,
         "cum_return": -0.154,
         "drawdown": -0.1608
       },
       {
         "date": "2024-09-24",
-        "value": 885193.47,
+        "value": 885193.53,
         "cum_return": -0.1148,
         "drawdown": -0.122
       },
       {
         "date": "2024-09-25",
-        "value": 897720.75,
+        "value": 897720.81,
         "cum_return": -0.1023,
         "drawdown": -0.1095
       },
       {
         "date": "2024-09-26",
-        "value": 935766.78,
+        "value": 935766.84,
         "cum_return": -0.0642,
         "drawdown": -0.0718
       },
       {
         "date": "2024-09-27",
-        "value": 981081.81,
+        "value": 981081.87,
         "cum_return": -0.0189,
         "drawdown": -0.0269
       },
       {
         "date": "2024-09-30",
-        "value": 1079307.68,
+        "value": 1079307.74,
         "cum_return": 0.0793,
         "drawdown": 0.0
       },
       {
         "date": "2024-10-08",
-        "value": 1169788.02,
+        "value": 1169788.04,
         "cum_return": 0.1698,
         "drawdown": 0.0
       },
       {
         "date": "2024-10-09",
-        "value": 1066819.69,
+        "value": 1066819.66,
         "cum_return": 0.0668,
         "drawdown": -0.088
       },
@@ -1121,2517 +1121,2523 @@
       },
       {
         "date": "2024-10-11",
-        "value": 1035885.77,
+        "value": 1035885.76,
         "cum_return": 0.0359,
         "drawdown": -0.1145
       },
       {
         "date": "2024-10-14",
-        "value": 1062272.36,
+        "value": 1062272.38,
         "cum_return": 0.0623,
         "drawdown": -0.0919
       },
       {
         "date": "2024-10-15",
-        "value": 1043719.79,
+        "value": 1043719.8,
         "cum_return": 0.0437,
         "drawdown": -0.1078
       },
       {
         "date": "2024-10-16",
-        "value": 1045441.04,
+        "value": 1045441.05,
         "cum_return": 0.0454,
         "drawdown": -0.1063
       },
       {
         "date": "2024-10-17",
-        "value": 1041765.0,
+        "value": 1041765.02,
         "cum_return": 0.0418,
         "drawdown": -0.1094
       },
       {
         "date": "2024-10-18",
-        "value": 1064147.94,
+        "value": 1064147.95,
         "cum_return": 0.0641,
         "drawdown": -0.0903
       },
       {
         "date": "2024-10-21",
-        "value": 1065889.4,
+        "value": 1065889.42,
         "cum_return": 0.0659,
         "drawdown": -0.0888
       },
       {
         "date": "2024-10-22",
-        "value": 1068547.98,
+        "value": 1068547.99,
         "cum_return": 0.0685,
         "drawdown": -0.0865
       },
       {
         "date": "2024-10-23",
-        "value": 1064416.06,
+        "value": 1064416.07,
         "cum_return": 0.0644,
         "drawdown": -0.0901
       },
       {
         "date": "2024-10-24",
-        "value": 1059446.21,
+        "value": 1059446.23,
         "cum_return": 0.0594,
         "drawdown": -0.0943
       },
       {
         "date": "2024-10-25",
-        "value": 1073720.47,
+        "value": 1073720.48,
         "cum_return": 0.0737,
         "drawdown": -0.0821
       },
       {
         "date": "2024-10-28",
-        "value": 1073030.52,
+        "value": 1073030.53,
         "cum_return": 0.073,
         "drawdown": -0.0827
       },
       {
         "date": "2024-10-29",
-        "value": 1058729.35,
+        "value": 1058729.36,
         "cum_return": 0.0587,
         "drawdown": -0.0949
       },
       {
         "date": "2024-10-30",
-        "value": 1052509.86,
+        "value": 1052509.88,
         "cum_return": 0.0525,
         "drawdown": -0.1003
       },
       {
         "date": "2024-10-31",
-        "value": 1068458.92,
+        "value": 1068458.93,
         "cum_return": 0.0685,
         "drawdown": -0.0866
       },
       {
         "date": "2024-11-01",
-        "value": 1040083.99,
+        "value": 1040084.0,
         "cum_return": 0.0401,
         "drawdown": -0.1109
       },
       {
         "date": "2024-11-04",
-        "value": 1064666.81,
+        "value": 1064666.82,
         "cum_return": 0.0647,
         "drawdown": -0.0899
       },
       {
         "date": "2024-11-05",
-        "value": 1112466.66,
+        "value": 1112466.63,
         "cum_return": 0.1125,
         "drawdown": -0.049
       },
       {
         "date": "2024-11-06",
-        "value": 1114599.59,
+        "value": 1114599.56,
         "cum_return": 0.1146,
         "drawdown": -0.0472
       },
       {
         "date": "2024-11-07",
-        "value": 1144821.46,
+        "value": 1144821.4,
         "cum_return": 0.1448,
         "drawdown": -0.0213
       },
       {
         "date": "2024-11-08",
-        "value": 1142745.12,
+        "value": 1142745.06,
         "cum_return": 0.1427,
         "drawdown": -0.0231
       },
       {
         "date": "2024-11-11",
-        "value": 1174037.11,
+        "value": 1174037.05,
         "cum_return": 0.174,
         "drawdown": 0.0
       },
       {
         "date": "2024-11-12",
-        "value": 1146524.62,
+        "value": 1146524.56,
         "cum_return": 0.1465,
         "drawdown": -0.0234
       },
       {
         "date": "2024-11-13",
-        "value": 1150454.64,
+        "value": 1150454.59,
         "cum_return": 0.1505,
         "drawdown": -0.0201
       },
       {
         "date": "2024-11-14",
-        "value": 1113900.15,
+        "value": 1113900.09,
         "cum_return": 0.1139,
         "drawdown": -0.0512
       },
       {
         "date": "2024-11-15",
-        "value": 1073247.95,
+        "value": 1073247.89,
         "cum_return": 0.0732,
         "drawdown": -0.0858
       },
       {
         "date": "2024-11-18",
-        "value": 1051500.4,
+        "value": 1051500.33,
         "cum_return": 0.0515,
         "drawdown": -0.1044
       },
       {
         "date": "2024-11-19",
-        "value": 1052465.38,
+        "value": 1052465.31,
         "cum_return": 0.0525,
         "drawdown": -0.1036
       },
       {
         "date": "2024-11-20",
-        "value": 1053498.16,
+        "value": 1053498.09,
         "cum_return": 0.0535,
         "drawdown": -0.1027
       },
       {
         "date": "2024-11-21",
-        "value": 1053326.03,
+        "value": 1053325.96,
         "cum_return": 0.0533,
         "drawdown": -0.1028
       },
       {
         "date": "2024-11-22",
-        "value": 1046268.7,
+        "value": 1046268.63,
         "cum_return": 0.0463,
         "drawdown": -0.1088
       },
       {
         "date": "2024-11-25",
-        "value": 1045063.79,
+        "value": 1045063.72,
         "cum_return": 0.0451,
         "drawdown": -0.1099
       },
       {
         "date": "2024-11-26",
-        "value": 1042738.5,
+        "value": 1042738.42,
         "cum_return": 0.0427,
         "drawdown": -0.1118
       },
       {
         "date": "2024-11-27",
-        "value": 1069719.3,
+        "value": 1069719.22,
         "cum_return": 0.0697,
         "drawdown": -0.0889
       },
       {
         "date": "2024-11-28",
-        "value": 1061703.79,
+        "value": 1061703.72,
         "cum_return": 0.0617,
         "drawdown": -0.0957
       },
       {
         "date": "2024-11-29",
-        "value": 1079202.01,
+        "value": 1079201.94,
         "cum_return": 0.0792,
         "drawdown": -0.0808
       },
       {
         "date": "2024-12-02",
-        "value": 1088155.14,
+        "value": 1088155.07,
         "cum_return": 0.0882,
         "drawdown": -0.0732
       },
       {
         "date": "2024-12-03",
-        "value": 1081742.99,
+        "value": 1081742.92,
         "cum_return": 0.0817,
         "drawdown": -0.0786
       },
       {
         "date": "2024-12-04",
-        "value": 1073170.54,
+        "value": 1073170.48,
         "cum_return": 0.0732,
         "drawdown": -0.0859
       },
       {
         "date": "2024-12-05",
-        "value": 1076392.95,
+        "value": 1076392.88,
         "cum_return": 0.0764,
         "drawdown": -0.0832
       },
       {
         "date": "2024-12-06",
-        "value": 1088034.31,
+        "value": 1088034.24,
         "cum_return": 0.088,
         "drawdown": -0.0733
       },
       {
         "date": "2024-12-09",
-        "value": 1076818.36,
+        "value": 1076818.3,
         "cum_return": 0.0768,
         "drawdown": -0.0828
       },
       {
         "date": "2024-12-10",
-        "value": 1097412.97,
+        "value": 1097412.91,
         "cum_return": 0.0974,
         "drawdown": -0.0653
       },
       {
         "date": "2024-12-11",
-        "value": 1098612.78,
+        "value": 1098612.72,
         "cum_return": 0.0986,
         "drawdown": -0.0642
       },
       {
         "date": "2024-12-12",
-        "value": 1107838.48,
+        "value": 1107838.42,
         "cum_return": 0.1078,
         "drawdown": -0.0564
       },
       {
         "date": "2024-12-13",
-        "value": 1086424.78,
+        "value": 1086424.72,
         "cum_return": 0.0864,
         "drawdown": -0.0746
       },
       {
         "date": "2024-12-16",
-        "value": 1080424.68,
+        "value": 1080424.61,
         "cum_return": 0.0804,
         "drawdown": -0.0797
       },
       {
         "date": "2024-12-17",
-        "value": 1073998.44,
+        "value": 1073998.38,
         "cum_return": 0.074,
         "drawdown": -0.0852
       },
       {
         "date": "2024-12-18",
-        "value": 1084798.34,
+        "value": 1084798.28,
         "cum_return": 0.0848,
         "drawdown": -0.076
       },
       {
         "date": "2024-12-19",
-        "value": 1084422.39,
+        "value": 1084422.33,
         "cum_return": 0.0844,
         "drawdown": -0.0763
       },
       {
         "date": "2024-12-20",
-        "value": 1090726.08,
+        "value": 1090726.02,
         "cum_return": 0.0907,
         "drawdown": -0.071
       },
       {
         "date": "2024-12-23",
-        "value": 1084632.71,
+        "value": 1084632.65,
         "cum_return": 0.0846,
         "drawdown": -0.0762
       },
       {
         "date": "2024-12-24",
-        "value": 1097599.45,
+        "value": 1097599.39,
         "cum_return": 0.0976,
         "drawdown": -0.0651
       },
       {
         "date": "2024-12-25",
-        "value": 1098881.93,
+        "value": 1098881.87,
         "cum_return": 0.0989,
         "drawdown": -0.064
       },
       {
         "date": "2024-12-26",
-        "value": 1104353.67,
+        "value": 1104353.62,
         "cum_return": 0.1044,
         "drawdown": -0.0594
       },
       {
         "date": "2024-12-27",
-        "value": 1100648.59,
+        "value": 1100648.54,
         "cum_return": 0.1006,
         "drawdown": -0.0625
       },
       {
         "date": "2024-12-30",
-        "value": 1106552.3,
+        "value": 1106552.25,
         "cum_return": 0.1066,
         "drawdown": -0.0575
       },
       {
         "date": "2024-12-31",
-        "value": 1078556.11,
+        "value": 1078556.04,
         "cum_return": 0.0786,
         "drawdown": -0.0813
       },
       {
         "date": "2025-01-02",
-        "value": 1044984.53,
+        "value": 1044984.43,
         "cum_return": 0.045,
         "drawdown": -0.1099
       },
       {
         "date": "2025-01-03",
-        "value": 1027671.14,
+        "value": 1027671.03,
         "cum_return": 0.0277,
         "drawdown": -0.1247
       },
       {
         "date": "2025-01-06",
-        "value": 1026317.61,
+        "value": 1026317.5,
         "cum_return": 0.0263,
         "drawdown": -0.1258
       },
       {
         "date": "2025-01-07",
-        "value": 1028412.38,
+        "value": 1028412.27,
         "cum_return": 0.0284,
         "drawdown": -0.124
       },
       {
         "date": "2025-01-08",
-        "value": 1029554.3,
+        "value": 1029554.19,
         "cum_return": 0.0296,
         "drawdown": -0.1231
       },
       {
         "date": "2025-01-09",
-        "value": 1023105.58,
+        "value": 1023105.47,
         "cum_return": 0.0231,
         "drawdown": -0.1286
       },
       {
         "date": "2025-01-10",
-        "value": 1015165.92,
+        "value": 1015165.8,
         "cum_return": 0.0152,
         "drawdown": -0.1353
       },
       {
         "date": "2025-01-13",
-        "value": 1009688.21,
+        "value": 1009688.1,
         "cum_return": 0.0097,
         "drawdown": -0.14
       },
       {
         "date": "2025-01-14",
-        "value": 1034935.73,
+        "value": 1034935.63,
         "cum_return": 0.0349,
         "drawdown": -0.1185
       },
       {
         "date": "2025-01-15",
-        "value": 1034875.77,
+        "value": 1034875.67,
         "cum_return": 0.0349,
         "drawdown": -0.1185
       },
       {
         "date": "2025-01-16",
-        "value": 1034448.93,
+        "value": 1034448.83,
         "cum_return": 0.0344,
         "drawdown": -0.1189
       },
       {
         "date": "2025-01-17",
-        "value": 1039253.61,
+        "value": 1039253.51,
         "cum_return": 0.0393,
         "drawdown": -0.1148
       },
       {
         "date": "2025-01-20",
-        "value": 1039288.01,
+        "value": 1039287.92,
         "cum_return": 0.0393,
         "drawdown": -0.1148
       },
       {
         "date": "2025-01-21",
-        "value": 1034457.17,
+        "value": 1034457.08,
         "cum_return": 0.0345,
         "drawdown": -0.1189
       },
       {
         "date": "2025-01-22",
-        "value": 1026725.26,
+        "value": 1026725.17,
         "cum_return": 0.0267,
         "drawdown": -0.1255
       },
       {
         "date": "2025-01-23",
-        "value": 1032382.0,
+        "value": 1032381.91,
         "cum_return": 0.0324,
         "drawdown": -0.1207
       },
       {
         "date": "2025-01-24",
-        "value": 1042413.29,
+        "value": 1042413.2,
         "cum_return": 0.0424,
         "drawdown": -0.1121
       },
       {
         "date": "2025-01-27",
-        "value": 1034708.96,
+        "value": 1034708.87,
         "cum_return": 0.0347,
         "drawdown": -0.1187
       },
       {
         "date": "2025-02-05",
-        "value": 1037453.36,
+        "value": 1037453.27,
         "cum_return": 0.0375,
         "drawdown": -0.1163
       },
       {
         "date": "2025-02-06",
-        "value": 1057032.15,
+        "value": 1057032.04,
         "cum_return": 0.057,
         "drawdown": -0.0997
       },
       {
         "date": "2025-02-07",
-        "value": 1066192.88,
+        "value": 1066192.78,
         "cum_return": 0.0662,
         "drawdown": -0.0919
       },
       {
         "date": "2025-02-10",
-        "value": 1075538.08,
+        "value": 1075537.98,
         "cum_return": 0.0755,
         "drawdown": -0.0839
       },
       {
         "date": "2025-02-11",
-        "value": 1072443.15,
+        "value": 1072443.04,
         "cum_return": 0.0724,
         "drawdown": -0.0865
       },
       {
         "date": "2025-02-12",
-        "value": 1091275.32,
+        "value": 1091275.21,
         "cum_return": 0.0913,
         "drawdown": -0.0705
       },
       {
         "date": "2025-02-13",
-        "value": 1082482.49,
+        "value": 1082482.38,
         "cum_return": 0.0825,
         "drawdown": -0.078
       },
       {
         "date": "2025-02-14",
-        "value": 1088876.55,
+        "value": 1088876.44,
         "cum_return": 0.0889,
         "drawdown": -0.0725
       },
       {
         "date": "2025-02-17",
-        "value": 1096376.84,
+        "value": 1096376.73,
         "cum_return": 0.0964,
         "drawdown": -0.0661
       },
       {
         "date": "2025-02-18",
-        "value": 1078518.4,
+        "value": 1078518.3,
         "cum_return": 0.0785,
         "drawdown": -0.0814
       },
       {
         "date": "2025-02-19",
-        "value": 1097199.54,
+        "value": 1097199.43,
         "cum_return": 0.0972,
         "drawdown": -0.0654
       },
       {
         "date": "2025-02-20",
-        "value": 1093190.71,
+        "value": 1093190.6,
         "cum_return": 0.0932,
         "drawdown": -0.0689
       },
       {
         "date": "2025-02-21",
-        "value": 1118760.58,
+        "value": 1118760.47,
         "cum_return": 0.1188,
         "drawdown": -0.0471
       },
       {
         "date": "2025-02-24",
-        "value": 1120266.51,
+        "value": 1120266.41,
         "cum_return": 0.1203,
         "drawdown": -0.0458
       },
       {
         "date": "2025-02-25",
-        "value": 1106251.92,
+        "value": 1106251.81,
         "cum_return": 0.1063,
         "drawdown": -0.0577
       },
       {
         "date": "2025-02-26",
-        "value": 1128913.14,
+        "value": 1128913.04,
         "cum_return": 0.1289,
         "drawdown": -0.0384
       },
       {
         "date": "2025-02-27",
-        "value": 1125637.42,
+        "value": 1125637.31,
         "cum_return": 0.1256,
         "drawdown": -0.0412
       },
       {
         "date": "2025-02-28",
-        "value": 1086834.48,
+        "value": 1086834.37,
         "cum_return": 0.0868,
         "drawdown": -0.0743
       },
       {
         "date": "2025-03-03",
-        "value": 1089445.89,
+        "value": 1089445.79,
         "cum_return": 0.0894,
         "drawdown": -0.0721
       },
       {
         "date": "2025-03-04",
-        "value": 1087252.85,
+        "value": 1087252.74,
         "cum_return": 0.0873,
         "drawdown": -0.0739
       },
       {
         "date": "2025-03-05",
-        "value": 1085570.93,
+        "value": 1085570.83,
         "cum_return": 0.0856,
         "drawdown": -0.0754
       },
       {
         "date": "2025-03-06",
-        "value": 1109789.18,
+        "value": 1109789.07,
         "cum_return": 0.1098,
         "drawdown": -0.0547
       },
       {
         "date": "2025-03-07",
-        "value": 1107253.22,
+        "value": 1107253.1,
         "cum_return": 0.1073,
         "drawdown": -0.0569
       },
       {
         "date": "2025-03-10",
-        "value": 1104846.62,
+        "value": 1104846.49,
         "cum_return": 0.1048,
         "drawdown": -0.0589
       },
       {
         "date": "2025-03-11",
-        "value": 1111372.76,
+        "value": 1111372.64,
         "cum_return": 0.1114,
         "drawdown": -0.0534
       },
       {
         "date": "2025-03-12",
-        "value": 1105905.01,
+        "value": 1105904.89,
         "cum_return": 0.1059,
         "drawdown": -0.058
       },
       {
         "date": "2025-03-13",
-        "value": 1098817.91,
+        "value": 1098817.79,
         "cum_return": 0.0988,
         "drawdown": -0.0641
       },
       {
         "date": "2025-03-14",
-        "value": 1125251.97,
+        "value": 1125251.85,
         "cum_return": 0.1253,
         "drawdown": -0.0416
       },
       {
         "date": "2025-03-17",
-        "value": 1126006.58,
+        "value": 1126006.46,
         "cum_return": 0.126,
         "drawdown": -0.0409
       },
       {
         "date": "2025-03-18",
-        "value": 1127120.73,
+        "value": 1127120.61,
         "cum_return": 0.1271,
         "drawdown": -0.04
       },
       {
         "date": "2025-03-19",
-        "value": 1121749.0,
+        "value": 1121748.88,
         "cum_return": 0.1217,
         "drawdown": -0.0445
       },
       {
         "date": "2025-03-20",
-        "value": 1110566.54,
+        "value": 1110566.42,
         "cum_return": 0.1106,
         "drawdown": -0.0541
       },
       {
         "date": "2025-03-21",
-        "value": 1096389.95,
+        "value": 1096389.83,
         "cum_return": 0.0964,
         "drawdown": -0.0661
       },
       {
         "date": "2025-03-24",
-        "value": 1093391.85,
+        "value": 1093391.73,
         "cum_return": 0.0934,
         "drawdown": -0.0687
       },
       {
         "date": "2025-03-25",
-        "value": 1093982.68,
+        "value": 1093982.56,
         "cum_return": 0.094,
         "drawdown": -0.0682
       },
       {
         "date": "2025-03-26",
-        "value": 1095175.87,
+        "value": 1095175.75,
         "cum_return": 0.0952,
         "drawdown": -0.0672
       },
       {
         "date": "2025-03-27",
-        "value": 1095571.16,
+        "value": 1095571.04,
         "cum_return": 0.0956,
         "drawdown": -0.0668
       },
       {
         "date": "2025-03-28",
-        "value": 1084637.79,
+        "value": 1084637.67,
         "cum_return": 0.0846,
         "drawdown": -0.0761
       },
       {
         "date": "2025-03-31",
-        "value": 1068150.67,
+        "value": 1068150.55,
         "cum_return": 0.0682,
         "drawdown": -0.0902
       },
       {
         "date": "2025-04-01",
-        "value": 1075690.96,
+        "value": 1075690.84,
         "cum_return": 0.0757,
         "drawdown": -0.0838
       },
       {
         "date": "2025-04-02",
-        "value": 1072172.97,
+        "value": 1072172.85,
         "cum_return": 0.0722,
         "drawdown": -0.0868
       },
       {
         "date": "2025-04-03",
-        "value": 1074229.68,
+        "value": 1074229.57,
         "cum_return": 0.0742,
         "drawdown": -0.085
       },
       {
         "date": "2025-04-07",
-        "value": 1000802.81,
+        "value": 1000802.69,
         "cum_return": 0.0008,
         "drawdown": -0.1476
       },
       {
         "date": "2025-04-08",
-        "value": 1011472.19,
+        "value": 1011472.07,
         "cum_return": 0.0115,
         "drawdown": -0.1385
       },
       {
         "date": "2025-04-09",
-        "value": 1013086.19,
+        "value": 1013086.07,
         "cum_return": 0.0131,
         "drawdown": -0.1371
       },
       {
         "date": "2025-04-10",
-        "value": 1017622.22,
+        "value": 1017622.1,
         "cum_return": 0.0176,
         "drawdown": -0.1332
       },
       {
         "date": "2025-04-11",
-        "value": 1016499.53,
+        "value": 1016499.41,
         "cum_return": 0.0165,
         "drawdown": -0.1342
       },
       {
         "date": "2025-04-14",
-        "value": 1016962.45,
+        "value": 1016962.33,
         "cum_return": 0.017,
         "drawdown": -0.1338
       },
       {
         "date": "2025-04-15",
-        "value": 1013080.28,
+        "value": 1013080.16,
         "cum_return": 0.0131,
         "drawdown": -0.1371
       },
       {
         "date": "2025-04-16",
-        "value": 1012115.63,
+        "value": 1012115.51,
         "cum_return": 0.0121,
         "drawdown": -0.1379
       },
       {
         "date": "2025-04-17",
-        "value": 1013380.54,
+        "value": 1013380.42,
         "cum_return": 0.0134,
         "drawdown": -0.1368
       },
       {
         "date": "2025-04-18",
-        "value": 1011551.03,
+        "value": 1011550.91,
         "cum_return": 0.0116,
         "drawdown": -0.1384
       },
       {
         "date": "2025-04-21",
-        "value": 1017275.98,
+        "value": 1017275.86,
         "cum_return": 0.0173,
         "drawdown": -0.1335
       },
       {
         "date": "2025-04-22",
-        "value": 1018527.98,
+        "value": 1018527.86,
         "cum_return": 0.0185,
         "drawdown": -0.1325
       },
       {
         "date": "2025-04-23",
-        "value": 1017552.56,
+        "value": 1017552.44,
         "cum_return": 0.0176,
         "drawdown": -0.1333
       },
       {
         "date": "2025-04-24",
-        "value": 1015829.12,
+        "value": 1015829.0,
         "cum_return": 0.0158,
         "drawdown": -0.1348
       },
       {
         "date": "2025-04-25",
-        "value": 1015398.13,
+        "value": 1015398.01,
         "cum_return": 0.0154,
         "drawdown": -0.1351
       },
       {
         "date": "2025-04-28",
-        "value": 1011248.38,
+        "value": 1011248.26,
         "cum_return": 0.0112,
         "drawdown": -0.1387
       },
       {
         "date": "2025-04-29",
-        "value": 1007520.67,
+        "value": 1007520.55,
         "cum_return": 0.0075,
         "drawdown": -0.1418
       },
       {
         "date": "2025-04-30",
-        "value": 1004372.38,
+        "value": 1004372.26,
         "cum_return": 0.0044,
         "drawdown": -0.1445
       },
       {
         "date": "2025-05-06",
-        "value": 1013822.95,
+        "value": 1013822.83,
         "cum_return": 0.0138,
         "drawdown": -0.1365
       },
       {
         "date": "2025-05-07",
-        "value": 1026031.16,
+        "value": 1026031.04,
         "cum_return": 0.026,
         "drawdown": -0.1261
       },
       {
         "date": "2025-05-08",
-        "value": 1034814.21,
+        "value": 1034814.09,
         "cum_return": 0.0348,
         "drawdown": -0.1186
       },
       {
         "date": "2025-05-09",
-        "value": 1033733.23,
+        "value": 1033733.11,
         "cum_return": 0.0337,
         "drawdown": -0.1195
       },
       {
         "date": "2025-05-12",
-        "value": 1048102.12,
+        "value": 1048102.0,
         "cum_return": 0.0481,
         "drawdown": -0.1073
       },
       {
         "date": "2025-05-13",
-        "value": 1043407.95,
+        "value": 1043407.83,
         "cum_return": 0.0434,
         "drawdown": -0.1113
       },
       {
         "date": "2025-05-14",
-        "value": 1055204.65,
+        "value": 1055204.53,
         "cum_return": 0.0552,
         "drawdown": -0.1012
       },
       {
         "date": "2025-05-15",
-        "value": 1046071.13,
+        "value": 1046071.01,
         "cum_return": 0.0461,
         "drawdown": -0.109
       },
       {
         "date": "2025-05-16",
-        "value": 1039199.74,
+        "value": 1039199.62,
         "cum_return": 0.0392,
         "drawdown": -0.1148
       },
       {
         "date": "2025-05-19",
-        "value": 1038252.9,
+        "value": 1038252.78,
         "cum_return": 0.0383,
         "drawdown": -0.1157
       },
       {
         "date": "2025-05-20",
-        "value": 1041067.3,
+        "value": 1041067.18,
         "cum_return": 0.0411,
         "drawdown": -0.1133
       },
       {
         "date": "2025-05-21",
-        "value": 1044043.86,
+        "value": 1044043.74,
         "cum_return": 0.044,
         "drawdown": -0.1107
       },
       {
         "date": "2025-05-22",
-        "value": 1041358.08,
+        "value": 1041357.96,
         "cum_return": 0.0414,
         "drawdown": -0.113
       },
       {
         "date": "2025-05-23",
-        "value": 1031476.92,
+        "value": 1031476.8,
         "cum_return": 0.0315,
         "drawdown": -0.1214
       },
       {
         "date": "2025-05-26",
-        "value": 1029763.63,
+        "value": 1029763.51,
         "cum_return": 0.0298,
         "drawdown": -0.1229
       },
       {
         "date": "2025-05-27",
-        "value": 1027352.25,
+        "value": 1027352.13,
         "cum_return": 0.0274,
         "drawdown": -0.1249
       },
       {
         "date": "2025-05-28",
-        "value": 1025037.06,
+        "value": 1025036.94,
         "cum_return": 0.025,
         "drawdown": -0.1269
       },
       {
         "date": "2025-05-29",
-        "value": 1032858.94,
+        "value": 1032858.82,
         "cum_return": 0.0329,
         "drawdown": -0.1203
       },
       {
         "date": "2025-05-30",
-        "value": 1029512.09,
+        "value": 1029511.97,
         "cum_return": 0.0295,
         "drawdown": -0.1231
       },
       {
         "date": "2025-06-03",
-        "value": 1034656.33,
+        "value": 1034656.21,
         "cum_return": 0.0347,
         "drawdown": -0.1187
       },
       {
         "date": "2025-06-04",
-        "value": 1039902.74,
+        "value": 1039902.62,
         "cum_return": 0.0399,
         "drawdown": -0.1143
       },
       {
         "date": "2025-06-05",
-        "value": 1041180.55,
+        "value": 1041180.43,
         "cum_return": 0.0412,
         "drawdown": -0.1132
       },
       {
         "date": "2025-06-06",
-        "value": 1041249.07,
+        "value": 1041248.95,
         "cum_return": 0.0412,
         "drawdown": -0.1131
       },
       {
         "date": "2025-06-09",
-        "value": 1049652.32,
+        "value": 1049652.2,
         "cum_return": 0.0497,
         "drawdown": -0.1059
       },
       {
         "date": "2025-06-10",
-        "value": 1045983.47,
+        "value": 1045983.35,
         "cum_return": 0.046,
         "drawdown": -0.1091
       },
       {
         "date": "2025-06-11",
-        "value": 1051327.16,
+        "value": 1051327.04,
         "cum_return": 0.0513,
         "drawdown": -0.1045
       },
       {
         "date": "2025-06-12",
-        "value": 1052203.17,
+        "value": 1052203.05,
         "cum_return": 0.0522,
         "drawdown": -0.1038
       },
       {
         "date": "2025-06-13",
-        "value": 1048080.28,
+        "value": 1048080.16,
         "cum_return": 0.0481,
         "drawdown": -0.1073
       },
       {
         "date": "2025-06-16",
-        "value": 1051625.85,
+        "value": 1051625.73,
         "cum_return": 0.0516,
         "drawdown": -0.1043
       },
       {
         "date": "2025-06-17",
-        "value": 1046218.92,
+        "value": 1046218.8,
         "cum_return": 0.0462,
         "drawdown": -0.1089
       },
       {
         "date": "2025-06-18",
-        "value": 1047600.88,
+        "value": 1047600.76,
         "cum_return": 0.0476,
         "drawdown": -0.1077
       },
       {
         "date": "2025-06-19",
-        "value": 1039962.09,
+        "value": 1039961.97,
         "cum_return": 0.04,
         "drawdown": -0.1142
       },
       {
         "date": "2025-06-20",
-        "value": 1044482.36,
+        "value": 1044482.24,
         "cum_return": 0.0445,
         "drawdown": -0.1103
       },
       {
         "date": "2025-06-23",
-        "value": 1054576.14,
+        "value": 1054576.02,
         "cum_return": 0.0546,
         "drawdown": -0.1018
       },
       {
         "date": "2025-06-24",
-        "value": 1054234.69,
+        "value": 1054234.57,
         "cum_return": 0.0542,
         "drawdown": -0.102
       },
       {
         "date": "2025-06-25",
-        "value": 1078464.48,
+        "value": 1078464.36,
         "cum_return": 0.0785,
         "drawdown": -0.0814
       },
       {
         "date": "2025-06-26",
-        "value": 1073812.26,
+        "value": 1073812.14,
         "cum_return": 0.0738,
         "drawdown": -0.0854
       },
       {
         "date": "2025-06-27",
-        "value": 1069858.28,
+        "value": 1069858.16,
         "cum_return": 0.0699,
         "drawdown": -0.0887
       },
       {
         "date": "2025-06-30",
-        "value": 1075606.91,
+        "value": 1075606.8,
         "cum_return": 0.0756,
         "drawdown": -0.0838
       },
       {
         "date": "2025-07-01",
-        "value": 1075052.94,
+        "value": 1075052.82,
         "cum_return": 0.0751,
         "drawdown": -0.0843
       },
       {
         "date": "2025-07-02",
-        "value": 1070208.63,
+        "value": 1070208.5,
         "cum_return": 0.0702,
         "drawdown": -0.0884
       },
       {
         "date": "2025-07-03",
-        "value": 1076475.73,
+        "value": 1076475.6,
         "cum_return": 0.0765,
         "drawdown": -0.0831
       },
       {
         "date": "2025-07-04",
-        "value": 1078158.97,
+        "value": 1078158.84,
         "cum_return": 0.0782,
         "drawdown": -0.0817
       },
       {
         "date": "2025-07-07",
-        "value": 1074718.52,
+        "value": 1074718.39,
         "cum_return": 0.0747,
         "drawdown": -0.0846
       },
       {
         "date": "2025-07-08",
-        "value": 1097107.21,
+        "value": 1097107.08,
         "cum_return": 0.0971,
         "drawdown": -0.0655
       },
       {
         "date": "2025-07-09",
-        "value": 1093184.42,
+        "value": 1093184.29,
         "cum_return": 0.0932,
         "drawdown": -0.0689
       },
       {
         "date": "2025-07-10",
-        "value": 1102488.43,
+        "value": 1102488.31,
         "cum_return": 0.1025,
         "drawdown": -0.0609
       },
       {
         "date": "2025-07-11",
-        "value": 1105887.12,
+        "value": 1105886.99,
         "cum_return": 0.1059,
         "drawdown": -0.058
       },
       {
         "date": "2025-07-14",
-        "value": 1103918.65,
+        "value": 1103918.52,
         "cum_return": 0.1039,
         "drawdown": -0.0597
       },
       {
         "date": "2025-07-15",
-        "value": 1094592.88,
+        "value": 1094592.76,
         "cum_return": 0.0946,
         "drawdown": -0.0677
       },
       {
         "date": "2025-07-16",
-        "value": 1092700.67,
+        "value": 1092700.54,
         "cum_return": 0.0927,
         "drawdown": -0.0693
       },
       {
         "date": "2025-07-17",
-        "value": 1102690.98,
+        "value": 1102690.85,
         "cum_return": 0.1027,
         "drawdown": -0.0608
       },
       {
         "date": "2025-07-18",
-        "value": 1106325.11,
+        "value": 1106324.98,
         "cum_return": 0.1063,
         "drawdown": -0.0577
       },
       {
         "date": "2025-07-21",
-        "value": 1117265.57,
+        "value": 1117265.45,
         "cum_return": 0.1173,
         "drawdown": -0.0484
       },
       {
         "date": "2025-07-22",
-        "value": 1127751.03,
+        "value": 1127750.91,
         "cum_return": 0.1278,
         "drawdown": -0.0394
       },
       {
         "date": "2025-07-23",
-        "value": 1122125.66,
+        "value": 1122125.54,
         "cum_return": 0.1221,
         "drawdown": -0.0442
       },
       {
         "date": "2025-07-24",
-        "value": 1146242.57,
+        "value": 1146242.44,
         "cum_return": 0.1462,
         "drawdown": -0.0237
       },
       {
         "date": "2025-07-25",
-        "value": 1140872.95,
+        "value": 1140872.83,
         "cum_return": 0.1409,
         "drawdown": -0.0282
       },
       {
         "date": "2025-07-28",
-        "value": 1145684.02,
+        "value": 1145683.89,
         "cum_return": 0.1457,
         "drawdown": -0.0242
       },
       {
         "date": "2025-07-29",
-        "value": 1159319.6,
+        "value": 1159319.47,
         "cum_return": 0.1593,
         "drawdown": -0.0125
       },
       {
         "date": "2025-07-30",
-        "value": 1145866.64,
+        "value": 1145866.51,
         "cum_return": 0.1459,
         "drawdown": -0.024
       },
       {
         "date": "2025-07-31",
-        "value": 1121234.58,
+        "value": 1121234.46,
         "cum_return": 0.1212,
         "drawdown": -0.045
       },
       {
         "date": "2025-08-01",
-        "value": 1122125.95,
+        "value": 1122125.83,
         "cum_return": 0.1221,
         "drawdown": -0.0442
       },
       {
         "date": "2025-08-04",
-        "value": 1127106.48,
+        "value": 1127106.36,
         "cum_return": 0.1271,
         "drawdown": -0.04
       },
       {
         "date": "2025-08-05",
-        "value": 1130324.48,
+        "value": 1130324.36,
         "cum_return": 0.1303,
         "drawdown": -0.0372
       },
       {
         "date": "2025-08-06",
-        "value": 1138508.73,
+        "value": 1138508.6,
         "cum_return": 0.1385,
         "drawdown": -0.0303
       },
       {
         "date": "2025-08-07",
-        "value": 1135650.72,
+        "value": 1135650.58,
         "cum_return": 0.1357,
         "drawdown": -0.0327
       },
       {
         "date": "2025-08-08",
-        "value": 1125970.94,
+        "value": 1125970.82,
         "cum_return": 0.126,
         "drawdown": -0.0409
       },
       {
         "date": "2025-08-11",
-        "value": 1134636.26,
+        "value": 1134636.13,
         "cum_return": 0.1346,
         "drawdown": -0.0336
       },
       {
         "date": "2025-08-12",
-        "value": 1148499.42,
+        "value": 1148499.27,
         "cum_return": 0.1485,
         "drawdown": -0.0218
       },
       {
         "date": "2025-08-13",
-        "value": 1163829.63,
+        "value": 1163829.47,
         "cum_return": 0.1638,
         "drawdown": -0.0087
       },
       {
         "date": "2025-08-14",
-        "value": 1158249.33,
+        "value": 1158249.17,
         "cum_return": 0.1582,
         "drawdown": -0.0134
       },
       {
         "date": "2025-08-15",
-        "value": 1177683.46,
+        "value": 1177683.28,
         "cum_return": 0.1777,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-18",
-        "value": 1193701.08,
+        "value": 1193700.88,
         "cum_return": 0.1937,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-19",
-        "value": 1177372.97,
+        "value": 1177372.76,
         "cum_return": 0.1774,
         "drawdown": -0.0137
       },
       {
         "date": "2025-08-20",
-        "value": 1196210.24,
+        "value": 1196210.02,
         "cum_return": 0.1962,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-21",
-        "value": 1193751.8,
+        "value": 1193751.58,
         "cum_return": 0.1938,
         "drawdown": -0.0021
       },
       {
         "date": "2025-08-22",
-        "value": 1247346.0,
+        "value": 1247345.75,
         "cum_return": 0.2473,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-25",
-        "value": 1272950.82,
+        "value": 1272950.59,
         "cum_return": 0.273,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-26",
-        "value": 1257779.1,
+        "value": 1257778.87,
         "cum_return": 0.2578,
         "drawdown": -0.0119
       },
       {
         "date": "2025-08-27",
-        "value": 1244079.76,
+        "value": 1244079.53,
         "cum_return": 0.2441,
         "drawdown": -0.0227
       },
       {
         "date": "2025-08-28",
-        "value": 1298614.97,
+        "value": 1298614.67,
         "cum_return": 0.2986,
         "drawdown": 0.0
       },
       {
         "date": "2025-08-29",
-        "value": 1301716.32,
+        "value": 1301715.99,
         "cum_return": 0.3017,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-01",
-        "value": 1317641.52,
+        "value": 1317641.12,
         "cum_return": 0.3176,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-02",
-        "value": 1285923.17,
+        "value": 1285922.82,
         "cum_return": 0.2859,
         "drawdown": -0.0241
       },
       {
         "date": "2025-09-03",
-        "value": 1267340.62,
+        "value": 1267340.28,
         "cum_return": 0.2673,
         "drawdown": -0.0382
       },
       {
         "date": "2025-09-04",
-        "value": 1224705.8,
+        "value": 1224705.6,
         "cum_return": 0.2247,
         "drawdown": -0.0705
       },
       {
         "date": "2025-09-05",
-        "value": 1280947.08,
+        "value": 1280946.89,
         "cum_return": 0.2809,
         "drawdown": -0.0278
       },
       {
         "date": "2025-09-08",
-        "value": 1279737.02,
+        "value": 1279736.89,
         "cum_return": 0.2797,
         "drawdown": -0.0288
       },
       {
         "date": "2025-09-09",
-        "value": 1258674.46,
+        "value": 1258674.34,
         "cum_return": 0.2587,
         "drawdown": -0.0448
       },
       {
         "date": "2025-09-10",
-        "value": 1260003.13,
+        "value": 1260003.01,
         "cum_return": 0.26,
         "drawdown": -0.0437
       },
       {
         "date": "2025-09-11",
-        "value": 1316866.6,
+        "value": 1316866.48,
         "cum_return": 0.3169,
         "drawdown": -0.0006
       },
       {
         "date": "2025-09-12",
-        "value": 1310737.8,
+        "value": 1310737.69,
         "cum_return": 0.3107,
         "drawdown": -0.0052
       },
       {
         "date": "2025-09-15",
-        "value": 1318065.54,
+        "value": 1318065.43,
         "cum_return": 0.3181,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-16",
-        "value": 1328519.26,
+        "value": 1328519.15,
         "cum_return": 0.3285,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-17",
-        "value": 1345828.0,
+        "value": 1345827.88,
         "cum_return": 0.3458,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-18",
-        "value": 1336015.14,
+        "value": 1336015.03,
         "cum_return": 0.336,
         "drawdown": -0.0073
       },
       {
         "date": "2025-09-19",
-        "value": 1329169.57,
+        "value": 1329169.45,
         "cum_return": 0.3292,
         "drawdown": -0.0124
       },
       {
         "date": "2025-09-22",
-        "value": 1341913.41,
+        "value": 1341913.3,
         "cum_return": 0.3419,
         "drawdown": -0.0029
       },
       {
         "date": "2025-09-23",
-        "value": 1342522.13,
+        "value": 1342522.0,
         "cum_return": 0.3425,
         "drawdown": -0.0025
       },
       {
         "date": "2025-09-24",
-        "value": 1381315.22,
+        "value": 1381315.0,
         "cum_return": 0.3813,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-25",
-        "value": 1400167.49,
+        "value": 1400167.23,
         "cum_return": 0.4002,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-26",
-        "value": 1376639.36,
+        "value": 1376639.11,
         "cum_return": 0.3766,
         "drawdown": -0.0168
       },
       {
         "date": "2025-09-29",
-        "value": 1405264.39,
+        "value": 1405264.05,
         "cum_return": 0.4053,
         "drawdown": 0.0
       },
       {
         "date": "2025-09-30",
-        "value": 1420751.64,
+        "value": 1420751.29,
         "cum_return": 0.4208,
         "drawdown": 0.0
       },
       {
         "date": "2025-10-09",
-        "value": 1455926.85,
+        "value": 1455926.5,
         "cum_return": 0.4559,
         "drawdown": 0.0
       },
       {
         "date": "2025-10-10",
-        "value": 1384550.57,
+        "value": 1384550.22,
         "cum_return": 0.3846,
         "drawdown": -0.049
       },
       {
         "date": "2025-10-13",
-        "value": 1379307.0,
+        "value": 1379306.65,
         "cum_return": 0.3793,
         "drawdown": -0.0526
       },
       {
         "date": "2025-10-14",
-        "value": 1357156.27,
+        "value": 1357155.9,
         "cum_return": 0.3572,
         "drawdown": -0.0678
       },
       {
         "date": "2025-10-15",
-        "value": 1378111.79,
+        "value": 1378111.42,
         "cum_return": 0.3781,
         "drawdown": -0.0534
       },
       {
         "date": "2025-10-16",
-        "value": 1386203.0,
+        "value": 1386202.59,
         "cum_return": 0.3862,
         "drawdown": -0.0479
       },
       {
         "date": "2025-10-17",
-        "value": 1336465.32,
+        "value": 1336464.93,
         "cum_return": 0.3365,
         "drawdown": -0.0821
       },
       {
         "date": "2025-10-20",
-        "value": 1356741.66,
+        "value": 1356741.22,
         "cum_return": 0.3567,
         "drawdown": -0.0681
       },
       {
         "date": "2025-10-21",
-        "value": 1370336.02,
+        "value": 1370335.55,
         "cum_return": 0.3703,
         "drawdown": -0.0588
       },
       {
         "date": "2025-10-22",
-        "value": 1361702.92,
+        "value": 1361702.46,
         "cum_return": 0.3617,
         "drawdown": -0.0647
       },
       {
         "date": "2025-10-23",
-        "value": 1374042.87,
+        "value": 1374042.41,
         "cum_return": 0.374,
         "drawdown": -0.0562
       },
       {
         "date": "2025-10-24",
-        "value": 1383370.16,
+        "value": 1383369.66,
         "cum_return": 0.3834,
         "drawdown": -0.0498
       },
       {
         "date": "2025-10-27",
-        "value": 1397033.03,
+        "value": 1397032.49,
         "cum_return": 0.397,
         "drawdown": -0.0405
       },
       {
         "date": "2025-10-28",
-        "value": 1389921.45,
+        "value": 1389920.93,
         "cum_return": 0.3899,
         "drawdown": -0.0453
       },
       {
         "date": "2025-10-29",
-        "value": 1416935.08,
+        "value": 1416934.56,
         "cum_return": 0.4169,
         "drawdown": -0.0268
       },
       {
         "date": "2025-10-30",
-        "value": 1410287.37,
+        "value": 1410286.85,
         "cum_return": 0.4103,
         "drawdown": -0.0313
       },
       {
         "date": "2025-10-31",
-        "value": 1393883.89,
+        "value": 1393883.37,
         "cum_return": 0.3939,
         "drawdown": -0.0426
       },
       {
         "date": "2025-11-03",
-        "value": 1415023.68,
+        "value": 1415023.16,
         "cum_return": 0.415,
         "drawdown": -0.0281
       },
       {
         "date": "2025-11-04",
-        "value": 1403930.49,
+        "value": 1403929.96,
         "cum_return": 0.4039,
         "drawdown": -0.0357
       },
       {
         "date": "2025-11-05",
-        "value": 1422566.59,
+        "value": 1422566.07,
         "cum_return": 0.4226,
         "drawdown": -0.0229
       },
       {
         "date": "2025-11-06",
-        "value": 1438839.37,
+        "value": 1438838.85,
         "cum_return": 0.4388,
         "drawdown": -0.0117
       },
       {
         "date": "2025-11-07",
-        "value": 1442422.37,
+        "value": 1442421.85,
         "cum_return": 0.4424,
         "drawdown": -0.0093
       },
       {
         "date": "2025-11-10",
-        "value": 1443943.29,
+        "value": 1443942.77,
         "cum_return": 0.4439,
         "drawdown": -0.0082
       },
       {
         "date": "2025-11-11",
-        "value": 1434950.49,
-        "cum_return": 0.435,
+        "value": 1434949.97,
+        "cum_return": 0.4349,
         "drawdown": -0.0144
       },
       {
         "date": "2025-11-12",
-        "value": 1423056.11,
+        "value": 1423055.59,
         "cum_return": 0.4231,
         "drawdown": -0.0226
       },
       {
         "date": "2025-11-13",
-        "value": 1439042.9,
+        "value": 1439042.38,
         "cum_return": 0.439,
         "drawdown": -0.0116
       },
       {
         "date": "2025-11-14",
-        "value": 1425580.78,
+        "value": 1425580.25,
         "cum_return": 0.4256,
         "drawdown": -0.0208
       },
       {
         "date": "2025-11-17",
-        "value": 1420196.13,
+        "value": 1420195.61,
         "cum_return": 0.4202,
         "drawdown": -0.0245
       },
       {
         "date": "2025-11-18",
-        "value": 1398328.38,
+        "value": 1398327.89,
         "cum_return": 0.3983,
         "drawdown": -0.0396
       },
       {
         "date": "2025-11-19",
-        "value": 1398715.25,
+        "value": 1398714.76,
         "cum_return": 0.3987,
         "drawdown": -0.0393
       },
       {
         "date": "2025-11-20",
-        "value": 1387396.26,
+        "value": 1387395.8,
         "cum_return": 0.3874,
         "drawdown": -0.0471
       },
       {
         "date": "2025-11-21",
-        "value": 1353291.71,
+        "value": 1353291.29,
         "cum_return": 0.3533,
         "drawdown": -0.0705
       },
       {
         "date": "2025-11-24",
-        "value": 1347575.37,
+        "value": 1347574.96,
         "cum_return": 0.3476,
         "drawdown": -0.0744
       },
       {
         "date": "2025-11-25",
-        "value": 1350935.52,
+        "value": 1350935.11,
         "cum_return": 0.3509,
         "drawdown": -0.0721
       },
       {
         "date": "2025-11-26",
-        "value": 1352656.2,
+        "value": 1352655.78,
         "cum_return": 0.3527,
         "drawdown": -0.0709
       },
       {
         "date": "2025-11-27",
-        "value": 1352094.15,
+        "value": 1352093.73,
         "cum_return": 0.3521,
         "drawdown": -0.0713
       },
       {
         "date": "2025-11-28",
-        "value": 1353334.7,
+        "value": 1353334.29,
         "cum_return": 0.3533,
         "drawdown": -0.0705
       },
       {
         "date": "2025-12-01",
-        "value": 1356023.75,
+        "value": 1356023.33,
         "cum_return": 0.356,
         "drawdown": -0.0686
       },
       {
         "date": "2025-12-02",
-        "value": 1347375.25,
+        "value": 1347374.85,
         "cum_return": 0.3474,
         "drawdown": -0.0746
       },
       {
         "date": "2025-12-03",
-        "value": 1335892.48,
+        "value": 1335892.1,
         "cum_return": 0.3359,
         "drawdown": -0.0824
       },
       {
         "date": "2025-12-04",
-        "value": 1338346.93,
+        "value": 1338346.53,
         "cum_return": 0.3383,
         "drawdown": -0.0808
       },
       {
         "date": "2025-12-05",
-        "value": 1354340.07,
+        "value": 1354339.66,
         "cum_return": 0.3543,
         "drawdown": -0.0698
       },
       {
         "date": "2025-12-08",
-        "value": 1369193.84,
+        "value": 1369193.45,
         "cum_return": 0.3692,
         "drawdown": -0.0596
       },
       {
         "date": "2025-12-09",
-        "value": 1363694.7,
+        "value": 1363694.3,
         "cum_return": 0.3637,
         "drawdown": -0.0633
       },
       {
         "date": "2025-12-10",
-        "value": 1367151.03,
+        "value": 1367150.64,
         "cum_return": 0.3672,
         "drawdown": -0.061
       },
       {
         "date": "2025-12-11",
-        "value": 1354433.19,
+        "value": 1354432.8,
         "cum_return": 0.3544,
         "drawdown": -0.0697
       },
       {
         "date": "2025-12-12",
-        "value": 1368394.08,
+        "value": 1368393.69,
         "cum_return": 0.3684,
         "drawdown": -0.0601
       },
       {
         "date": "2025-12-15",
-        "value": 1356391.65,
+        "value": 1356391.26,
         "cum_return": 0.3564,
         "drawdown": -0.0684
       },
       {
         "date": "2025-12-16",
-        "value": 1332933.28,
+        "value": 1332932.9,
         "cum_return": 0.3329,
         "drawdown": -0.0845
       },
       {
         "date": "2025-12-17",
-        "value": 1360035.02,
+        "value": 1360034.61,
         "cum_return": 0.36,
         "drawdown": -0.0659
       },
       {
         "date": "2025-12-18",
-        "value": 1349836.85,
+        "value": 1349836.45,
         "cum_return": 0.3498,
         "drawdown": -0.0729
       },
       {
         "date": "2025-12-19",
-        "value": 1359887.69,
+        "value": 1359887.29,
         "cum_return": 0.3599,
         "drawdown": -0.066
       },
       {
         "date": "2025-12-22",
-        "value": 1379495.09,
+        "value": 1379494.66,
         "cum_return": 0.3795,
         "drawdown": -0.0525
       },
       {
         "date": "2025-12-23",
-        "value": 1377673.89,
+        "value": 1377673.45,
         "cum_return": 0.3777,
         "drawdown": -0.0537
       },
       {
         "date": "2025-12-24",
-        "value": 1393457.47,
+        "value": 1393457.01,
         "cum_return": 0.3935,
         "drawdown": -0.0429
       },
       {
         "date": "2025-12-25",
-        "value": 1403929.08,
+        "value": 1403928.62,
         "cum_return": 0.4039,
         "drawdown": -0.0357
       },
       {
         "date": "2025-12-26",
-        "value": 1409440.89,
+        "value": 1409440.44,
         "cum_return": 0.4094,
         "drawdown": -0.0319
       },
       {
         "date": "2025-12-29",
-        "value": 1407974.05,
+        "value": 1407973.61,
         "cum_return": 0.408,
         "drawdown": -0.0329
       },
       {
         "date": "2025-12-30",
-        "value": 1408201.51,
+        "value": 1408201.08,
         "cum_return": 0.4082,
         "drawdown": -0.0328
       },
       {
         "date": "2025-12-31",
-        "value": 1410621.88,
+        "value": 1410621.46,
         "cum_return": 0.4106,
         "drawdown": -0.0311
       },
       {
         "date": "2026-01-05",
-        "value": 1440510.9,
+        "value": 1440510.45,
         "cum_return": 0.4405,
         "drawdown": -0.0106
       },
       {
         "date": "2026-01-06",
-        "value": 1466141.13,
+        "value": 1466140.68,
         "cum_return": 0.4661,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-07",
-        "value": 1467713.21,
+        "value": 1467712.76,
         "cum_return": 0.4677,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-08",
-        "value": 1477206.88,
+        "value": 1477206.43,
         "cum_return": 0.4772,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-09",
-        "value": 1501703.35,
+        "value": 1501702.9,
         "cum_return": 0.5017,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-12",
-        "value": 1540417.23,
+        "value": 1540416.78,
         "cum_return": 0.5404,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-13",
-        "value": 1500355.7,
+        "value": 1500355.29,
         "cum_return": 0.5004,
         "drawdown": -0.026
       },
       {
         "date": "2026-01-14",
-        "value": 1506215.16,
+        "value": 1506214.77,
         "cum_return": 0.5062,
         "drawdown": -0.0222
       },
       {
         "date": "2026-01-15",
-        "value": 1503538.53,
+        "value": 1503538.13,
         "cum_return": 0.5035,
         "drawdown": -0.0239
       },
       {
         "date": "2026-01-16",
-        "value": 1508485.15,
+        "value": 1508484.76,
         "cum_return": 0.5085,
         "drawdown": -0.0207
       },
       {
         "date": "2026-01-19",
-        "value": 1506990.72,
+        "value": 1506990.45,
         "cum_return": 0.507,
         "drawdown": -0.0217
       },
       {
         "date": "2026-01-20",
-        "value": 1488752.87,
+        "value": 1488752.61,
         "cum_return": 0.4888,
         "drawdown": -0.0335
       },
       {
         "date": "2026-01-21",
-        "value": 1505035.18,
+        "value": 1505034.92,
         "cum_return": 0.505,
         "drawdown": -0.023
       },
       {
         "date": "2026-01-22",
-        "value": 1509118.66,
+        "value": 1509118.4,
         "cum_return": 0.5091,
         "drawdown": -0.0203
       },
       {
         "date": "2026-01-23",
-        "value": 1554901.71,
+        "value": 1554901.44,
         "cum_return": 0.5549,
         "drawdown": 0.0
       },
       {
         "date": "2026-01-26",
-        "value": 1530174.7,
+        "value": 1530174.44,
         "cum_return": 0.5302,
         "drawdown": -0.0159
       },
       {
         "date": "2026-01-27",
-        "value": 1548776.89,
+        "value": 1548776.63,
         "cum_return": 0.5488,
         "drawdown": -0.0039
       },
       {
         "date": "2026-01-28",
-        "value": 1543292.35,
+        "value": 1543292.09,
         "cum_return": 0.5433,
         "drawdown": -0.0075
       },
       {
         "date": "2026-01-29",
-        "value": 1513473.57,
+        "value": 1513473.32,
         "cum_return": 0.5135,
         "drawdown": -0.0266
       },
       {
         "date": "2026-01-30",
-        "value": 1496382.44,
+        "value": 1496382.19,
         "cum_return": 0.4964,
         "drawdown": -0.0376
       },
       {
         "date": "2026-02-02",
-        "value": 1448810.17,
+        "value": 1448809.91,
         "cum_return": 0.4488,
         "drawdown": -0.0682
       },
       {
         "date": "2026-02-03",
-        "value": 1488352.62,
+        "value": 1488352.37,
         "cum_return": 0.4884,
         "drawdown": -0.0428
       },
       {
         "date": "2026-02-04",
-        "value": 1489369.74,
+        "value": 1489369.51,
         "cum_return": 0.4894,
         "drawdown": -0.0421
       },
       {
         "date": "2026-02-05",
-        "value": 1464119.46,
+        "value": 1464119.24,
         "cum_return": 0.4641,
         "drawdown": -0.0584
       },
       {
         "date": "2026-02-06",
-        "value": 1452570.82,
+        "value": 1452570.61,
         "cum_return": 0.4526,
         "drawdown": -0.0658
       },
       {
         "date": "2026-02-09",
-        "value": 1486819.25,
+        "value": 1486819.01,
         "cum_return": 0.4868,
         "drawdown": -0.0438
       },
       {
         "date": "2026-02-10",
-        "value": 1479516.93,
+        "value": 1479516.7,
         "cum_return": 0.4795,
         "drawdown": -0.0485
       },
       {
         "date": "2026-02-11",
-        "value": 1481307.41,
+        "value": 1481307.17,
         "cum_return": 0.4813,
         "drawdown": -0.0473
       },
       {
         "date": "2026-02-12",
-        "value": 1480614.54,
+        "value": 1480614.31,
         "cum_return": 0.4806,
         "drawdown": -0.0478
       },
       {
         "date": "2026-02-13",
-        "value": 1457937.07,
+        "value": 1457936.85,
         "cum_return": 0.4579,
         "drawdown": -0.0624
       },
       {
         "date": "2026-02-24",
-        "value": 1472666.48,
+        "value": 1472666.26,
         "cum_return": 0.4727,
         "drawdown": -0.0529
       },
       {
         "date": "2026-02-25",
-        "value": 1480244.84,
+        "value": 1480244.61,
         "cum_return": 0.4802,
         "drawdown": -0.048
       },
       {
         "date": "2026-02-26",
-        "value": 1471847.81,
+        "value": 1471847.6,
         "cum_return": 0.4718,
         "drawdown": -0.0534
       },
       {
         "date": "2026-02-27",
-        "value": 1484664.09,
+        "value": 1484663.88,
         "cum_return": 0.4847,
         "drawdown": -0.0452
       },
       {
         "date": "2026-03-02",
-        "value": 1488790.68,
+        "value": 1488790.47,
         "cum_return": 0.4888,
         "drawdown": -0.0425
       },
       {
         "date": "2026-03-03",
-        "value": 1473887.37,
+        "value": 1473887.18,
         "cum_return": 0.4739,
         "drawdown": -0.0521
       },
       {
         "date": "2026-03-04",
-        "value": 1453915.7,
+        "value": 1453915.55,
         "cum_return": 0.4539,
         "drawdown": -0.0649
       },
       {
         "date": "2026-03-05",
-        "value": 1460307.26,
+        "value": 1460307.11,
         "cum_return": 0.4603,
         "drawdown": -0.0608
       },
       {
         "date": "2026-03-06",
-        "value": 1465434.59,
+        "value": 1465434.41,
         "cum_return": 0.4654,
         "drawdown": -0.0575
       },
       {
         "date": "2026-03-09",
-        "value": 1472284.74,
+        "value": 1472284.59,
         "cum_return": 0.4723,
         "drawdown": -0.0531
       },
       {
         "date": "2026-03-10",
-        "value": 1474931.2,
+        "value": 1474931.01,
         "cum_return": 0.4749,
         "drawdown": -0.0514
       },
       {
         "date": "2026-03-11",
-        "value": 1495991.43,
+        "value": 1495991.24,
         "cum_return": 0.496,
         "drawdown": -0.0379
       },
       {
         "date": "2026-03-12",
-        "value": 1514538.54,
+        "value": 1514538.37,
         "cum_return": 0.5145,
         "drawdown": -0.026
       },
       {
         "date": "2026-03-13",
-        "value": 1500639.96,
+        "value": 1500639.79,
         "cum_return": 0.5006,
         "drawdown": -0.0349
       },
       {
         "date": "2026-03-16",
-        "value": 1484554.61,
+        "value": 1484554.42,
         "cum_return": 0.4846,
         "drawdown": -0.0452
       },
       {
         "date": "2026-03-17",
-        "value": 1459394.46,
+        "value": 1459394.27,
         "cum_return": 0.4594,
         "drawdown": -0.0614
       },
       {
         "date": "2026-03-18",
-        "value": 1461576.66,
+        "value": 1461576.47,
         "cum_return": 0.4616,
         "drawdown": -0.06
       },
       {
         "date": "2026-03-19",
-        "value": 1449736.56,
+        "value": 1449736.36,
         "cum_return": 0.4497,
         "drawdown": -0.0676
       },
       {
         "date": "2026-03-20",
-        "value": 1445268.3,
+        "value": 1445268.11,
         "cum_return": 0.4453,
         "drawdown": -0.0705
       },
       {
         "date": "2026-03-23",
-        "value": 1413580.05,
+        "value": 1413579.86,
         "cum_return": 0.4136,
         "drawdown": -0.0909
       },
       {
         "date": "2026-03-24",
-        "value": 1419844.15,
+        "value": 1419843.95,
         "cum_return": 0.4198,
         "drawdown": -0.0869
       },
       {
         "date": "2026-03-25",
-        "value": 1428894.44,
+        "value": 1428894.25,
         "cum_return": 0.4289,
         "drawdown": -0.081
       },
       {
         "date": "2026-03-26",
-        "value": 1422746.64,
+        "value": 1422746.44,
         "cum_return": 0.4227,
         "drawdown": -0.085
       },
       {
         "date": "2026-03-27",
-        "value": 1428340.33,
+        "value": 1428340.13,
         "cum_return": 0.4283,
         "drawdown": -0.0814
       },
       {
         "date": "2026-03-30",
-        "value": 1421778.58,
+        "value": 1421778.39,
         "cum_return": 0.4218,
         "drawdown": -0.0856
       },
       {
         "date": "2026-03-31",
-        "value": 1389793.86,
+        "value": 1389793.66,
         "cum_return": 0.3898,
         "drawdown": -0.1062
       },
       {
         "date": "2026-04-01",
-        "value": 1400843.4,
+        "value": 1400843.2,
         "cum_return": 0.4008,
         "drawdown": -0.0991
       },
       {
         "date": "2026-04-02",
-        "value": 1386245.06,
+        "value": 1386244.86,
         "cum_return": 0.3862,
         "drawdown": -0.1085
       },
       {
         "date": "2026-04-03",
-        "value": 1367942.13,
+        "value": 1367941.93,
         "cum_return": 0.3679,
         "drawdown": -0.1202
       },
       {
         "date": "2026-04-07",
-        "value": 1375853.08,
+        "value": 1375852.88,
         "cum_return": 0.3759,
         "drawdown": -0.1152
       },
       {
         "date": "2026-04-08",
-        "value": 1418182.54,
+        "value": 1418182.34,
         "cum_return": 0.4182,
         "drawdown": -0.0879
       },
       {
         "date": "2026-04-09",
-        "value": 1408866.94,
+        "value": 1408866.75,
         "cum_return": 0.4089,
         "drawdown": -0.0939
       },
       {
         "date": "2026-04-10",
-        "value": 1436820.62,
+        "value": 1436820.42,
         "cum_return": 0.4368,
         "drawdown": -0.0759
       },
       {
         "date": "2026-04-13",
-        "value": 1450493.43,
+        "value": 1450493.24,
         "cum_return": 0.4505,
         "drawdown": -0.0671
       },
       {
         "date": "2026-04-14",
-        "value": 1469097.71,
+        "value": 1469097.51,
         "cum_return": 0.4691,
         "drawdown": -0.0552
       },
       {
         "date": "2026-04-15",
-        "value": 1461427.03,
+        "value": 1461426.83,
         "cum_return": 0.4614,
         "drawdown": -0.0601
       },
       {
         "date": "2026-04-16",
-        "value": 1486850.02,
-        "cum_return": 0.4869,
+        "value": 1486849.83,
+        "cum_return": 0.4868,
         "drawdown": -0.0438
       },
       {
         "date": "2026-04-17",
-        "value": 1495120.58,
+        "value": 1495120.38,
         "cum_return": 0.4951,
         "drawdown": -0.0384
       },
       {
         "date": "2026-04-20",
-        "value": 1507467.77,
+        "value": 1507467.57,
         "cum_return": 0.5075,
         "drawdown": -0.0305
       },
       {
         "date": "2026-04-21",
-        "value": 1504874.01,
+        "value": 1504873.82,
         "cum_return": 0.5049,
         "drawdown": -0.0322
       },
       {
         "date": "2026-04-22",
-        "value": 1524762.45,
+        "value": 1524762.25,
         "cum_return": 0.5248,
         "drawdown": -0.0194
       },
       {
         "date": "2026-04-23",
-        "value": 1510009.46,
+        "value": 1510009.26,
         "cum_return": 0.51,
         "drawdown": -0.0289
       },
       {
         "date": "2026-04-24",
-        "value": 1509344.32,
+        "value": 1509344.13,
         "cum_return": 0.5093,
         "drawdown": -0.0293
       },
       {
         "date": "2026-04-27",
-        "value": 1523017.39,
+        "value": 1523017.19,
         "cum_return": 0.523,
         "drawdown": -0.0205
       },
       {
         "date": "2026-04-28",
-        "value": 1506411.8,
+        "value": 1506411.6,
         "cum_return": 0.5064,
         "drawdown": -0.0312
       },
       {
         "date": "2026-04-29",
-        "value": 1519273.46,
+        "value": 1519273.25,
         "cum_return": 0.5193,
         "drawdown": -0.0229
       },
       {
         "date": "2026-04-30",
-        "value": 1546324.03,
+        "value": 1546323.87,
         "cum_return": 0.5463,
         "drawdown": -0.0055
       },
       {
         "date": "2026-05-06",
-        "value": 1596110.71,
+        "value": 1596110.61,
         "cum_return": 0.5961,
         "drawdown": 0.0
       },
       {
         "date": "2026-05-07",
-        "value": 1617001.17,
+        "value": 1617001.09,
         "cum_return": 0.617,
         "drawdown": 0.0
       },
       {
         "date": "2026-05-08",
-        "value": 1597719.04,
+        "value": 1597718.93,
         "cum_return": 0.5977,
         "drawdown": -0.0119
       },
       {
         "date": "2026-05-11",
-        "value": 1653717.19,
+        "value": 1653717.14,
         "cum_return": 0.6537,
         "drawdown": 0.0
       },
       {
         "date": "2026-05-12",
-        "value": 1652681.3,
+        "value": 1652681.25,
         "cum_return": 0.6527,
         "drawdown": -0.0006
       },
       {
         "date": "2026-05-13",
-        "value": 1690839.89,
+        "value": 1690839.81,
         "cum_return": 0.6908,
         "drawdown": 0.0
       },
       {
         "date": "2026-05-14",
-        "value": 1653252.79,
+        "value": 1653252.73,
         "cum_return": 0.6533,
         "drawdown": -0.0222
       },
       {
         "date": "2026-05-15",
-        "value": 1636470.38,
+        "value": 1636470.32,
         "cum_return": 0.6365,
         "drawdown": -0.0322
       },
       {
         "date": "2026-05-18",
-        "value": 1640955.26,
+        "value": 1640955.19,
         "cum_return": 0.641,
         "drawdown": -0.0295
       },
       {
         "date": "2026-05-19",
-        "value": 1663962.04,
+        "value": 1663961.98,
         "cum_return": 0.664,
         "drawdown": -0.0159
       },
       {
         "date": "2026-05-20",
-        "value": 1689136.75,
+        "value": 1689136.68,
         "cum_return": 0.6891,
         "drawdown": -0.001
       },
       {
         "date": "2026-05-21",
-        "value": 1642096.5,
+        "value": 1642096.43,
         "cum_return": 0.6421,
         "drawdown": -0.0288
       },
       {
         "date": "2026-05-22",
-        "value": 1679504.69,
+        "value": 1679504.63,
         "cum_return": 0.6795,
         "drawdown": -0.0067
       },
       {
         "date": "2026-05-25",
-        "value": 1738647.66,
+        "value": 1738647.59,
         "cum_return": 0.7386,
         "drawdown": 0.0
       },
       {
         "date": "2026-05-26",
-        "value": 1735187.32,
+        "value": 1735187.25,
         "cum_return": 0.7352,
         "drawdown": -0.002
       },
       {
         "date": "2026-05-27",
-        "value": 1708620.37,
+        "value": 1708620.32,
         "cum_return": 0.7086,
         "drawdown": -0.0173
       },
       {
         "date": "2026-05-28",
-        "value": 1726863.11,
+        "value": 1726863.05,
         "cum_return": 0.7269,
         "drawdown": -0.0068
       },
       {
         "date": "2026-05-29",
-        "value": 1676055.68,
+        "value": 1676055.64,
         "cum_return": 0.6761,
         "drawdown": -0.036
       },
       {
         "date": "2026-06-01",
-        "value": 1632179.18,
+        "value": 1632179.17,
         "cum_return": 0.6322,
         "drawdown": -0.0612
       },
       {
         "date": "2026-06-02",
-        "value": 1644339.91,
+        "value": 1644339.9,
         "cum_return": 0.6443,
         "drawdown": -0.0542
       },
       {
         "date": "2026-06-03",
-        "value": 1667524.45,
+        "value": 1667524.44,
         "cum_return": 0.6675,
         "drawdown": -0.0409
       },
       {
         "date": "2026-06-04",
-        "value": 1670771.73,
+        "value": 1670771.72,
         "cum_return": 0.6708,
         "drawdown": -0.039
       },
       {
         "date": "2026-06-05",
-        "value": 1642581.65,
+        "value": 1642581.63,
         "cum_return": 0.6426,
         "drawdown": -0.0553
       },
       {
         "date": "2026-06-08",
-        "value": 1617179.59,
+        "value": 1617179.58,
         "cum_return": 0.6172,
         "drawdown": -0.0699
       },
       {
         "date": "2026-06-09",
-        "value": 1642844.62,
+        "value": 1642844.64,
         "cum_return": 0.6428,
         "drawdown": -0.0551
       },
       {
         "date": "2026-06-10",
-        "value": 1621659.42,
+        "value": 1621659.43,
         "cum_return": 0.6217,
         "drawdown": -0.0673
       },
       {
         "date": "2026-06-11",
-        "value": 1618850.29,
+        "value": 1618850.32,
         "cum_return": 0.6189,
         "drawdown": -0.0689
       },
       {
         "date": "2026-06-12",
-        "value": 1628136.55,
+        "value": 1628136.57,
         "cum_return": 0.6281,
         "drawdown": -0.0636
       },
       {
         "date": "2026-06-15",
-        "value": 1654960.38,
+        "value": 1654960.47,
         "cum_return": 0.655,
         "drawdown": -0.0481
       },
       {
         "date": "2026-06-16",
-        "value": 1657575.81,
+        "value": 1657575.9,
         "cum_return": 0.6576,
         "drawdown": -0.0466
       },
       {
         "date": "2026-06-17",
-        "value": 1699371.97,
+        "value": 1699372.06,
         "cum_return": 0.6994,
         "drawdown": -0.0226
       },
       {
         "date": "2026-06-18",
-        "value": 1723656.07,
+        "value": 1723656.16,
         "cum_return": 0.7237,
         "drawdown": -0.0086
       },
       {
         "date": "2026-06-22",
-        "value": 1764739.61,
+        "value": 1764739.7,
         "cum_return": 0.7647,
         "drawdown": 0.0
       },
       {
         "date": "2026-06-23",
-        "value": 1729988.47,
+        "value": 1729988.56,
         "cum_return": 0.73,
         "drawdown": -0.0197
       },
       {
         "date": "2026-06-24",
-        "value": 1769586.29,
+        "value": 1769586.34,
         "cum_return": 0.7696,
         "drawdown": 0.0
       },
       {
         "date": "2026-06-25",
-        "value": 1827459.16,
+        "value": 1827459.17,
         "cum_return": 0.8275,
         "drawdown": 0.0
       },
       {
         "date": "2026-06-26",
-        "value": 1785964.31,
+        "value": 1785964.33,
         "cum_return": 0.786,
         "drawdown": -0.0227
       },
       {
         "date": "2026-06-29",
-        "value": 1841398.9,
+        "value": 1841398.87,
         "cum_return": 0.8414,
         "drawdown": 0.0
       },
       {
         "date": "2026-06-30",
-        "value": 1885322.19,
+        "value": 1885322.13,
         "cum_return": 0.8853,
         "drawdown": 0.0
       },
       {
         "date": "2026-07-01",
-        "value": 1859206.6,
+        "value": 1859206.56,
         "cum_return": 0.8592,
         "drawdown": -0.0139
       },
       {
         "date": "2026-07-02",
-        "value": 1746880.86,
+        "value": 1746880.9,
         "cum_return": 0.7469,
         "drawdown": -0.0734
+      },
+      {
+        "date": "2026-07-03",
+        "value": 1746463.11,
+        "cum_return": 0.7465,
+        "drawdown": -0.0737
       }
     ],
     "benchmarks": {
@@ -6326,7 +6332,7 @@
         },
         {
           "date": "2025-11-11",
-          "strategy": 0.435,
+          "strategy": 0.4349,
           "equal_weight_all": 0.3847,
           "hs300": 0.3794
         },
@@ -6944,7 +6950,7 @@
         },
         {
           "date": "2026-04-16",
-          "strategy": 0.4869,
+          "strategy": 0.4868,
           "equal_weight_all": 0.4001,
           "hs300": 0.3745
         },
@@ -7253,32 +7259,38 @@
           "strategy": 0.7469,
           "equal_weight_all": 0.436,
           "hs300": 0.4046
+        },
+        {
+          "date": "2026-07-03",
+          "strategy": 0.7465,
+          "equal_weight_all": 0.4423,
+          "hs300": 0.4121
         }
       ],
       "summary": {
         "equal_weight_all": {
-          "final_value": 1436042.86,
-          "total_return": 0.436,
-          "annual_return": 0.1558,
+          "final_value": 1442313.83,
+          "total_return": 0.4423,
+          "annual_return": 0.1577,
           "max_drawdown": -0.1544,
-          "sharpe_ratio": 0.83
+          "sharpe_ratio": 0.84
         },
         "hs300": {
-          "final_value": 1404575.73,
-          "total_return": 0.4046,
-          "annual_return": 0.1456,
+          "final_value": 1412105.42,
+          "total_return": 0.4121,
+          "annual_return": 0.1479,
           "max_drawdown": -0.1625,
-          "sharpe_ratio": 0.84
+          "sharpe_ratio": 0.85
         }
       }
     },
     "metadata": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-07-02 20:24:32",
+      "generated_at": "2026-07-03 20:19:34",
       "git": {
-        "commit": "cdeba6bf5b15eb08a103261e39a0df3554017f49",
-        "commit_short": "cdeba6bf",
+        "commit": "792e2c1d806de03378c2e8af53675ec7ff0476ef",
+        "commit_short": "792e2c1d",
         "branch": "main",
         "dirty": true
       },
@@ -7352,19 +7364,19 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260702"
+        "end": "20260703"
       },
       "actual_period": {
         "start": "2024-01-02",
-        "end": "2026-07-02"
+        "end": "2026-07-03"
       },
-      "trading_days": 603,
+      "trading_days": 604,
       "summary": {
-        "final_value": 1746880.86,
-        "total_return": 0.746881,
-        "annual_return": 0.250139,
+        "final_value": 1746463.11,
+        "total_return": 0.746463,
+        "annual_return": 0.249714,
         "max_drawdown": -0.168358,
-        "sharpe": 1.105389
+        "sharpe": 1.104044
       }
     }
   },
@@ -8156,17 +8168,17 @@
       "name": "科技指数",
       "etf": "515000",
       "rank": 1,
-      "score": 0.9463,
+      "score": 0.9428,
       "factors": {
-        "price_strength": 0.9339,
+        "price_strength": 0.9256,
         "flow": 0.955
       },
       "attribution": {
-        "momentum_6m_return": 49.53,
-        "momentum_1m_return": 11.92,
-        "volatility_annual": 29.9,
+        "momentum_6m_return": 46.93,
+        "momentum_1m_return": 9.27,
+        "volatility_annual": 29.88,
         "trend_breakdown": {
-          "price_vs_ma20": 0.6322,
+          "price_vs_ma20": 0.6348,
           "price_vs_ma60": 1.0,
           "ma20_vs_ma60": 1.0,
           "ma20_slope": 1.0
@@ -8177,11 +8189,11 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 2.12,
-        "price_vs_ma60": 17.03,
+        "price_vs_ma20": 2.16,
+        "price_vs_ma60": 16.63,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 14.6,
-        "ma20_slope_10d": 8.5,
+        "ma20_vs_ma60": 14.17,
+        "ma20_slope_10d": 7.86,
         "trend_overextension_penalty": 0.0,
         "value_percentile": 96.03,
         "value_assessment": "高估",
@@ -8194,9 +8206,9 @@
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 49.68,
-        "index_return": 59.09,
-        "benchmark_return": 9.41,
+        "relative_return": 49.17,
+        "index_return": 58.73,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8205,20 +8217,20 @@
       "name": "证券指数",
       "etf": "512000",
       "rank": 2,
-      "score": 0.777,
+      "score": 0.8027,
       "factors": {
-        "price_strength": 0.6328,
-        "flow": 0.8792
+        "price_strength": 0.6409,
+        "flow": 0.9175
       },
       "attribution": {
-        "momentum_6m_return": -3.53,
-        "momentum_1m_return": 11.12,
-        "volatility_annual": 27.67,
+        "momentum_6m_return": -2.98,
+        "momentum_1m_return": 11.66,
+        "volatility_annual": 27.66,
         "trend_breakdown": {
-          "price_vs_ma20": 0.8991,
-          "price_vs_ma60": 0.8199,
-          "ma20_vs_ma60": 0.5608,
-          "ma20_slope": 0.9147
+          "price_vs_ma20": 0.8942,
+          "price_vs_ma60": 0.8346,
+          "ma20_vs_ma60": 0.5811,
+          "ma20_slope": 0.9804
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8226,26 +8238,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 6.39,
-        "price_vs_ma60": 7.68,
+        "price_vs_ma20": 6.31,
+        "price_vs_ma60": 8.03,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 1.22,
-        "ma20_slope_10d": 4.15,
+        "ma20_vs_ma60": 1.62,
+        "ma20_slope_10d": 4.8,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 36.9,
+        "value_percentile": 38.1,
         "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.9346,
-          "flow_intensity": 0.75
+          "amount_trend": 0.9679,
+          "flow_intensity": 0.8
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 3.78,
-        "index_return": 13.2,
-        "benchmark_return": 9.41,
+        "relative_return": 4.49,
+        "index_return": 14.05,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8254,17 +8266,17 @@
       "name": "科创 50",
       "etf": "588000",
       "rank": 3,
-      "score": 0.7215,
+      "score": 0.7177,
       "factors": {
-        "price_strength": 0.9858,
-        "flow": 0.534
+        "price_strength": 0.9529,
+        "flow": 0.5508
       },
       "attribution": {
-        "momentum_6m_return": 46.98,
-        "momentum_1m_return": 18.72,
-        "volatility_annual": 34.1,
+        "momentum_6m_return": 44.36,
+        "momentum_1m_return": 15.56,
+        "volatility_annual": 34.08,
         "trend_breakdown": {
-          "price_vs_ma20": 0.9674,
+          "price_vs_ma20": 0.8682,
           "price_vs_ma60": 1.0,
           "ma20_vs_ma60": 1.0,
           "ma20_slope": 1.0
@@ -8275,26 +8287,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 7.48,
-        "price_vs_ma60": 19.41,
+        "price_vs_ma20": 5.89,
+        "price_vs_ma60": 17.59,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 11.1,
-        "ma20_slope_10d": 7.46,
+        "ma20_vs_ma60": 11.05,
+        "ma20_slope_10d": 7.73,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 97.62,
+        "value_percentile": 97.22,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.5057,
+          "amount_trend": 0.5297,
           "flow_intensity": 0.6
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 50.63,
-        "index_return": 60.05,
-        "benchmark_return": 9.41,
+        "relative_return": 47.07,
+        "index_return": 56.63,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8303,15 +8315,15 @@
       "name": "半导体指数",
       "etf": "512480",
       "rank": 4,
-      "score": 0.6239,
+      "score": 0.6398,
       "factors": {
         "price_strength": 1.0,
-        "flow": 0.3571
+        "flow": 0.3843
       },
       "attribution": {
-        "momentum_6m_return": 71.28,
-        "momentum_1m_return": 27.89,
-        "volatility_annual": 36.59,
+        "momentum_6m_return": 68.56,
+        "momentum_1m_return": 24.52,
+        "volatility_annual": 36.57,
         "trend_breakdown": {
           "price_vs_ma20": 1.0,
           "price_vs_ma60": 1.0,
@@ -8324,26 +8336,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 10.49,
-        "price_vs_ma60": 30.57,
+        "price_vs_ma20": 9.36,
+        "price_vs_ma60": 29.23,
         "ma20_above_ma60": true,
         "ma20_vs_ma60": 18.17,
-        "ma20_slope_10d": 12.14,
+        "ma20_slope_10d": 12.4,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 97.62,
+        "value_percentile": 97.22,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.403,
-          "flow_intensity": 0.25
+          "amount_trend": 0.4205,
+          "flow_intensity": 0.3
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 81.67,
-        "index_return": 91.08,
-        "benchmark_return": 9.41,
+        "relative_return": 78.33,
+        "index_return": 87.89,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8352,20 +8364,20 @@
       "name": "创业板指",
       "etf": "159915",
       "rank": 5,
-      "score": 0.5921,
+      "score": 0.588,
       "factors": {
-        "price_strength": 0.6697,
-        "flow": 0.537
+        "price_strength": 0.6573,
+        "flow": 0.5388
       },
       "attribution": {
-        "momentum_6m_return": 28.55,
-        "momentum_1m_return": 0.05,
-        "volatility_annual": 32.6,
+        "momentum_6m_return": 26.39,
+        "momentum_1m_return": -1.75,
+        "volatility_annual": 32.58,
         "trend_breakdown": {
-          "price_vs_ma20": 0.3728,
-          "price_vs_ma60": 0.661,
-          "ma20_vs_ma60": 0.8011,
-          "ma20_slope": 0.7907
+          "price_vs_ma20": 0.379,
+          "price_vs_ma60": 0.6455,
+          "ma20_vs_ma60": 0.7767,
+          "ma20_slope": 0.7288
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8373,26 +8385,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -2.04,
-        "price_vs_ma60": 3.86,
+        "price_vs_ma20": -1.94,
+        "price_vs_ma60": 3.49,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 6.02,
-        "ma20_slope_10d": 2.91,
+        "ma20_vs_ma60": 5.53,
+        "ma20_slope_10d": 2.29,
         "trend_overextension_penalty": 0.0,
         "value_percentile": 91.67,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.5315,
+          "amount_trend": 0.534,
           "flow_intensity": 0.55
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 19.08,
-        "index_return": 28.49,
-        "benchmark_return": 9.41,
+        "relative_return": 18.56,
+        "index_return": 28.12,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8401,20 +8413,20 @@
       "name": "医药指数",
       "etf": "512010",
       "rank": 6,
-      "score": 0.5569,
+      "score": 0.5831,
       "factors": {
-        "price_strength": 0.5088,
-        "flow": 0.5911
+        "price_strength": 0.5456,
+        "flow": 0.6098
       },
       "attribution": {
-        "momentum_6m_return": -7.04,
-        "momentum_1m_return": 6.47,
+        "momentum_6m_return": -5.1,
+        "momentum_1m_return": 9.94,
         "volatility_annual": 23.7,
         "trend_breakdown": {
-          "price_vs_ma20": 0.9284,
-          "price_vs_ma60": 0.5658,
-          "ma20_vs_ma60": 0.2532,
-          "ma20_slope": 0.5436
+          "price_vs_ma20": 1.0,
+          "price_vs_ma60": 0.638,
+          "ma20_vs_ma60": 0.2813,
+          "ma20_slope": 0.6357
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8422,26 +8434,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 6.85,
-        "price_vs_ma60": 1.58,
+        "price_vs_ma20": 8.04,
+        "price_vs_ma60": 3.31,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -4.94,
-        "ma20_slope_10d": 0.44,
+        "ma20_vs_ma60": -4.37,
+        "ma20_slope_10d": 1.36,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 13.49,
+        "value_percentile": 16.27,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.5663,
-          "flow_intensity": 0.75
+          "amount_trend": 0.5806,
+          "flow_intensity": 0.8
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -12.4,
-        "index_return": -2.99,
-        "benchmark_return": 9.41,
+        "relative_return": -11.18,
+        "index_return": -1.63,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8450,20 +8462,20 @@
       "name": "沪深 300",
       "etf": "510300",
       "rank": 7,
-      "score": 0.5311,
+      "score": 0.5345,
       "factors": {
-        "price_strength": 0.5044,
+        "price_strength": 0.5126,
         "flow": 0.55
       },
       "attribution": {
-        "momentum_6m_return": 4.2,
-        "momentum_1m_return": -1.48,
-        "volatility_annual": 17.58,
+        "momentum_6m_return": 3.84,
+        "momentum_1m_return": -1.53,
+        "volatility_annual": 17.57,
         "trend_breakdown": {
-          "price_vs_ma20": 0.4212,
-          "price_vs_ma60": 0.5028,
-          "ma20_vs_ma60": 0.5672,
-          "ma20_slope": 0.5645
+          "price_vs_ma20": 0.4574,
+          "price_vs_ma60": 0.519,
+          "ma20_vs_ma60": 0.5573,
+          "ma20_slope": 0.5413
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8471,26 +8483,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -1.26,
-        "price_vs_ma60": 0.07,
+        "price_vs_ma20": -0.68,
+        "price_vs_ma60": 0.46,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 1.34,
-        "ma20_slope_10d": 0.65,
+        "ma20_vs_ma60": 1.15,
+        "ma20_slope_10d": 0.41,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 82.54,
+        "value_percentile": 86.51,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.7365,
-          "flow_intensity": 0.55
+          "amount_trend": 0.8997,
+          "flow_intensity": 0.6
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -0.52,
-        "index_return": 8.89,
-        "benchmark_return": 9.41,
+        "relative_return": 0.11,
+        "index_return": 9.67,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8499,20 +8511,20 @@
       "name": "金融指数",
       "etf": "510230",
       "rank": 8,
-      "score": 0.4869,
+      "score": 0.4915,
       "factors": {
-        "price_strength": 0.398,
+        "price_strength": 0.409,
         "flow": 0.55
       },
       "attribution": {
-        "momentum_6m_return": -12.16,
-        "momentum_1m_return": -1.33,
-        "volatility_annual": 19.0,
+        "momentum_6m_return": -11.49,
+        "momentum_1m_return": -0.45,
+        "volatility_annual": 18.99,
         "trend_breakdown": {
-          "price_vs_ma20": 0.4142,
-          "price_vs_ma60": 0.4085,
-          "ma20_vs_ma60": 0.4583,
-          "ma20_slope": 0.5048
+          "price_vs_ma20": 0.4325,
+          "price_vs_ma60": 0.4234,
+          "ma20_vs_ma60": 0.4617,
+          "ma20_slope": 0.5087
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8520,75 +8532,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -1.37,
-        "price_vs_ma60": -2.2,
+        "price_vs_ma20": -1.08,
+        "price_vs_ma60": -1.84,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -0.83,
-        "ma20_slope_10d": 0.05,
+        "ma20_vs_ma60": -0.77,
+        "ma20_slope_10d": 0.09,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 3.97,
+        "value_percentile": 5.56,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.943,
-          "flow_intensity": 0.7
+          "amount_trend": 1,
+          "flow_intensity": 0.75
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -12.45,
-        "index_return": -3.04,
-        "benchmark_return": 9.41,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000852.SH",
-      "name": "中证 1000",
-      "etf": "512100",
-      "rank": 9,
-      "score": 0.484,
-      "factors": {
-        "price_strength": 0.605,
-        "flow": 0.3982
-      },
-      "attribution": {
-        "momentum_6m_return": 17.66,
-        "momentum_1m_return": 3.91,
-        "volatility_annual": 24.75,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.5692,
-          "price_vs_ma60": 0.6063,
-          "ma20_vs_ma60": 0.5713,
-          "ma20_slope": 0.6459
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": 1.11,
-        "price_vs_ma60": 2.55,
-        "ma20_above_ma60": true,
-        "ma20_vs_ma60": 1.43,
-        "ma20_slope_10d": 1.46,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 91.27,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.3546,
-          "flow_intensity": 0.5
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": 6.18,
-        "index_return": 15.6,
-        "benchmark_return": 9.41,
+        "relative_return": -11.29,
+        "index_return": -1.73,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8596,21 +8559,21 @@
       "code": "399986.SZ",
       "name": "银行指数",
       "etf": "512800",
-      "rank": 10,
-      "score": 0.4703,
+      "rank": 9,
+      "score": 0.4716,
       "factors": {
-        "price_strength": 0.3579,
+        "price_strength": 0.3612,
         "flow": 0.55
       },
       "attribution": {
-        "momentum_6m_return": -9.15,
-        "momentum_1m_return": -5.28,
-        "volatility_annual": 16.23,
+        "momentum_6m_return": -8.68,
+        "momentum_1m_return": -4.53,
+        "volatility_annual": 16.22,
         "trend_breakdown": {
-          "price_vs_ma20": 0.2885,
-          "price_vs_ma60": 0.3154,
-          "ma20_vs_ma60": 0.4458,
-          "ma20_slope": 0.375
+          "price_vs_ma20": 0.291,
+          "price_vs_ma60": 0.3143,
+          "ma20_vs_ma60": 0.4424,
+          "ma20_slope": 0.3609
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8618,26 +8581,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -3.38,
-        "price_vs_ma60": -4.43,
+        "price_vs_ma20": -3.34,
+        "price_vs_ma60": -4.46,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -1.08,
-        "ma20_slope_10d": -1.25,
+        "ma20_vs_ma60": -1.15,
+        "ma20_slope_10d": -1.39,
         "trend_overextension_penalty": 0.0,
         "value_percentile": 1.19,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
           "amount_trend": 1,
-          "flow_intensity": 0.85
+          "flow_intensity": 0.9
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -15.56,
-        "index_return": -6.15,
-        "benchmark_return": 9.41,
+        "relative_return": -14.76,
+        "index_return": -5.2,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8645,21 +8608,21 @@
       "code": "000922.CSI",
       "name": "红利指数",
       "etf": "510880",
-      "rank": 11,
-      "score": 0.4582,
+      "rank": 10,
+      "score": 0.4689,
       "factors": {
-        "price_strength": 0.3289,
+        "price_strength": 0.3545,
         "flow": 0.55
       },
       "attribution": {
-        "momentum_6m_return": -5.1,
-        "momentum_1m_return": -9.85,
+        "momentum_6m_return": -3.59,
+        "momentum_1m_return": -9.3,
         "volatility_annual": 15.65,
         "trend_breakdown": {
-          "price_vs_ma20": 0.2026,
-          "price_vs_ma60": 0.2175,
-          "ma20_vs_ma60": 0.3939,
-          "ma20_slope": 0.1909
+          "price_vs_ma20": 0.2934,
+          "price_vs_ma60": 0.2616,
+          "ma20_vs_ma60": 0.3751,
+          "ma20_slope": 0.1552
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8667,26 +8630,75 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -4.76,
-        "price_vs_ma60": -6.78,
+        "price_vs_ma20": -3.31,
+        "price_vs_ma60": -5.72,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -2.12,
-        "ma20_slope_10d": -3.09,
+        "ma20_vs_ma60": -2.5,
+        "ma20_slope_10d": -3.45,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 1.59,
+        "value_percentile": 2.38,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.8489,
+          "amount_trend": 0.9092,
           "flow_intensity": 0.8
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -16.35,
-        "index_return": -6.93,
-        "benchmark_return": 9.41,
+        "relative_return": -15.88,
+        "index_return": -6.32,
+        "benchmark_return": 9.56,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000852.SH",
+      "name": "中证 1000",
+      "etf": "512100",
+      "rank": 11,
+      "score": 0.4669,
+      "factors": {
+        "price_strength": 0.5938,
+        "flow": 0.3768
+      },
+      "attribution": {
+        "momentum_6m_return": 16.67,
+        "momentum_1m_return": 3.2,
+        "volatility_annual": 24.74,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.5544,
+          "price_vs_ma60": 0.5928,
+          "ma20_vs_ma60": 0.5673,
+          "ma20_slope": 0.6443
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": 0.87,
+        "price_vs_ma60": 2.23,
+        "ma20_above_ma60": true,
+        "ma20_vs_ma60": 1.35,
+        "ma20_slope_10d": 1.44,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 90.48,
+        "value_assessment": "高估",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.3455,
+          "flow_intensity": 0.45
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": 4.99,
+        "index_return": 14.55,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8695,19 +8707,19 @@
       "name": "煤炭指数",
       "etf": "515220",
       "rank": 12,
-      "score": 0.4441,
+      "score": 0.4474,
       "factors": {
-        "price_strength": 0.2948,
+        "price_strength": 0.3028,
         "flow": 0.55
       },
       "attribution": {
-        "momentum_6m_return": 4.4,
-        "momentum_1m_return": -19.3,
-        "volatility_annual": 26.44,
+        "momentum_6m_return": 5.68,
+        "momentum_1m_return": -22.15,
+        "volatility_annual": 26.43,
         "trend_breakdown": {
-          "price_vs_ma20": 0.0,
-          "price_vs_ma60": 0.0589,
-          "ma20_vs_ma60": 0.4391,
+          "price_vs_ma20": 0.0438,
+          "price_vs_ma60": 0.1034,
+          "ma20_vs_ma60": 0.3803,
           "ma20_slope": 0.0
         },
         "trend_weights": {
@@ -8716,75 +8728,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -9.48,
-        "price_vs_ma60": -10.59,
+        "price_vs_ma20": -7.3,
+        "price_vs_ma60": -9.52,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -1.22,
-        "ma20_slope_10d": -5.76,
+        "ma20_vs_ma60": -2.39,
+        "ma20_slope_10d": -6.85,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 43.25,
+        "value_percentile": 45.24,
         "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.7209,
-          "flow_intensity": 0.8
+          "amount_trend": 0.558,
+          "flow_intensity": 0.75
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -16.88,
-        "index_return": -7.47,
-        "benchmark_return": 9.41,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399808.SZ",
-      "name": "新能源指数",
-      "etf": "516160",
-      "rank": 13,
-      "score": 0.4027,
-      "factors": {
-        "price_strength": 0.3882,
-        "flow": 0.413
-      },
-      "attribution": {
-        "momentum_6m_return": 6.59,
-        "momentum_1m_return": -6.35,
-        "volatility_annual": 29.25,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.3258,
-          "price_vs_ma60": 0.187,
-          "ma20_vs_ma60": 0.2571,
-          "ma20_slope": 0.216
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": -2.79,
-        "price_vs_ma60": -7.51,
-        "ma20_above_ma60": false,
-        "ma20_vs_ma60": -4.86,
-        "ma20_slope_10d": -2.84,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 46.83,
-        "value_assessment": "合理",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.4186,
-          "flow_intensity": 0.4
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": -8.99,
-        "index_return": 0.42,
-        "benchmark_return": 9.41,
+        "relative_return": -18.61,
+        "index_return": -9.05,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8792,21 +8755,21 @@
       "code": "399965.SZ",
       "name": "恒生指数",
       "etf": "159920",
-      "rank": 14,
-      "score": 0.3558,
+      "rank": 13,
+      "score": 0.4084,
       "factors": {
-        "price_strength": 0.2874,
-        "flow": 0.4042
+        "price_strength": 0.3217,
+        "flow": 0.4698
       },
       "attribution": {
-        "momentum_6m_return": -13.46,
-        "momentum_1m_return": -10.88,
-        "volatility_annual": 20.96,
+        "momentum_6m_return": -12.12,
+        "momentum_1m_return": -8.48,
+        "volatility_annual": 20.97,
         "trend_breakdown": {
-          "price_vs_ma20": 0.2824,
-          "price_vs_ma60": 0.1465,
-          "ma20_vs_ma60": 0.2409,
-          "ma20_slope": 0.0665
+          "price_vs_ma20": 0.394,
+          "price_vs_ma60": 0.2073,
+          "ma20_vs_ma60": 0.229,
+          "ma20_slope": 0.0617
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8814,26 +8777,124 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -3.48,
-        "price_vs_ma60": -8.48,
+        "price_vs_ma20": -1.7,
+        "price_vs_ma60": -7.02,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -5.18,
-        "ma20_slope_10d": -4.33,
+        "ma20_vs_ma60": -5.42,
+        "ma20_slope_10d": -4.38,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 1.19,
+        "value_percentile": 2.78,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.3632,
-          "flow_intensity": 0.5
+          "amount_trend": 0.4355,
+          "flow_intensity": 0.55
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -18.08,
-        "index_return": -8.66,
-        "benchmark_return": 9.41,
+        "relative_return": -17.0,
+        "index_return": -7.44,
+        "benchmark_return": 9.56,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399808.SZ",
+      "name": "新能源指数",
+      "etf": "516160",
+      "rank": 14,
+      "score": 0.3968,
+      "factors": {
+        "price_strength": 0.3736,
+        "flow": 0.4133
+      },
+      "attribution": {
+        "momentum_6m_return": 4.61,
+        "momentum_1m_return": -6.35,
+        "volatility_annual": 29.24,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.312,
+          "price_vs_ma60": 0.1683,
+          "ma20_vs_ma60": 0.2446,
+          "ma20_slope": 0.2138
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": -3.01,
+        "price_vs_ma60": -7.96,
+        "ma20_above_ma60": false,
+        "ma20_vs_ma60": -5.11,
+        "ma20_slope_10d": -2.86,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 44.05,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.419,
+          "flow_intensity": 0.4
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": -9.94,
+        "index_return": -0.38,
+        "benchmark_return": 9.56,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399967.SZ",
+      "name": "军工指数",
+      "etf": "512660",
+      "rank": 15,
+      "score": 0.3878,
+      "factors": {
+        "price_strength": 0.4892,
+        "flow": 0.3158
+      },
+      "attribution": {
+        "momentum_6m_return": 6.48,
+        "momentum_1m_return": 2.59,
+        "volatility_annual": 29.01,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.7026,
+          "price_vs_ma60": 0.3931,
+          "ma20_vs_ma60": 0.2188,
+          "ma20_slope": 0.3269
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": 3.24,
+        "price_vs_ma60": -2.57,
+        "ma20_above_ma60": false,
+        "ma20_vs_ma60": -5.62,
+        "ma20_slope_10d": -1.73,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 61.9,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.2349,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": -7.04,
+        "index_return": 2.52,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8841,21 +8902,21 @@
       "code": "000988.CSI",
       "name": "制造指数",
       "etf": "516880",
-      "rank": 15,
-      "score": 0.3267,
+      "rank": 16,
+      "score": 0.3275,
       "factors": {
-        "price_strength": 0.374,
-        "flow": 0.2932
+        "price_strength": 0.3412,
+        "flow": 0.3178
       },
       "attribution": {
-        "momentum_6m_return": 7.03,
-        "momentum_1m_return": -7.1,
+        "momentum_6m_return": 4.44,
+        "momentum_1m_return": -9.34,
         "volatility_annual": 31.35,
         "trend_breakdown": {
-          "price_vs_ma20": 0.2488,
-          "price_vs_ma60": 0.1774,
-          "ma20_vs_ma60": 0.306,
-          "ma20_slope": 0.1223
+          "price_vs_ma20": 0.1919,
+          "price_vs_ma60": 0.1226,
+          "ma20_vs_ma60": 0.2829,
+          "ma20_slope": 0.1053
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8863,26 +8924,75 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -4.02,
-        "price_vs_ma60": -7.74,
+        "price_vs_ma20": -4.93,
+        "price_vs_ma60": -9.06,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -3.88,
-        "ma20_slope_10d": -3.78,
+        "ma20_vs_ma60": -4.34,
+        "ma20_slope_10d": -3.95,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 45.24,
+        "value_percentile": 42.06,
         "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.2689,
-          "flow_intensity": 0.35
+          "amount_trend": 0.2826,
+          "flow_intensity": 0.4
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -10.02,
-        "index_return": -0.6,
-        "benchmark_return": 9.41,
+        "relative_return": -11.73,
+        "index_return": -2.17,
+        "benchmark_return": 9.56,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000905.SH",
+      "name": "中证 500",
+      "etf": "510500",
+      "rank": 17,
+      "score": 0.3185,
+      "factors": {
+        "price_strength": 0.6451,
+        "flow": 0.0868
+      },
+      "attribution": {
+        "momentum_6m_return": 20.67,
+        "momentum_1m_return": 5.54,
+        "volatility_annual": 22.47,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.6502,
+          "price_vs_ma60": 0.6778,
+          "ma20_vs_ma60": 0.591,
+          "ma20_slope": 0.7518
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": 2.4,
+        "price_vs_ma60": 4.27,
+        "ma20_above_ma60": true,
+        "ma20_vs_ma60": 1.82,
+        "ma20_slope_10d": 2.52,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 96.43,
+        "value_assessment": "高估",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.0811,
+          "flow_intensity": 0.1
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": 7.11,
+        "index_return": 16.67,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8890,21 +9000,21 @@
       "code": "000932.CSI",
       "name": "消费指数",
       "etf": "159928",
-      "rank": 16,
-      "score": 0.3177,
+      "rank": 18,
+      "score": 0.3174,
       "factors": {
-        "price_strength": 0.2426,
-        "flow": 0.371
+        "price_strength": 0.2485,
+        "flow": 0.3662
       },
       "attribution": {
-        "momentum_6m_return": -24.66,
-        "momentum_1m_return": -7.74,
-        "volatility_annual": 21.25,
+        "momentum_6m_return": -24.41,
+        "momentum_1m_return": -6.27,
+        "volatility_annual": 21.23,
         "trend_breakdown": {
-          "price_vs_ma20": 0.4423,
-          "price_vs_ma60": 0.1124,
-          "ma20_vs_ma60": 0.0771,
-          "ma20_slope": 0.0251
+          "price_vs_ma20": 0.4575,
+          "price_vs_ma60": 0.1232,
+          "ma20_vs_ma60": 0.079,
+          "ma20_slope": 0.0499
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8912,26 +9022,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -0.92,
-        "price_vs_ma60": -9.3,
+        "price_vs_ma20": -0.68,
+        "price_vs_ma60": -9.04,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -8.46,
-        "ma20_slope_10d": -4.75,
+        "ma20_vs_ma60": -8.42,
+        "ma20_slope_10d": -4.5,
         "trend_overextension_penalty": 0.0,
         "value_percentile": 3.17,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.3372,
+          "amount_trend": 0.3303,
           "flow_intensity": 0.45
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -25.34,
-        "index_return": -15.93,
-        "benchmark_return": 9.41,
+        "relative_return": -25.26,
+        "index_return": -15.7,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     },
@@ -8939,20 +9049,20 @@
       "code": "399997.SZ",
       "name": "白酒指数",
       "etf": "512690",
-      "rank": 17,
-      "score": 0.3126,
+      "rank": 19,
+      "score": 0.3051,
       "factors": {
-        "price_strength": 0.1614,
-        "flow": 0.4199
+        "price_strength": 0.1673,
+        "flow": 0.4029
       },
       "attribution": {
-        "momentum_6m_return": -32.07,
-        "momentum_1m_return": -12.11,
-        "volatility_annual": 26.26,
+        "momentum_6m_return": -31.89,
+        "momentum_1m_return": -11.21,
+        "volatility_annual": 26.25,
         "trend_breakdown": {
-          "price_vs_ma20": 0.2756,
+          "price_vs_ma20": 0.3028,
           "price_vs_ma60": 0.0,
-          "ma20_vs_ma60": 0.0469,
+          "ma20_vs_ma60": 0.0428,
           "ma20_slope": 0.0
         },
         "trend_weights": {
@@ -8961,124 +9071,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -3.59,
-        "price_vs_ma60": -12.33,
+        "price_vs_ma20": -3.15,
+        "price_vs_ma60": -12.01,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -9.06,
-        "ma20_slope_10d": -6.0,
+        "ma20_vs_ma60": -9.14,
+        "ma20_slope_10d": -5.88,
         "trend_overextension_penalty": 0.0,
         "value_percentile": 1.19,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.2999,
-          "flow_intensity": 0.7
+          "amount_trend": 0.297,
+          "flow_intensity": 0.65
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -29.25,
-        "index_return": -19.84,
-        "benchmark_return": 9.41,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000905.SH",
-      "name": "中证 500",
-      "etf": "510500",
-      "rank": 18,
-      "score": 0.2981,
-      "factors": {
-        "price_strength": 0.6403,
-        "flow": 0.0554
-      },
-      "attribution": {
-        "momentum_6m_return": 21.21,
-        "momentum_1m_return": 5.54,
-        "volatility_annual": 22.48,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.6295,
-          "price_vs_ma60": 0.6634,
-          "ma20_vs_ma60": 0.5907,
-          "ma20_slope": 0.7447
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": 2.07,
-        "price_vs_ma60": 3.92,
-        "ma20_above_ma60": true,
-        "ma20_vs_ma60": 1.81,
-        "ma20_slope_10d": 2.45,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 95.63,
-        "value_assessment": "高估",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.0363,
-          "flow_intensity": 0.1
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": 6.98,
-        "index_return": 16.39,
-        "benchmark_return": 9.41,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399967.SZ",
-      "name": "军工指数",
-      "etf": "512660",
-      "rank": 19,
-      "score": 0.2958,
-      "factors": {
-        "price_strength": 0.4112,
-        "flow": 0.2139
-      },
-      "attribution": {
-        "momentum_6m_return": 3.45,
-        "momentum_1m_return": -0.52,
-        "volatility_annual": 28.96,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.4851,
-          "price_vs_ma60": 0.2542,
-          "ma20_vs_ma60": 0.2163,
-          "ma20_slope": 0.3
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": -0.24,
-        "price_vs_ma60": -5.9,
-        "ma20_above_ma60": false,
-        "ma20_vs_ma60": -5.67,
-        "ma20_slope_10d": -2.0,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 49.6,
-        "value_assessment": "合理",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.1985,
-          "flow_intensity": 0.25
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": -10.51,
-        "index_return": -1.1,
-        "benchmark_return": 9.41,
+        "relative_return": -28.91,
+        "index_return": -19.35,
+        "benchmark_return": 9.56,
         "rs_lookback_days": 60
       }
     }
@@ -9108,7 +9120,7 @@
       {
         "code": "000993.CSI",
         "rank": 1,
-        "score": 0.9463,
+        "score": 0.9428,
         "name": "科技指数",
         "etf": "515000",
         "strongest_factors": [
@@ -9122,7 +9134,7 @@
       {
         "code": "399975.SZ",
         "rank": 2,
-        "score": 0.777,
+        "score": 0.8027,
         "name": "证券指数",
         "etf": "512000",
         "strongest_factors": [
@@ -9136,7 +9148,7 @@
       {
         "code": "000688.SH",
         "rank": 3,
-        "score": 0.7215,
+        "score": 0.7177,
         "name": "科创 50",
         "etf": "588000",
         "strongest_factors": [
@@ -9150,7 +9162,7 @@
       {
         "code": "990001.SSI",
         "rank": 4,
-        "score": 0.6239,
+        "score": 0.6398,
         "name": "半导体指数",
         "etf": "512480",
         "strongest_factors": [
@@ -9164,7 +9176,7 @@
       {
         "code": "399006.SZ",
         "rank": 5,
-        "score": 0.5921,
+        "score": 0.588,
         "name": "创业板指",
         "etf": "159915",
         "strongest_factors": [
@@ -9183,7 +9195,7 @@
       "available_count": 19,
       "expected_count": 19,
       "stale_codes": [],
-      "latest_trade_date": "2026-07-02"
+      "latest_trade_date": "2026-07-03"
     },
     "northbound": {
       "status": "missing",
@@ -9315,7 +9327,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-07-02 20:24",
+    "updated_at": "2026-07-03 20:19",
     "decision": {
       "headline": "本周主结论：科技指数、证券指数、科创 50 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 科技指数、证券指数、科创 50。",
@@ -9353,9 +9365,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.2501,
+        "research_annual_return": 0.2497,
         "research_max_drawdown": -0.1684,
-        "research_sharpe": 1.11,
+        "research_sharpe": 1.1,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -9377,22 +9389,22 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1746880.86,
-        "total_return": 0.7469,
-        "annual_return": 0.2501,
+        "final_value": 1746463.11,
+        "total_return": 0.7465,
+        "annual_return": 0.2497,
         "max_drawdown": -0.1684,
         "max_drawdown_date": "2024-09-18",
-        "sharpe_ratio": 1.11,
-        "trading_days": 603,
+        "sharpe_ratio": 1.1,
+        "trading_days": 604,
         "period": {
           "start": "2024-01-02",
-          "end": "2026-07-02"
+          "end": "2026-07-03"
         }
       },
       "research": {
-        "research_annual_return": 0.2501,
+        "research_annual_return": 0.2497,
         "research_max_drawdown": -0.1684,
-        "research_sharpe": 1.11,
+        "research_sharpe": 1.1,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -9407,17 +9419,17 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-07-02 20:24",
+  "update_time": "2026-07-03 20:19",
   "metadata": {
-    "generated_at": "2026-07-02 20:24",
+    "generated_at": "2026-07-03 20:19",
     "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-07-02 20:24:32",
+      "generated_at": "2026-07-03 20:19:34",
       "git": {
-        "commit": "cdeba6bf5b15eb08a103261e39a0df3554017f49",
-        "commit_short": "cdeba6bf",
+        "commit": "792e2c1d806de03378c2e8af53675ec7ff0476ef",
+        "commit_short": "792e2c1d",
         "branch": "main",
         "dirty": true
       },
@@ -9491,19 +9503,19 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260702"
+        "end": "20260703"
       },
       "actual_period": {
         "start": "2024-01-02",
-        "end": "2026-07-02"
+        "end": "2026-07-03"
       },
-      "trading_days": 603,
+      "trading_days": 604,
       "summary": {
-        "final_value": 1746880.86,
-        "total_return": 0.746881,
-        "annual_return": 0.250139,
+        "final_value": 1746463.11,
+        "total_return": 0.746463,
+        "annual_return": 0.249714,
         "max_drawdown": -0.168358,
-        "sharpe": 1.105389
+        "sharpe": 1.104044
       }
     }
   },
