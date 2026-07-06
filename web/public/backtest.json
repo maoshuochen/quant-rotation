@@ -1,16 +1,16 @@
 {
   "summary": {
     "initial_capital": 1000000.0,
-    "final_value": 1746463.11,
-    "total_return": 0.7465,
-    "annual_return": 0.2497,
+    "final_value": 1754976.31,
+    "total_return": 0.755,
+    "annual_return": 0.2512,
     "max_drawdown": -0.1684,
     "max_drawdown_date": "2024-09-18",
-    "sharpe_ratio": 1.1,
-    "trading_days": 604,
+    "sharpe_ratio": 1.11,
+    "trading_days": 605,
     "period": {
       "start": "2024-01-02",
-      "end": "2026-07-03"
+      "end": "2026-07-06"
     }
   },
   "chart_data": [
@@ -3616,27 +3616,33 @@
     },
     {
       "date": "2026-06-30",
-      "value": 1885322.13,
-      "cum_return": 0.8853,
+      "value": 1891017.0,
+      "cum_return": 0.891,
       "drawdown": 0.0
     },
     {
       "date": "2026-07-01",
-      "value": 1859206.56,
-      "cum_return": 0.8592,
-      "drawdown": -0.0139
+      "value": 1875878.76,
+      "cum_return": 0.8759,
+      "drawdown": -0.008
     },
     {
       "date": "2026-07-02",
-      "value": 1746880.9,
-      "cum_return": 0.7469,
-      "drawdown": -0.0734
+      "value": 1757458.96,
+      "cum_return": 0.7575,
+      "drawdown": -0.0706
     },
     {
       "date": "2026-07-03",
-      "value": 1746463.11,
-      "cum_return": 0.7465,
-      "drawdown": -0.0737
+      "value": 1758167.96,
+      "cum_return": 0.7582,
+      "drawdown": -0.0703
+    },
+    {
+      "date": "2026-07-06",
+      "value": 1754976.31,
+      "cum_return": 0.755,
+      "drawdown": -0.0719
     }
   ],
   "benchmarks": {
@@ -7243,41 +7249,47 @@
       },
       {
         "date": "2026-06-30",
-        "strategy": 0.8853,
+        "strategy": 0.891,
         "equal_weight_all": 0.4688,
         "hs300": 0.4535
       },
       {
         "date": "2026-07-01",
-        "strategy": 0.8592,
+        "strategy": 0.8759,
         "equal_weight_all": 0.4745,
         "hs300": 0.4474
       },
       {
         "date": "2026-07-02",
-        "strategy": 0.7469,
+        "strategy": 0.7575,
         "equal_weight_all": 0.436,
         "hs300": 0.4046
       },
       {
         "date": "2026-07-03",
-        "strategy": 0.7465,
+        "strategy": 0.7582,
         "equal_weight_all": 0.4423,
         "hs300": 0.4121
+      },
+      {
+        "date": "2026-07-06",
+        "strategy": 0.755,
+        "equal_weight_all": 0.4468,
+        "hs300": 0.4124
       }
     ],
     "summary": {
       "equal_weight_all": {
-        "final_value": 1442313.83,
-        "total_return": 0.4423,
-        "annual_return": 0.1577,
+        "final_value": 1446750.41,
+        "total_return": 0.4468,
+        "annual_return": 0.1585,
         "max_drawdown": -0.1544,
         "sharpe_ratio": 0.84
       },
       "hs300": {
-        "final_value": 1412105.42,
-        "total_return": 0.4121,
-        "annual_return": 0.1479,
+        "final_value": 1412395.02,
+        "total_return": 0.4124,
+        "annual_return": 0.1475,
         "max_drawdown": -0.1625,
         "sharpe_ratio": 0.85
       }
@@ -7286,10 +7298,10 @@
   "metadata": {
     "schema_version": 1,
     "source": "scripts/backtest_baostock.py",
-    "generated_at": "2026-07-03 20:19:34",
+    "generated_at": "2026-07-06 20:55:41",
     "git": {
-      "commit": "792e2c1d806de03378c2e8af53675ec7ff0476ef",
-      "commit_short": "792e2c1d",
+      "commit": "9c9d6641f9b63056c92eff8f326554a0ad7925b9",
+      "commit_short": "9c9d6641",
       "branch": "main",
       "dirty": true
     },
@@ -7363,19 +7375,19 @@
     "scoring_mode": "fixed",
     "requested_period": {
       "start": "20240101",
-      "end": "20260703"
+      "end": "20260706"
     },
     "actual_period": {
       "start": "2024-01-02",
-      "end": "2026-07-03"
+      "end": "2026-07-06"
     },
-    "trading_days": 604,
+    "trading_days": 605,
     "summary": {
-      "final_value": 1746463.11,
-      "total_return": 0.746463,
-      "annual_return": 0.249714,
+      "final_value": 1754976.31,
+      "total_return": 0.754976,
+      "annual_return": 0.251224,
       "max_drawdown": -0.168358,
-      "sharpe": 1.104044
+      "sharpe": 1.110572
     }
   }
 }
