@@ -779,67 +779,7 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-04-03",
-      "holdings": [
-        {
-          "code": "399990.SZ",
-          "name": "煤炭指数",
-          "etf": "515220",
-          "rank": 1,
-          "score": 0.5617,
-          "factors": {
-            "price_strength": 0.5781,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "399986.SZ",
-          "name": "银行指数",
-          "etf": "512800",
-          "rank": 2,
-          "score": 0.5293,
-          "factors": {
-            "price_strength": 0.5266,
-            "flow": 0.5312
-          }
-        },
-        {
-          "code": "399808.SZ",
-          "name": "新能源指数",
-          "etf": "516160",
-          "rank": 3,
-          "score": 0.5018,
-          "factors": {
-            "price_strength": 0.434,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000993.CSI",
-          "name": "科技指数",
-          "etf": "515000",
-          "rank": 4,
-          "score": 0.4981,
-          "factors": {
-            "price_strength": 0.4248,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "399006.SZ",
-          "name": "创业板指",
-          "etf": "159915",
-          "rank": 5,
-          "score": 0.4728,
-          "factors": {
-            "price_strength": 0.4535,
-            "flow": 0.4865
-          }
-        }
-      ]
     }
   ],
-  "update_time": "2026-07-06 20:55"
+  "update_time": "2026-07-07 20:53"
 }
