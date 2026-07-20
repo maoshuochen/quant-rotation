@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-07-20",
+      "holdings": [
+        {
+          "code": "000933.CSI",
+          "name": "医药指数",
+          "etf": "512010",
+          "rank": 1,
+          "score": 0.8202,
+          "factors": {
+            "price_strength": 0.6301,
+            "flow": 0.955
+          }
+        },
+        {
+          "code": "399965.SZ",
+          "name": "恒生指数",
+          "etf": "159920",
+          "rank": 2,
+          "score": 0.7019,
+          "factors": {
+            "price_strength": 0.5423,
+            "flow": 0.8151
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 3,
+          "score": 0.686,
+          "factors": {
+            "price_strength": 0.5664,
+            "flow": 0.7708
+          }
+        },
+        {
+          "code": "000992.CSI",
+          "name": "金融指数",
+          "etf": "510230",
+          "rank": 4,
+          "score": 0.6296,
+          "factors": {
+            "price_strength": 0.5566,
+            "flow": 0.6813
+          }
+        },
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 5,
+          "score": 0.5927,
+          "factors": {
+            "price_strength": 0.5879,
+            "flow": 0.5961
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-07-13",
       "holdings": [
         {
@@ -781,5 +841,5 @@
       ]
     }
   ],
-  "update_time": "2026-07-17 20:11"
+  "update_time": "2026-07-20 20:26"
 }
