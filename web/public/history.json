@@ -779,67 +779,7 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-04-20",
-      "holdings": [
-        {
-          "code": "399808.SZ",
-          "name": "新能源指数",
-          "etf": "516160",
-          "rank": 1,
-          "score": 0.6883,
-          "factors": {
-            "price_strength": 0.638,
-            "flow": 0.7239
-          }
-        },
-        {
-          "code": "000993.CSI",
-          "name": "科技指数",
-          "etf": "515000",
-          "rank": 2,
-          "score": 0.615,
-          "factors": {
-            "price_strength": 0.7182,
-            "flow": 0.5418
-          }
-        },
-        {
-          "code": "399006.SZ",
-          "name": "创业板指",
-          "etf": "159915",
-          "rank": 3,
-          "score": 0.6011,
-          "factors": {
-            "price_strength": 0.7573,
-            "flow": 0.4902
-          }
-        },
-        {
-          "code": "000688.SH",
-          "name": "科创 50",
-          "etf": "588000",
-          "rank": 4,
-          "score": 0.5551,
-          "factors": {
-            "price_strength": 0.5763,
-            "flow": 0.54
-          }
-        },
-        {
-          "code": "000992.CSI",
-          "name": "金融指数",
-          "etf": "510230",
-          "rank": 5,
-          "score": 0.5396,
-          "factors": {
-            "price_strength": 0.4833,
-            "flow": 0.5794
-          }
-        }
-      ]
     }
   ],
-  "update_time": "2026-07-20 20:26"
+  "update_time": "2026-07-21 20:22"
 }
