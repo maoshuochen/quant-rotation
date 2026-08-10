@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-08-10",
+      "holdings": [
+        {
+          "code": "000932.CSI",
+          "name": "消费指数",
+          "etf": "159928",
+          "rank": 1,
+          "score": 0.7402,
+          "factors": {
+            "price_strength": 0.5424,
+            "flow": 0.8805
+          }
+        },
+        {
+          "code": "399965.SZ",
+          "name": "恒生指数",
+          "etf": "159920",
+          "rank": 2,
+          "score": 0.7197,
+          "factors": {
+            "price_strength": 0.5432,
+            "flow": 0.8448
+          }
+        },
+        {
+          "code": "000852.SH",
+          "name": "中证 1000",
+          "etf": "512100",
+          "rank": 3,
+          "score": 0.6894,
+          "factors": {
+            "price_strength": 0.4435,
+            "flow": 0.8637
+          }
+        },
+        {
+          "code": "399006.SZ",
+          "name": "创业板指",
+          "etf": "159915",
+          "rank": 4,
+          "score": 0.6846,
+          "factors": {
+            "price_strength": 0.4161,
+            "flow": 0.875
+          }
+        },
+        {
+          "code": "399997.SZ",
+          "name": "白酒指数",
+          "etf": "512690",
+          "rank": 5,
+          "score": 0.6611,
+          "factors": {
+            "price_strength": 0.5237,
+            "flow": 0.7586
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-08-03",
       "holdings": [
         {
@@ -781,5 +841,5 @@
       ]
     }
   ],
-  "update_time": "2026-08-07 19:54"
+  "update_time": "2026-08-10 19:57"
 }
