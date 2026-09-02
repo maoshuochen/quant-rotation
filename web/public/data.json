@@ -2,16 +2,16 @@
   "backtest": {
     "summary": {
       "initial_capital": 1000000.0,
-      "final_value": 1599789.27,
-      "total_return": 0.5998,
-      "annual_return": 0.1928,
+      "final_value": 1582870.81,
+      "total_return": 0.5829,
+      "annual_return": 0.1878,
       "max_drawdown": -0.1684,
       "max_drawdown_date": "2024-09-18",
-      "sharpe_ratio": 0.9,
-      "trading_days": 646,
+      "sharpe_ratio": 0.88,
+      "trading_days": 647,
       "period": {
         "start": "2024-01-02",
-        "end": "2026-09-01"
+        "end": "2026-09-02"
       }
     },
     "chart_data": [
@@ -3890,6 +3890,12 @@
         "value": 1599789.27,
         "cum_return": 0.5998,
         "drawdown": -0.154
+      },
+      {
+        "date": "2026-09-02",
+        "value": 1582870.81,
+        "cum_return": 0.5829,
+        "drawdown": -0.163
       }
     ],
     "benchmarks": {
@@ -7769,32 +7775,38 @@
           "strategy": 0.5998,
           "equal_weight_all": 0.3964,
           "hs300": 0.3565
+        },
+        {
+          "date": "2026-09-02",
+          "strategy": 0.5829,
+          "equal_weight_all": 0.377,
+          "hs300": 0.338
         }
       ],
       "summary": {
         "equal_weight_all": {
-          "final_value": 1396379.19,
-          "total_return": 0.3964,
-          "annual_return": 0.1334,
+          "final_value": 1377019.21,
+          "total_return": 0.377,
+          "annual_return": 0.1274,
           "max_drawdown": -0.1544,
-          "sharpe_ratio": 0.73
+          "sharpe_ratio": 0.7
         },
         "hs300": {
-          "final_value": 1356501.59,
-          "total_return": 0.3565,
-          "annual_return": 0.1212,
+          "final_value": 1337966.99,
+          "total_return": 0.338,
+          "annual_return": 0.1153,
           "max_drawdown": -0.1625,
-          "sharpe_ratio": 0.72
+          "sharpe_ratio": 0.69
         }
       }
     },
     "metadata": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-09-01 21:41:51",
+      "generated_at": "2026-09-02 21:43:04",
       "git": {
-        "commit": "1c02c00057c71a129b0db4ed7ef5d4e42a31171a",
-        "commit_short": "1c02c000",
+        "commit": "00d56b9f6d88ed4e9518f25acd3fe59be5b49edd",
+        "commit_short": "00d56b9f",
         "branch": "main",
         "dirty": true
       },
@@ -7868,19 +7880,19 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260901"
+        "end": "20260902"
       },
       "actual_period": {
         "start": "2024-01-02",
-        "end": "2026-09-01"
+        "end": "2026-09-02"
       },
-      "trading_days": 646,
+      "trading_days": 647,
       "summary": {
-        "final_value": 1599789.27,
-        "total_return": 0.599789,
-        "annual_return": 0.192751,
+        "final_value": 1582870.81,
+        "total_return": 0.582871,
+        "annual_return": 0.187793,
         "max_drawdown": -0.168358,
-        "sharpe": 0.896579
+        "sharpe": 0.877964
       }
     }
   },
@@ -8672,20 +8684,20 @@
       "name": "煤炭指数",
       "etf": "515220",
       "rank": 1,
-      "score": 0.513,
+      "score": 0.5034,
       "factors": {
-        "price_strength": 0.6851,
-        "flow": 0.3909
+        "price_strength": 0.618,
+        "flow": 0.4222
       },
       "attribution": {
-        "momentum_6m_return": 10.83,
-        "momentum_1m_return": 13.55,
-        "volatility_annual": 26.95,
+        "momentum_6m_return": 4.7,
+        "momentum_1m_return": 10.98,
+        "volatility_annual": 26.98,
         "trend_breakdown": {
-          "price_vs_ma20": 0.8043,
-          "price_vs_ma60": 0.9505,
-          "ma20_vs_ma60": 0.7834,
-          "ma20_slope": 0.9889
+          "price_vs_ma20": 0.5819,
+          "price_vs_ma60": 0.8199,
+          "ma20_vs_ma60": 0.8142,
+          "ma20_slope": 1.0
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8693,26 +8705,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 4.87,
-        "price_vs_ma60": 10.81,
+        "price_vs_ma20": 1.31,
+        "price_vs_ma60": 7.68,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 5.67,
-        "ma20_slope_10d": 4.89,
+        "ma20_vs_ma60": 6.28,
+        "ma20_slope_10d": 5.21,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 96.03,
+        "value_percentile": 90.87,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.4085,
+          "amount_trend": 0.4531,
           "flow_intensity": 0.35
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -0.69,
-        "index_return": -1.32,
-        "benchmark_return": -0.63,
+        "relative_return": 1.35,
+        "index_return": -0.15,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -8721,20 +8733,20 @@
       "name": "银行指数",
       "etf": "512800",
       "rank": 2,
-      "score": 0.5044,
+      "score": 0.4784,
       "factors": {
-        "price_strength": 0.645,
-        "flow": 0.4047
+        "price_strength": 0.6314,
+        "flow": 0.3699
       },
       "attribution": {
-        "momentum_6m_return": 9.2,
-        "momentum_1m_return": 1.91,
-        "volatility_annual": 16.35,
+        "momentum_6m_return": 8.06,
+        "momentum_1m_return": 4.08,
+        "volatility_annual": 16.34,
         "trend_breakdown": {
-          "price_vs_ma20": 0.7613,
-          "price_vs_ma60": 0.7741,
-          "ma20_vs_ma60": 0.6151,
-          "ma20_slope": 0.5433
+          "price_vs_ma20": 0.7288,
+          "price_vs_ma60": 0.7588,
+          "ma20_vs_ma60": 0.623,
+          "ma20_slope": 0.5599
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8742,26 +8754,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 4.18,
-        "price_vs_ma60": 6.58,
+        "price_vs_ma20": 3.66,
+        "price_vs_ma60": 6.21,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 2.3,
-        "ma20_slope_10d": 0.43,
+        "ma20_vs_ma60": 2.46,
+        "ma20_slope_10d": 0.6,
         "trend_overextension_penalty": 0.0,
         "value_percentile": 95.24,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.3639,
-          "flow_intensity": 0.5
+          "amount_trend": 0.3356,
+          "flow_intensity": 0.45
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 7.45,
-        "index_return": 6.82,
-        "benchmark_return": -0.63,
+        "relative_return": 6.22,
+        "index_return": 4.71,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -8770,20 +8782,20 @@
       "name": "金融指数",
       "etf": "510230",
       "rank": 3,
-      "score": 0.4706,
+      "score": 0.4477,
       "factors": {
-        "price_strength": 0.6086,
-        "flow": 0.3727
+        "price_strength": 0.5895,
+        "flow": 0.3472
       },
       "attribution": {
-        "momentum_6m_return": 3.38,
-        "momentum_1m_return": 1.41,
+        "momentum_6m_return": 2.33,
+        "momentum_1m_return": 2.91,
         "volatility_annual": 18.8,
         "trend_breakdown": {
-          "price_vs_ma20": 0.7257,
-          "price_vs_ma60": 0.7086,
-          "ma20_vs_ma60": 0.5673,
-          "ma20_slope": 0.4863
+          "price_vs_ma20": 0.6808,
+          "price_vs_ma60": 0.6812,
+          "ma20_vs_ma60": 0.5708,
+          "ma20_slope": 0.5092
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8791,75 +8803,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 3.61,
-        "price_vs_ma60": 5.01,
+        "price_vs_ma20": 2.89,
+        "price_vs_ma60": 4.35,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 1.35,
-        "ma20_slope_10d": -0.14,
+        "ma20_vs_ma60": 1.42,
+        "ma20_slope_10d": 0.09,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 61.11,
+        "value_percentile": 60.32,
         "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.4039,
-          "flow_intensity": 0.3
+          "amount_trend": 0.3888,
+          "flow_intensity": 0.25
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 7.99,
-        "index_return": 7.36,
-        "benchmark_return": -0.63,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000933.CSI",
-      "name": "医药指数",
-      "etf": "512010",
-      "rank": 4,
-      "score": 0.4476,
-      "factors": {
-        "price_strength": 0.5783,
-        "flow": 0.3548
-      },
-      "attribution": {
-        "momentum_6m_return": 3.66,
-        "momentum_1m_return": 1.42,
-        "volatility_annual": 24.04,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.293,
-          "price_vs_ma60": 0.6259,
-          "ma20_vs_ma60": 0.8275,
-          "ma20_slope": 0.648
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": -3.31,
-        "price_vs_ma60": 3.02,
-        "ma20_above_ma60": true,
-        "ma20_vs_ma60": 6.55,
-        "ma20_slope_10d": 1.48,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 42.86,
-        "value_assessment": "合理",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.3783,
-          "flow_intensity": 0.3
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": 18.76,
-        "index_return": 18.12,
-        "benchmark_return": -0.63,
+        "relative_return": 6.23,
+        "index_return": 4.73,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -8867,21 +8830,21 @@
       "code": "399975.SZ",
       "name": "证券指数",
       "etf": "512000",
-      "rank": 5,
-      "score": 0.4418,
+      "rank": 4,
+      "score": 0.4261,
       "factors": {
-        "price_strength": 0.5523,
-        "flow": 0.3634
+        "price_strength": 0.5039,
+        "flow": 0.3709
       },
       "attribution": {
-        "momentum_6m_return": -1.82,
-        "momentum_1m_return": 1.03,
-        "volatility_annual": 27.34,
+        "momentum_6m_return": -2.98,
+        "momentum_1m_return": -1.04,
+        "volatility_annual": 27.35,
         "trend_breakdown": {
-          "price_vs_ma20": 0.6344,
-          "price_vs_ma60": 0.5507,
-          "ma20_vs_ma60": 0.4543,
-          "ma20_slope": 0.404
+          "price_vs_ma20": 0.5078,
+          "price_vs_ma60": 0.4582,
+          "ma20_vs_ma60": 0.4436,
+          "ma20_slope": 0.4171
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8889,26 +8852,75 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 2.15,
-        "price_vs_ma60": 1.22,
+        "price_vs_ma20": 0.12,
+        "price_vs_ma60": -1.0,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -0.91,
-        "ma20_slope_10d": -0.96,
+        "ma20_vs_ma60": -1.13,
+        "ma20_slope_10d": -0.83,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 38.89,
-        "value_assessment": "合理",
+        "value_percentile": 25.4,
+        "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.3898,
+          "amount_trend": 0.4041,
           "flow_intensity": 0.15
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 11.47,
-        "index_return": 10.83,
-        "benchmark_return": -0.63,
+        "relative_return": 8.48,
+        "index_return": 6.98,
+        "benchmark_return": -1.5,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000933.CSI",
+      "name": "医药指数",
+      "etf": "512010",
+      "rank": 5,
+      "score": 0.4211,
+      "factors": {
+        "price_strength": 0.5703,
+        "flow": 0.3153
+      },
+      "attribution": {
+        "momentum_6m_return": 4.74,
+        "momentum_1m_return": -1.26,
+        "volatility_annual": 24.03,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.2847,
+          "price_vs_ma60": 0.6034,
+          "ma20_vs_ma60": 0.8069,
+          "ma20_slope": 0.61
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": -3.44,
+        "price_vs_ma60": 2.48,
+        "ma20_above_ma60": true,
+        "ma20_vs_ma60": 6.14,
+        "ma20_slope_10d": 1.1,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 40.08,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.3433,
+          "flow_intensity": 0.25
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": 17.5,
+        "index_return": 16.0,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -8917,20 +8929,20 @@
       "name": "消费指数",
       "etf": "159928",
       "rank": 6,
-      "score": 0.4091,
+      "score": 0.3623,
       "factors": {
-        "price_strength": 0.5136,
-        "flow": 0.335
+        "price_strength": 0.4934,
+        "flow": 0.2693
       },
       "attribution": {
-        "momentum_6m_return": -12.04,
-        "momentum_1m_return": -2.23,
-        "volatility_annual": 21.33,
+        "momentum_6m_return": -12.54,
+        "momentum_1m_return": -1.52,
+        "volatility_annual": 21.32,
         "trend_breakdown": {
-          "price_vs_ma20": 0.5275,
-          "price_vs_ma60": 0.6242,
-          "ma20_vs_ma60": 0.6266,
-          "ma20_slope": 0.4099
+          "price_vs_ma20": 0.4744,
+          "price_vs_ma60": 0.5835,
+          "ma20_vs_ma60": 0.6211,
+          "ma20_slope": 0.4121
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8938,48 +8950,48 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 0.44,
-        "price_vs_ma60": 2.98,
+        "price_vs_ma20": -0.41,
+        "price_vs_ma60": 2.0,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 2.53,
-        "ma20_slope_10d": -0.9,
+        "ma20_vs_ma60": 2.42,
+        "ma20_slope_10d": -0.88,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 21.03,
+        "value_percentile": 16.27,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.3071,
-          "flow_intensity": 0.4
+          "amount_trend": 0.2347,
+          "flow_intensity": 0.35
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 5.29,
-        "index_return": 4.66,
-        "benchmark_return": -0.63,
+        "relative_return": 4.27,
+        "index_return": 2.77,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
     {
-      "code": "000852.SH",
-      "name": "中证 1000",
-      "etf": "512100",
+      "code": "399967.SZ",
+      "name": "军工指数",
+      "etf": "512660",
       "rank": 7,
-      "score": 0.3526,
+      "score": 0.3484,
       "factors": {
-        "price_strength": 0.4529,
-        "flow": 0.2815
+        "price_strength": 0.3998,
+        "flow": 0.312
       },
       "attribution": {
-        "momentum_6m_return": -6.02,
-        "momentum_1m_return": 8.86,
-        "volatility_annual": 25.42,
+        "momentum_6m_return": -23.2,
+        "momentum_1m_return": 2.58,
+        "volatility_annual": 29.37,
         "trend_breakdown": {
-          "price_vs_ma20": 0.5246,
-          "price_vs_ma60": 0.4081,
-          "ma20_vs_ma60": 0.3705,
-          "ma20_slope": 0.8527
+          "price_vs_ma20": 0.546,
+          "price_vs_ma60": 0.3949,
+          "ma20_vs_ma60": 0.3382,
+          "ma20_slope": 0.5832
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -8987,26 +8999,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 0.39,
-        "price_vs_ma60": -2.21,
+        "price_vs_ma20": 0.74,
+        "price_vs_ma60": -2.52,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -2.59,
-        "ma20_slope_10d": 3.53,
+        "ma20_vs_ma60": -3.24,
+        "ma20_slope_10d": 0.83,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 50.4,
-        "value_assessment": "合理",
+        "value_percentile": 9.92,
+        "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.1266,
-          "flow_intensity": 0.4
+          "amount_trend": 0.249,
+          "flow_intensity": 0.25
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -5.92,
+        "relative_return": -5.04,
         "index_return": -6.55,
-        "benchmark_return": -0.63,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9015,20 +9027,20 @@
       "name": "红利指数",
       "etf": "510880",
       "rank": 8,
-      "score": 0.3414,
+      "score": 0.3147,
       "factors": {
-        "price_strength": 0.6499,
-        "flow": 0.1226
+        "price_strength": 0.6101,
+        "flow": 0.1052
       },
       "attribution": {
-        "momentum_6m_return": 5.99,
-        "momentum_1m_return": 5.9,
-        "volatility_annual": 15.8,
+        "momentum_6m_return": 2.5,
+        "momentum_1m_return": 5.81,
+        "volatility_annual": 15.81,
         "trend_breakdown": {
-          "price_vs_ma20": 0.7225,
-          "price_vs_ma60": 0.8387,
-          "ma20_vs_ma60": 0.7206,
-          "ma20_slope": 0.7551
+          "price_vs_ma20": 0.6032,
+          "price_vs_ma60": 0.7657,
+          "ma20_vs_ma60": 0.7324,
+          "ma20_slope": 0.7689
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9036,26 +9048,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": 3.56,
-        "price_vs_ma60": 8.13,
+        "price_vs_ma20": 1.65,
+        "price_vs_ma60": 6.38,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 4.41,
-        "ma20_slope_10d": 2.55,
+        "ma20_vs_ma60": 4.65,
+        "ma20_slope_10d": 2.69,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 99.21,
+        "value_percentile": 97.22,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.1108,
-          "flow_intensity": 0.15
+          "amount_trend": 0.1075,
+          "flow_intensity": 0.1
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 6.44,
-        "index_return": 5.8,
-        "benchmark_return": -0.63,
+        "relative_return": 6.62,
+        "index_return": 5.12,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9064,20 +9076,20 @@
       "name": "半导体指数",
       "etf": "512480",
       "rank": 9,
-      "score": 0.3392,
+      "score": 0.3083,
       "factors": {
-        "price_strength": 0.4599,
-        "flow": 0.2536
+        "price_strength": 0.4402,
+        "flow": 0.2146
       },
       "attribution": {
-        "momentum_6m_return": 31.97,
-        "momentum_1m_return": 12.3,
-        "volatility_annual": 38.86,
+        "momentum_6m_return": 35.83,
+        "momentum_1m_return": 5.15,
+        "volatility_annual": 38.85,
         "trend_breakdown": {
-          "price_vs_ma20": 0.334,
-          "price_vs_ma60": 0.066,
-          "ma20_vs_ma60": 0.1013,
-          "ma20_slope": 0.4755
+          "price_vs_ma20": 0.2224,
+          "price_vs_ma60": 0.0,
+          "ma20_vs_ma60": 0.0983,
+          "ma20_slope": 0.5152
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9085,124 +9097,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -2.66,
-        "price_vs_ma60": -10.42,
+        "price_vs_ma20": -4.44,
+        "price_vs_ma60": -12.12,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -7.97,
-        "ma20_slope_10d": -0.25,
+        "ma20_vs_ma60": -8.03,
+        "ma20_slope_10d": 0.15,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 74.6,
+        "value_percentile": 71.83,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.1694,
-          "flow_intensity": 0.45
+          "amount_trend": 0.1352,
+          "flow_intensity": 0.4
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -0.3,
-        "index_return": -0.93,
-        "benchmark_return": -0.63,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399997.SZ",
-      "name": "白酒指数",
-      "etf": "512690",
-      "rank": 10,
-      "score": 0.3314,
-      "factors": {
-        "price_strength": 0.4782,
-        "flow": 0.2274
-      },
-      "attribution": {
-        "momentum_6m_return": -17.05,
-        "momentum_1m_return": -4.16,
-        "volatility_annual": 26.42,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.4717,
-          "price_vs_ma60": 0.5984,
-          "ma20_vs_ma60": 0.6414,
-          "ma20_slope": 0.3593
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": -0.45,
-        "price_vs_ma60": 2.36,
-        "ma20_above_ma60": true,
-        "ma20_vs_ma60": 2.83,
-        "ma20_slope_10d": -1.41,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 16.67,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.1748,
-          "flow_intensity": 0.35
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": 2.53,
-        "index_return": 1.9,
-        "benchmark_return": -0.63,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399967.SZ",
-      "name": "军工指数",
-      "etf": "512660",
-      "rank": 11,
-      "score": 0.3295,
-      "factors": {
-        "price_strength": 0.3722,
-        "flow": 0.2992
-      },
-      "attribution": {
-        "momentum_6m_return": -30.15,
-        "momentum_1m_return": 3.86,
-        "volatility_annual": 29.38,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.5422,
-          "price_vs_ma60": 0.386,
-          "ma20_vs_ma60": 0.3306,
-          "ma20_slope": 0.5917
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": 0.67,
-        "price_vs_ma60": -2.74,
-        "ma20_above_ma60": false,
-        "ma20_vs_ma60": -3.39,
-        "ma20_slope_10d": 0.92,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 9.52,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.2246,
-          "flow_intensity": 0.25
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": -6.98,
-        "index_return": -7.61,
-        "benchmark_return": -0.63,
+        "relative_return": -0.93,
+        "index_return": -2.44,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9210,21 +9124,21 @@
       "code": "399965.SZ",
       "name": "恒生指数",
       "etf": "159920",
-      "rank": 12,
-      "score": 0.3157,
+      "rank": 10,
+      "score": 0.2963,
       "factors": {
-        "price_strength": 0.5146,
-        "flow": 0.1746
+        "price_strength": 0.5131,
+        "flow": 0.1425
       },
       "attribution": {
-        "momentum_6m_return": -3.12,
-        "momentum_1m_return": -2.97,
-        "volatility_annual": 20.84,
+        "momentum_6m_return": -2.75,
+        "momentum_1m_return": -2.78,
+        "volatility_annual": 20.83,
         "trend_breakdown": {
-          "price_vs_ma20": 0.4416,
-          "price_vs_ma60": 0.5813,
-          "ma20_vs_ma60": 0.6456,
-          "ma20_slope": 0.49
+          "price_vs_ma20": 0.4259,
+          "price_vs_ma60": 0.5627,
+          "ma20_vs_ma60": 0.6361,
+          "ma20_slope": 0.4671
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9232,26 +9146,124 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -0.93,
-        "price_vs_ma60": 1.95,
+        "price_vs_ma20": -1.19,
+        "price_vs_ma60": 1.5,
         "ma20_above_ma60": true,
-        "ma20_vs_ma60": 2.91,
-        "ma20_slope_10d": -0.1,
+        "ma20_vs_ma60": 2.72,
+        "ma20_slope_10d": -0.33,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 17.06,
+        "value_percentile": 14.68,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.1423,
-          "flow_intensity": 0.25
+          "amount_trend": 0.1178,
+          "flow_intensity": 0.2
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": 3.11,
-        "index_return": 2.48,
-        "benchmark_return": -0.63,
+        "relative_return": 4.63,
+        "index_return": 3.13,
+        "benchmark_return": -1.5,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399997.SZ",
+      "name": "白酒指数",
+      "etf": "512690",
+      "rank": 11,
+      "score": 0.2931,
+      "factors": {
+        "price_strength": 0.4464,
+        "flow": 0.1843
+      },
+      "attribution": {
+        "momentum_6m_return": -18.25,
+        "momentum_1m_return": -3.99,
+        "volatility_annual": 26.42,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.3947,
+          "price_vs_ma60": 0.5384,
+          "ma20_vs_ma60": 0.6326,
+          "ma20_slope": 0.3489
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": -1.69,
+        "price_vs_ma60": 0.92,
+        "ma20_above_ma60": true,
+        "ma20_vs_ma60": 2.65,
+        "ma20_slope_10d": -1.51,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 12.3,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.1347,
+          "flow_intensity": 0.3
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": 0.8,
+        "index_return": -0.7,
+        "benchmark_return": -1.5,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000852.SH",
+      "name": "中证 1000",
+      "etf": "512100",
+      "rank": 12,
+      "score": 0.29,
+      "factors": {
+        "price_strength": 0.4376,
+        "flow": 0.1853
+      },
+      "attribution": {
+        "momentum_6m_return": -3.75,
+        "momentum_1m_return": 4.8,
+        "volatility_annual": 25.42,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.4319,
+          "price_vs_ma60": 0.3562,
+          "ma20_vs_ma60": 0.3806,
+          "ma20_slope": 0.8329
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": -1.09,
+        "price_vs_ma60": -3.45,
+        "ma20_above_ma60": false,
+        "ma20_vs_ma60": -2.39,
+        "ma20_slope_10d": 3.33,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 44.84,
+        "value_assessment": "合理",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.1147,
+          "flow_intensity": 0.35
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": -5.31,
+        "index_return": -6.81,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9260,20 +9272,20 @@
       "name": "科技指数",
       "etf": "515000",
       "rank": 13,
-      "score": 0.3141,
+      "score": 0.2884,
       "factors": {
-        "price_strength": 0.433,
-        "flow": 0.2297
+        "price_strength": 0.4156,
+        "flow": 0.1982
       },
       "attribution": {
-        "momentum_6m_return": 24.76,
-        "momentum_1m_return": 8.91,
+        "momentum_6m_return": 26.64,
+        "momentum_1m_return": 1.18,
         "volatility_annual": 31.99,
         "trend_breakdown": {
-          "price_vs_ma20": 0.3534,
-          "price_vs_ma60": 0.1156,
-          "ma20_vs_ma60": 0.1477,
-          "ma20_slope": 0.5089
+          "price_vs_ma20": 0.258,
+          "price_vs_ma60": 0.0562,
+          "ma20_vs_ma60": 0.1473,
+          "ma20_slope": 0.5263
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9281,26 +9293,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -2.34,
-        "price_vs_ma60": -9.23,
+        "price_vs_ma20": -3.87,
+        "price_vs_ma60": -10.65,
         "ma20_above_ma60": false,
         "ma20_vs_ma60": -7.05,
-        "ma20_slope_10d": 0.09,
+        "ma20_slope_10d": 0.26,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 71.83,
+        "value_percentile": 70.24,
         "value_assessment": "高估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.1996,
-          "flow_intensity": 0.3
+          "amount_trend": 0.176,
+          "flow_intensity": 0.25
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -8.09,
-        "index_return": -8.72,
-        "benchmark_return": -0.63,
+        "relative_return": -7.23,
+        "index_return": -8.73,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9309,20 +9321,20 @@
       "name": "中证 500",
       "etf": "510500",
       "rank": 14,
-      "score": 0.2692,
+      "score": 0.2578,
       "factors": {
-        "price_strength": 0.4271,
-        "flow": 0.1571
+        "price_strength": 0.4086,
+        "flow": 0.1508
       },
       "attribution": {
-        "momentum_6m_return": -7.96,
-        "momentum_1m_return": 6.33,
+        "momentum_6m_return": -5.51,
+        "momentum_1m_return": 2.24,
         "volatility_annual": 23.26,
         "trend_breakdown": {
-          "price_vs_ma20": 0.4612,
-          "price_vs_ma60": 0.3485,
-          "ma20_vs_ma60": 0.3483,
-          "ma20_slope": 0.6878
+          "price_vs_ma20": 0.3612,
+          "price_vs_ma60": 0.2864,
+          "ma20_vs_ma60": 0.3515,
+          "ma20_slope": 0.6795
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9330,26 +9342,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -0.62,
-        "price_vs_ma60": -3.64,
+        "price_vs_ma20": -2.22,
+        "price_vs_ma60": -5.13,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -3.03,
-        "ma20_slope_10d": 1.88,
+        "ma20_vs_ma60": -2.97,
+        "ma20_slope_10d": 1.8,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 49.6,
+        "value_percentile": 44.05,
         "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.0316,
+          "amount_trend": 0.0226,
           "flow_intensity": 0.45
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -4.07,
-        "index_return": -4.7,
-        "benchmark_return": -0.63,
+        "relative_return": -3.64,
+        "index_return": -5.14,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9358,20 +9370,20 @@
       "name": "科创 50",
       "etf": "588000",
       "rank": 15,
-      "score": 0.2668,
+      "score": 0.2357,
       "factors": {
-        "price_strength": 0.4362,
-        "flow": 0.1466
+        "price_strength": 0.4171,
+        "flow": 0.1069
       },
       "attribution": {
-        "momentum_6m_return": 18.63,
-        "momentum_1m_return": 6.93,
+        "momentum_6m_return": 21.97,
+        "momentum_1m_return": 0.81,
         "volatility_annual": 35.88,
         "trend_breakdown": {
-          "price_vs_ma20": 0.3404,
-          "price_vs_ma60": 0.127,
-          "ma20_vs_ma60": 0.1717,
-          "ma20_slope": 0.3557
+          "price_vs_ma20": 0.2415,
+          "price_vs_ma60": 0.0587,
+          "ma20_vs_ma60": 0.1634,
+          "ma20_slope": 0.3871
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9379,26 +9391,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -2.55,
-        "price_vs_ma60": -8.95,
+        "price_vs_ma20": -4.14,
+        "price_vs_ma60": -10.59,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -6.57,
-        "ma20_slope_10d": -1.44,
+        "ma20_vs_ma60": -6.73,
+        "ma20_slope_10d": -1.13,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 70.24,
-        "value_assessment": "高估",
+        "value_percentile": 68.65,
+        "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.0594,
-          "flow_intensity": 0.35
+          "amount_trend": 0.0242,
+          "flow_intensity": 0.3
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -0.22,
-        "index_return": -0.85,
-        "benchmark_return": -0.63,
+        "relative_return": -0.56,
+        "index_return": -2.06,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9407,20 +9419,20 @@
       "name": "创业板指",
       "etf": "159915",
       "rank": 16,
-      "score": 0.26,
+      "score": 0.2239,
       "factors": {
-        "price_strength": 0.3619,
-        "flow": 0.1877
+        "price_strength": 0.3331,
+        "flow": 0.1464
       },
       "attribution": {
-        "momentum_6m_return": 7.84,
-        "momentum_1m_return": 3.11,
+        "momentum_6m_return": 7.93,
+        "momentum_1m_return": -4.83,
         "volatility_annual": 33.45,
         "trend_breakdown": {
-          "price_vs_ma20": 0.2704,
-          "price_vs_ma60": 0.1178,
-          "ma20_vs_ma60": 0.2145,
-          "ma20_slope": 0.5207
+          "price_vs_ma20": 0.1533,
+          "price_vs_ma60": 0.0428,
+          "ma20_vs_ma60": 0.2128,
+          "ma20_slope": 0.5013
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9428,124 +9440,26 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -3.67,
-        "price_vs_ma60": -9.17,
+        "price_vs_ma20": -5.55,
+        "price_vs_ma60": -10.97,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -5.71,
-        "ma20_slope_10d": 0.21,
+        "ma20_vs_ma60": -5.74,
+        "ma20_slope_10d": 0.01,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 62.7,
+        "value_percentile": 56.35,
         "value_assessment": "合理",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.0967,
-          "flow_intensity": 0.4
+          "amount_trend": 0.0591,
+          "flow_intensity": 0.35
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -13.46,
-        "index_return": -14.1,
-        "benchmark_return": -0.63,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "000300.SH",
-      "name": "沪深 300",
-      "etf": "510300",
-      "rank": 17,
-      "score": 0.2329,
-      "factors": {
-        "price_strength": 0.468,
-        "flow": 0.0661
-      },
-      "attribution": {
-        "momentum_6m_return": -0.14,
-        "momentum_1m_return": 1.92,
-        "volatility_annual": 17.78,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.4739,
-          "price_vs_ma60": 0.4146,
-          "ma20_vs_ma60": 0.418,
-          "ma20_slope": 0.4812
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": -0.42,
-        "price_vs_ma60": -2.05,
-        "ma20_above_ma60": false,
-        "ma20_vs_ma60": -1.64,
-        "ma20_slope_10d": -0.19,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 36.9,
-        "value_assessment": "合理",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.0516,
-          "flow_intensity": 0.1
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": -2.31,
-        "index_return": -2.94,
-        "benchmark_return": -0.63,
-        "rs_lookback_days": 60
-      }
-    },
-    {
-      "code": "399808.SZ",
-      "name": "新能源指数",
-      "etf": "516160",
-      "rank": 18,
-      "score": 0.2261,
-      "factors": {
-        "price_strength": 0.2705,
-        "flow": 0.1947
-      },
-      "attribution": {
-        "momentum_6m_return": -22.98,
-        "momentum_1m_return": -1.2,
-        "volatility_annual": 29.43,
-        "trend_breakdown": {
-          "price_vs_ma20": 0.219,
-          "price_vs_ma60": 0.1453,
-          "ma20_vs_ma60": 0.2897,
-          "ma20_slope": 0.5924
-        },
-        "trend_weights": {
-          "price_vs_ma20": 0.4,
-          "price_vs_ma60": 0.35,
-          "ma20_vs_ma60": 0.2,
-          "ma20_slope": 0.05
-        },
-        "price_vs_ma20": -4.5,
-        "price_vs_ma60": -8.51,
-        "ma20_above_ma60": false,
-        "ma20_vs_ma60": -4.21,
-        "ma20_slope_10d": 0.92,
-        "trend_overextension_penalty": 0.0,
-        "value_percentile": 7.94,
-        "value_assessment": "低估",
-        "current_pe": null,
-        "flow_breakdown": {
-          "amount_trend": 0.2138,
-          "flow_intensity": 0.15
-        },
-        "flow_weights": {
-          "amount_trend": 0.7,
-          "flow_intensity": 0.3
-        },
-        "relative_return": -16.11,
-        "index_return": -16.75,
-        "benchmark_return": -0.63,
+        "relative_return": -12.32,
+        "index_return": -13.82,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     },
@@ -9553,21 +9467,21 @@
       "code": "000988.CSI",
       "name": "制造指数",
       "etf": "516880",
-      "rank": 19,
-      "score": 0.207,
+      "rank": 17,
+      "score": 0.2046,
       "factors": {
-        "price_strength": 0.2753,
-        "flow": 0.1584
+        "price_strength": 0.2515,
+        "flow": 0.1714
       },
       "attribution": {
-        "momentum_6m_return": -27.84,
-        "momentum_1m_return": 0.27,
-        "volatility_annual": 31.43,
+        "momentum_6m_return": -27.48,
+        "momentum_1m_return": -2.99,
+        "volatility_annual": 31.42,
         "trend_breakdown": {
-          "price_vs_ma20": 0.3,
-          "price_vs_ma60": 0.1914,
-          "ma20_vs_ma60": 0.2826,
-          "ma20_slope": 0.6378
+          "price_vs_ma20": 0.2028,
+          "price_vs_ma60": 0.1339,
+          "ma20_vs_ma60": 0.2884,
+          "ma20_slope": 0.5952
         },
         "trend_weights": {
           "price_vs_ma20": 0.4,
@@ -9575,26 +9489,124 @@
           "ma20_vs_ma60": 0.2,
           "ma20_slope": 0.05
         },
-        "price_vs_ma20": -3.2,
-        "price_vs_ma60": -7.41,
+        "price_vs_ma20": -4.76,
+        "price_vs_ma60": -8.79,
         "ma20_above_ma60": false,
-        "ma20_vs_ma60": -4.35,
-        "ma20_slope_10d": 1.38,
+        "ma20_vs_ma60": -4.23,
+        "ma20_slope_10d": 0.95,
         "trend_overextension_penalty": 0.0,
-        "value_percentile": 7.94,
+        "value_percentile": 4.76,
         "value_assessment": "低估",
         "current_pe": null,
         "flow_breakdown": {
-          "amount_trend": 0.1835,
+          "amount_trend": 0.202,
           "flow_intensity": 0.1
         },
         "flow_weights": {
           "amount_trend": 0.7,
           "flow_intensity": 0.3
         },
-        "relative_return": -17.1,
-        "index_return": -17.74,
-        "benchmark_return": -0.63,
+        "relative_return": -16.7,
+        "index_return": -18.2,
+        "benchmark_return": -1.5,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "000300.SH",
+      "name": "沪深 300",
+      "etf": "510300",
+      "rank": 18,
+      "score": 0.1982,
+      "factors": {
+        "price_strength": 0.4471,
+        "flow": 0.0216
+      },
+      "attribution": {
+        "momentum_6m_return": -0.22,
+        "momentum_1m_return": -0.57,
+        "volatility_annual": 17.79,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.395,
+          "price_vs_ma60": 0.3617,
+          "ma20_vs_ma60": 0.4167,
+          "ma20_slope": 0.483
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": -1.68,
+        "price_vs_ma60": -3.32,
+        "ma20_above_ma60": false,
+        "ma20_vs_ma60": -1.67,
+        "ma20_slope_10d": -0.17,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 17.06,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.0095,
+          "flow_intensity": 0.05
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": -1.93,
+        "index_return": -3.43,
+        "benchmark_return": -1.5,
+        "rs_lookback_days": 60
+      }
+    },
+    {
+      "code": "399808.SZ",
+      "name": "新能源指数",
+      "etf": "516160",
+      "rank": 19,
+      "score": 0.1918,
+      "factors": {
+        "price_strength": 0.243,
+        "flow": 0.1554
+      },
+      "attribution": {
+        "momentum_6m_return": -22.44,
+        "momentum_1m_return": -4.74,
+        "volatility_annual": 29.44,
+        "trend_breakdown": {
+          "price_vs_ma20": 0.1107,
+          "price_vs_ma60": 0.0759,
+          "ma20_vs_ma60": 0.2895,
+          "ma20_slope": 0.5324
+        },
+        "trend_weights": {
+          "price_vs_ma20": 0.4,
+          "price_vs_ma60": 0.35,
+          "ma20_vs_ma60": 0.2,
+          "ma20_slope": 0.05
+        },
+        "price_vs_ma20": -6.23,
+        "price_vs_ma60": -10.18,
+        "ma20_above_ma60": false,
+        "ma20_vs_ma60": -4.21,
+        "ma20_slope_10d": 0.32,
+        "trend_overextension_penalty": 0.0,
+        "value_percentile": 5.56,
+        "value_assessment": "低估",
+        "current_pe": null,
+        "flow_breakdown": {
+          "amount_trend": 0.1791,
+          "flow_intensity": 0.1
+        },
+        "flow_weights": {
+          "amount_trend": 0.7,
+          "flow_intensity": 0.3
+        },
+        "relative_return": -15.52,
+        "index_return": -17.02,
+        "benchmark_return": -1.5,
         "rs_lookback_days": 60
       }
     }
@@ -9607,17 +9619,17 @@
       "399990.SZ",
       "399986.SZ",
       "000992.CSI",
-      "000933.CSI",
-      "399975.SZ"
+      "399975.SZ",
+      "000933.CSI"
     ],
     "hold_range_codes": [
       "399990.SZ",
       "399986.SZ",
       "000992.CSI",
-      "000933.CSI",
       "399975.SZ",
+      "000933.CSI",
       "000932.CSI",
-      "000852.SH"
+      "399967.SZ"
     ],
     "signals": [
       {
@@ -9635,7 +9647,7 @@
       {
         "code": "399990.SZ",
         "rank": 1,
-        "score": 0.513,
+        "score": 0.5034,
         "name": "煤炭指数",
         "etf": "515220",
         "strongest_factors": [
@@ -9649,7 +9661,7 @@
       {
         "code": "399986.SZ",
         "rank": 2,
-        "score": 0.5044,
+        "score": 0.4784,
         "name": "银行指数",
         "etf": "512800",
         "strongest_factors": [
@@ -9663,7 +9675,7 @@
       {
         "code": "000992.CSI",
         "rank": 3,
-        "score": 0.4706,
+        "score": 0.4477,
         "name": "金融指数",
         "etf": "510230",
         "strongest_factors": [
@@ -9675,11 +9687,11 @@
         ]
       },
       {
-        "code": "000933.CSI",
+        "code": "399975.SZ",
         "rank": 4,
-        "score": 0.4476,
-        "name": "医药指数",
-        "etf": "512010",
+        "score": 0.4261,
+        "name": "证券指数",
+        "etf": "512000",
         "strongest_factors": [
           "price_strength",
           "flow"
@@ -9689,11 +9701,11 @@
         ]
       },
       {
-        "code": "399975.SZ",
+        "code": "000933.CSI",
         "rank": 5,
-        "score": 0.4418,
-        "name": "证券指数",
-        "etf": "512000",
+        "score": 0.4211,
+        "name": "医药指数",
+        "etf": "512010",
         "strongest_factors": [
           "price_strength",
           "flow"
@@ -9710,7 +9722,7 @@
       "available_count": 19,
       "expected_count": 19,
       "stale_codes": [],
-      "latest_trade_date": "2026-09-01"
+      "latest_trade_date": "2026-09-02"
     },
     "northbound": {
       "status": "missing",
@@ -9842,7 +9854,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-09-01 21:41",
+    "updated_at": "2026-09-02 21:43",
     "decision": {
       "headline": "本周主结论：煤炭指数、银行指数、金融指数 为当前优先观察方向。",
       "execution_message": "当前建议执行 2 个动作，优先关注 煤炭指数、银行指数、金融指数。",
@@ -9880,9 +9892,9 @@
         "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
       ],
       "metrics": {
-        "research_annual_return": 0.1928,
+        "research_annual_return": 0.1878,
         "research_max_drawdown": -0.1684,
-        "research_sharpe": 0.9,
+        "research_sharpe": 0.88,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -9904,22 +9916,22 @@
     "performance": {
       "recent_backtest": {
         "initial_capital": 1000000.0,
-        "final_value": 1599789.27,
-        "total_return": 0.5998,
-        "annual_return": 0.1928,
+        "final_value": 1582870.81,
+        "total_return": 0.5829,
+        "annual_return": 0.1878,
         "max_drawdown": -0.1684,
         "max_drawdown_date": "2024-09-18",
-        "sharpe_ratio": 0.9,
-        "trading_days": 646,
+        "sharpe_ratio": 0.88,
+        "trading_days": 647,
         "period": {
           "start": "2024-01-02",
-          "end": "2026-09-01"
+          "end": "2026-09-02"
         }
       },
       "research": {
-        "research_annual_return": 0.1928,
+        "research_annual_return": 0.1878,
         "research_max_drawdown": -0.1684,
-        "research_sharpe": 0.9,
+        "research_sharpe": 0.88,
         "fixed_annual_return": 0.0,
         "dynamic_annual_return": 0.0,
         "oos_best_name": "",
@@ -9934,17 +9946,17 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-09-01 21:41",
+  "update_time": "2026-09-02 21:43",
   "metadata": {
-    "generated_at": "2026-09-01 21:41",
+    "generated_at": "2026-09-02 21:43",
     "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-09-01 21:41:51",
+      "generated_at": "2026-09-02 21:43:04",
       "git": {
-        "commit": "1c02c00057c71a129b0db4ed7ef5d4e42a31171a",
-        "commit_short": "1c02c000",
+        "commit": "00d56b9f6d88ed4e9518f25acd3fe59be5b49edd",
+        "commit_short": "00d56b9f",
         "branch": "main",
         "dirty": true
       },
@@ -10018,19 +10030,19 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260901"
+        "end": "20260902"
       },
       "actual_period": {
         "start": "2024-01-02",
-        "end": "2026-09-01"
+        "end": "2026-09-02"
       },
-      "trading_days": 646,
+      "trading_days": 647,
       "summary": {
-        "final_value": 1599789.27,
-        "total_return": 0.599789,
-        "annual_return": 0.192751,
+        "final_value": 1582870.81,
+        "total_return": 0.582871,
+        "annual_return": 0.187793,
         "max_drawdown": -0.168358,
-        "sharpe": 0.896579
+        "sharpe": 0.877964
       }
     }
   },
