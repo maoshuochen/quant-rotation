@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "source": "scripts/backtest_baostock.py",
-  "generated_at": "2026-09-22 21:57:21",
+  "generated_at": "2026-09-23 22:10:46",
   "git": {
-    "commit": "c24effca36fd35c614e43d740c6511a6a0fb81d4",
-    "commit_short": "c24effca",
+    "commit": "b65a55998677f52adf4f1fb95de332d85dbf57df",
+    "commit_short": "b65a5599",
     "branch": "main",
     "dirty": true
   },
@@ -78,18 +78,18 @@
   "scoring_mode": "fixed",
   "requested_period": {
     "start": "20240101",
-    "end": "20260922"
+    "end": "20260923"
   },
   "actual_period": {
     "start": "2024-01-02",
-    "end": "2026-09-22"
+    "end": "2026-09-23"
   },
-  "trading_days": 661,
+  "trading_days": 662,
   "summary": {
-    "final_value": 1557219.01,
-    "total_return": 0.557219,
-    "annual_return": 0.176607,
+    "final_value": 1539960.34,
+    "total_return": 0.53996,
+    "annual_return": 0.171615,
     "max_drawdown": -0.19012,
-    "sharpe": 0.840099
+    "sharpe": 0.820969
   }
 }
