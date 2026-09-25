@@ -25,6 +25,16 @@ const benchmarkLabels = {
   equal_weight_all: '全池等权'
 }
 
+const CUSTOM_POOL_KEY = 'qr-custom-pool-v1'
+
+const readCustomPool = () => {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(CUSTOM_POOL_KEY))
+    if (saved && Array.isArray(saved.codes)) return saved
+  } catch (_) { /* Ignore unavailable or outdated browser storage. */ }
+  return null
+}
+
 const SectionHeader = ({ title, subtitle, isExpanded, onClick, actions }) => (
   <button
     onClick={onClick}
@@ -61,7 +71,7 @@ const RankingListItem = ({ item, isExpanded, onToggle, activeFactors, factorWeig
   const attribution = item.attribution || {}
   const flowBreakdown = attribution?.flow_breakdown || {}
   const isTop3 = item.rank <= 3
-  const isTop5 = item.rank <= 5
+  const isTop5 = item.recommended ?? item.rank <= 5
   const rsLookback = safeNum(attribution?.rs_lookback_days, 0)
   const activeFactorScores = activeFactors
     .map((key) => [key, safeNum(factors[key], 0.5)])
@@ -197,6 +207,12 @@ const Dashboard = ({
   const [expandedCode, setExpandedCode] = useState(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [selectedPeriod, setSelectedPeriod] = useState('current')
+  const [customPool, setCustomPool] = useState(readCustomPool)
+  const [customEnabled, setCustomEnabled] = useState(() => Boolean(readCustomPool()?.enabled))
+
+  useEffect(() => {
+    if (customPool) window.localStorage.setItem(CUSTOM_POOL_KEY, JSON.stringify({ ...customPool, enabled: customEnabled }))
+  }, [customPool, customEnabled])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -227,6 +243,30 @@ const Dashboard = ({
     }))
   }, [backtestData?.chartData, benchmarkChart])
   const ranking = data?.ranking || []
+  const availableCodes = new Set(ranking.map((item) => item.code))
+  const chosenCodes = (customPool?.codes || []).filter((code) => availableCodes.has(code))
+  const chosenSet = new Set(chosenCodes)
+  const customActive = customEnabled && chosenCodes.length > 0
+  const maxPositions = chosenCodes.length ? Math.min(Math.max(Number(customPool?.maxPositions) || 3, 1), chosenCodes.length) : 0
+  const personalRanking = customActive
+    ? ranking.filter((item) => chosenSet.has(item.code)).map((item, index) => ({
+        ...item,
+        originalRank: item.rank,
+        rank: index + 1,
+        recommended: index < maxPositions
+      }))
+    : ranking
+  const enableCustomPool = () => {
+    if (!customPool || !chosenCodes.length) {
+      setCustomPool({ codes: ranking.slice(0, Math.min(5, ranking.length)).map((item) => item.code), maxPositions: 3 })
+    }
+    setCustomEnabled(true)
+  }
+  const togglePoolCode = (code) => {
+    const next = chosenSet.has(code) ? chosenCodes.filter((item) => item !== code) : [...chosenCodes, code]
+    if (!next.length) return
+    setCustomPool({ codes: next, maxPositions: Math.min(maxPositions, next.length) })
+  }
   const factorWeights = data?.factorWeights || {}
   const history = historyData?.history || []
   const sortedHistory = useMemo(() => {
@@ -239,7 +279,7 @@ const Dashboard = ({
   const selectedHistoryPeriod = selectedPeriod === 'current'
     ? null
     : sortedHistory.find((period) => period.date === selectedPeriod) || null
-  const rankingView = selectedHistoryPeriod?.holdings || ranking
+  const rankingView = selectedHistoryPeriod?.holdings || personalRanking
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section)
@@ -295,8 +335,8 @@ const Dashboard = ({
         {/* Section 1: Unified Ranking List (merged holdings + signals) */}
         <div>
           <SectionHeader
-            title="全部排名"
-            subtitle={selectedHistoryPeriod ? `查看 ${selectedHistoryPeriod.date} 周期持仓快照` : '调仓规则、当前信号与完整排名'}
+            title={customActive && !selectedHistoryPeriod ? '我的组合排名' : '全部排名'}
+            subtitle={selectedHistoryPeriod ? `查看 ${selectedHistoryPeriod.date} 原策略持仓快照` : customActive ? `自选 ${chosenCodes.length} 只，建议关注前 ${maxPositions} 只` : '调仓规则、当前信号与完整排名'}
             isExpanded={expandedSection !== 'ranking' && expandedSection !== null}
             onClick={() => toggleSection('ranking')}
             actions={
@@ -324,12 +364,45 @@ const Dashboard = ({
           />
           {expandedSection !== 'ranking' && (
             <div>
+              <div className="mb-3 rounded-xl border border-amber-500/30 bg-zinc-900/70 p-3 sm:p-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <h3 className="text-sm font-semibold text-zinc-100">自选组合</h3>
+                    <p className="mt-1 text-xs text-zinc-400">只看你愿意操作的 ETF，选择保存在当前浏览器。</p>
+                  </div>
+                  <div className="flex rounded-lg border border-zinc-700 p-0.5 text-xs">
+                    <button type="button" onClick={() => setCustomEnabled(false)} aria-pressed={!customEnabled} className={`rounded-md px-3 py-1.5 ${!customEnabled ? 'bg-amber-500 text-zinc-950' : 'text-zinc-300'}`}>原策略</button>
+                    <button type="button" onClick={enableCustomPool} aria-pressed={customEnabled} className={`rounded-md px-3 py-1.5 ${customEnabled ? 'bg-amber-500 text-zinc-950' : 'text-zinc-300'}`}>我的组合</button>
+                  </div>
+                </div>
+                {customEnabled && (
+                  <div className="mt-3 space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      {ranking.map((item) => (
+                        <label key={item.code} className={`cursor-pointer rounded-lg border px-2.5 py-2 text-xs ${chosenSet.has(item.code) ? 'border-amber-500/60 bg-amber-500/10 text-amber-200' : 'border-zinc-700 text-zinc-400'}`}>
+                          <input type="checkbox" checked={chosenSet.has(item.code)} onChange={() => togglePoolCode(item.code)} disabled={chosenSet.has(item.code) && chosenCodes.length === 1} className="mr-1.5 accent-amber-500" />
+                          {item.name} <span className="font-mono opacity-70">{item.etf}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <label className="flex items-center gap-2 text-xs text-zinc-300">
+                      最多关注
+                      <select value={maxPositions} onChange={(event) => setCustomPool({ codes: chosenCodes, maxPositions: Number(event.target.value) })} className="rounded-lg border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-zinc-100" aria-label="建议持有数量">
+                        {Array.from({ length: chosenCodes.length }, (_, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}
+                      </select>
+                      只；前 {maxPositions} 名参考等权，每只约 {(100 / maxPositions).toFixed(1)}%。
+                    </label>
+                    <p className="text-xs leading-relaxed text-zinc-500">按原模型已计算的分数筛选并重排；相对强弱仍以完整标的池为基准。这里不生成买卖信号，也不重算历史回测。</p>
+                  </div>
+                )}
+              </div>
               <div className="mb-3 hidden space-y-2 lg:block">
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
                   <div className="text-[10px] uppercase tracking-wider text-zinc-500">调仓规则</div>
                   <div className="mt-1 text-xs text-zinc-200">
-                    前 {recommendation.top_n || 0} 名买入，跌出前 {recommendation.buffer_n || 0} 名卖出，
-                    {recommendation.rebalance_frequency === 'weekly' ? '每周' : '每月'}调仓。
+                    {customActive && !selectedHistoryPeriod
+                      ? `自选池前 ${maxPositions} 名仅作关注参考；原策略每周选前 ${recommendation.top_n || 0} 名、跌出前 ${recommendation.buffer_n || 0} 名卖出。`
+                      : `前 ${recommendation.top_n || 0} 名买入，跌出前 ${recommendation.buffer_n || 0} 名卖出，${recommendation.rebalance_frequency === 'weekly' ? '每周' : '每月'}调仓。`}
                   </div>
                 </div>
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3">
@@ -351,7 +424,9 @@ const Dashboard = ({
                     {selectedHistoryPeriod ? '历史说明' : '本期信号'}
                   </div>
                   <div className="mt-1 text-xs text-zinc-200">
-                    {selectedHistoryPeriod ? (
+                    {customActive && !selectedHistoryPeriod ? (
+                      <span>自选组合未计算交易信号。下方排名仅展示当前评分。</span>
+                    ) : selectedHistoryPeriod ? (
                       <span>{selectedHistoryPeriod.date} 为历史周期快照，仅展示当期建议持仓，不回放当周交易信号。</span>
                     ) : signals.length === 0 ? (
                       <span>当前无新增调仓动作，维持现有持仓。</span>
@@ -396,7 +471,7 @@ const Dashboard = ({
                     </thead>
                     <tbody>
                       {rankingView.map(item => {
-                        const isTop5 = selectedPeriod === 'current' && item.rank <= 5
+                        const isTop5 = selectedPeriod === 'current' && (customActive ? item.recommended : item.rank <= 5)
                         return (
                           <tr
                             key={item.code}
@@ -441,6 +516,7 @@ const Dashboard = ({
           />
           {expandedSection !== 'backtest' && (
             <div>
+              <p className="mb-3 rounded-xl border border-zinc-700 bg-zinc-900/70 p-3 text-xs text-zinc-400">下方为完整标的池的原策略回测，与网页自选组合无关。</p>
               {backtestData?.chartData?.length ? (
                 <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
                   <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
