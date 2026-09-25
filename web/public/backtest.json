@@ -7994,10 +7994,10 @@
   "metadata": {
     "schema_version": 1,
     "source": "scripts/backtest_baostock.py",
-    "generated_at": "2026-09-24 22:11:32",
+    "generated_at": "2026-09-25 22:11:13",
     "git": {
-      "commit": "d5766c410265ff9561b3bf12545fee6550234140",
-      "commit_short": "d5766c41",
+      "commit": "e62babcb9b41802fbcc981942f46781c9069f7d4",
+      "commit_short": "e62babcb",
       "branch": "main",
       "dirty": true
     },
@@ -8071,7 +8071,7 @@
     "scoring_mode": "fixed",
     "requested_period": {
       "start": "20240101",
-      "end": "20260924"
+      "end": "20260925"
     },
     "actual_period": {
       "start": "2024-01-02",

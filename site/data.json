@@ -7995,10 +7995,10 @@
     "metadata": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-09-24 22:11:32",
+      "generated_at": "2026-09-25 22:11:13",
       "git": {
-        "commit": "d5766c410265ff9561b3bf12545fee6550234140",
-        "commit_short": "d5766c41",
+        "commit": "e62babcb9b41802fbcc981942f46781c9069f7d4",
+        "commit_short": "e62babcb",
         "branch": "main",
         "dirty": true
       },
@@ -8072,7 +8072,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260924"
+        "end": "20260925"
       },
       "actual_period": {
         "start": "2024-01-02",
@@ -10035,7 +10035,7 @@
     ]
   },
   "strategy_summary": {
-    "updated_at": "2026-09-24 22:11",
+    "updated_at": "2026-09-25 22:11",
     "decision": {
       "headline": "本周主结论：金融指数、煤炭指数、军工指数 为当前优先观察方向。",
       "execution_message": "当前无新增调仓动作，继续跟踪 金融指数、煤炭指数、军工指数。",
@@ -10127,17 +10127,17 @@
       "动态权重未优于固定权重，不应将其解读为已验证的 regime 模型"
     ]
   },
-  "update_time": "2026-09-24 22:11",
+  "update_time": "2026-09-25 22:11",
   "metadata": {
-    "generated_at": "2026-09-24 22:11",
+    "generated_at": "2026-09-25 22:11",
     "strategy_signature": "48b120cd4234d5012f61b605b5b2da386f3f2e163ca5705a44eb98d9cd05f3da",
     "backtest": {
       "schema_version": 1,
       "source": "scripts/backtest_baostock.py",
-      "generated_at": "2026-09-24 22:11:32",
+      "generated_at": "2026-09-25 22:11:13",
       "git": {
-        "commit": "d5766c410265ff9561b3bf12545fee6550234140",
-        "commit_short": "d5766c41",
+        "commit": "e62babcb9b41802fbcc981942f46781c9069f7d4",
+        "commit_short": "e62babcb",
         "branch": "main",
         "dirty": true
       },
@@ -10211,7 +10211,7 @@
       "scoring_mode": "fixed",
       "requested_period": {
         "start": "20240101",
-        "end": "20260924"
+        "end": "20260925"
       },
       "actual_period": {
         "start": "2024-01-02",
