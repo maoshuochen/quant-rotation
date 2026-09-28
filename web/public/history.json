@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-09-28",
+      "holdings": [
+        {
+          "code": "000992.CSI",
+          "name": "金融指数",
+          "etf": "510230",
+          "rank": 1,
+          "score": 0.5416,
+          "factors": {
+            "price_strength": 0.5298,
+            "flow": 0.55
+          }
+        },
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 2,
+          "score": 0.5378,
+          "factors": {
+            "price_strength": 0.5595,
+            "flow": 0.5224
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 3,
+          "score": 0.4809,
+          "factors": {
+            "price_strength": 0.3925,
+            "flow": 0.5436
+          }
+        },
+        {
+          "code": "399967.SZ",
+          "name": "军工指数",
+          "etf": "512660",
+          "rank": 4,
+          "score": 0.4766,
+          "factors": {
+            "price_strength": 0.3808,
+            "flow": 0.5445
+          }
+        },
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 5,
+          "score": 0.4601,
+          "factors": {
+            "price_strength": 0.5951,
+            "flow": 0.3644
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-09-21",
       "holdings": [
         {
@@ -781,5 +841,5 @@
       ]
     }
   ],
-  "update_time": "2026-09-25 22:11"
+  "update_time": "2026-09-28 23:47"
 }
