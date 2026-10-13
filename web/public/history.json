@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-10-12",
+      "holdings": [
+        {
+          "code": "000992.CSI",
+          "name": "金融指数",
+          "etf": "510230",
+          "rank": 1,
+          "score": 0.5804,
+          "factors": {
+            "price_strength": 0.5846,
+            "flow": 0.5774
+          }
+        },
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 2,
+          "score": 0.5153,
+          "factors": {
+            "price_strength": 0.6576,
+            "flow": 0.4144
+          }
+        },
+        {
+          "code": "000905.SH",
+          "name": "中证 500",
+          "etf": "510500",
+          "rank": 3,
+          "score": 0.4515,
+          "factors": {
+            "price_strength": 0.3347,
+            "flow": 0.5343
+          }
+        },
+        {
+          "code": "399990.SZ",
+          "name": "煤炭指数",
+          "etf": "515220",
+          "rank": 4,
+          "score": 0.4202,
+          "factors": {
+            "price_strength": 0.5927,
+            "flow": 0.2979
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 5,
+          "score": 0.4195,
+          "factors": {
+            "price_strength": 0.3042,
+            "flow": 0.5012
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-09-30",
       "holdings": [
         {
@@ -719,67 +779,7 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-07-13",
-      "holdings": [
-        {
-          "code": "990001.SSI",
-          "name": "半导体指数",
-          "etf": "512480",
-          "rank": 1,
-          "score": 0.6928,
-          "factors": {
-            "price_strength": 0.8941,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000922.CSI",
-          "name": "红利指数",
-          "etf": "510880",
-          "rank": 2,
-          "score": 0.681,
-          "factors": {
-            "price_strength": 0.4235,
-            "flow": 0.8637
-          }
-        },
-        {
-          "code": "000688.SH",
-          "name": "科创 50",
-          "etf": "588000",
-          "rank": 3,
-          "score": 0.6785,
-          "factors": {
-            "price_strength": 0.8598,
-            "flow": 0.55
-          }
-        },
-        {
-          "code": "000992.CSI",
-          "name": "金融指数",
-          "etf": "510230",
-          "rank": 4,
-          "score": 0.6725,
-          "factors": {
-            "price_strength": 0.4664,
-            "flow": 0.8187
-          }
-        },
-        {
-          "code": "000993.CSI",
-          "name": "科技指数",
-          "etf": "515000",
-          "rank": 5,
-          "score": 0.63,
-          "factors": {
-            "price_strength": 0.7428,
-            "flow": 0.55
-          }
-        }
-      ]
     }
   ],
-  "update_time": "2026-10-09 23:08"
+  "update_time": "2026-10-13 01:13"
 }
