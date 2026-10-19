@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-10-19",
+      "holdings": [
+        {
+          "code": "000992.CSI",
+          "name": "金融指数",
+          "etf": "510230",
+          "rank": 1,
+          "score": 0.5648,
+          "factors": {
+            "price_strength": 0.5732,
+            "flow": 0.5589
+          }
+        },
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 2,
+          "score": 0.5448,
+          "factors": {
+            "price_strength": 0.6658,
+            "flow": 0.4588
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 3,
+          "score": 0.4753,
+          "factors": {
+            "price_strength": 0.611,
+            "flow": 0.379
+          }
+        },
+        {
+          "code": "000300.SH",
+          "name": "沪深 300",
+          "etf": "510300",
+          "rank": 4,
+          "score": 0.4695,
+          "factors": {
+            "price_strength": 0.356,
+            "flow": 0.55
+          }
+        },
+        {
+          "code": "000688.SH",
+          "name": "科创 50",
+          "etf": "588000",
+          "rank": 5,
+          "score": 0.4344,
+          "factors": {
+            "price_strength": 0.2714,
+            "flow": 0.55
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-10-12",
       "holdings": [
         {
@@ -781,5 +841,5 @@
       ]
     }
   ],
-  "update_time": "2026-10-16 21:59"
+  "update_time": "2026-10-19 22:51"
 }

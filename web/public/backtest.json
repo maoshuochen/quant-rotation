@@ -1,16 +1,16 @@
 {
   "summary": {
     "initial_capital": 1000000.0,
-    "final_value": 1486121.38,
-    "total_return": 0.4861,
-    "annual_return": 0.1526,
-    "max_drawdown": -0.2155,
+    "final_value": 1483451.12,
+    "total_return": 0.4835,
+    "annual_return": 0.1514,
+    "max_drawdown": -0.2193,
     "max_drawdown_date": "2026-10-15",
-    "sharpe_ratio": 0.76,
-    "trading_days": 673,
+    "sharpe_ratio": 0.75,
+    "trading_days": 674,
     "period": {
       "start": "2024-01-02",
-      "end": "2026-10-16"
+      "end": "2026-10-19"
     }
   },
   "chart_data": [
@@ -4030,27 +4030,33 @@
     },
     {
       "date": "2026-10-13",
-      "value": 1493675.61,
-      "cum_return": 0.4937,
-      "drawdown": -0.2101
+      "value": 1500265.05,
+      "cum_return": 0.5003,
+      "drawdown": -0.2066
     },
     {
       "date": "2026-10-14",
-      "value": 1495730.45,
-      "cum_return": 0.4957,
-      "drawdown": -0.209
+      "value": 1492382.46,
+      "cum_return": 0.4924,
+      "drawdown": -0.2108
     },
     {
       "date": "2026-10-15",
-      "value": 1483574.71,
-      "cum_return": 0.4836,
-      "drawdown": -0.2155
+      "value": 1476304.88,
+      "cum_return": 0.4763,
+      "drawdown": -0.2193
     },
     {
       "date": "2026-10-16",
-      "value": 1486121.38,
-      "cum_return": 0.4861,
-      "drawdown": -0.2141
+      "value": 1477222.97,
+      "cum_return": 0.4772,
+      "drawdown": -0.2188
+    },
+    {
+      "date": "2026-10-19",
+      "value": 1483451.12,
+      "cum_return": 0.4835,
+      "drawdown": -0.2155
     }
   ],
   "benchmarks": {
@@ -8071,41 +8077,47 @@
       },
       {
         "date": "2026-10-13",
-        "strategy": 0.4937,
+        "strategy": 0.5003,
         "equal_weight_all": 0.3068,
         "hs300": 0.2583
       },
       {
         "date": "2026-10-14",
-        "strategy": 0.4957,
+        "strategy": 0.4924,
         "equal_weight_all": 0.2937,
         "hs300": 0.2436
       },
       {
         "date": "2026-10-15",
-        "strategy": 0.4836,
+        "strategy": 0.4763,
         "equal_weight_all": 0.2713,
         "hs300": 0.2285
       },
       {
         "date": "2026-10-16",
-        "strategy": 0.4861,
+        "strategy": 0.4772,
         "equal_weight_all": 0.2725,
         "hs300": 0.2268
+      },
+      {
+        "date": "2026-10-19",
+        "strategy": 0.4835,
+        "equal_weight_all": 0.2748,
+        "hs300": 0.2279
       }
     ],
     "summary": {
       "equal_weight_all": {
-        "final_value": 1272539.01,
-        "total_return": 0.2725,
-        "annual_return": 0.0903,
+        "final_value": 1274800.11,
+        "total_return": 0.2748,
+        "annual_return": 0.0907,
         "max_drawdown": -0.1544,
         "sharpe_ratio": 0.54
       },
       "hs300": {
-        "final_value": 1226759.34,
-        "total_return": 0.2268,
-        "annual_return": 0.076,
+        "final_value": 1227917.75,
+        "total_return": 0.2279,
+        "annual_return": 0.0762,
         "max_drawdown": -0.1679,
         "sharpe_ratio": 0.5
       }
@@ -8114,10 +8126,10 @@
   "metadata": {
     "schema_version": 1,
     "source": "scripts/backtest_baostock.py",
-    "generated_at": "2026-10-16 21:59:16",
+    "generated_at": "2026-10-19 22:51:52",
     "git": {
-      "commit": "2be77af3991ac79485aa08fe7c955c335a02b0d4",
-      "commit_short": "2be77af3",
+      "commit": "17d79fd2b2c76794009ee9fec9e261267e4e243d",
+      "commit_short": "17d79fd2",
       "branch": "main",
       "dirty": true
     },
@@ -8191,19 +8203,19 @@
     "scoring_mode": "fixed",
     "requested_period": {
       "start": "20240101",
-      "end": "20261016"
+      "end": "20261019"
     },
     "actual_period": {
       "start": "2024-01-02",
-      "end": "2026-10-16"
+      "end": "2026-10-19"
     },
-    "trading_days": 673,
+    "trading_days": 674,
     "summary": {
-      "final_value": 1486121.38,
-      "total_return": 0.486121,
-      "annual_return": 0.152629,
-      "max_drawdown": -0.215462,
-      "sharpe": 0.755691
+      "final_value": 1483451.12,
+      "total_return": 0.483451,
+      "annual_return": 0.151407,
+      "max_drawdown": -0.219306,
+      "sharpe": 0.752096
     }
   }
 }
