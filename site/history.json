@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-10-26",
+      "holdings": [
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 1,
+          "score": 0.5957,
+          "factors": {
+            "price_strength": 0.6279,
+            "flow": 0.5729
+          }
+        },
+        {
+          "code": "000933.CSI",
+          "name": "医药指数",
+          "etf": "512010",
+          "rank": 2,
+          "score": 0.5953,
+          "factors": {
+            "price_strength": 0.5731,
+            "flow": 0.6111
+          }
+        },
+        {
+          "code": "000992.CSI",
+          "name": "金融指数",
+          "etf": "510230",
+          "rank": 3,
+          "score": 0.5638,
+          "factors": {
+            "price_strength": 0.5647,
+            "flow": 0.5631
+          }
+        },
+        {
+          "code": "000932.CSI",
+          "name": "消费指数",
+          "etf": "159928",
+          "rank": 4,
+          "score": 0.5522,
+          "factors": {
+            "price_strength": 0.5272,
+            "flow": 0.5699
+          }
+        },
+        {
+          "code": "000922.CSI",
+          "name": "红利指数",
+          "etf": "510880",
+          "rank": 5,
+          "score": 0.5299,
+          "factors": {
+            "price_strength": 0.5474,
+            "flow": 0.5175
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-10-19",
       "holdings": [
         {
@@ -781,5 +841,5 @@
       ]
     }
   ],
-  "update_time": "2026-10-23 21:58"
+  "update_time": "2026-10-26 23:05"
 }
