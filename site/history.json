@@ -1,6 +1,66 @@
 {
   "history": [
     {
+      "date": "2026-11-09",
+      "holdings": [
+        {
+          "code": "000932.CSI",
+          "name": "消费指数",
+          "etf": "159928",
+          "rank": 1,
+          "score": 0.7979,
+          "factors": {
+            "price_strength": 0.6187,
+            "flow": 0.925
+          }
+        },
+        {
+          "code": "399997.SZ",
+          "name": "白酒指数",
+          "etf": "512690",
+          "rank": 2,
+          "score": 0.7972,
+          "factors": {
+            "price_strength": 0.617,
+            "flow": 0.925
+          }
+        },
+        {
+          "code": "399986.SZ",
+          "name": "银行指数",
+          "etf": "512800",
+          "rank": 3,
+          "score": 0.7737,
+          "factors": {
+            "price_strength": 0.666,
+            "flow": 0.8502
+          }
+        },
+        {
+          "code": "000992.CSI",
+          "name": "金融指数",
+          "etf": "510230",
+          "rank": 4,
+          "score": 0.7083,
+          "factors": {
+            "price_strength": 0.6064,
+            "flow": 0.7806
+          }
+        },
+        {
+          "code": "000933.CSI",
+          "name": "医药指数",
+          "etf": "512010",
+          "rank": 5,
+          "score": 0.6178,
+          "factors": {
+            "price_strength": 0.5926,
+            "flow": 0.6356
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-11-02",
       "holdings": [
         {
@@ -719,67 +779,7 @@
           }
         }
       ]
-    },
-    {
-      "date": "2026-08-10",
-      "holdings": [
-        {
-          "code": "000932.CSI",
-          "name": "消费指数",
-          "etf": "159928",
-          "rank": 1,
-          "score": 0.7402,
-          "factors": {
-            "price_strength": 0.5424,
-            "flow": 0.8805
-          }
-        },
-        {
-          "code": "399965.SZ",
-          "name": "恒生指数",
-          "etf": "159920",
-          "rank": 2,
-          "score": 0.7197,
-          "factors": {
-            "price_strength": 0.5432,
-            "flow": 0.8448
-          }
-        },
-        {
-          "code": "000852.SH",
-          "name": "中证 1000",
-          "etf": "512100",
-          "rank": 3,
-          "score": 0.6894,
-          "factors": {
-            "price_strength": 0.4435,
-            "flow": 0.8637
-          }
-        },
-        {
-          "code": "399006.SZ",
-          "name": "创业板指",
-          "etf": "159915",
-          "rank": 4,
-          "score": 0.6846,
-          "factors": {
-            "price_strength": 0.4161,
-            "flow": 0.875
-          }
-        },
-        {
-          "code": "399997.SZ",
-          "name": "白酒指数",
-          "etf": "512690",
-          "rank": 5,
-          "score": 0.6611,
-          "factors": {
-            "price_strength": 0.5237,
-            "flow": 0.7586
-          }
-        }
-      ]
     }
   ],
-  "update_time": "2026-11-06 23:41"
+  "update_time": "2026-11-10 01:57"
 }
