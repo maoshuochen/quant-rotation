@@ -1,16 +1,16 @@
 {
   "summary": {
     "initial_capital": 1000000.0,
-    "final_value": 1466104.6,
-    "total_return": 0.4661,
-    "annual_return": 0.141,
+    "final_value": 1475529.52,
+    "total_return": 0.4755,
+    "annual_return": 0.1433,
     "max_drawdown": -0.2353,
     "max_drawdown_date": "2026-10-22",
-    "sharpe_ratio": 0.72,
-    "trading_days": 702,
+    "sharpe_ratio": 0.73,
+    "trading_days": 703,
     "period": {
       "start": "2024-01-02",
-      "end": "2026-11-26"
+      "end": "2026-11-27"
     }
   },
   "chart_data": [
@@ -4225,6 +4225,12 @@
       "value": 1466104.6,
       "cum_return": 0.4661,
       "drawdown": -0.2247
+    },
+    {
+      "date": "2026-11-27",
+      "value": 1475529.52,
+      "cum_return": 0.4755,
+      "drawdown": -0.2197
     }
   ],
   "benchmarks": {
@@ -8440,32 +8446,38 @@
         "strategy": 0.4661,
         "equal_weight_all": 0.1642,
         "hs300": 0.1465
+      },
+      {
+        "date": "2026-11-27",
+        "strategy": 0.4755,
+        "equal_weight_all": 0.2291,
+        "hs300": 0.2053
       }
     ],
     "summary": {
       "equal_weight_all": {
-        "final_value": 1164233.33,
-        "total_return": 0.1642,
-        "annual_return": 0.0538,
+        "final_value": 1229100.03,
+        "total_return": 0.2291,
+        "annual_return": 0.0736,
         "max_drawdown": -0.2139,
-        "sharpe_ratio": 0.37
+        "sharpe_ratio": 0.46
       },
       "hs300": {
-        "final_value": 1146539.24,
-        "total_return": 0.1465,
-        "annual_return": 0.0483,
+        "final_value": 1205328.7,
+        "total_return": 0.2053,
+        "annual_return": 0.0664,
         "max_drawdown": -0.2224,
-        "sharpe_ratio": 0.36
+        "sharpe_ratio": 0.45
       }
     }
   },
   "metadata": {
     "schema_version": 1,
     "source": "scripts/backtest_baostock.py",
-    "generated_at": "2026-11-27 02:06:04",
+    "generated_at": "2026-11-28 01:51:33",
     "git": {
-      "commit": "d500123be6757fba7d47d8d9265e87a7f463f989",
-      "commit_short": "d500123b",
+      "commit": "7637440d697768080dc6d3805aa4e7786d713e78",
+      "commit_short": "7637440d",
       "branch": "main",
       "dirty": true
     },
@@ -8539,19 +8551,19 @@
     "scoring_mode": "fixed",
     "requested_period": {
       "start": "20240101",
-      "end": "20261127"
+      "end": "20261128"
     },
     "actual_period": {
       "start": "2024-01-02",
-      "end": "2026-11-26"
+      "end": "2026-11-27"
     },
-    "trading_days": 702,
+    "trading_days": 703,
     "summary": {
-      "final_value": 1466104.6,
-      "total_return": 0.466105,
-      "annual_return": 0.140962,
+      "final_value": 1475529.52,
+      "total_return": 0.47553,
+      "annual_return": 0.14334,
       "max_drawdown": -0.235336,
-      "sharpe": 0.716632
+      "sharpe": 0.726161
     }
   }
 }
